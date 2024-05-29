@@ -1,0 +1,72 @@
+회원정보 테이블(member)
+고유번호   : MEMBER_NUM
+ID   : MEMBER_ID
+pw   : MEMBER_PW
+이름   : MEMBER_NAME
+닉네임   : MEMBER_NICNAME
+이메일   : MEMBER_EMAIL
+전화번호   : MEMBER_PHONENUM
+가입일   : MEMBER_JOIN_DATE
+소셜(카카오,네이버,홈페이지) : MEMBER_SOCIAL
+역할 : MEMBER_ROLE
+
+
+자동차(데이터) 테이블(car)
+고유번호   : CAR_ID
+이름      : CAR_NAME
+가격(최저) : CAR_MIN_PRICE
+가격(최고) : CAR_MAX_PRICE
+크기   : CAR_SIZE
+연료   : CAR_FUEL
+연비   : CAR_EFF
+이미지   : CAR_IMG
+주행   : CAR_SC_PER
+가격   : CAR_SC_PIRCE
+거주성   : CAR_SC_   GEOJU
+품질   : CAR_SC_QUALITY
+디자인   : CAR_SC_DESIGN
+연비   : CAR_SC_EFF
+평균   : CAR_SC_AVG
+
+
+게시판(후기) 테이블(board)
+고유번호   : BOARD_ID
+작성자 : BOARD_WRITER
+제목 : BOARD_TITLE
+내용 : BOARD_CONTENT
+파일 : BOARD_FILE
+등록일 : BOARD_DATE
+
+
+공지사항 테이블(notice)
+고유번호   :NOTICE_ID
+작성자 : NOTICE_WRITER
+제목:NOTICE_TITLE
+내용:NOTICE_CONTENT
+파일:NOTICE_FILE
+등록일 : NOTICE_DATE
+
+
+즐겨찾기 테이블(bookmark)
+맴버 번호 : MEMBER_NUM
+자동차 데이터 고유번호 : BOOKMARK_CAR_ID
+
+
+문의 테이블(inquiry)
+맴버 번호 : MEMBER_NUM
+문의 고유번호 :  RE_ID
+등록일 : RE_DATE
+문의 내용 : RE_CONTENT
+답변자 : RE_HERO
+답변일 : RE_DATE_RQ
+답변내용 : RE_CONTENT_RQ
+답변여부 : RE_CHECK_RQ
+
+
+대리점 테이블(agency)
+브랜드 이름 : CAR_BRAND
+대리점 지점명 : AGENCY_NAME
+대리점 주소 : AGENCY_ADDRESS
+위도 : AGENCY_LAT
+경도 : AGENCY_LON
+대리점 전화번호 : AGENCY_TEL
