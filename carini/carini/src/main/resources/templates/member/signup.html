@@ -3,78 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/css/signup.css">
 </head>
-<style>
- 
-
-</style>
 <script>
     import TextField from '@mui/material/TextField';
 </script>
 <body>
-    <form action="/signup">
-        <div class="header" >
-            <span style=" text-shadow: 3px 3px black;letter-spacing:10px">&nbsp;CARINI&nbsp;</span>  
-           <p class="header_a">
-             <br>CARINI SEMPRE CON VUESTRO
-             </p>
-        </div>
+    <form action="/signup" method="post">
+        <header>
+
+            <span style=" text-shadow: 4px 4px black;letter-spacing:10px">
+                &nbsp;CARINI&nbsp;
+            </span>  
+
+            <p class="header-1">
+                <br>CARINI SEMPRE CON VUESTRO
+            </p>
+
+        </header>
         <br>
-        <div class="div_a">
-            <div>
-                <div>
-                    <h1 class="video-overlay">ADVERTISEMENT</h1>
-                </div>
-                <div>
-                    <h1 class="flipped-text">ADVERTISEMENT</h1>
-                </div>
 
-            <div class="video-container">
-               <iframe  width="560" height="315" src="https://www.youtube.com/embed/SUw0bDXyplY" allowfullscreen></iframe>
-            </div>
-
+        <nav>
             
-        <div class="class">
-            <fieldset class="fieldset_a">
-                <legend class="legend_a">
-                    &nbsp;&nbsp;sign_up&nbsp;&nbsp;
-                </legend>
-                <br><br><br>
-                 <input type="id" name="id" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
-        <br><br><br>
-                <input type="password" name="password" class="btn btn-outline-secondary" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요." size="25" minlength="8" maxlength="16">
-        <br><br><br>
-                <input type="text" name="name" class="btn btn-outline-secondary" placeholder="이름" size="25">
-        <br><br><br>
-                <input type="text" name="nickname" class="btn btn-outline-secondary" placeholder="닉네임" size="25">
-        <br><br><br>
-                 <input type="email" name="email" class="btn btn-outline-secondary" placeholder="이메일 입력해 주세요" size="25">
-        <br><br><br>
-                <input type="tel" name="phone" class="btn btn-outline-secondary" placeholder="전화번호를 입력해 주세요" size="25">
-        <br><br><br>
-              <input id="login" type="submit" id="submit" name="submit" class="btn btn-light" value="가입하기" style="text-align: center;" size="25">
-        <br><br><br>
-      <!-- <div id="oter_platform">
-        <br><br>
-            <a href="http://www.naver.com" >
-                <img src="naver.png" class="img_a" id="login_naver" >
-            </a>
-        <br>    
-            <a href="http://www.kakaocorp.com" >
-                <img src="kakaotalk.png" class="img_a" id="login_naver">
-            </a>
-        <br><br>
-        </div> -->
-    </fieldset>    
-</div>     
-<br>
+        </nav>
+
+        <section>
+                <div>
+                     <div style="height: 20%; " >
+                        
+                     </div>
+
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/RkrWjuCYHVM" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+
+                    <div style="float: left; padding-left: 10px;">
+                        <h1 class="flipped-text">ADVERTISEMENT</h1>
+                    </div>
+
+                </div>
+     
+        </section>
+
+        
+        <aside>
+            
+            <div class="signupbox">
+                <fieldset>
+                    <legend> &nbsp;&nbsp;signup&nbsp;&nbsp;</legend>
+                    <br>
+                    <h3> _WELCOME_</h3>
+            <br>  
+            <input type="id" name="memberId" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
+            <br><br>
+                    
+                    <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요." size="25" minlength="8" maxlength="16">
+            <br><br>
+                    <input type="text" name="memberName" class="btn btn-outline-secondary" placeholder="이름" size="25">
+            <br><br>
+                    <input type="text" name="memberNickname" class="btn btn-outline-secondary" placeholder="닉네임" size="25">
+            <br><br>
+                     <input type="email" name="memberEmail" class="btn btn-outline-secondary" placeholder="이메일 입력해 주세요" size="25">
+            <br><br>
+                    <input type="tel" name="memberPhoneNum" class="btn btn-outline-secondary" placeholder="전화번호를 입력해 주세요" size="25">
+            <br><br>
+                  <input id="login" type="submit" name="submit" class="btn btn-light" value="가입하기" style="text-align: center;" size="25">
+            <br><br>
     
-    <br><br>
-</div>
-</div>
-<br>
-</form>
-</body>
+
+                
+    </fieldset>       
+    </div>     
+    <br><br><br>
+    </div>
+    </div>
+        </aside>
+        <footer>
+            
+        </footer>
+    </body>
+    </form>
+
 </html>
