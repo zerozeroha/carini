@@ -1,5 +1,8 @@
 package com.car.controller;
 
-public class kakaoController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class kakaoController {
+	
 }
