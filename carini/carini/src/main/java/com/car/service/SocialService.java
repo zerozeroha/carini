@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.json.simple.parser.ParseException;
@@ -161,25 +162,29 @@ public class SocialService {
    }
    
    public Member kakaoSignUp(Member member) {
-      
-      Optional<Member> findeMember = memberRepository.findByMemberEmail(member.getMemberEmail());
-      System.out.println(findeMember.isPresent());
-      
-      if(!findeMember.isPresent() || (findeMember.isPresent() && findeMember.get().getMemberSocial().equals("naver"))) {
-         SecureRandom random = new SecureRandom();
-         String Id = new BigInteger(130, random).toString(32);
-         member.setMemberId(Id);
-         member.setMemberEmail(member.getMemberEmail());
-         member.setMemberName(member.getMemberNickname());
-         member.setMemberNickname(member.getMemberNickname());
-         member.setMemberSocial("kakao");
-         member.setMemberRole("사용자");
-         memberRepository.save(member);
-         
-         return member;
-      }
-      return findeMember.get();
-   }
+	    System.out.println("!1111111111111111");
+	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
+	    boolean isExistingMember = !foundMembers.isEmpty();
+	    // stream().anyMatch 메서드는 Java 스트림 API의 일부로, 스트림 내의 요소 중 특정 조건을 만족하는 요소가 하나라도 있는지 여부를 확인하는데 사용
+	    //anyMatch는 조건에 맞는 요소를 찾으면 즉시 true를 반환, 조건에 맞는 요소가 하나도 없으면 false를 반환
+	    boolean isNaverUser = isExistingMember && foundMembers.stream()
+	                                .anyMatch(m -> m.getMemberSocial().equals("naver"));
+	    
+	    if(!isExistingMember || isNaverUser) {
+	        SecureRandom random = new SecureRandom();
+	        String id = new BigInteger(130, random).toString(32);
+	        member.setMemberId(id);
+	        member.setMemberEmail(member.getMemberEmail());
+	        member.setMemberName(member.getMemberNickname());
+	        member.setMemberNickname(member.getMemberNickname());
+	        member.setMemberSocial("kakao");
+	        member.setMemberRole("사용자");
+	        memberRepository.save(member);
+
+	        return member;
+	    }
+	    return foundMembers.get(0);  // Assuming you want to return the first found member if conditions are not met
+	}
    
    // 네이버===============================================================================================
    
@@ -271,25 +276,25 @@ public class SocialService {
    }
    
    public Member naverSignUp(Member member) {
-         
-         Optional<Member> findeMember = memberRepository.findByMemberEmail(member.getMemberEmail());
-         System.out.println(findeMember.isPresent());
-         
-         if(!findeMember.isPresent() || (findeMember.isPresent() && findeMember.get().getMemberSocial().equals("kakao"))) {
-            
-        	 member.setMemberId(member.getMemberId().replace("\"", ""));
-        	 member.setMemberName(member.getMemberName().replace("\"", ""));
-        	 member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
-        	 member.setMemberEmail(member.getMemberEmail().replace("\"", ""));
-        	 member.setMemberPhoneNum(member.getMemberPhoneNum().replace("\"", ""));
-        	 member.setMemberSocial("naver");
-        	 member.setMemberRole("사용자");;
-        	 memberRepository.save(member);
-            
-        	 return member;
-        	 
-         }
-         return findeMember.get();
-   }
+	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
+	    boolean isExistingMember = !foundMembers.isEmpty();
+	    boolean isKakaoUser = isExistingMember && foundMembers.stream()
+	                                .anyMatch(m -> m.getMemberSocial().equals("kakao"));
+	    
+	    if(!isExistingMember || isKakaoUser) {
+	        member.setMemberId(member.getMemberId().replace("\"", ""));
+	        member.setMemberName(member.getMemberName().replace("\"", ""));
+	        member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
+	        member.setMemberEmail(member.getMemberEmail().replace("\"", ""));
+	        member.setMemberPhoneNum(member.getMemberPhoneNum().replace("\"", ""));
+	        member.setMemberSocial("naver");
+	        member.setMemberRole("사용자");
+	        memberRepository.save(member);
+	        
+	        return member;
+	    }
+	    return foundMembers.get(0);
+	}
+
    
 }

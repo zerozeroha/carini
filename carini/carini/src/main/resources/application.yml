@@ -2,8 +2,8 @@ kakao:
   client-id: 2874c74d0b5306bd4c7cf2485f045577
   redirect-uri: http://localhost:8080/login
 
-pw_role:
-  PASSWORD_REGEX: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$
+pw-role:
+  password-rejex: ^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$
   
 naver:
   request-token-uri: http://nid.naver.com/oauth2.0/token
