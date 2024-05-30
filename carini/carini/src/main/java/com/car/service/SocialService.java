@@ -170,6 +170,7 @@ public class SocialService {
          String Id = new BigInteger(130, random).toString(32);
          member.setMemberId(Id);
          member.setMemberEmail(member.getMemberEmail());
+         member.setMemberName(member.getMemberNickname());
          member.setMemberNickname(member.getMemberNickname());
          member.setMemberSocial("kakao");
          member.setMemberRole("사용자");
@@ -274,7 +275,7 @@ public class SocialService {
          Optional<Member> findeMember = memberRepository.findByMemberEmail(member.getMemberEmail());
          System.out.println(findeMember.isPresent());
          
-         if(!findeMember.isPresent() || (findeMember.isPresent() && findeMember.get().getMemberSocial().equals("naver"))) {
+         if(!findeMember.isPresent() || (findeMember.isPresent() && findeMember.get().getMemberSocial().equals("kakao"))) {
             
         	 member.setMemberId(member.getMemberId().replace("\"", ""));
         	 member.setMemberName(member.getMemberName().replace("\"", ""));
