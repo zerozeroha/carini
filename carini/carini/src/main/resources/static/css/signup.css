@@ -1,10 +1,13 @@
 body {
-    margin: 30px;
+    margin: 0px;
     background-color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0px;
+    height: 100vh; /* 화면 전체 높이만큼 설정 */
+
 }
 
 .header {
@@ -13,6 +16,8 @@ body {
     text-align: center;
     -webkit-text-stroke: 0.4px rgb(115, 109, 119);
     font-weight: bolder;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
 }
 
 .div_a {
@@ -20,7 +25,55 @@ body {
     height: 710px;
     background-color: black;
     align-content: center;
+    border-radius: 50px;
 }
+
+
+h1.video-overlay {/*위에 ADVERTISEMENT*/
+    color: black(77, 74, 74, 0.9);
+    font-size: 5rem;
+    text-shadow: 2px 2px 5px rgba(175, 171, 182, 0.7);
+    -webkit-text-stroke: 0.2px whitesmoke;
+    position: absolute;
+    top: 180px;
+    left: 310px;
+    z-index: 10;
+}
+
+h1.flipped-text {/*밑에 ADVERTISEMENT*/
+    color: black(77, 74, 74, 0.9); 
+    font-size: 5rem;
+    text-shadow: 2px 2px 5px rgba(175, 171, 182, 0.7);
+    position: absolute;
+    top: 680px;
+    left: 310px;
+    z-index: 10;
+}
+
+
+.video-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 190px; /* 상하 여백은 필요에 따라 조정하세요 */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    float: inline-start;
+}
+
+iframe {
+    flex: 1;
+    border: none;
+}
+
+
+.flipped-text {
+    transform: scaleY(-1);
+    display: inline-block; /* inline 요소에서도 적용되도록 설정 */
+    font-size: 2rem; /* 텍스트 크기 설정 */
+    color: black; /* 텍스트 색상 설정 */
+}
+
 
 .header_a {
     color: gray;
@@ -37,12 +90,14 @@ h2 {
 .class {
     padding-top: 15px;
     background-color: white;
-    border: 2px solid black;
-    height: 690px;
+    border: 1px solid black;
+    height: 700px;
     width: 540px;
     margin: 0;
     float: right;
     text-align: center;
+    border-radius: 5px;
+    box-shadow: 9px 9px rgba(0.1, 0.1, 0.1);
 }
 
 a {
@@ -78,7 +133,7 @@ a:hover {
 .btn-light {
     background-color: #b0b4b8;
     color: white;
-    width: 280px; /* 너비를 자동으로 조정하도록 수정 */
+    width: 280px;/* 너비를 자동으로 조정하도록 수정 */
     cursor: pointer;
 }
 
@@ -116,6 +171,7 @@ fieldset {
     width: 190px;
     height: 45px;
     border-radius: 50px;
+ 
 }
 
 .fieldset_a {

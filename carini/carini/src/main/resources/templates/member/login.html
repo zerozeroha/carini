@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN</title>
-   <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/login.css">    
 </head>
 <script>
     import TextField from '@mui/material/TextField';
@@ -12,7 +12,7 @@
 <body>
     <form action="/member_login" method="post">
         <div class="header" >
-           <span style=" text-shadow: 3px 3px black;letter-spacing:10px">&nbsp;CARINI&nbsp;</span>  
+           <span style=" text-shadow: 4px 4px black;letter-spacing:10px">&nbsp;CARINI&nbsp;</span>  
           <p class="header_a">
             <br>CARINI SEMPRE CON VUESTRO
             </p>
@@ -20,8 +20,16 @@
         <br>
        <div class="div_a">
         <div>
+            <div>
+                <h1 class="video-overlay">ADVERTISEMENT</h1>
+            </div>
+            <div>
+                <h1 class="flipped-text">ADVERTISEMENT</h1>
+            </div>
+
+
         <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/pGCqboDP_Wg" frameborder="0" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/f_SjwyXNbas" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
    
 
@@ -38,9 +46,9 @@
 
 
 
-                 <input type="id" name="memberId" class="btn btn-outline-secondary" placeholder="ID" size="25">
+                 <input type="id" name="id" class="btn btn-outline-secondary" placeholder="ID" size="25">
         <br>
-                <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="PASSWORD" size="25">
+                <input type="password" name="password" class="btn btn-outline-secondary" placeholder="PASSWORD" size="25">
         <br><br>
                 <input id="login" type="submit" name="submit" class="btn btn-light" value="LOGIN" size="25" style="text-align: center;">
         <br><br><br>
@@ -60,22 +68,22 @@
 
         
             <a href="/api/naver/oauth" >
-                <img src="/img/naver.png" class="img_a" id="login" >
+                <img src="./img/naver.png" class="img_a" id="login">
             </a>
         <br>    
-            <a href="/oauth/kakao">
-                <img src="/img/kakaotalk.png" class="img_a" id="login">
+            <a href="/oauth/kakao" >
+                <img src="./img/kakaotalk.png" class="img_a" id="login">
             </a>
         <br><br>
         
         
 
-         <fieldset>
-            <legend class="legend_b">
+         <fieldset style="border: 0; align-items: center;">
+            <legend class="legend_b" style="align-items: center;">
                 &nbsp;chat-bot 바로가기&nbsp;
             </legend>
             <a href="http://pf.kakao.com/_YGxcxcG">
-            <img src="/img/CARINI.png" height="100px" width="auto" style="border-radius: 35px;" >
+            <img src="./img/CARINI.jpg" height="100px" width="200px" style="border-radius: 35px;" >
             </a>     
         </fieldset>       
     </div>     

@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +56,7 @@ public class socialController {
     */
    
    @RequestMapping(value = "/login")
-   public String login(@RequestParam("code") String code, HttpSession session,Member member) {
+   public String login(@RequestParam("code") String code, Model model, Member member) {
 
       
       // 1번 인증코드로 요청 전달
@@ -86,33 +87,13 @@ public class socialController {
          Member save_member = socialService.kakaoSignUp(member);
          System.out.println(save_member.getMemberEmail());
          
-         // member데이터를 세션에 저장
-         session.setAttribute("member",save_member);
+         // member데이터를 모델에 저장
+         model.addAttribute("member", save_member);
          
          return "homepage/home.html";
       }
    }
 
-   /*
-    * 카카오 - 받은 정보로 비회원이라면 회원가입
-    */
-   @PostMapping("/kakao/signUp")
-   public String kakaoSignUp(@RequestBody Member member, HttpServletRequest request) {
-      
-      System.out.println("name = {}" + member.getMemberName());
-      System.out.println("id = {}" + member.getMemberId());
-
-      
-//       member = kakaoService.kakaoSignUp(member);
-//        
-//        
-//       HttpSession session = request.getSession(); 
-//       session.setAttribute("member",member);
-//       System.out.println(member);
-//       
-      return "homepage/home.html";
-
-   }
 
    @RequestMapping(value = "/logout")
    public ModelAndView logout(@RequestBody Member member, HttpSession session) {
@@ -163,7 +144,7 @@ public class socialController {
    
    
    @RequestMapping(value = "/api/naver/callback", method = {RequestMethod.GET, RequestMethod.POST})
-   public String naverLogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state, HttpSession session, Member member){
+   public String naverLogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state, Model model, Member member){
 	   String token = socialService.getNaverAccessToken(code, state, client_id, client_secret);
 	   HashMap<String, Object> userInfo = socialService.getNaverUserInfo(token);
 	   
@@ -191,7 +172,7 @@ public class socialController {
          System.out.println(save_member.getMemberEmail());
          
          // member데이터를 세션에 저장
-         session.setAttribute("member",save_member);
+         model.addAttribute("member", save_member);
          
          return "homepage/home.html";
       }
