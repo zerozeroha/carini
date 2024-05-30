@@ -19,9 +19,9 @@ import org.springframework.ui.Model;
 @Controller
 public class logincontroller {
 
-	@Value("${pw_role.PASSWORD_REGEX}")
-    private static String PASSWORD_REGEX;
-	
+	@Value("${pw-role.password-rejex}")
+	private String passwordRegex;
+
     @Autowired
 	private MemberService memberService;
 	
@@ -37,10 +37,10 @@ public class logincontroller {
 	@PostMapping("/signup")
 	public String join_result(Member member) {
 			System.out.println(member.getMemberId());
-			System.out.println(member.getMemberEmail());
+			System.out.println(member.getMemberNickname());
 			System.out.println(member.getMemberPw());
-			
-			final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
+			final Pattern PASSWORD_PATTERN = Pattern.compile(passwordRegex);
+			System.out.println(PASSWORD_PATTERN.matcher(member.getMemberPw()).matches());
 			if (member.getMemberPw() == null || member.getMemberPw().isEmpty()) {
 				return "비밀번호를 입력해주세요.";
 		    } else if (!PASSWORD_PATTERN.matcher(member.getMemberPw()).matches()) {
