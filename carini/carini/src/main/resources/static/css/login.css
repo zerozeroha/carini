@@ -1,5 +1,5 @@
 body{
-    margin: 30px;
+    margin: 0px;
     background-color: white;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     display: flex;
@@ -25,7 +25,52 @@ body{
     height: 710px;
     background-color: black;
     align-content: center;
-    
+    border-radius: 50px;
+}
+
+h1.video-overlay  {/*위에 ADVERTISEMENT*/
+    color: black(77, 74, 74, 0.9);
+    font-size: 5rem;
+    text-shadow: 2px 2px 5px rgba(175, 171, 182, 0.7);
+    -webkit-text-stroke: 0.2px whitesmoke;
+    position: absolute;
+    top: 180px;
+    left: 310px;
+    z-index: 10;
+}
+
+
+h1.flipped-text {/*밑에 ADVERTISEMENT*/
+    color: black(77, 74, 74, 0.9); 
+    font-size: 5rem;
+    text-shadow: 2px 2px 5px rgba(175, 171, 182, 0.7);
+    position: absolute;
+    top: 680px;
+    left: 310px;
+    z-index: 10;
+}
+
+.video-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 190px; /* 상하 여백은 필요에 따라 조정하세요 */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    float: inline-start;
+}
+
+iframe {
+    flex: 1;
+    border: none;
+}
+
+
+.flipped-text {
+    transform: scaleY(-1);
+    display: inline-block; /* inline 요소에서도 적용되도록 설정 */
+    font-size: 2rem; /* 텍스트 크기 설정 */
+    color: black; /* 텍스트 색상 설정 */
 }
 
 .header_a{
@@ -44,19 +89,19 @@ h2{
     
     padding-top: 15px;
     background-color: white;
-    border: 2px solid black;
-    height: 690px;
+    border: 1px solid black;
+    height: 700px;
     width: 540px;
     margin: 0;
     float: right;
     text-align: center;
-    /* box-shadow: 10px 10px rgba(0.1, 0.1, 0.1, 0.1); */
+    border-radius: 5px;
+    box-shadow: 9px 9px rgba(0.1, 0.1, 0.1);
 }
 
 a {
     text-decoration: none;
     color: black;
-    opacity: 2px;
 }
 
 a:hover{
@@ -70,21 +115,6 @@ a:hover{
     padding: 15px 32px;
 }
 
-
-.video-container {
-    display: flex;
-    max-width: 1200px;
-    margin: 180px; /* 상하 여백은 필요에 따라 조정하세요 */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    float: inline-start;
-}
-
-iframe {
-    flex: 1;
-    border: none;
-}
 
 
 .btn {
@@ -122,12 +152,13 @@ iframe {
 
 .legend_a{
     font-size: 40px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .legend_b{
     font-size: 17px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
 }
 
 fieldset{
@@ -139,7 +170,7 @@ fieldset{
 }
 
 .img_a {
-    width:190px;
+    width:180px;
     height:45px; 
     border-radius: 50px;
 }
@@ -150,3 +181,4 @@ fieldset{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
 }
+
