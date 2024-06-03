@@ -29,27 +29,27 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder // 클래스의 인스턴스를 생성
-//@EntityListeners(BoardListeners.class)
+@EntityListeners(BoardListeners.class)
 public class Board {
-   
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키가 데이터베이스에 의해 자동으로 생성되도록 지정
-   private Long boardId;
-   @Column(updatable = false, nullable = false)
-   private String boardTitle;
-   private String memberId;
-   private String boardWriter;
-   private String boardContent;
-   
-   @Column(insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-   @Temporal(TemporalType.TIMESTAMP)
-   private Date boardDate; // create_date(테이블에는 이렇게 들어감.)
-   
-   @Column(insertable = false, updatable = true, columnDefinition = "bigint default 0")
-   private Long boardCnt;
-   private String boardFilename;
-   
-   @Transient
-   private MultipartFile uploadFile;
-   
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키가 데이터베이스에 의해 자동으로 생성되도록 지정
+	private Long boardId;
+	@Column(updatable = false, nullable = false)
+	private String boardTitle;
+	private String memberId;
+	private String boardWriter;
+	private String boardContent;
+	
+	@Column(insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date boardDate; // create_date(테이블에는 이렇게 들어감.)
+	
+	@Column(insertable = false, updatable = true, columnDefinition = "bigint default 0")
+	private Long boardCnt;
+	private String boardFilename;
+	
+	@Transient
+	private MultipartFile uploadFile;
+	
 }
