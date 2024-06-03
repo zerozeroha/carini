@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Framework</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<form th:action="@{/mypage/myinfo/updateAll/{memberId}(memberId=${member.memberId})}" method="post">
+	    <p>Member ID: <input type="text" name="memberId" th:value="${member.memberId}" /></p> </p>
+	    <p>Member Pw: <input type="text" name="memberPw" th:value="${member.memberPw}" /></p>
+	    <p>Member name: <input type="text" name="memberName" th:value="${member.memberName}" /></p>
+	    <p>Member Email: <input type="email" name="memberEmail" th:value="${member.memberEmail}" /></p>
+	    <p>Member Phone Number: <input type="tel" name="memberPhoneNum" th:value="${member.memberPhoneNum}" /></p>
+	    <input type="submit" value="Update">
+	</form>
+
+
+	
+	
+	
+    <form th:action="@{/mypage/myinfo/updatenickname/{memberId}(memberId=${member.memberId})}" method="post">
+        <input type="text" name="memberNickname">
+        <input type="submit" value="닉네임 수정">
+    </form>
+	
+	
+	<form th:action="@{/mypage/myinfo/delete/{memberId}(memberId=${member.memberId})}" method="post">
+	        <input type="text" name="memberPw">
+	        <input type="submit" value="회원탈퇴">
+	    </form>
+
+
+
+</body>
+</html>
