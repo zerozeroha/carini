@@ -12,10 +12,12 @@ public interface MemberService {
 	//Page<Member> getMemberList(Pageable pageable, String searchType, String searchWord);
 
 	Member insertMember(Member member);
-	Member findMember(Member member);
+	 Member findMember(Member member);
 	List<Member> findAllMember();
-	//void updateMember(Member member);
-	//void deleteMember(Member member);
+	void updateMember(Member member,String newmemberNickname);
+	void deleteMember(Member member);
+	Member findByMemberId(String id);
+	void updateAllMember(String memberId, Member member);
 
 
 }

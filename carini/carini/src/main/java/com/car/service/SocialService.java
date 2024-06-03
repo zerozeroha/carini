@@ -162,7 +162,6 @@ public class SocialService {
    }
    
    public Member kakaoSignUp(Member member) {
-	    System.out.println("!1111111111111111");
 	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
 	    boolean isExistingMember = !foundMembers.isEmpty();
 	    // stream().anyMatch 메서드는 Java 스트림 API의 일부로, 스트림 내의 요소 중 특정 조건을 만족하는 요소가 하나라도 있는지 여부를 확인하는데 사용
