@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,8 +35,8 @@ public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키가 데이터베이스에 의해 자동으로 생성되도록 지정
 	private Long boardId;
+	@Column(updatable = false, nullable = false)
 	private String boardTitle;
-	@Column(updatable = false)
 	private String memberId;
 	private String boardWriter;
 	private String boardContent;
@@ -51,11 +52,4 @@ public class Board {
 	@Transient
 	private MultipartFile uploadFile;
 	
-//	@Transient // 굳이 테이블에서 컬럼으로 구성하여 관리할 필요가 없는 데이터일 때
-	@Column(columnDefinition = "integer default 0", nullable = true)
-	@Nonnull
-	private Long board_ref;
-	private Long board_lev;
-	private Long board_seq;
-
 }

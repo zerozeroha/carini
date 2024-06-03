@@ -14,19 +14,18 @@ public interface BoardRepository extends CrudRepository<Board, Long>{
 	
 	@Modifying // 이 쿼리 메서드가 데이터베이스를 수정하겠다.
 	@Transactional // 이 메서드가 트랜잭션 내에서 실행되어야 함을 지정.
-	@Query(value = "update Board b set b.board_cnt = b.board_cnt + 1 where b.board_seq = :board_seq", nativeQuery = false)
+	@Query(value = "update Board b set b.boardCnt = b.boardCnt + 1 where b.boardId = :seq", nativeQuery = false)
 	// nativeQuery=true은 기본적인 sql문장 사용하겠다. false로 주면 별칭 무조건 줘야 됨.(기본쿼리가 아닌 JPQL쿼리이기 때문)
-	int updateReadCount(@Param("board_seq") Long seq);
+	int updateReadCount(@Param("seq") Long seq);
 	
-	@Modifying
-	@Transactional
-	@Query("update Board b set b.board_ref = b.board_seq, b.board_lev=:lev, b.board_seq=:_seq where b.seq=:seq")
-	void updateLastSeq(@Param("lev") Long i, @Param("_seq") Long j, @Param("seq") Long seq);
+	
 	
 
-	// select * from board where title like '%xxx%';
-	Page<Board> findByTitleContaining(String boardTitle, Pageable pageable);
-	Page<Board> findByWriterContaining(String boardWriter, Pageable pageable);
-	Page<Board> findByContentContaining(String boardContent, Pageable pageable);
+	// findBy[컬럼명]	: 엔티티의 특정 컬럼 값을 이용하여 조회하는 메서드
+	// findBy[컬럼명]Containing : 지정한 문자열이 포함된 엔티티를 조회하는 메서드
+	// select * from board where boardTitle like '%xxx%';
+	Page<Board> findByBoardTitleContaining(String boardTitle, Pageable pageable);
+	Page<Board> findByBoardWriterContaining(String boardWriter, Pageable pageable);
+	Page<Board> findByBoardContentContaining(String boardContent, Pageable pageable);
 	
 }

@@ -20,7 +20,7 @@
 	
 	<div class="container mt-5 justify-content-center">
 		<form th:action="insertBoard"  method="post" enctype="multipart/form-data">
-			<input type="hidden" name="writer" class="form-control" th:value="${session.member.id}">	
+			<input type="hidden" name="writer" class="form-control" th:value="${session.member.memberId}">	
 			<div class="modal-content">				
 				<div class="modal-header bg-primary text-white">
 					<h1 class="motal-title fs-5" id="staticBackdropLabel">게시글등록하기</h1>
@@ -29,16 +29,12 @@
 				<div class="modal-body">
 					<div class="input-group mb-3">
 						<div class="input-group-text"><i class="fas fa-pen"></i></div>
-						<input type="text" name="title" class="form-control" id="title" required placeholder="board title....">
-					</div>
-					<div class="input-group mb-3">
-						<div class="input-group-text"><i class="fas fa-user"></i></div>
-						<input type="text" class="form-control" id="writer" th:value="${session.member.id}" disabled placeholder="board writer...">
+						<input type="text" name="boardTitle" class="form-control" id="title" required placeholder="board title....">
 					</div>
 					
 					<div class="input-group mb-3">
 					  <span class="input-group-text"><i class="fas fa-clipboard"></i></span>
-					  <textarea class="form-control"  name="content" rows="5" placeholder="글 상세내용...."></textarea>
+					  <textarea class="form-control"  name="boardContent" rows="5" placeholder="글 상세내용...."></textarea>
 					</div>
 					
 					<div class="input-group mb-3">

@@ -24,9 +24,9 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Board getBoard(Board board) {
-		Optional<Board> findBoard = boardRepository.findById(board.getBoard_seq());
+		Optional<Board> findBoard = boardRepository.findById(board.getBoardId());
 		if(findBoard.isPresent()) {
-			boardRepository.updateReadCount(board.getBoard_seq());
+			boardRepository.updateReadCount(board.getBoardId());
 			return findBoard.get();
 		} else {
 			return null;			
@@ -36,23 +36,23 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public Page<Board> getBoardList(Pageable pageable, String searchType, String searchWord) {
 		if(searchType.equalsIgnoreCase("board_title")) {
-			return boardRepository.findByTitleContaining(searchWord, pageable);
+			return boardRepository.findByBoardTitleContaining(searchWord, pageable);
 		} else if(searchType.equalsIgnoreCase("board_writer")) {
-			return boardRepository.findByWriterContaining(searchWord, pageable);
+			return boardRepository.findByBoardWriterContaining(searchWord, pageable);
 		} else {
-			return boardRepository.findByContentContaining(searchWord, pageable);
+			return boardRepository.findByBoardContentContaining(searchWord, pageable);
 		}
 	}
 
 	@Override
 	public void insertBoard(Board board) {
 		boardRepository.save(board);
-		boardRepository.updateLastSeq(0L, 0L, board.getBoard_seq());
+//		boardRepository.updateLastSeq(0L, 0L, board.getBoardId());
 	}
 
 	@Override
 	public void updateBoard(Board board) {
-		Board findBoard = boardRepository.findById(board.getBoard_seq()).get();
+		Board findBoard = boardRepository.findById(board.getBoardId()).get();
 		findBoard.setBoardTitle(board.getBoardTitle());
 		findBoard.setBoardContent(board.getBoardContent());
 		boardRepository.save(findBoard);
@@ -60,6 +60,6 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void deleteBoard(Board board) {
-		boardRepository.deleteById(board.getBoard_seq());
+		boardRepository.deleteById(board.getBoardId());
 	}
 }
