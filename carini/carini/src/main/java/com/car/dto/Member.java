@@ -30,32 +30,32 @@ import lombok.ToString;
 public class Member {
 	
 	@Id
-	@Column(name="memer_id")
+	@Column(name="member_id")
     private String memberId;
 	
-	@Column(name="memer_pw")
+	@Column(name="member_pw")
     private String memberPw;
 	
-	@Column(name="memer_name")
+	@Column(name="member_name")
     private String memberName;
 	
-	@Column(name="memer_nickname")
+	@Column(name="member_nickname")
     private String memberNickname;
 	
-	@Column(name="memer_email")
+	@Column(name="member_email")
     private String memberEmail;
 	
-	@Column(name="memer_phone_num")
+	@Column(name="member_phone_num")
     private String memberPhoneNum;
 
     @Column(name="member_date", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date memberDate;
 
-    @Column(name="memer_social")
+    @Column(name="member_social")
     private String memberSocial;
     
-    @Column(name="memer_role")
+    @Column(name="member_role")
     private String memberRole;
 
     // Getters and setters
