@@ -80,6 +80,14 @@ public class BoardServiceImpl implements BoardService{
 		boardRepository.deleteById(board.getBoardId());
 	}
 
+	@Override
+	public Board selectBoard(Long boardId) {
+		
+		Optional<Board> board=boardRepository.findById(boardId);
+		
+		return board.get();
+	}
+
 	
 	
 }
