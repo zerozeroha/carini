@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.car.dto.Board;
 import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.Member;
 import com.car.persistence.CarRepository;
+import com.car.persistence.BoardRepository;
 import com.car.persistence.BookMarkRepository;
 import com.car.service.BookMarkService;
 
@@ -24,9 +26,12 @@ public class BookMarkServiceImpl implements BookMarkService{
 
 	@Autowired
 	private BookMarkRepository bookMarkRepository;
+	
 	@Autowired
 	private CarRepository carRepository;
 	
+	@Autowired
+	private BoardRepository boardRepository;
 	/* 멤버 아이디로 차데이터(번호) 추출 */
 	@Override
 	public List<Bookmark> findAllBookmarkCar(String id) {
@@ -55,6 +60,18 @@ public class BookMarkServiceImpl implements BookMarkService{
 	public void findBookmarkByCarDelete(int carid,String memberId) {
 		
 		bookMarkRepository.deleteByBookmarkIdAndMemberId(carid, memberId);
+	}
+
+	@Override
+	public Bookmark insertMember(Bookmark bookmark) {
+		bookMarkRepository.save(bookmark);
+		return null;
+	}
+
+	@Override
+	public Car selectCar(int carId) {
+		Optional<Car> car=carRepository.findById(carId);
+		return car.get();
 	}
 
 
