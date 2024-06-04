@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
 @Controller
-public class socialController {
+public class SocialController {
     
     private final SocialService socialService;
     
@@ -35,7 +35,7 @@ public class socialController {
     private String redirectUri;
     
     
-    public socialController(SocialService socialService) {
+    public SocialController(SocialService socialService) {
         this.socialService = socialService;
     }
    
