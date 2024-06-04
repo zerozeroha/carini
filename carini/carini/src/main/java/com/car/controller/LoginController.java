@@ -18,7 +18,7 @@ import org.springframework.ui.Model;
 
 
 @Controller
-public class logincontroller {
+public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
 	private String passwordRegex;

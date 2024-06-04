@@ -18,7 +18,7 @@ import com.car.service.BookMarkService;
 import jakarta.transaction.Transactional;
 
 @Service
-public class BookMarkServiceimpl implements BookMarkService{
+public class BookMarkServiceImpl implements BookMarkService{
 
 	@Autowired
 	private BookMarkRepository bookMarkRepository;
