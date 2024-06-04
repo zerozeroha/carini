@@ -9,10 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.RequestAttributes;
 
 import com.car.dto.Member;
 import com.car.persistence.MemberRepository;
 import com.car.service.MemberService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
@@ -33,7 +37,6 @@ public class LoginController {
 	@GetMapping("/signup")
 	public String joinView(Model model) {
 		List<Member> memberList = memberService.findAllMember();
-		System.out.println(memberList.get(1));
 		model.addAttribute("models", memberList);
 		return "member/signup.html";
 	}
@@ -48,7 +51,6 @@ public class LoginController {
 			System.out.println(member.getMemberNickname());
 			System.out.println(member.getMemberPw());
 			final Pattern PASSWORD_PATTERN = Pattern.compile(passwordRegex);
-			System.out.println(PASSWORD_PATTERN.matcher(member.getMemberPw()).matches());
 			if (member.getMemberPw() == null || member.getMemberPw().isEmpty()) {
 				return "비밀번호를 입력해주세요.";
 		    } else if (!PASSWORD_PATTERN.matcher(member.getMemberPw()).matches()) {
@@ -69,7 +71,6 @@ public class LoginController {
 	@GetMapping("/member_login")
 	public String loginView(Model model) {
 		
-		model.addAttribute("loginMessage", "로그인이 필요합니다. 로그인 해주세요.");
 		return "member/login.html";
 	}
 	
@@ -77,10 +78,12 @@ public class LoginController {
 	 * 로그인
 	 * */
 	@PostMapping("/member_login_check")
-	public String login_result(Member member,Model model) {
-		
+	public String login_result(Member member,Model model,HttpServletRequest request,HttpSession session) {
+
 		String memberId = member.getMemberId();
 		String memberPw = member.getMemberPw();
+		
+		
 		if(memberId.isEmpty() || memberPw.isEmpty()) {
 	    		return "/login";
 	    }
@@ -90,12 +93,15 @@ public class LoginController {
 	     // 사용자가 존재하고 비밀번호가 일치하는지 확인
 	     if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
 	     // 로그인 성공 시 홈 페이지로 이동
-	    	 model.addAttribute("member", findmember);
-	    	 return "homepage/home.html";
+	    	 
+    	 session = request.getSession();
+    	 session.setAttribute("member",findmember );
+	    	 
+    	 	return "homepage/home.html";
 	     } else {
 	         // 로그인 실패 시 로그인 페이지로 리디렉션
 	         System.out.println("로그인 실패: 잘못된 아이디 또는 비밀번호");
 	         return "redirect:/login";
-	        }
+	     }
 	}
 }

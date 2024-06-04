@@ -20,6 +20,7 @@ public interface BoardService {
 	void deleteBoard(Board board);
 	
 	List<Board> boardList(Member member);
+	Board selectBoard(Long boardId);
 		
 
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Helios by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body>
+	<script th:inline="javascript">
+	    var msg = '[[${msg}]]'; // msg 변수 선언
+	    alert(msg); // 알림창 표시
+	    var url = [[${url}]]; // URL 변수 선언
+	    window.location.href = url; // 리다이렉션 수행
+	</script>
+</body>
+</html>
