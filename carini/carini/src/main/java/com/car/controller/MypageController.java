@@ -208,7 +208,7 @@ public class MypageController {
 	@PostMapping("/mypage/myBoard/{boardId}")
     public RedirectView myPagemyboard(@PathVariable("boardId") Long boardId , Model model) {
 		
-		return null;
-	//	return new RedirectView("/mypage/bookmark/");
+		return new RedirectView("/mypage/bookmark/");
+	//	return 
     }
 }
