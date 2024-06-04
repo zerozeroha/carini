@@ -79,8 +79,6 @@ public class LoginController {
 	@PostMapping("/member_login_check")
 	public String login_result(Member member,Model model) {
 		
-		
-		
 		String memberId = member.getMemberId();
 		String memberPw = member.getMemberPw();
 		if(memberId.isEmpty() || memberPw.isEmpty()) {

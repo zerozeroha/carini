@@ -56,7 +56,7 @@ public class SocialController {
     */
    
    @RequestMapping(value = "/login")
-   public String login(@RequestParam("code") String code, Model model, Member member) {
+   public String login(@RequestParam("code") String code, Model model, Member member, HttpServletRequest request) {
 
       
       // 1번 인증코드로 요청 전달
@@ -87,8 +87,10 @@ public class SocialController {
          Member save_member = socialService.kakaoSignUp(member);
          System.out.println(save_member.getMemberEmail());
          
-         // member데이터를 모델에 저장
-         model.addAttribute("member", save_member);
+         // member데이터를 세션에 저장
+         HttpSession session = request.getSession(); 
+         session.setAttribute("member",save_member);
+         System.out.println(session.getAttribute("member"));
          
          return "homepage/home.html";
       }
@@ -144,7 +146,8 @@ public class SocialController {
    
    
    @RequestMapping(value = "/api/naver/callback", method = {RequestMethod.GET, RequestMethod.POST})
-   public String naverLogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state, Model model, Member member){
+   public String naverLogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state
+		   					, Model model, Member member, HttpServletRequest request) {
 	   String token = socialService.getNaverAccessToken(code, state, client_id, client_secret);
 	   HashMap<String, Object> userInfo = socialService.getNaverUserInfo(token);
 	   
@@ -153,13 +156,6 @@ public class SocialController {
       if(userInfo == null) {
          return "/api/naver/callback";
       }else {
-         System.out.println("login info :" + userInfo.toString());
-         
-         System.out.println("id = {}" + userInfo.get("id"));
-         System.out.println("name = {}" + userInfo.get("name"));
-         System.out.println("nickname = {}" + userInfo.get("nickname"));
-         System.out.println("email = {}" + userInfo.get("email"));
-         System.out.println("mobile = {}" + userInfo.get("mobile"));
          
          member.setMemberId((String)userInfo.get("id"));
          member.setMemberName((String)userInfo.get("name"));
@@ -167,40 +163,19 @@ public class SocialController {
          member.setMemberEmail((String) userInfo.get("email"));
          member.setMemberPhoneNum((String) userInfo.get("mobile"));
          
-         // 카카오 회원정보 데이터베이스 넣기!
+         // 네이버 회원정보 데이터베이스 넣기!
          Member save_member = socialService.naverSignUp(member);
-         System.out.println(save_member.getMemberEmail());
          
          // member데이터를 세션에 저장
-         model.addAttribute("member", save_member);
+         HttpSession session = request.getSession(); 
+         session.setAttribute("member",save_member);
+         System.out.println(session.getAttribute("member"));
          
          return "homepage/home.html";
       }
 	   
    }
-   
-   /*
-    * 네이버 - 받은 정보로 비회원이라면 회원가입
-    */
-   @PostMapping("/api/naver/signup")
-   public String naverSignUp(@RequestBody Member member, HttpServletRequest request) {
-      System.out.println("===============");
-      System.out.println("id = {}" + member.getMemberId());
-      System.out.println("name = {}" + member.getMemberName());
-      System.out.println("nickname = {}" + member.getMemberNickname());
-      System.out.println("email = {}" + member.getMemberEmail());
-      System.out.println("PhoneNum = {}" + member.getMemberPhoneNum());
 
-      
-//      member = socialService.naverSignUp(member);
-      
-//       HttpSession session = request.getSession(); 
-//       session.setAttribute("member",member);
-//       System.out.println(member);
-//       
-      return "homepage/home.html";
-
-   }
 }
 
 

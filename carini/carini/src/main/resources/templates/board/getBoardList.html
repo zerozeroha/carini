@@ -12,47 +12,25 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container" align="center">
-<!-- 		  
- 		<p th:text="${session.member.toString()}"></p>
-		<p th:text="${pagedResult.getContent()}"></p> 
-		<p th:text="${pagingInfo}"></p> 
--->				  	
- 		<form action="getBoardList" method="get" id="boardForm">   
-	   		<div class="row mt-3 justify-content-center">
- 
-		    	<div class="col-auto me-1">
-					<select class="form-select" id="searchType" name="searchType">
-				    	<option value="">검색</option>											
- 				    	<option value="boardTitle" th:selected="${st}=='boardTitle'">글제목</option>							
- 				    	<option value="boardWriter" th:selected="${st}=='boardWriter'">작성자</option>												 
- 				    	<option value="boardContent" th:selected="${st}=='boardContent'">글내용</option>												 
-					</select>
-				</div>
-			</div>
-		</form> <!-- getBoardList -->	
-		
-			
-		<div>		
-			<div>
-				<table>
-					<thead>
-						<th>글번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>등록일</th>
-						<th>조회수</th>			
-						<th>파일</th>							
-					</thead>
-					<tbody>
-						<tr>
-							<td th:text="${board.boardId}"></td>
-						</tr>													
-					</tbody>
-				</table>
-			</div>	
-		</div> <!-- 게시판 -->	
-		
-		
+	<h1>Board List</h1>
+	<table border="1px">
+		<thead align="center">
+			<th>글번호</th>
+			<th>제목</th>
+			<!--<th>작성자</th>-->
+			<th>등록일</th>
+			<th>조회수</th>
+		</thead>
+		<tbody align="center">
+			<tr th:each="board : ${boardList}">
+				<td th:text="${board.boardId}"></td>
+				<td th:text="${board.boardTitle}"></td>
+				<!--<td th:text="${board.boardWriter}"></td>-->
+				<td th:text="${board.boardDate}"></td>
+				<td th:text="${board.boardCnt}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<a th:href="@{/insertBoard}" class="btn">글작성하기</a>
 </body>
 </html>		
