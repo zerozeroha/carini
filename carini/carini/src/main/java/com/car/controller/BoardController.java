@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,17 +35,22 @@ import com.car.dto.Board;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
 import com.car.service.BoardService;
+import com.car.service.MemberService;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @SessionAttributes({"member", "pagingInfo"})
 public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private MemberService memberService;
 
 	public PagingInfo pagingInfo = new PagingInfo();
 	
@@ -53,68 +59,64 @@ public class BoardController {
 	
 	@ModelAttribute("member")
 	public Member setMember() {
-		return new Member();
+		return new Member(); // 기본 Member 객체를 세션에 저장
 	}
+	
+	
+	/*
+	 * 게시판 목록보기
+	 * */
 	
 	@GetMapping("/getBoardList")
-	public String getBoardList(Model model
-			, @RequestParam(defaultValue = "0") int curPage
-            , @RequestParam(defaultValue = "10") int rowSizePerPage
-            , @RequestParam(defaultValue = "title") String searchType
-            , @RequestParam(defaultValue = "") String searchWord) {
-		
-		Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("seq").descending());
-		Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
-		
-		int totalRowCount  = pagedResult.getNumberOfElements();
-		int totalPageCount = pagedResult.getTotalPages();
-		int pageSize       = pagingInfo.getPageSize();
-		int startPage      = curPage / pageSize * pageSize + 1;
-		int endPage        = startPage + pageSize - 1;
-		endPage = endPage > totalPageCount ? (totalPageCount > 0 ? totalPageCount : 1) : endPage;
-		
-		pagingInfo.setCurPage(curPage);
-		pagingInfo.setTotalRowCount(totalRowCount);
-		pagingInfo.setTotalPageCount(totalPageCount);
-		pagingInfo.setStartPage(startPage);
-		pagingInfo.setEndPage(endPage);
-		pagingInfo.setSearchType(searchType);
-		pagingInfo.setSearchWord(searchWord);	
-		pagingInfo.setRowSizePerPage(rowSizePerPage);
-		
-		model.addAttribute("pagingInfo", pagingInfo);
-		model.addAttribute("pagedResult", pagedResult);
-		model.addAttribute("pageable", pageable);
-		model.addAttribute("cp", curPage);
-		model.addAttribute("sp", startPage);
-		model.addAttribute("ep", endPage);
-		model.addAttribute("ps", pageSize);
-		model.addAttribute("rp", rowSizePerPage);
-		model.addAttribute("tp", totalPageCount);
-		model.addAttribute("st", searchType);
-		model.addAttribute("sw", searchWord);
-		
-		return "board/getBoardList";
+	public String getBoardList(Model model, Board board,
+	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
+	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
+	       @RequestParam(name = "searchType", defaultValue = "title") String searchType,
+	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
+	    
+	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
+	    Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
+	    
+	    int totalRowCount  = pagedResult.getNumberOfElements();
+	    int totalPageCount = pagedResult.getTotalPages();
+	    int pageSize       = pagingInfo.getPageSize();
+	    int startPage      = curPage / pageSize * pageSize + 1;
+	    int endPage        = startPage + pageSize - 1;
+	    endPage = endPage > totalPageCount ? (totalPageCount > 0 ? totalPageCount : 1) : endPage;
+	    
+	    pagingInfo.setCurPage(curPage);
+	    pagingInfo.setTotalRowCount(totalRowCount);
+	    pagingInfo.setTotalPageCount(totalPageCount);
+	    pagingInfo.setStartPage(startPage);
+	    pagingInfo.setEndPage(endPage);
+	    pagingInfo.setSearchType(searchType);
+	    pagingInfo.setSearchWord(searchWord); 
+	    pagingInfo.setRowSizePerPage(rowSizePerPage);
+	    
+	    model.addAttribute("pagingInfo", pagingInfo);
+	    model.addAttribute("pagedResult", pagedResult);
+	    model.addAttribute("pageable", pageable);
+	    model.addAttribute("boardList", pagedResult.getContent()); // Add this line
+
+	    return "board/getBoardList";
 	}
-	
-	
+
+
 	@GetMapping("/getBoard")
 	public String getBoard(@ModelAttribute("member") Member member, Board board, Model model) {
-		if(member.getMemberId() == null) {
-			return "redirect:login";
-		}
+		
+		if(member.getMemberId() == null) { return "redirect:login"; }
+		 
 		model.addAttribute("board", boardService.getBoard(board));
 		
 		return "board/getBoard";
 	}
 	
 	@GetMapping("/insertBoard")
-	public String insertBoardForm(@ModelAttribute("member") Member member) {
+	public String insertBoardForm(@ModelAttribute("member") Member member, Board board) {
 		
-		if(member.getMemberId() == null) {
-			return "redirect:member_login";
-		}
-		
+		if(member.getMemberId() == null) { return "redirect:member_login"; }
+		 
 		return "board/insertBoard";
 	}
 	
@@ -133,7 +135,8 @@ public class BoardController {
 					uploadFile.transferTo(new File(uploadFolder + fileName));
 					board.setBoardFilename(fileName);
 				}
-	
+		
+		
 		boardService.insertBoard(board);
 		return "redirect:getBoardList";
 	}

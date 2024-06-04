@@ -277,10 +277,10 @@ public class SocialService {
    public Member naverSignUp(Member member) {
 	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
 	    boolean isExistingMember = !foundMembers.isEmpty();
-	    boolean isKakaoUser = isExistingMember && foundMembers.stream()
+	    boolean isNaverUser = isExistingMember && foundMembers.stream()
 	                                .anyMatch(m -> m.getMemberSocial().equals("kakao"));
 	    
-	    if(!isExistingMember || isKakaoUser) {
+	    if(!isExistingMember || isNaverUser) {
 	        member.setMemberId(member.getMemberId().replace("\"", ""));
 	        member.setMemberName(member.getMemberName().replace("\"", ""));
 	        member.setMemberNickname(member.getMemberNickname().replace("\"", ""));

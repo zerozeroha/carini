@@ -35,15 +35,15 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="index.html">Home</a></li>
-								<li><a href="left-sidebar.html">Board</a></li>
+								<li><a th:href="@{/getBoardList}">Board</a></li>
 								<li><a href="Models.html">Model</a></li>
 								<li><a href="Center.html">Center</a></li>
 								<li>
 									<a href="#">MyPage</a>
 									<ul>
-										<li><a th:href="@{/mypage/myinfo/{memberId}(memberId=${member.memberId})}">나의 정보</a></li>
-										<li><a th:href="@{/mypage/bookmark/{memberId}(memberId=${member.memberId})}">찜 목록</a></li>
-										<li><a th:href="@{/mypage/myBoard/{memberId}(memberId=${member.memberId})}">나의 게시물</a></li>
+										<li><a th:href="@{/mypage/myinfo/{memberId}(memberId=${session.member.memberId})}">나의 정보</a></li>
+										<li><a th:href="@{/mypage/bookmark/{memberId}(memberId=${session.member.memberId})}">찜 목록</a></li>
+										<li><a th:href="@{/mypage/myBoard/{memberId}(memberId=${session.member.memberId})}">나의 게시물</a></li>
 										<li>
 											<a href="#">And a submenu &hellip;</a>
 											<ul>
