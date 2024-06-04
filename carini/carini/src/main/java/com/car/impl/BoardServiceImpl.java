@@ -16,7 +16,7 @@ import com.car.persistence.BoardRepository;
 import com.car.service.BoardService;
 
 @Service
-public class BoardServiceimpl implements BoardService{
+public class BoardServiceImpl implements BoardService{
 
 	@Autowired
 	private BoardRepository boardRepository;
