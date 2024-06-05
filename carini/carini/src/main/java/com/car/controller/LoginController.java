@@ -74,6 +74,12 @@ public class LoginController {
 		return "member/login.html";
 	}
 	
+	@GetMapping("/home")
+	public String homeView(Model model) {
+		
+		return "homepage/home.html";
+	}
+	
 	/*
 	 * 로그인
 	 * */
@@ -103,5 +109,17 @@ public class LoginController {
 	         System.out.println("로그인 실패: 잘못된 아이디 또는 비밀번호");
 	         return "redirect:/login";
 	     }
+	}
+	
+	@PostMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		//세션을 삭제
+		HttpSession session = request.getSession(false); 
+        // session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
+        // 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
+		if(session != null) {
+			session.invalidate();
+		}
+		return "redirect:/";
 	}
 }
