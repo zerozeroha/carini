@@ -51,6 +51,7 @@ public class BookMarkServiceImpl implements BookMarkService{
 
 			BookmarkList.add(car.get());
 		}
+		System.out.println(BookmarkList);
 		return BookmarkList;
 	}
 
