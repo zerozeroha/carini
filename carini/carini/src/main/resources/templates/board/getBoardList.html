@@ -12,21 +12,42 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
+	<div class="container">
+		
+		<form th:action="@{/board/getBoardList}" method="get">
+			<input type="hidden" id="curPage" name="curPage"  th:value="0">
+			<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
+			<!--<label th:text="|${pageable.getPageNumber()*pageable.getPageSize()+1} of ${pagedResult.getTotalElements()}|"></label>-->
+			<select class="form-select" id="searchType" name="searchType">
+		    	<option value="">검색</option>											
+		    	<option value="boardTitle" th:selected="${st=='boardTitle'}">글제목</option>							
+		    	<option value="boardWriter" th:selected="${st =='boardWriter'}">작성자</option>												 
+		    	<option value="boardContent" th:selected="${st =='boardContent'}">글내용</option>												 
+			</select>
+			<input name="searchWord" type="text" placeholder="input search keyword..." />
+			<input type="reset" id="btnReset" value="초기화">
+    		<input type="submit" value="Search">
+			
+		</form>
+		
+	</div>
+	
+	
 	<h1>게시글 목록</h1>
 	<table border="1px">
 		<thead align="center">
-			<th>state.count</th>
 			<th>글번호</th>
 			<th>제목</th>
+			<th>첨부파일</th>			
 			<th>작성자</th>
 			<th>등록일</th>
 			<th>조회수</th>
 		</thead>
 		<tbody align="center">
 			<tr th:each="board, state : ${pagedResult.getContent()}">
-				<td th:text="${state.count}">
 				<td th:text="${board.boardId}"></td>
 				<td><a th:href="@{/board/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></td>
+				<td><i class="fas fa-paperclip" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></i></td>
 				<td th:text="${board.boardWriter}"></td>
 				<td th:text="${board.boardDate}"></td>
 				<td th:text="${board.boardCnt}"></td>
@@ -34,5 +55,6 @@
 		</tbody>
 	</table>
 	<a th:href="@{/board/insertBoard}" class="btn">글작성하기</a>
+	<a th:href="@{/home}" class="btn">홈으로 돌아가기</a>
 </body>
 </html>		

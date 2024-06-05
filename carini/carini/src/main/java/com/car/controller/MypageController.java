@@ -25,6 +25,7 @@ import com.car.service.BoardService;
 import com.car.service.BookMarkService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -51,7 +52,14 @@ public class MypageController {
 	
 	
     @GetMapping("/")
-    public String backhome() {
+    public String backhome(@ModelAttribute("member") Member member, HttpServletRequest request) {
+    	//세션을 삭제
+    	HttpSession session = request.getSession(false); 
+        // session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
+        // 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
+		if(session != null) {
+			session.invalidate();
+		}
         return "index.html";
     }
     

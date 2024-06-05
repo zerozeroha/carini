@@ -1,6 +1,7 @@
 package com.car.service;
 
 
+import java.io.IOException;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,8 @@ public interface BoardService {
 	void insertBoard(Board board);
 	void updateBoard(Board board);
 	void deleteBoard(Board board);
+	Board getBoardById(Long boardId);
+	void deleteFile(Long boardId) throws IOException;
 	
 	List<Board> boardList(Member member);
 	Board selectBoard(Long boardId);

@@ -20,8 +20,9 @@
 			boardContent = <textarea name="boardContent" rows="5" required></textarea><br/>
 			uploadFile = <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"><br/>
 			<input type="submit" value=" 새글등록 "/>
-			<a th:href="@{/board/getBoardList}" class="btn">글목록가기</a>
 		</form>
+		<a th:href="@{/board/getBoardList}" class="btn">글목록가기</a>
+		<a th:href="@{/home}" class="btn">홈으로 돌아가기</a>
 	</div>
 </body>
-</html>		
+</html>

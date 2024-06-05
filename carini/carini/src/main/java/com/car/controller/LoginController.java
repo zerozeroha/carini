@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestAttributes;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 
 
 @Controller
+@SessionAttributes("member")
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
@@ -30,7 +32,10 @@ public class LoginController {
     @Autowired
 	private MemberService memberService;
 	
-	
+    @ModelAttribute("member")
+	public Member setMember() {
+		return new Member(); // 기본 Member 객체를 세션에 저장
+	}
     /*
      * 회원가입 view
      * */
@@ -75,8 +80,11 @@ public class LoginController {
 	}
 	
 	@GetMapping("/home")
-	public String homeView(Model model) {
-		
+	public String goHome(@ModelAttribute("member") Member member)  {
+		System.out.println(member.getMemberId());
+		if(member.getMemberId() == null) {
+			return "redirect:/";
+		}	
 		return "homepage/home.html";
 	}
 	
@@ -98,10 +106,11 @@ public class LoginController {
 		
 	     // 사용자가 존재하고 비밀번호가 일치하는지 확인
 	     if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
-	     // 로그인 성공 시 홈 페이지로 이동
-	    	 
-    	 session = request.getSession();
-    	 session.setAttribute("member",findmember );
+	    
+	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
+
+	    	 session = request.getSession();
+	    	 session.setAttribute("member", findmember);
 	    	 
     	 	return "homepage/home.html";
 	     } else {
