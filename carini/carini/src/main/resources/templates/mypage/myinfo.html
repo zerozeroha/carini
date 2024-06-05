@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<form th:action="@{/mypage/myinfo/updateAll/{memberId}(memberId=${member.memberId})}" method="post">
+	<form th:action="@{/mypage/myinfo/updateAll}" method="post">
 	    <p>Member ID: <input type="text" name="memberId" th:value="${member.memberId}" /></p> </p>
 	    <p>Member Pw: <input type="text" name="memberPw" th:value="${member.memberPw}" /></p>
 	    <p>Member name: <input type="text" name="memberName" th:value="${member.memberName}" /></p>
@@ -21,13 +21,13 @@
 	
 	
 	
-    <form th:action="@{/mypage/myinfo/updatenickname/{memberId}(memberId=${member.memberId})}" method="post">
+    <form th:action="@{/mypage/myinfo/updatenickname}" method="post">
         <input type="text" name="memberNickname">
         <input type="submit" value="닉네임 수정">
     </form>
 	
 	
-	<form th:action="@{/mypage/myinfo/delete/{memberId}(memberId=${member.memberId})}" method="post">
+	<form th:action="@{/mypage/myinfo/delete}" method="post">
 	        <input type="text" name="memberPw">
 	        <input type="submit" value="회원탈퇴">
 	    </form>

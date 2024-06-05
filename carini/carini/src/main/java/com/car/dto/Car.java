@@ -2,6 +2,8 @@ package com.car.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +23,7 @@ public class Car {
 
 	@Id
 	@Column(name="CAR_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키가 데이터베이스에 의해 자동으로 생성되도록 지정
 	private int car_id;
 	
 	@Column(name="CAR_NAME")
@@ -54,7 +57,7 @@ public class Car {
 	private double car_sc_geoju;
 	
 	@Column(name="CAR_SC_QUALITY")
-	private double car_SC_quality;
+	private double car_sc_quality;
 	
 	@Column(name="CAR_SC_DESIGN")
 	private double car_sc_design;
@@ -62,5 +65,6 @@ public class Car {
 	@Column(name="CAR_SC_EFF")
 	private double car_sc_eff;
 	
-	
+	@Column(name="CAR_SC_AVG")
+	private double car_sc_avg;
 }

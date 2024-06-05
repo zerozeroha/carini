@@ -74,6 +74,12 @@ public class LoginController {
 		return "member/login.html";
 	}
 	
+	@GetMapping("/home")
+	public String homeView(Model model) {
+		
+		return "homepage/home.html";
+	}
+	
 	/*
 	 * 로그인
 	 * */
