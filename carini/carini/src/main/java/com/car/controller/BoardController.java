@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.car.dto.Board;
 import com.car.dto.Member;
@@ -62,12 +63,11 @@ public class BoardController {
 		return new Member(); // 기본 Member 객체를 세션에 저장
 	}
 	
-	
 	/*
 	 * 게시판 목록보기
 	 * */
 	
-	@GetMapping("/getBoardList")
+	@GetMapping("/board/getBoardList")
 	public String getBoardList(Model model, Board board,
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
 	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
@@ -102,30 +102,32 @@ public class BoardController {
 	}
 
 
-	@GetMapping("/getBoard")
+	@GetMapping("/board/getBoard")
 	public String getBoard(@ModelAttribute("member") Member member, Board board, Model model) {
 		
-		if(member.getMemberId() == null) { return "redirect:login"; }
+		if(member.getMemberId() == null) { return "redirect:/member_login"; }
 		 
 		model.addAttribute("board", boardService.getBoard(board));
 		
 		return "board/getBoard";
 	}
 	
-	@GetMapping("/insertBoard")
+	@GetMapping("/board/insertBoard")
 	public String insertBoardForm(@ModelAttribute("member") Member member, Board board) {
 		
-		if(member.getMemberId() == null) { return "redirect:member_login"; }
+		if(member.getMemberId() == null) { 
+			return "redirect:/member_login";  
+		}
 		 
 		return "board/insertBoard";
 	}
 	
-	@PostMapping("/insertBoard")
+	@PostMapping("/board/insertBoard")
 	public String insertBoard(@ModelAttribute("member") Member member, Board board) 
 			throws IOException {
 		
 		if(member.getMemberId() == null) {
-			return "redirect:member_login";
+			return "redirect:/member_login";
 		}
 		
 		// 파일업로드
@@ -138,7 +140,26 @@ public class BoardController {
 		
 		
 		boardService.insertBoard(board);
-		return "redirect:getBoardList";
+		return "redirect:/board/getBoardList";
 	}
+	
+	@PostMapping("/board/updateBoard")
+	public String updateBoard(@ModelAttribute("member") Member member, Board board, Model model)  {
+		if(member.getMemberId() == null) {
+			return "redirect:/member_login";
+		}	
+		boardService.updateBoard(board);
+		return "redirect:/board/getBoardList";
+	}
+	
+	
+	@GetMapping("/board/deleteBoard")
+	public String deleteBoard(@ModelAttribute("member") Member member, Board board, Model model)  {
+		if(member.getMemberId() == null) {
+			return "redirect:/member_login";
+		}	
+		boardService.deleteBoard(board);
+		return "forward:/board/getBoardList";
+	}	
 	
 }

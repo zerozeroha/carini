@@ -11,43 +11,21 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
 </head>
 <body>
-   <div class="container"  align="center">
-      <div>
-         <h3>게시글 상세</h3>
-      </div>
-   </div>      
-   
-   <div class="container mt-3" align="center">
-	<form th:action="@{/updateBoard}" method="post">
-         <input name="seq" type="hidden" th:value="${board.boardId}">      
-         <div class="input-group mb-3">
-              <span class="input-group-text" id="desc_title"><i class="fas fa-address-book"></i></span>
-              <input type="text" class="form-control" name="title" th:value="${ board.boardTitle }">
-         </div>
-         <div class="input-group mb-3">
-              <span class="input-group-text" id="desc_title"><i class="fas fa-user"></i></span>
-              <input type="text" class="form-control" name="writer" th:value="${ board.boardWriter }" disabled>
-         </div>
-         <div class="input-group mb-3">
-           <span class="input-group-text"><i class="fas fa-clipboard"></i></span>
-           <textarea class="form-control" th:text="${board.boardContent}"  name="content" rows="15" ></textarea>
-         </div>   
-         <div class="input-group mb-3">
-              <span class="input-group-text" id="desc_title"><i class="fas fa-calendar"></i></span>
-              <input type="date" class="form-control" name="createdate" th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd')}">
-         </div>
-         <div class="input-group mb-3">
-              <span class="input-group-text" id="desc_title"><i class="fas fa-hashtag"></i></span>
-              <input type="text" class="form-control" name="cnt" th:value="${ board.boardCnt }" disabled>
-         </div>
-         
-         <div class="container" align="center">
-            <input type="submit" class="btn btn-primary mt-3" value="게시글수정"/>
-            <a th:href="@{/insertBoard}" class="btn btn-primary mt-3">게시글등록</a>
-            <a th:classappend="${session['member'].role != 'ADMIN' ? 'disabled' : ''}" th:href="@{/deleteBoard(seq=${board.boardId})}" class="btn btn-primary mt-3" >게시글삭제</a>
-            <a th:href="@{getBoardList}" class="btn btn-primary mt-3">게시글목록</a>         
-         </div>
-      </form> 
-   </div>
+	<h3>게시글 상세</h3>
+	
+	<div class="container" align="center">
+		<form th:action="@{/board/updateBoard}" method="post">
+			<input name="boardId" type="hidden" th:value="${board.boardId}">
+			boardTitle=<input type="text" name="boardTitle" th:value="${ board.boardTitle }"><br />
+			boardWriter=<input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled><br />
+			boardContent=<textarea th:text="${board.boardContent}"  name="boardContent" rows="15" ></textarea><br />
+			boardDate=<input type="text" name="boardDate" th:placeholder="${board.boardDate}" disabled><br />
+			boardCnt=<input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled><br />
+			<input type="submit" class="btn" value="게시글수정"/>
+			<a th:href="@{/board/insertBoard}" class="btn">게시글등록</a>
+			<!-- <a th:classappend="${session['member'].role != 'ADMIN' ? 'disabled' : ''}" th:href="@{/board/deleteBoard(boardId=${board.boardId})}">게시글삭제</a> -->
+			<a th:href="@{/board/getBoardList}" class="btn">게시글목록</a>         
+		</form>
+	</div>
 </body>
 </html>
