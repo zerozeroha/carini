@@ -14,9 +14,9 @@
 	<h1>게시글 작성하기</h1>
 	<div class="container">
 		<form th:action="@{/board/insertBoard}" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memberId" th:value="${session.member.memberId}">
+			<input type="hidden" name="memberId" th:value="${session.user.memberId}">
 			boardTitle = <input type="text" name="boardTitle" id="boardTitle"><br/>
-			boardWriter = <input type="text" name="boardWriter" id="boardWriter" th:value="${session.member.memberNickname}" readonly th:placeholder="${session.member.memberNickname}"><br/>
+			boardWriter = <input type="text" name="boardWriter" id="boardWriter" th:value="${session.user.memberNickname}" readonly th:placeholder="${session.user.memberNickname}"><br/>
 			boardContent = <textarea name="boardContent" rows="5" required></textarea><br/>
 			uploadFile = <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"><br/>
 			<input type="submit" value=" 새글등록 "/>

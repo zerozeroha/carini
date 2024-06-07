@@ -26,12 +26,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -46,6 +48,7 @@ import com.car.service.MemberService;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -117,9 +120,9 @@ public class BoardController {
 
 
 	@GetMapping("/board/getBoard")
-	public String getBoard(@ModelAttribute("member") Member member, Board board, Model model) {
-		
-		if(member.getMemberId() == null) { return "redirect:/member_login"; }
+	public String getBoard(Board board, Model model, HttpSession session) {
+		Member user = (Member) session.getAttribute("user");
+		if(user == null) { return "redirect:/member_login"; }
 		 
 		model.addAttribute("board", boardService.getBoard(board));
 		
@@ -127,22 +130,20 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/insertBoard")
-	public String insertBoardForm(@ModelAttribute("member") Member member, Board board, Model model) {
-		
-		if(member.getMemberId() == null) { 
+	public String insertBoardForm(Member member, Board board, Model model, HttpSession session) {
+		Member user = (Member) session.getAttribute("user");
+		System.out.println("insert-----------"+user);
+		if( user == null ) { 
 			return "redirect:/member_login";  
 		}
-		Member fullMember = memberService.findByMemberId(member.getMemberId());
-	    model.addAttribute("member", fullMember);
-
 		return "board/insertBoard";
 	}
 	
 	@PostMapping("/board/insertBoard")
-	public String insertBoard(@ModelAttribute("member") Member member, Board board) 
+	public String insertBoard(Board board, HttpSession session) 
 			throws IOException {
-		
-		if(member.getMemberId() == null) {return "redirect:/member_login";}
+		Member user = (Member) session.getAttribute("user");
+		if(user.getMemberId() == null) {return "redirect:/member_login";}
 
 		// 파일업로드
 		MultipartFile uploadFile = board.getUploadFile();
@@ -159,11 +160,10 @@ public class BoardController {
 	
 	
 	@GetMapping("/board/updateBoard")
-	public String updateBoardForm(@ModelAttribute("member") Member member, Board board, Model model) {
-		
+	public String updateBoardForm(Board board, Model model, HttpSession session) {
+		Member user = (Member) session.getAttribute("user");
 		Board findBoard = boardService.getBoard(board);
-		
-		if(findBoard.getMemberId().equals(member.getMemberId())) {
+		if(findBoard.getMemberId().equals(user.getMemberId())) {
 			model.addAttribute("board", findBoard);
 			return "board/updateBoard";
 		}else {
@@ -175,8 +175,9 @@ public class BoardController {
 	}
 	
 	@PostMapping("/board/updateBoard")
-	public String updateBoard(@ModelAttribute("member") Member member, Board board, Model model)  {
+	public String updateBoard(Board board, Model model, HttpSession session)  {
 	    
+		
 		// 파일재업로드
 		MultipartFile uploadFile = board.getUploadFile();
 		if(uploadFile != null && !uploadFile.isEmpty()) {
@@ -198,8 +199,9 @@ public class BoardController {
 	
 	
 	@GetMapping("/board/deleteBoard")
-	public String deleteBoard(@ModelAttribute("member") Member member, Board board)  {
-		if(member.getMemberId() == null) {
+	public String deleteBoard(Board board, HttpSession session)  {
+		Member user = (Member) session.getAttribute("user");
+		if(user.getMemberId() == null) {
 			return "redirect:/member_login";
 		}	
 		boardService.deleteBoard(board);
@@ -208,7 +210,7 @@ public class BoardController {
 	
 	@GetMapping("/board/download")
 	public ResponseEntity<Resource> handleFileDownload(HttpServletRequest req, 
-			@RequestParam(name = "boardId") int boardId, @RequestParam(name = "fn") String fn) throws Exception {
+			@RequestParam(name = "boardId") Long boardId, @RequestParam(name = "fn") String fn) throws Exception {
 		req.setCharacterEncoding("utf-8");
 		String fileName = req.getParameter("fn");
 	    Path filePath = Paths.get(uploadFolder + fileName).toAbsolutePath();
@@ -229,46 +231,23 @@ public class BoardController {
 	    }
 	}
 	
-	@PostMapping("/board/updateBoard/deleteFile")
-	public ResponseEntity<Map<String, Object>> deleteFile(@PathVariable Long boardId, @ModelAttribute("member") Member member) {
-	    Map<String, Object> response = new HashMap<>();
-
-	    try {
-	        Board board = boardService.getBoard(Board.builder().boardId(boardId).build());
-
-	        if (member.getMemberId() == null) {
-	            response.put("success", false);
-	            response.put("message", "로그인이 필요합니다.");
-	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-	        }
-
-	        if (!board.getMemberId().equals(member.getMemberId())) {
-	            response.put("success", false);
-	            response.put("message", "작성자만 파일을 삭제할 수 있습니다.");
-	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
-	        }
-
-	        String fileName = board.getBoardFilename();
-	        if (fileName != null && !fileName.isEmpty()) {
-	            Path filePath = Paths.get(uploadFolder + fileName).toAbsolutePath();
-	            Files.deleteIfExists(filePath);
-	            board.setBoardFilename(null);  // DB에서 파일명 제거
-	            boardService.updateBoard(board);
-	            response.put("success", true);
-	            response.put("message", "파일이 삭제되었습니다.");
-	        } else {
-	            response.put("success", false);
-	            response.put("message", "삭제할 파일이 없습니다.");
-	        }
-	        return ResponseEntity.ok(response);
-	    } catch (Exception e) {
-	        log.error("파일 삭제 중 오류 발생", e);
-	        response.put("success", false);
-	        response.put("message", "오류가 발생했습니다: " + e.getMessage());
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	    }
-	}
 	
+	@PostMapping("/board/deleteFile/{boardId}")
+	@ResponseBody
+	public Map<String, String> deleteFile(@PathVariable Long boardId) {
+	    Map<String, String> response = new HashMap<>();
+	    System.out.println("1111111111");
+	    try {
+	        boardService.deleteFile(boardId);
+	        response.put("message", "파일이 삭제되었습니다!");
+	        response.put("status", "success");
+	    } catch (Exception e) {
+	        response.put("message", "파일 삭제 중 오류가 발생하였습니다: " + e.getMessage());
+	        response.put("status", "error");
+	    }
+	    System.out.println("222222222");
+	    return response;
+	}
 
 }
 

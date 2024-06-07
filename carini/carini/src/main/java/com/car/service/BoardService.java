@@ -20,7 +20,7 @@ public interface BoardService {
 	void updateBoard(Board board);
 	void deleteBoard(Board board);
 	Board getBoardById(Long boardId);
-	void deleteFile(Long boardId) throws IOException;
+	void deleteFile(Long boardId) throws Exception;
 	
 	List<Board> boardList(Member member);
 	Board selectBoard(Long boardId);

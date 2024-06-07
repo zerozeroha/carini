@@ -80,9 +80,15 @@ public class LoginController {
 	}
 	
 	@GetMapping("/home")
-	public String goHome(@ModelAttribute("member") Member member)  {
-		System.out.println(member.getMemberId());
-		if(member.getMemberId() == null) {
+	public String goHome( HttpSession session)  {
+//		System.out.println(member.getMemberId());
+//		System.out.println(member.getMemberNickname());
+//		System.out.println("-=============");
+		// HttpSession session = request.getSession();
+		Member user = (Member) session.getAttribute("user");
+		System.out.println("home----------" + user);
+		
+		if(user == null) {
 			return "redirect:/";
 		}	
 		return "homepage/home.html";
@@ -92,7 +98,7 @@ public class LoginController {
 	 * 로그인
 	 * */
 	@PostMapping("/member_login_check")
-	public String login_result(Member member,Model model,HttpServletRequest request,HttpSession session) {
+	public String login_result(Member member,Model model,HttpServletRequest request, HttpSession session) {
 
 		String memberId = member.getMemberId();
 		String memberPw = member.getMemberPw();
@@ -106,13 +112,16 @@ public class LoginController {
 		
 	     // 사용자가 존재하고 비밀번호가 일치하는지 확인
 	     if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
-	    
+	    	 findmember.setMemberPw("*****");
+	    	 findmember.setMemberPhoneNum("***-****-****");
+	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
-
-	    	 session = request.getSession();
-	    	 session.setAttribute("member", findmember);
+//	    	 HttpSession session = request.getSession();
+	    	 session.setAttribute("user", findmember);
 	    	 
-    	 	return "homepage/home.html";
+	    	   	 
+	    	 
+	    	 return "redirect:/home";
 	     } else {
 	         // 로그인 실패 시 로그인 페이지로 리디렉션
 	         System.out.println("로그인 실패: 잘못된 아이디 또는 비밀번호");

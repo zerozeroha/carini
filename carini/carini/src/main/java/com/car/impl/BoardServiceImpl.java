@@ -60,9 +60,9 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Page<Board> getBoardList(Pageable pageable, String searchType, String searchWord) {
-		if(searchType.equalsIgnoreCase("board_title")) {
+		if(searchType.equalsIgnoreCase("boardTitle")) {
 			return boardRepository.findByBoardTitleContaining(searchWord, pageable);
-		} else if(searchType.equalsIgnoreCase("board_writer")) {
+		} else if(searchType.equalsIgnoreCase("boardWriter")) {
 			return boardRepository.findByBoardWriterContaining(searchWord, pageable);
 		} else {
 			return boardRepository.findByBoardContentContaining(searchWord, pageable);
@@ -103,23 +103,25 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void deleteFile(Long boardId) throws IOException {
+	public void deleteFile(Long boardId) throws Exception {
 		
 		Board board = boardRepository.findById(boardId)
-				.orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다. "));
-		
-		String filename = board.getBoardFilename();
-		
-		if(filename != null && !filename.isEmpty()) {
-			Path filePath = Paths.get(uploadFolder + filename);
-			Files.deleteIfExists(filePath);
-			
-			// DB에서 파일 정보 삭제
-			board.setBoardFilename(null);
-			boardRepository.save(board);
-		}else {
-			throw new IllegalStateException("삭제할 파일이 없습니다.");
-		}
+		        .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+
+	    String filename = board.getBoardFilename();
+	    if(filename != null && !filename.isEmpty()) {
+	        Path filePath = Paths.get(uploadFolder + filename);
+	        if (Files.deleteIfExists(filePath)) {
+	        	System.out.println("===========");
+	        	System.out.println(Files.deleteIfExists(filePath));
+	            board.setBoardFilename(null);
+	            boardRepository.save(board);
+	        } else {
+	            throw new Exception("파일을 삭제할 수 없습니다.");
+	        }
+	    } else {
+	        throw new IllegalStateException("삭제할 파일이 없습니다.");
+	    }
 		
 		
 	}
