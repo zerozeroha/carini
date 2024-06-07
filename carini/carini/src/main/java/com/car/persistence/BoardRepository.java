@@ -23,6 +23,13 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	// nativeQuery=true은 기본적인 sql문장 사용하겠다. false로 주면 별칭 무조건 줘야 됨.(기본쿼리가 아닌 JPQL쿼리이기 때문)
 	int updateReadCount(@Param("boardId") Long boardId);
 	
+	@Modifying
+	@Transactional
+	@Query("update Board b set b.board_ref = b.boardId, b.board_lev=:board_lev, "
+		 + "b.board_seq=:board_seq where b.boardId=:boardId")
+	void updateLastSeq(@Param("board_lev") Long board_lev, @Param("board_seq") Long board_seq, @Param("boardId") Long boardId);
+	
+	
 	// findBy[컬럼명]	: 엔티티의 특정 컬럼 값을 이용하여 조회하는 메서드
 	// findBy[컬럼명]Containing : 지정한 문자열이 포함된 엔티티를 조회하는 메서드
 	// select * from board where boardTitle like '%xxx%';

@@ -165,11 +165,15 @@ public class SocialController {
          
          // 네이버 회원정보 데이터베이스 넣기!
          Member save_member = socialService.naverSignUp(member);
-         
+         save_member.setMemberPw("*****");
+         save_member.setMemberPhoneNum("***-****-****");
+    	 save_member.setMemberEmail("****@****.***");
+    	 
          // member데이터를 세션에 저장
          HttpSession session = request.getSession(); 
-         session.setAttribute("member",save_member);
-         System.out.println(session.getAttribute("member"));
+
+         session.setAttribute("user",save_member);
+         System.out.println(session.getAttribute("user"));
          
          return "homepage/home.html";
       }

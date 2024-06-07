@@ -96,7 +96,6 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	
-	
 	/*
 	 * 회원정보 수정
 	 * */
@@ -107,6 +106,13 @@ public class MemberServiceImpl implements MemberService {
 				member.getMemberName(),member.getMemberEmail(),member.getMemberPhoneNum());
 		
 		
+	}
+	
+	
+	@Override
+	@Transactional
+	public void updateMember(Member member, String newmemberNickname, String newmemberNickname2) {
+		memberRepository.updateMemberNickname(newmemberNickname,newmemberNickname2,member.getMemberId());
 	}
 
 	
