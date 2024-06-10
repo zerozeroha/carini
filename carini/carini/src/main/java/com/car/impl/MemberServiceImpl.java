@@ -103,13 +103,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	/*
-	 * 닉네임 수정
+	 * 닉네임 수정(회원)
 	 * */
 	@Override
 	@Transactional
 	public void updateMember(Member member, String newmemberNickname) {
 		
 		memberRepository.updateMemberNickname(newmemberNickname,member.getMemberId());
+		
+	}
+	/*
+	 * 닉네임 수정(소셜)
+	 * */
+	@Override
+	@Transactional
+	public void updatememberSocialNickname(Member member, String newmemberSocialNickname) {
+		memberRepository.updateMemberSocialNickname(newmemberSocialNickname,member.getMemberId());
 		
 	}
 	
@@ -130,6 +139,7 @@ public class MemberServiceImpl implements MemberService {
 //	public void updateMember(Member member, String newmemberNickname, String newmemberNickname2) {
 //		memberRepository.updateMemberNickname(newmemberNickname,newmemberNickname2,member.getMemberId());
 //	}
+
 
 
 }

@@ -317,5 +317,11 @@ public class SocialService {
                 .orElse(null);
 	}
 
+public Member findByMemberId(String memberId) {
+	
+	Optional<Member> member = memberRepository.findByMemberId(memberId);
+	return member.get();
+}
+
    
 }
