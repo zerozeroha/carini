@@ -124,7 +124,7 @@ public class BoardController {
 		Member user = (Member) session.getAttribute("user");
 		if(user == null) { return "redirect:/member_login"; }
 		 
-		model.addAttribute("board", boardService.getBoard(board));
+		model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
 		
 		return "board/getBoard";
 	}
@@ -138,6 +138,8 @@ public class BoardController {
 		}
 		return "board/insertBoard";
 	}
+	
+	
 	
 	@PostMapping("/board/insertBoard")
 	public String insertBoard(Board board, HttpSession session) 
@@ -160,23 +162,19 @@ public class BoardController {
 	
 	
 	@GetMapping("/board/updateBoard")
-	public String updateBoardForm(Board board, Model model, HttpSession session) {
+    public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
-		Board findBoard = boardService.getBoard(board);
-		if(findBoard.getMemberId().equals(user.getMemberId())) {
-			model.addAttribute("board", findBoard);
-			return "board/updateBoard";
-		}else {
-			model.addAttribute("msg", "작성자가 일치하지 않습니다.");
-	        model.addAttribute("url", "/board/getBoardList");
-			return "alert";
-		}
-
-	}
+        if(user == null) { return "redirect:/member_login"; }
+		
+		Board board = boardService.getBoardWithoutIncreasingCount(boardId); // 조회수 증가 없음
+        model.addAttribute("board", board);
+        return "board/updateBoard";  // 게시글 수정 페이지
+    }
 	
 	@PostMapping("/board/updateBoard")
 	public String updateBoard(Board board, Model model, HttpSession session)  {
-	    
+		Member user = (Member) session.getAttribute("user");
+        if(user == null) { return "redirect:/member_login"; }
 		
 		// 파일재업로드
 		MultipartFile uploadFile = board.getUploadFile();
@@ -194,8 +192,10 @@ public class BoardController {
 		boardService.updateBoard(board);
 		model.addAttribute("msg", "게시글이 수정되었습니다!");
         model.addAttribute("url", "/board/getBoardList");
-		return "alert";
+        return "redirect:/board/getBoard?boardId=" + board.getBoardId();
 	}
+	
+	
 	
 	
 	@GetMapping("/board/deleteBoard")
@@ -234,18 +234,17 @@ public class BoardController {
 	
 	@PostMapping("/board/deleteFile/{boardId}")
 	@ResponseBody
-	public Map<String, String> deleteFile(@PathVariable Long boardId) {
+	public Map<String, String> deleteFile(@PathVariable(name = "boardId") Long boardId) {
 	    Map<String, String> response = new HashMap<>();
-	    System.out.println("1111111111");
 	    try {
 	        boardService.deleteFile(boardId);
 	        response.put("message", "파일이 삭제되었습니다!");
 	        response.put("status", "success");
 	    } catch (Exception e) {
+	    	log.error("Error deleting file for boardId {}: {}", boardId, e.getMessage(), e);
 	        response.put("message", "파일 삭제 중 오류가 발생하였습니다: " + e.getMessage());
 	        response.put("status", "error");
 	    }
-	    System.out.println("222222222");
 	    return response;
 	}
 

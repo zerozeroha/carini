@@ -34,11 +34,10 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	
 
 
+	
 //	@Modifying
 //    @Query("UPDATE Member m SET m.memberNickname = :newNickname , m.memberSocialNickname = :newNickname2 WHERE m.memberId = :memberId")
 //    void updateMemberNickname(@Param("newNickname") String newNickname, @Param("newNickname2") String newNickname2 ,@Param("memberId") String memberId);
-
-
 
 
 }

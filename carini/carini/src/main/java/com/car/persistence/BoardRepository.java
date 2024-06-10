@@ -19,9 +19,9 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	
 	@Modifying // 이 쿼리 메서드가 데이터베이스를 수정하겠다.
 	@Transactional // 이 메서드가 트랜잭션 내에서 실행되어야 함을 지정.
-	@Query(value = "update Board b set b.boardCnt = b.boardCnt + 1 where b.boardId = :boardId", nativeQuery = false)
+	@Query(value = "update Board b set b.boardCnt = b.boardCnt + 1 where b.boardId = :boardId and b.memberId != :memberId", nativeQuery = false)
 	// nativeQuery=true은 기본적인 sql문장 사용하겠다. false로 주면 별칭 무조건 줘야 됨.(기본쿼리가 아닌 JPQL쿼리이기 때문)
-	int updateReadCount(@Param("boardId") Long boardId);
+	int updateReadCount(@Param("boardId") Long boardId, @Param("memberId") String memberId);
 	
 //	@Modifying
 //	@Transactional
