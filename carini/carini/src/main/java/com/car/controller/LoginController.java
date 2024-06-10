@@ -133,7 +133,6 @@ public class LoginController {
 	    	 findmember.setMemberPhoneNum("***-****-****");
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
-//	    	 HttpSession session = request.getSession();
 	    	 session.setAttribute("user", findmember);
 	    	 
 	    	   	 

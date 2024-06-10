@@ -77,7 +77,15 @@ public class MypageController {
      */
     @GetMapping("/form")
     public String mypageForm(HttpSession session) {
+    	
     	Member user = (Member) session.getAttribute("user");
+    	Member findmember = memberService.findMember(user);
+    	if(!findmember.getMemberSocial().equals("회원")) {
+    		findmember.setMemberPw("*****");
+    		findmember.setMemberPhoneNum("***-****-****");
+    		findmember.setMemberEmail("****@****.***");
+    	}
+    	session.setAttribute("user", findmember);
         return "mypage/mypageview.html";
     }
     
@@ -90,6 +98,7 @@ public class MypageController {
         Member member = memberService.findByMemberId(members.getMemberId());
 
         if (member != null && member.getMemberPw().equals(memberPw)) {
+        	
             response.put("success", true);
             response.put("message", "비밀번호가 확인되었습니다.");
             response.put("redirectUrl", member.getMemberSocial().equals("kakao") || member.getMemberSocial().equals("naver")
@@ -113,13 +122,28 @@ public class MypageController {
     }
     
     @GetMapping("/myinfo_edit")
-    public String myinfo_edit(@ModelAttribute("member") Member members) {
+    public String myinfo_edit(@ModelAttribute("member") Member members, HttpSession session) {
+    	Member findmember = memberService.findMember(members);
+
+	    session.setAttribute("user", findmember);
+	    Member user = (Member) session.getAttribute("user");
+        System.out.println(user);
         return "mypage/myinfo_edit.html";
     }
     
     @GetMapping("/myinfo_social_edit")
-    public String myinfo_social_edit(@ModelAttribute("member") Member members) {
-        return "mypage/myinfo_social_edit.html";
+    public String myinfo_social_edit(@ModelAttribute("member") Member members, HttpSession session) {
+    	
+    	Member findMember = (Member) session.getAttribute("user");
+    	if(findMember.getMemberSocial()=="naver") {
+    		findMember = memberService.findByMemberId(findMember.getMemberId().replace("\"", ""));
+    	}else {
+    		findMember = memberService.findByMemberId(findMember.getMemberId().replace("\"", ""));
+    	}
+ 
+        session.setAttribute("user", findMember);
+       
+        return "mypage/myinfo_edit.html";
     }
     
    /*
@@ -131,21 +155,28 @@ public class MypageController {
     @PostMapping("/myinfo/updatenickname")
     public String myInfoNicknameUpdate(@ModelAttribute("member") Member members,
                                        @RequestParam("memberNickname") String memberNickname,
-                                       Model model) {
+                                       Model model, HttpSession session) {
         Member member = memberService.findByMemberId(members.getMemberId());
         List<Member> memberList = memberService.findAllMember();
         
         
         for(Member memberOne : memberList) {
-           if (member != null && memberOne.getMemberNickname().equals(memberNickname)) {
-              model.addAttribute("msg", "중복된 닉네임입니다. 다시 작성해주세요");
+        	if(memberNickname==null) {
+        		model.addAttribute("msg", "닉네임을 입력해주세요");
                 model.addAttribute("url", "/mypage/myinfo_edit");
                 return "alert"; 
+        	}
+           if (member != null && (memberOne.getMemberNickname().equals(memberNickname) || memberOne.getMemberSocialNickname() == memberNickname)) {
+              model.addAttribute("msg", "중복된 닉네임입니다. 다시 작성해주세요");
+              model.addAttribute("url", "/mypage/myinfo_edit");
+              return "alert"; 
               
             }
         }
 
-       memberService.updateMember(member, memberNickname);
+        memberService.updateMember(member, memberNickname);
+        Member savemember = memberService.findByMemberId(members.getMemberId());
+        session.setAttribute("user", savemember);
         model.addAttribute("msg", "닉네임이 성공적으로 변경되었습니다! 확인해주세요.");
         model.addAttribute("url", "/mypage/form");
         return "alert";  
@@ -154,30 +185,35 @@ public class MypageController {
    
     /*
      * 닉네임 수정(소셜)
-     
+     */
     @PostMapping("/myinfo/updatenicknameSocial")
     public String myInfoNicknameUpdateSocial(@ModelAttribute("member") Member members,
-                                       @RequestParam("memberNickname") String memberNickname,
-                                       Model model) {
-        Member member = memberService.findByMemberId(members.getMemberId());
+                                       @RequestParam("memberSocialNickname") String memberSocialNickname,
+                                       Model model, HttpSession session) {
+    	Member findMember = (Member) session.getAttribute("user");
+        Member member = memberService.findByMemberId(findMember.getMemberId().replace("\"", ""));
+        
         List<Member> memberList = memberService.findAllMember();
         
-        
         for(Member memberOne : memberList) {
-           System.out.println(memberOne.getMemberSocialNickname());
-           if (member != null && memberOne.getMemberSocialNickname() != null && memberOne.getMemberSocialNickname().equals(memberNickname)) {
-               model.addAttribute("msg", "중복된 닉네임입니다. 다시 작성해주세요");
-               model.addAttribute("url", "/mypage/myinfo_social_edit");
-               return "alert"; 
-           }
+            if(memberSocialNickname == null) {
+                model.addAttribute("msg", "닉네임을 입력해주세요");
+                model.addAttribute("url", "/mypage/myinfo_edit");
+                return "alert"; 
+            }
+            System.out.println(memberOne.getMemberNickname().equals(memberSocialNickname));
+            if (member != null && (memberOne.getMemberNickname().equals(memberSocialNickname) || (memberOne.getMemberSocialNickname() != null && memberOne.getMemberSocialNickname().equals(memberSocialNickname)))) {
+                model.addAttribute("msg", "중복된 닉네임입니다. 다시 작성해주세요");
+                model.addAttribute("url", "/mypage/form");
+                return "alert"; 
+            }
         }
-       memberService.updateMemberSocial(member, memberNickname,memberNickname);
+       memberService.updatememberSocialNickname(member, memberSocialNickname);
         model.addAttribute("msg", "닉네임이 성공적으로 변경되었습니다! 확인해주세요.");
         model.addAttribute("url", "/mypage/form");
         return "alert";  
         
     }
-    */
     
     /*
      * 회원정보 모두 수정
