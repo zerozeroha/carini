@@ -72,7 +72,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void insertBoard(Board board) {
 		boardRepository.save(board);
-		boardRepository.updateLastSeq(0L, 0L, board.getBoardId());
+//		boardRepository.updateLastSeq(0L, 0L, board.getBoardId());
 	}
 
 	@Override

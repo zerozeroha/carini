@@ -111,16 +111,16 @@
                                     <span> ▷ 총 num개의 게시물이 있습니다.</span>
                                     <!-- <span class="container";>  -->
                                     <div class="Board">
-                                        <select>
+                                        <select  class="form-select" id="searchType" name="searchType">
                                             <option class="select_options" value="boardTitle" th:selected="${st=='boardTitle'}">글제목</option>
                                             <option class="select_options" value="boardWriter" th:selected="${st =='boardWriter'}">작성자</option>
                                             <option class="select_options" value="boardContent" th:selected="${st =='boardContent'}">제목</option>
                                         </select>
                                         <div>
-                                            <input type="text" placeholder="제목 / 작성자 / 내용">
+                                            <input name="searchWord" type="text" placeholder="제목 / 작성자 / 내용" />
                                         </div>
                                         <div>
-                                            <input type="button" name="검색" class="gradient" value="검색">
+                                            <input type="submit" name="검색" class="gradient" value="검색">
                                         </div>
                                     </div>
                                     <!-- </span> -->

@@ -76,7 +76,8 @@ public class MypageController {
      * 회원정보 수정(나의 정보)
      */
     @GetMapping("/form")
-    public String mypageForm(@ModelAttribute("member") Member member) {
+    public String mypageForm(HttpSession session) {
+    	Member user = (Member) session.getAttribute("user");
         return "mypage/mypageview.html";
     }
     
