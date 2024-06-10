@@ -22,7 +22,7 @@
 		<div class="inner">
 			<header>
 				<!-- <a href="index.html" id="logo"></a> --> <br><br>
-				<a href="./index.html" class="header_carini carini-hover">CARINI</a>
+				<a href="/" class="header_carini carini-hover">CARINI</a>
 			</header>
 		</div>
 
@@ -34,11 +34,11 @@
 				<li><a href="Models.html">Model</a></li>
 				<li><a href="Center.html">Center</a></li>
 				<li>
-					<a href="My_info.html">MyPage</a>
+					<a>MyPage</a>
 					<ul>
-						<li><a th:href="@{/mypage/myinfo}">나의 정보</a></li>
-						<li><a th:href="@{/mypage/bookmark}">FAVORITES</a></li>
-						<li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
+					   <li><a th:href="@{/mypage/form}" class="side-hver">&nbsp;나의 정보</a></li>
+					   <li><a th:href="@{/mypage/bookmark}" class="side-hver">&nbsp;찜하기</a></li>
+					   <li><a th:href="@{/mypage/myBoard}" class="side-hver">&nbsp;나의 게시판</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -66,7 +66,7 @@
 							<section style="align-items: center;">
 								<header>
 									<h3>_7월달 추천모델 <br> : 제네시스 G80 </h3><br>
-									<a href="#"><img class="side-hover" src="../images/제네.png" style="max-width: 100%;" alt="이달의 추천모델"></a>
+									<a href="#"><img class="side-hover" src="/img/제네.png" style="max-width: 100%;" alt="이달의 추천모델"></a>
 								</header>
 								<div>
 									<br><input type="button" name="보러가기" id="button" value="제네시스g80 보러가기">
@@ -124,7 +124,7 @@
 								<!-- </span> -->
 							</form>
 							<br>
-							<div class="main_board">
+							<div class="main_board" style="height: 100%;">
 								<table border="1">
 									<tr style="display: flex;">
 										<th class="center ellipsis" style="width: 10%;">글번호</th>
@@ -146,20 +146,22 @@
 							</div>
 							</br>
 							<div class="center">
-								<ul class="col pagination justify-content-center">	
-									<th:block th:if="${sp != 1 }">
-										<li><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=0, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">◀◀ 처음으로</a></li>
-										<li><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">◀ 이전</a></li>				
+								<ul class="col pagination justify-content-center" style="list-style-type: none; display: flex; justify-content: center; width: 130%;">	
+									<th:block th:if="${sp > ps}">
+										<li class="page-item"><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">◀ 이전</a></li>				
 									</th:block>
 									
-					 				<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-										<li th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}"><a class="page-link" th:href="@{/board/getBoardList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="${page}" ></a></li>
-									</th:block>	
+									<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+									  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+									    <a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+									       th:href="@{/board/getBoardList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+									       th:text="${page}"></a>
+									  </li>
+									</th:block>
 									
 									<th:block th:if="${ ep lt tp }">
-										<li><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">다음 ▶</a></li>				
-										<li><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${tp-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">끝으로 ▶▶</a></li>				
-									</th:block>	
+										<li class="page-item"><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">다음 ▶</a></li>								
+									</th:block>
 								</ul>
 							</div>
 							<div class="right" style="width: 130%;">
@@ -212,6 +214,15 @@
 			<h1>@ carini</h1>
 		</footer>
 	</div>
+	<!-- Scripts -->
+	   	<script src="/js/jquery.min.js"></script>
+	   	<script src="/js/jquery.dropotron.min.js"></script>
+	   	<script src="/js/jquery.scrolly.min.js"></script>
+	   	<script src="/js/jquery.scrollex.min.js"></script>
+	   	<script src="/js/browser.min.js"></script>
+	   	<script src="/js/breakpoints.min.js"></script>
+	   	<script src="/js/util.js"></script>
+	   	<script src="/js/main.js"></script>
 </div>
 </body>
 </html>
