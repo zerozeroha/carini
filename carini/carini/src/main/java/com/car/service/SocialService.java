@@ -169,7 +169,15 @@ public class SocialService {
 	    boolean isNaverUser = isExistingMember && foundMembers.stream()
 	                                .anyMatch(m -> m.getMemberSocial().equals("naver"));
 	    
-	    if(!isExistingMember || isNaverUser) {
+	    
+	    boolean iskakaoUser = isExistingMember && foundMembers.stream()
+                .anyMatch(m -> m.getMemberSocial().equals("kakao"));
+//	    
+//	    System.out.println(isExistingMember);
+//	    System.out.println(isNaverUser);
+//	    System.out.println(iskakaoUser);
+	    
+	    if((isExistingMember || isNaverUser) && !iskakaoUser) {
 	        SecureRandom random = new SecureRandom();
 	        String id = new BigInteger(130, random).toString(32);
 	        member.setMemberId(id);
@@ -182,7 +190,13 @@ public class SocialService {
 
 	        return member;
 	    }
-	    return foundMembers.get(0);  // Assuming you want to return the first found member if conditions are not met
+	    
+
+	    
+	    return foundMembers.stream()
+                .filter(m -> m.getMemberSocial().equals("kakao"))
+                .findFirst()
+                .orElse(null);
 	}
    
    // 네이버===============================================================================================
@@ -277,10 +291,15 @@ public class SocialService {
    public Member naverSignUp(Member member) {
 	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
 	    boolean isExistingMember = !foundMembers.isEmpty();
-	    boolean isNaverUser = isExistingMember && foundMembers.stream()
+	    boolean iskakaoUser = isExistingMember && foundMembers.stream()
 	                                .anyMatch(m -> m.getMemberSocial().equals("kakao"));
+	    boolean isnaverUser = isExistingMember && foundMembers.stream()
+                .anyMatch(m -> m.getMemberSocial().equals("naver"));
 	    
-	    if(!isExistingMember || isNaverUser) {
+//	    System.out.println(isExistingMember);
+//	    System.out.println(isnaverUser);
+//	    System.out.println(iskakaoUser);
+	    if((isExistingMember || iskakaoUser) && !isnaverUser) {
 	        member.setMemberId(member.getMemberId().replace("\"", ""));
 	        member.setMemberName(member.getMemberName().replace("\"", ""));
 	        member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
@@ -292,7 +311,10 @@ public class SocialService {
 	        
 	        return member;
 	    }
-	    return foundMembers.get(0);
+	    return foundMembers.stream()
+                .filter(m -> m.getMemberSocial().equals("naver"))
+                .findFirst()
+                .orElse(null);
 	}
 
    
