@@ -176,6 +176,7 @@ public class SocialController {
          // member데이터를 세션에 저장 
 
          session.setAttribute("user",save_member);
+
          
          return "homepage/home.html";
       }

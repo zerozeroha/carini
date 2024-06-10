@@ -124,6 +124,13 @@ public class MemberServiceImpl implements MemberService {
 		
 		
 	}
+	
+	
+	@Override
+	@Transactional
+	public void updateMember(Member member, String newmemberNickname, String newmemberNickname2) {
+		memberRepository.updateMemberNickname(newmemberNickname,newmemberNickname2,member.getMemberId());
+	}
 
 	
 	
