@@ -10,7 +10,6 @@
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       <link rel="stylesheet" href="/css/mypage.css" />
-      
       <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
    </head>
    <script>
@@ -26,128 +25,118 @@
       <div id="page-wrapper">
 
          <!-- Header -->
-            <div id="header">
-               
-               <!-- Inner -->
-                  <div class="inner">
-                     
-                     <header>
-                        <h1><a href="index.html" id="logo">My Page</a></h1>
-                     </header>
-                  </div>
+         <div id="header">
+            <!-- Inner -->
+            <div class="inner">
+               <header>
+                  <h1><a href="index.html" id="logo">My Page</a></h1>
+               </header>
+            </div>
 
-                  <!-- Nav -->
-                  <nav id="nav">
+            <!-- Nav -->
+            <nav id="nav">
+               <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="Board.html">Board</a></li>
+                  <li><a href="Models.html">Model</a></li>
+                  <li><a href="Center.html">Center</a></li>
+                  <li>
+                     <a>MyPage</a>
                      <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="Board.html">Board</a></li>
-                        <li><a href="Models.html">Model</a></li>
-                        <li><a href="Center.html">Center</a></li>
+                        <li><a th:href="@{/mypage/myinfo}">나의 정보</a></li>
+                        <li><a th:href="@{/mypage/bookmark}">찜목록</a></li>
+                        <li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
                         <li>
-                           <a>MyPage</a>
+                           <a href="#">And a submenu &hellip;</a>
                            <ul>
-                              <li><a href="My_info.html">나의 정보</a></li>
-                              <li><a href="Favorites.html">찜목록</a></li>
-                              <li><a href="#">나의 게시물</a></li>
-                              <li>
-                                 <a href="#">And a submenu &hellip;</a>
-                                 <ul>
-                                    <li><a href="#">Lorem ipsum dolor</a></li>
-                                    <li><a href="#">Phasellus consequat</a></li>
-                                    <li><a href="#">Magna phasellus</a></li>
-                                    <li><a href="#">Etiam dolore nisl</a></li>
-                                 </ul>
-                              </li>
-                              <li><a href="#">Veroeros feugiat</a></li>
+                              <li><a href="#">Lorem ipsum dolor</a></li>
+                              <li><a href="#">Phasellus consequat</a></li>
+                              <li><a href="#">Magna phasellus</a></li>
+                              <li><a href="#">Etiam dolore nisl</a></li>
                            </ul>
                         </li>
-                     
+                        <li><a href="#">Veroeros feugiat</a></li>
                      </ul>
-                  </nav>
-            </div>
+                  </li>
+               </ul>
+            </nav>
+         </div>
 
          <!-- Main -->
-            <div class="wrapper style1">
-         
-                  <div id="sidebar_section">
-                     <div id="side_menu">
-                       <a th:href="@{/mypage/myinfo}" class="side_menu_button" style=" width: 80%; background-color: black; color: white;">나의 정보</a>
-                       <a th:href="@{/mypage/bookmark}" class="side_menu_button" style=" width: 80%;">FAVORITES</a>
-                       <a th:href="@{/mypage/myBoard}" class="side_menu_button" style=" width: 80%">나의 게시물</a>
-                     </div>
-                  </div>
-                  <div style="width: 25px;"></div>
-      
-               <div class="container">
-                  <article id="main" class="special">
-                     <header>
-                        
-                        <table id="info_box">
-                           <tr>
-                     <th>닉네임</th>
-                     <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
-                     <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
-                           </tr>
-                           
-                           <tr>
-                              <th>아이디</th>
-                       <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberId}" aria-disabled="true"></td>
-                       <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
-                           </tr>
-
-                           <tr>
-                              <th>비밀번호</th>
-                              <td th:text="${session.user.memberPw}"></td>
-                           </tr>
-
-                           <tr>
-                              <th>이름</th>
-                              <td th:text="${session.user.memberName}"></td>
-                           </tr >
-                           
-                           <tr>
-                              <th>이메일</th>
-                              <td th:text="${session.user.memberEmail}" ></td>
-         
-                           </tr>
-
-                           <tr>
-                              <th>전화번호</th>
-                              <td th:text="${session.user.memberPhoneNum}"></td>
-                           </tr>
-                     <tr>
-                     <td colspan="3" id="edit_save_td" th:if="${session.user.memberSocial == '회원'}">
-                         <button type="button" onclick="verifyPassword()">수정하기</button>
-                     </td>
-                     <td colspan="3" id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}">
-                         <a th:href="@{/mypage/myinfo_social_edit}"><button type="button">수정하기</button></a>
-                     </td>
-                     </tr>
-                        </table>
-                     </header>
-                  </article>
-               
-                  <hr />
-            
+         <div class="wrapper style1">
+            <div id="sidebar_section">
+               <div id="side_menu">
+                  <a th:href="@{/mypage/myinfo}" class="side_menu_button" style="width: 80%; background-color: black; color: white;">나의 정보</a>
+                  <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 80%;">FAVORITES</a>
+                  <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 80%">나의 게시물</a>
                </div>
-
             </div>
+            <div style="width: 25px;"></div>
+            <div class="container">
+               <article id="main" class="special">
+                  <header>
+                     <table id="info_box">
+                        <tr>
+                           <th>닉네임</th>
+						   <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
+						   <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
+                        </tr>
+                        <tr>
+                           <th>아이디</th>
+                           <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberId}" aria-disabled="true"></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
+                        </tr>
+                        <tr>
+                           <th>비밀번호</th>
+                           <td th:text="${session.user.memberPw}"></td>
+                        </tr>
+                        <tr>
+                           <th>이름</th>
+                           <td th:text="${session.user.memberName}"></td>
+                        </tr>
+                        <tr>
+                           <th>이메일</th>
+                           <td th:text="${session.user.memberEmail}"></td>
+                        </tr>
+                        <tr>
+                           <th>전화번호</th>
+                           <td th:text="${session.user.memberPhoneNum}"></td>
+                        </tr>
+                        <tr>
+                           <td colspan="3" id="edit_save_td" th:if="${session.user.memberSocial == '회원'}">
+                              <button type="button" onclick="verifyPassword()">수정하기</button>
+                           </td>
+                           <td colspan="3" id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}">
+                              <a th:href="@{/mypage/myinfo_social_edit}"><button type="button">수정하기</button></a>
+                           </td>
+                        </tr>
+                     </table>
+                  </header>
+               </article>
+               <hr />
+            </div>
+         </div>
 
          <!-- Footer -->
-            <div id="footer">
-            
-            </div>
-
+         <div id="footer">
+         </div>
       </div>
 
       <!-- Scripts -->
-         <script src="/js/jquery.min.js"></script>
-         <script src="/js/jquery.dropotron.min.js"></script>
-         <script src="/js/jquery.scrolly.min.js"></script>
-         <script src="/js/jquery.scrollex.min.js"></script>
-         <script src="/js/browser.min.js"></script>
-         <script src="/js/breakpoints.min.js"></script>
-         <script src="/js/util.js"></script>
-         <script src="/js/main.js"></script>
+      <script src="/js/jquery.min.js"></script>
+      <script src="/js/jquery.dropotron.min.js"></script>
+      <script src="/js/jquery.scrolly.min.js"></script>
+      <script src="/js/jquery.scrollex.min.js"></script>
+      <script src="/js/browser.min.js"></script>
+      <script src="/js/breakpoints.min.js"></script>
+      <script src="/js/util.js"></script>
+      <script src="/js/main.js"></script>
+
+      <script>
+         function verifyPassword() {
+            window.open('/mypage/password', '_blank', 'width=400,height=300');
+         }
+      </script>
+
    </body>
 </html>

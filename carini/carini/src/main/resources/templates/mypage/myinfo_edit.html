@@ -77,28 +77,30 @@
                   <form  th:action="@{/mypage/myinfo/updateAll}" method="post">
                            <tr>
                               <th>아이디</th>
-                              <td><span th:text="${member.memberId}"> </span></td>
+                              <td><span th:text="${session.user.memberId}"> </span></td>
                            </tr>
                            <tr>
                               <th>비밀번호</th>
                               <td>
                                  <div class="password-input-container">
-                                    <input type="password" name="memberPw" th:value="${member.memberPw}" placeholder="memberPw"/>
+                                    <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
                                     <i class="fa fa-eye fa-lg"></i>
                                  </div>
                               </td>
                            </tr>
                            <tr>
                               <th>이름</th>
-                              <td><input type="text" name="memberName" th:value="${member.memberName}" placeholder="memberName" /></td>
+
+                              <td><input type="text" name="memberName" th:value="${session.user.memberName}" placeholder="memberName" /></td>
                            </tr>
                            <tr>
                               <th>이메일</th>
-                              <td><input type="email" name="memberEmail" th:value="${member.memberEmail}" placeholder="memberEmail"/></td>
+                              <td><input type="email" name="memberEmail" th:value="${session.user.memberEmail}" placeholder="memberEmail"/></td>
                            </tr>
                            <tr>
                               <th>전화번호</th>
-                              <td><input type="tel" name="memberPhoneNum" th:value="${member.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
+                              <td><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
+
                            </tr>
                            <tr>
                               <td colspan="3" id="edit_save_td"><button type="submit">확인</button></td>

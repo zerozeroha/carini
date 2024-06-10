@@ -69,12 +69,29 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findByMemberId(String id) {
 		
-		System.out.println(id);
 		Optional<Member> findeMember = memberRepository.findByMemberId(id);
 		
 		return findeMember.get();
 	}
-	
+	/*
+	 * email로 멤버찾기
+	 * */
+	@Override
+	public List<Member> findByMemberEmail(String memberEmail) {
+		
+		List<Member> findeMember = memberRepository.findByMemberEmail(memberEmail);
+		
+		return findeMember;
+	}
+	/*
+	 * 닉네임으로로 멤버찾기
+	 * */
+	@Override
+	public List<Member> findByMemberNickname(String memberNickname) {
+		List<Member> findeMember = memberRepository.findByMemberNickname(memberNickname);
+		
+		return findeMember;
+	}
 	/*
 	 * 회원 탈퇴
 	 * */
@@ -113,6 +130,7 @@ public class MemberServiceImpl implements MemberService {
 //	public void updateMember(Member member, String newmemberNickname, String newmemberNickname2) {
 //		memberRepository.updateMemberNickname(newmemberNickname,newmemberNickname2,member.getMemberId());
 //	}
+
 
 }
 
