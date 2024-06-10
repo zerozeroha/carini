@@ -5,131 +5,148 @@
    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>member_edit
-      <title>No Sidebar - Helios by HTML5 UP</title>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-      <link rel="stylesheet" href="assets/css/edit_info.css" />
-      <link rel="stylesheet" href="/css/member_edit.css" />
-      <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-      <!-- 비번 아이콘 -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-   </head>
-   <body class="no-sidebar is-preload">
-      <div id="page-wrapper">
+<head>
+   <title>No Sidebar - Helios by HTML5 UP</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="stylesheet" href="assets/css/edit_info.css" />
+   <link rel="stylesheet" href="/css/member_edit.css" />
+   <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+   <!-- 비번 아이콘 -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+<body class="no-sidebar is-preload">
+   <div id="page-wrapper">
 
-         <!-- Header -->
-         <div id="header">
+      <!-- Header -->
+      <div id="header">
 
-            <!-- Inner -->
-            <div class="inner">
+         <!-- Inner -->
+         <div class="inner">
+            <header>
+               <h1><a th:href="@{/}" id="logo">회원정보 수정하기</a></h1>
+            </header>
+         </div>
+
+         <!-- Nav -->
+         <nav id="nav">
+            <ul>
+               <li><a th:href="@{/}">Home</a></li>
+			   <li>
+                   <a href="Board.html">Board</a>
+                   <ul>
+                       <li><a href="Board.html">유저 게시판</a></li>
+                       <li><a href="Board_Qna.html ">Q&A</a></li>
+                       <li><a href="My_board.html">나의 게시물</a></li>
+                       <li><a href="#">Veroeros feugiat</a></li>
+                   </ul>
+               </li>
+               <li><a th:href="@{/models}">Model</a></li>
+               <li><a th:href="@{/center}">Center</a></li>
+               <li>
+                  <a href="#">MyPage</a>
+                  <ul>
+                     <li><a th:href="@{/mypage/form}">나의 정보</a></li>
+                     <li><a th:href="@{/mypage/bookmark}">찜목록</a></li>
+                     <li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
+                     <li>
+                        <a href="#">And a submenu &hellip;</a>
+                        <ul>
+                           <li><a href="#">Lorem ipsum dolor</a></li>
+                           <li><a href="#">Phasellus consequat</a></li>
+                           <li><a href="#">Magna phasellus</a></li>
+                           <li><a href="#">Etiam dolore nisl</a></li>
+                        </ul>
+                     </li>
+                     <li><a href="#">Veroeros feugiat</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </nav>
+      </div>
+
+      <!-- Main -->
+      <div class="wrapper style1">
+         <div class="container">
+            <article id="main" class="special">
                <header>
-                  <h1><a th:href="@{/}" id="logo">회원정보 수정하기</a></h1>
+                  <table id="info_box">
+					<form th:action="${session.user.memberSocial == '회원' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}" method="post">
+					    <tr>
+					        <th>닉네임</th>
+					        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}">
+					            <input type="text" name="memberNickname" th:value="${session.user.memberNickname}">
+					            <button id="editNickname" type='submit'>
+					                <img th:src="@{/img/edit_icon.png}" alt="edit icon">
+					            </button>
+					        </td>
+					        <td th:unless="${session.user.memberSocial == '회원'}">
+					            <input type="text" name="memberSocialNickname" th:value="${session.user.memberSocialNickname}">
+					            <button id="editNickname" type='submit'>
+					                <img th:src="@{/img/edit_icon.png}" alt="edit icon">
+					            </button>
+					        </td>
+					    </tr>
+					</form>
+                     <form th:action="@{/mypage/myinfo/updateAll}" method="post">
+                        <tr>
+                           <th>아이디</th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberId}"></span></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly>이메일</span></td>
+                        </tr>
+						<tr>
+                           <th>비밀번호</th>
+                           <td th:if="${session.user.memberSocial == '회원'}">
+                              <div class="password-input-container">
+                                 <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
+                                 <i class="fa fa-eye fa-lg"></i>
+                              </div>
+                           </td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPw}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <th>이름</th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="text" name="memberName" th:value="${session.user.memberName}" placeholder="memberName" /></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberName}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <th>이메일</th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="email" name="memberEmail" th:value="${session.user.memberEmail}" placeholder="memberEmail"/></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <th>전화번호</th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPhoneNum}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <td colspan="3" id="edit_save_td"><button type="submit">확인</button></td>
+                        </tr>
+                     </form>
+                  </table>
                </header>
-            </div>
-
-            <!-- Nav -->
-            <nav id="nav">
-               <ul>
-                  <li><a th:href="@{/}">Home</a></li>
-                  <li><a th:href="@{/board}">Board</a></li>
-                  <li><a th:href="@{/models}">Model</a></li>
-                  <li><a th:href="@{/center}">Center</a></li>
-                  <li>
-                     <a href="#">MyPage</a>
-                     <ul>
-                        <li><a th:href="@{/mypage/myinfo}">나의 정보</a></li>
-                        <li><a th:href="@{/mypage/favorites}">찜목록</a></li>
-                        <li><a th:href="@{/mypage/posts}">나의 게시물</a></li>
-                        <li>
-                           <a href="#">And a submenu &hellip;</a>
-                           <ul>
-                              <li><a href="#">Lorem ipsum dolor</a></li>
-                              <li><a href="#">Phasellus consequat</a></li>
-                              <li><a href="#">Magna phasellus</a></li>
-                              <li><a href="#">Etiam dolore nisl</a></li>
-                           </ul>
-                        </li>
-                        <li><a href="#">Veroeros feugiat</a></li>
-                     </ul>
-                  </li>
-               </ul>
-            </nav>
-         </div>
-
-         <!-- Main -->
-         <div class="wrapper style1">
-            <div class="container">
-               <article id="main" class="special">
-                  <header>
-                     <table id="info_box">
-                        <form th:action="@{/mypage/myinfo/updatenickname}" method="post">
-                           <tr>
-                              <th>닉네임</th>
-                              <td id="nicknameCell">
-                                 <input type="text" name="memberNickname">
-                         <button id="editNickname" type='submit'>
-                            <img th:src="@{/img/edit_icon.png}" alt="edit icon">
-                         </button>
-                              </td>
-                           </tr>
-                        </form>
-                  <form  th:action="@{/mypage/myinfo/updateAll}" method="post">
-                           <tr>
-                              <th>아이디</th>
-                              <td><span th:text="${session.user.memberId}"> </span></td>
-                           </tr>
-                           <tr>
-                              <th>비밀번호</th>
-                              <td>
-                                 <div class="password-input-container">
-                                    <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
-                                    <i class="fa fa-eye fa-lg"></i>
-                                 </div>
-                              </td>
-                           </tr>
-                           <tr>
-                              <th>이름</th>
-
-                              <td><input type="text" name="memberName" th:value="${session.user.memberName}" placeholder="memberName" /></td>
-                           </tr>
-                           <tr>
-                              <th>이메일</th>
-                              <td><input type="email" name="memberEmail" th:value="${session.user.memberEmail}" placeholder="memberEmail"/></td>
-                           </tr>
-                           <tr>
-                              <th>전화번호</th>
-                              <td><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
-
-                           </tr>
-                           <tr>
-                              <td colspan="3" id="edit_save_td"><button type="submit">확인</button></td>
-                           </tr>
-                  </form>
-                     </table>
-                  </header>
-              <form th:action="@{/mypage/myinfo/delete}" method="post">
-                     <button id="member_quit" type='submit'>탈퇴하기</button>
-              </form>
-               </article>
-               <hr />
-            </div>
-         </div>
-
-         <!-- Footer -->
-         <div id="footer">
+               <form th:action="@{/mypage/myinfo/delete}" method="post">
+                  <button id="member_quit" type='submit'>탈퇴하기</button>
+               </form>
+            </article>
+            <hr />
          </div>
       </div>
 
-      <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/jquery.dropotron.min.js"></script>
-      <script src="assets/js/jquery.scrolly.min.js"></script>
-      <script src="assets/js/jquery.scrollex.min.js"></script>
-      <script src="assets/js/browser.min.js"></script>
-      <script src="assets/js/breakpoints.min.js"></script>
-      <script src="assets/js/util.js"></script>
-      <script src="assets/js/main.js"></script>
+      <!-- Footer -->
+      <div id="footer">
+      </div>
+   </div>
 
-   </body>
+   <!-- Scripts -->
+   <script src="assets/js/jquery.min.js"></script>
+   <script src="assets/js/jquery.dropotron.min.js"></script>
+   <script src="assets/js/jquery.scrolly.min.js"></script>
+   <script src="assets/js/jquery.scrollex.min.js"></script>
+   <script src="assets/js/browser.min.js"></script>
+   <script src="assets/js/breakpoints.min.js"></script>
+   <script src="assets/js/util.js"></script>
+   <script src="assets/js/main.js"></script>
+
+</body>
 </html>

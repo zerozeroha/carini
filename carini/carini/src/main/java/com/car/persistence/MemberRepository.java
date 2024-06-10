@@ -25,8 +25,14 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	void updateMemberNickname(@Param("newNickname") String newNickname, @Param("memberId") String memberId);
 	
 	@Modifying
+	@Query("UPDATE Member m SET m.memberSocialNickname = :newmemberSocialNickname WHERE m.memberId = :memberId")
+	void updateMemberSocialNickname(@Param("newmemberSocialNickname") String newmemberSocialNickname, @Param("memberId") String memberId);
+	
+	@Modifying
 	@Query("UPDATE Member m SET m.memberId = :newmemberId , m.memberPw = :newmemberPw , m.memberName = :newmemberName , m.memberEmail = :newmemberEmail , m.memberPhoneNum = :newmemberPhoneNum WHERE m.memberId = :memberId")
 	void updateAllMember(@Param("memberId") String memberId, @Param("newmemberId") String newmemberId, @Param("newmemberPw") String newmemberPw, @Param("newmemberName") String newmemberName, @Param("newmemberEmail") String newmemberEmail, @Param("newmemberPhoneNum") String newmemberPhoneNum);
+	
+
 
 //	@Modifying
 //    @Query("UPDATE Member m SET m.memberNickname = :newNickname , m.memberSocialNickname = :newNickname2 WHERE m.memberId = :memberId")

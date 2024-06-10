@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService{
 		List<Board> boardList = boardRepository.findBymemberId(member.getMemberId());
 		
 		if(boardList.isEmpty()) {
-			System.out.println("66666");
+			
 			return null;
 		}else {
 			return boardList;

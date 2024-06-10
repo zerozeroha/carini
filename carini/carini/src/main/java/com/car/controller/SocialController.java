@@ -3,6 +3,7 @@ package com.car.controller;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,13 +170,14 @@ public class SocialController {
          
          // 네이버 회원정보 데이터베이스 넣기!
          Member save_member = socialService.naverSignUp(member);
-         save_member.setMemberPw("*****");
-         save_member.setMemberPhoneNum("***-****-****");
-    	 save_member.setMemberEmail("****@****.***");
+         Member memberOne=socialService.findByMemberId(save_member.getMemberId());
+         memberOne.setMemberPw("*****");
+         memberOne.setMemberPhoneNum("***-****-****");
+         memberOne.setMemberEmail("****@****.***");
     	 
          // member데이터를 세션에 저장 
 
-         session.setAttribute("user",save_member);
+         session.setAttribute("user",memberOne);
 
          
          return "homepage/home.html";
