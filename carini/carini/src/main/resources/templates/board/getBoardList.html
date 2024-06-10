@@ -146,7 +146,7 @@
 							</div>
 							</br>
 							<div class="center">
-								<ul class="col pagination justify-content-center">	
+								<ul class="col pagination justify-content-center" style="list-style-type: none;">	
 									<th:block th:if="${sp != 1 }">
 										<li><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=0, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">◀◀ 처음으로</a></li>
 										<li><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}">◀ 이전</a></li>				
