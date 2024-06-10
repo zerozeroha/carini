@@ -57,6 +57,11 @@ public class Member {
     
     @Column(name="member_role")
     private String memberRole;
+    
+    @Column(name="member_Social_Nickname")
+    private String memberSocialNickname;
+    
+    
 
     // Getters and setters
 }

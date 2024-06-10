@@ -1,38 +1,205 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+    Helios by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-	<title>Spring Boot</title>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
-		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
-		crossorigin="anonymous">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Helios - Helios by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/boardList.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
-<body>
-	<h1>게시글 목록</h1>
-	<table border="1px">
-		<thead align="center">
-			<th>state.count</th>
-			<th>글번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>등록일</th>
-			<th>조회수</th>
-		</thead>
-		<tbody align="center">
-			<tr th:each="board, state : ${pagedResult.getContent()}">
-				<td th:text="${state.count}">
-				<td th:text="${board.boardId}"></td>
-				<td><a th:href="@{/board/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></td>
-				<td th:text="${board.boardWriter}"></td>
-				<td th:text="${board.boardDate}"></td>
-				<td th:text="${board.boardCnt}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<a th:href="@{/board/insertBoard}" class="btn">글작성하기</a>
+<body class="left-sidebar is-preload">
+    <div id="page-wrapper">
+        
+        <!-- Header -->
+        <div id="header">
+            <!-- Inner -->
+            <div class="inner">
+                <header>
+                    <!-- <a href="index.html" id="logo"></a> --> <br><br>
+                    <a href="/home" class="header_carini carini-hover">CARINI</a>
+                </header>
+            </div>
+
+            <!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="/home">Home</a></li>
+					<li><a th:href="@{/board/getBoardList}">Board</a></li>
+					<li><a href="Models.html">Model</a></li>
+					<li><a href="Center.html">Center</a></li>
+					<li>
+						<a href="#">MyPage</a>
+						<ul>
+							<li><a th:href="@{/mypage/myinfo}">나의 정보</a></li>
+							<li><a th:href="@{/mypage/bookmark}">찜 목록</a></li>
+							<li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
+							<li>
+								<a href="#">And a submenu &hellip;</a>
+								<ul>
+									<li><a href="#">Lorem ipsum dolor</a></li>
+									<li><a href="#">Phasellus consequat</a></li>
+									<li><a href="#">Magna phasellus</a></li>
+									<li><a href="#">Etiam dolore nisl</a></li>
+								</ul>
+							</li>
+							<li><a href="#">Veroeros feugiat</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+        </div>
+
+        <!-- 우측 플로팅 아이콘 -->
+        <div id="float_icons">
+            <a href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+                <img src="/img/chatbot_icon.png" alt="챗봇">
+            </a>
+            <a href="http://pf.kakao.com/_tAMDG" id="qr">
+                <img src="/img/QR.png" alt="큐알">
+            </a>
+        </div>
+         
+        <div id="page-wrapper">
+            <!-- Main -->
+            <div class="wrapper style1">
+                <div class="container">
+                    <div class="row gtr-200">
+                        <div class="col-4 col-12-mobile" id="sidebar">
+                            <hr class="first" />
+                            <div class="sidepart a-hover:hover">
+                                <section style="align-items: center;">
+                                    <header>
+                                        <h3>_7월달 추천모델 <br> : 제네시스 G80 </h3><br>
+                                        <a href="#"><img class="side-hover" src="/img/제네시스.png" style="max-width: 100%;" alt="이달의 추천모델"></a>
+                                    </header>
+                                    <div>
+                                        <input type="button" name="보러가기" id="button" value="제네시스g80 보러가기">
+                                        <!-- <a href="#" class="button lookharder">보러가기</a> -->
+                                    </div>
+                                </section>
+                                <hr />
+                                <section>
+                                    <header>
+                                        <h3>_공지사항</h3>
+                                        <br>
+                                    </header>
+                                    <div class="row gtr-50">
+                                        <!-- <div class="col-4"><a href="">공지1</a></div> -->
+                                        <div class="col-8"><a href="" class="side-hover">* 공지1 : CARINI사용법</a></div>
+                                        <!-- <div class="col-4"><a href="">공지2</a></div> -->
+                                        <div class="col-8"><a href="" class="side-hover">* 공지2 :자동차 정비소 고르는 법에 대해서 알아보자</a></div>
+                                        <!-- <div class="col-4"><a href="">공지3</a></div> -->
+                                        <div class="col-8"><a href="" class="side-hover">* 공지3 :누가 이용해야할까?</a></div>
+                                    </div>
+                                    <div class="lookharder">
+                                        <input type="button" name="자세히 보기" id="button" value="자세히 보기">
+                                        <!-- <a href="#" class="button">자세히보기</a> -->
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="col-7 col-12-mobile imp-mobile" id="content">
+                            <article id="main">
+                                <p class="Board_text">_Board</p>            
+                                <form>
+                                    <span> ▷ 총 num개의 게시물이 있습니다.</span>
+                                    <!-- <span class="container";>  -->
+                                    <div class="Board">
+                                        <select  class="form-select" id="searchType" name="searchType">
+                                            <option class="select_options" value="boardTitle" th:selected="${st=='boardTitle'}">글제목</option>
+                                            <option class="select_options" value="boardWriter" th:selected="${st =='boardWriter'}">작성자</option>
+                                            <option class="select_options" value="boardContent" th:selected="${st =='boardContent'}">제목</option>
+                                        </select>
+                                        <div>
+                                            <input name="searchWord" type="text" placeholder="제목 / 작성자 / 내용" />
+                                        </div>
+                                        <div>
+                                            <input type="submit" name="검색" class="gradient" value="검색">
+                                        </div>
+                                    </div>
+                                    <!-- </span> -->
+                                </form>
+                                <br>
+                                <div class="main_board">
+                                    <table border="1">
+                                        <tr style="display: flex;">
+                                            <th class="center ellipsis" style="width: 10%;">글번호</th>
+                                            <th class="center ellipsis" style="width: 30%;">제목</th>
+                                            <th class="center ellipsis" style="width: 20%;">작성자</th>
+                                            <th class="center ellipsis" style="width: 20%;">등록일</th>
+                                            <th class="center ellipsis" style="width: 10%;">파일</th>
+                                            <th class="center ellipsis" style="width: 10%;">조회수</th>
+                                        </tr>
+                                        <tr style="display: flex; text-align: center;" th:each="board, state : ${pagedResult.getContent()}">
+                                            <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardId}"></td>
+                                            <td class="ellipsis" style="width: 30%; text-align: center;"><a th:href="@{/board/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></td>
+                                            <td class="ellipsis" style="width: 20%; text-align: center;" th:text="${board.boardWriter}"></td>
+                                            <td class="ellipsis" style="width: 20%; text-align: center;" th:text="${board.boardDate}"></td>
+                                            <td class="ellipsis" style="width: 10%; text-align: center;"><img src="/img/board_clip.png" style="height: 15px;" alt="" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></td>   
+                                            <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardCnt}"></td>      
+                                        </tr>
+                                    </table>
+                                </div>
+                                </br>
+                                <div class="center">
+                                    <a href="https://www.naver.com/">◀ 이전</a> 
+                                    <a href="https://www.naver.com/">1</a>  
+                                    <a href="https://www.naver.com/">다음 ▶</a>
+                                </div>
+                                <div class="right" style="width: 130%;">
+                                    <input type="button" value="목록" class="greylist" style="float:right;" th:onclick="|location.href='@{/board/getBoardList}'|">
+                                    <input type="button" value="글쓰기" class="gradient" style="float:right; margin-right: 10px;" th:onclick="|location.href='@{/board/insertBoard}'|">
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <!-- <hr />
+                    <div class="row">
+                        <article class="col-4 col-12-mobile special">
+                            <a href="#" class="image featured"><img src="../images/볼보 EX30.png" alt="볼보 EX30" /></a>
+                            <header>
+                                <h3><a href="#">볼보 EX30</a></h3>
+                            </header>
+                            <p> 가격 : 4,945~5,516만원 </p>
+                            <p> 연료 : 전기 </p>
+                            <p> 출력 : 200kW 모터 268hp (단순환산치)</p>
+                            <p> 축거 : 2,650mm </p>   
+                        </article>
+                        <article class="col-4 col-12-mobile special">
+                            <a href="#" class="image featured"><img src="../images/테슬라 모델S.png" alt="테슬라 모델S" /></a>
+                            <header>
+                                <h3><a href="#">테슬라 모델S</a></h3>
+                            </header>
+                            <p> 가격 : 11,525~12,554만원 </p>
+                            <p> 연료 : 전기 </p>
+                            <p> 출력 : 500~760kW 모터 670~1,018hp (단순환산치)</p>
+                            <p> 축거 : 2,960mm </p>   
+                        </article>
+                        <article class="col-4 col-12-mobile special">
+                            <a href="#" class="image featured"><img src="../images/폭스바겐 제타.png" alt="폭스바겐 제타" /></a>
+                            <header>
+                                <h3><a href="#">폭스바겐 제타</a></h3>
+                            </header>
+                            <p> 가격 : 3,426~3,810만원 </p>
+                            <p> 연료 : 가솔린 </p>
+                            <p> 출력 : 160hp 엔진</p>
+                            <p> 축거 : 2,686mm </p>   
+                        </article>
+                    </div> -->
+                </div>
+            </div>
+            <footer>
+                <!-- Contact -->
+                <div style="height: 20%; width: 100%;"></div>
+                <h1 style="color:black; text-align: center; margin: 3%;">@CARINI</h1>
+            </footer>
+        </div>
+    </div>
 </body>
-</html>		
+</html>
