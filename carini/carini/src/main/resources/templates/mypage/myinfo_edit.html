@@ -10,7 +10,7 @@
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
    <link rel="stylesheet" href="assets/css/edit_info.css" />
-   <link rel="stylesheet" href="/css/member_edit.css" />
+   <link rel="stylesheet" href="/css/mypage_edit.css" />
    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
    <!-- 비번 아이콘 -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -24,21 +24,21 @@
          <!-- Inner -->
          <div class="inner">
             <header>
-               <h1><a th:href="@{/}" id="logo">회원정보 수정하기</a></h1>
+                 <h1><a href="index.html" class="header_carini carini-hover" >CARINI</a></h1>
             </header>
          </div>
 
          <!-- Nav -->
          <nav id="nav">
             <ul>
-               <li><a th:href="@{/}">Home</a></li>
+               <li><a th:href="@{/home}">Home</a></li>
 			   <li>
                    <a href="Board.html">Board</a>
                    <ul>
-                       <li><a href="Board.html">유저 게시판</a></li>
-                       <li><a href="Board_Qna.html ">Q&A</a></li>
-                       <li><a href="My_board.html">나의 게시물</a></li>
-                       <li><a href="#">Veroeros feugiat</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="Board.html">유저 게시판</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="Board_Qna.html ">Q&A</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="My_board.html">나의 게시물</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="#">Veroeros feugiat</a></li>
                    </ul>
                </li>
                <li><a th:href="@{/models}">Model</a></li>
@@ -46,44 +46,49 @@
                <li>
                   <a href="#">MyPage</a>
                   <ul>
-                     <li><a th:href="@{/mypage/form}">나의 정보</a></li>
-                     <li><a th:href="@{/mypage/bookmark}">찜목록</a></li>
-                     <li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
-                     <li>
-                        <a href="#">And a submenu &hellip;</a>
-                        <ul>
-                           <li><a href="#">Lorem ipsum dolor</a></li>
-                           <li><a href="#">Phasellus consequat</a></li>
-                           <li><a href="#">Magna phasellus</a></li>
-                           <li><a href="#">Etiam dolore nisl</a></li>
-                        </ul>
-                     </li>
-                     <li><a href="#">Veroeros feugiat</a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/form}">나의 정보</a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/bookmark}">찜목록</a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/myBoard}">나의 게시물</a></li>
                   </ul>
                </li>
             </ul>
          </nav>
       </div>
 
+	  <!-- 우측 아이콘 -->
+	  <!--수정부분 : 우측 아이콘 class 다름-->
+
+          <div  id="float_icons">
+             <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+                <img src="/img/챗봇아이콘.png" alt="챗봇">
+             </a>
+             <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="qr">
+                <img src="/img/큐알.png" alt="큐알">
+             </a>
+             
+           </div>
+
+	  
       <!-- Main -->
       <div class="wrapper style1">
          <div class="container">
-            <article id="main" class="special">
-               <header>
+            <article  id="main" class="special" style="background-color: white;">
+               <div>
                   <table id="info_box">
+					<p class="Board_text">_Edit_My_Inforamtion</p>
 					<form th:action="${session.user.memberSocial == '회원' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}" method="post">
 					    <tr>
 					        <th>닉네임</th>
 					        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}">
 					            <input type="text" name="memberNickname" th:value="${session.user.memberNickname}">
-					            <button id="editNickname" type='submit'>
-					                <img th:src="@{/img/edit_icon.png}" alt="edit icon">
+					            <button class="pencil-button" id="editNickname" type='submit'>
+					                <img th:src="@{/img/edit_icon.png}" alt="edit icon" style="height: 15px; width: 15px;">
 					            </button>
 					        </td>
 					        <td th:unless="${session.user.memberSocial == '회원'}">
 					            <input type="text" name="memberSocialNickname" th:value="${session.user.memberSocialNickname}">
-					            <button id="editNickname" type='submit'>
-					                <img th:src="@{/img/edit_icon.png}" alt="edit icon">
+					            <button class="pencil-button" id="editNickname" type='submit'>
+					                <img th:src="@{/img/edit_icon.png}" alt="edit icon" style="height: 15px; width: 15px;">
 					            </button>
 					        </td>
 					    </tr>
@@ -97,9 +102,9 @@
 						<tr>
                            <th>비밀번호</th>
                            <td th:if="${session.user.memberSocial == '회원'}">
-                              <div class="password-input-container">
+                              <div class="password-input-container" style="margin-left: 27px;">
                                  <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
-                                 <i class="fa fa-eye fa-lg"></i>
+                                  &nbsp;<i class="fa fa-eye fa-lg"></i>
                               </div>
                            </td>
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPw}" readonly></span></td>
@@ -119,23 +124,26 @@
                            <td th:if="${session.user.memberSocial == '회원'}"><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPhoneNum}" readonly></span></td>
                         </tr>
-                        <tr>
-                           <td colspan="3" id="edit_save_td"><button type="submit">확인</button></td>
-                        </tr>
-                     </form>
-                  </table>
-               </header>
-               <form th:action="@{/mypage/myinfo/delete}" method="post">
-                  <button id="member_quit" type='submit'>탈퇴하기</button>
-               </form>
-            </article>
-            <hr />
+					</table>
+					</div>
+					<div style="padding: 10%;">
+                    <input type="button" id="edit_save_td" value="확인하기">
+
+                </form>
+               
+               
+			   </article>
+			   <form th:action="@{/mypage/myinfo/delete}" method="post">
+			                     <button id="member_quit">탈퇴하기</button>
+			   </form>
          </div>
       </div>
 
       <!-- Footer -->
-      <div id="footer">
-      </div>
+	  <hr />
+      <footer>
+         @ carini
+      </footer>
    </div>
 
    <!-- Scripts -->

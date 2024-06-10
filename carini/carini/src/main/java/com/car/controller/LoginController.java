@@ -82,7 +82,7 @@ public class LoginController {
 				
 				Member save_member=memberService.insertMember(member);
 				model.addAttribute("msg", "성공적으로 회원가입이 되었습니다.");
-                model.addAttribute("url", "member/login.html");
+                model.addAttribute("url", "/member_login");
                 return "alert";
 		    }
 	}

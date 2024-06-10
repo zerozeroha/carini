@@ -89,10 +89,11 @@ public class BoardController {
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
 	    int pageSize       = pagingInfo.getPageSize();
-	    int startPage      = curPage / pageSize * pageSize + 1;
+	    int startPage      = curPage + 1;
 	    int endPage        = startPage + pageSize - 1;
 	    endPage = endPage > totalPageCount ? (totalPageCount > 0 ? totalPageCount : 1) : endPage;
 	    
+	   
 	    pagingInfo.setCurPage(curPage);
 	    pagingInfo.setTotalRowCount(totalRowCount);
 	    pagingInfo.setTotalPageCount(totalPageCount);

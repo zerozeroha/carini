@@ -359,7 +359,7 @@ public class MypageController {
     }
     
     /*
-     * 
+     * 자동차데이터 상세보기
      * */
     
     @GetMapping("/getbookmark/{carId}")
@@ -376,9 +376,9 @@ public class MypageController {
      * 나의 게시물
      */
     @GetMapping("/myBoard")
-    public String myPageMyboard(@ModelAttribute("member") Member members, Model model) {
-        Member member = memberService.findByMemberId( members.getMemberId());
-        List<Board> boards = boardService.boardList(member);
+    public String myPageMyboard(@ModelAttribute("member") Member members, Model model, HttpSession session) {
+    	Member findMember = (Member) session.getAttribute("user");
+        List<Board> boards = boardService.boardList(findMember);
         model.addAttribute("boards", boards);
         return "mypage/myboard.html";
     }

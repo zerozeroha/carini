@@ -106,7 +106,7 @@
                      </table>
 					 <br>
 					 <div class="change">
-						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}"style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button">수정하기</button></a>
+						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" onclick="verifyPassword()">수정하기</button></a>
 						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button">수정하기</button></a>
 					</div>
                </div>
