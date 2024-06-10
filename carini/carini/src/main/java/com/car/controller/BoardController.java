@@ -94,9 +94,7 @@ public class BoardController {
 	    int endPage        = startPage + pageSize - 1;
 	    endPage = endPage > totalPageCount ? (totalPageCount > 0 ? totalPageCount : 1) : endPage;
 	    
-	    System.out.println(startPage);
-	    
-	    
+
 	    pagingInfo.setCurPage(curPage);
 	    pagingInfo.setTotalRowCount(totalRowCount);
 	    pagingInfo.setTotalPageCount(totalPageCount);
