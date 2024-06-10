@@ -144,7 +144,7 @@ public class MypageController {
               
             }
         }
-       memberService.updateMember(member, memberNickname, memberNickname);
+       memberService.updateMember(member, memberNickname);
         model.addAttribute("msg", "닉네임이 성공적으로 변경되었습니다! 확인해주세요.");
         model.addAttribute("url", "/mypage/form");
         return "alert";  
