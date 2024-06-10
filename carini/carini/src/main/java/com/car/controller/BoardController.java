@@ -82,17 +82,19 @@ public class BoardController {
 	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 	       @RequestParam(name = "searchType", defaultValue = "boardTitle") String searchType,
 	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
-	    
+		
+		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
 	    Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
 	    
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
 	    int pageSize       = pagingInfo.getPageSize();
-	    int startPage      = curPage / pageSize * pageSize + 1;
+	    int startPage      = (curPage / pageSize) * pageSize + 1;
 	    int endPage        = startPage + pageSize - 1;
 	    endPage = endPage > totalPageCount ? (totalPageCount > 0 ? totalPageCount : 1) : endPage;
 	    
+
 	    pagingInfo.setCurPage(curPage);
 	    pagingInfo.setTotalRowCount(totalRowCount);
 	    pagingInfo.setTotalPageCount(totalPageCount);
