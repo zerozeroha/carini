@@ -35,11 +35,16 @@ public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키가 데이터베이스에 의해 자동으로 생성되도록 지정
 	private Long boardId;
-	@Column(updatable = false, nullable = false)
+	
+	@Column(nullable = false)
 	private String boardTitle;
-	private String memberId;
-	private String boardWriter;
+	
 	private String boardContent;
+	
+	@Column(updatable = false)
+	private String boardWriter;
+
+	private String memberId;
 	
 	@Column(insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -47,9 +52,13 @@ public class Board {
 	
 	@Column(insertable = false, updatable = true, columnDefinition = "bigint default 0")
 	private Long boardCnt;
+	
 	private String boardFilename;
 	
 	@Transient
 	private MultipartFile uploadFile;
 	
+	private Long board_ref;
+	private Long board_lev;
+	private Long board_seq;
 }
