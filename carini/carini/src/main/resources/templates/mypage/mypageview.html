@@ -20,8 +20,16 @@
            }
 
           
-       </script>
+   </script>
    <body class="no-sidebar is-preload">
+	<div  id="float_icons">
+				<a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+				   <img src="/img/챗봇아이콘.png" alt="챗봇">
+				</a>
+				<a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="qr">
+				   <img src="/img/큐알.png" alt="큐알">
+				</a>
+	</div>
       <div id="page-wrapper">
 
          <!-- Header -->
@@ -29,7 +37,7 @@
             <!-- Inner -->
             <div class="inner">
                <header>
-                  <h1><a href="index.html" id="logo">My Page</a></h1>
+                  <a href="index.html" class="header_carini carini-hover" >CARINI</a>
                </header>
             </div>
 
@@ -43,19 +51,9 @@
                   <li>
                      <a>MyPage</a>
                      <ul>
-                        <li><a th:href="@{/mypage/myinfo}">나의 정보</a></li>
-                        <li><a th:href="@{/mypage/bookmark}">찜목록</a></li>
-                        <li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
-                        <li>
-                           <a href="#">And a submenu &hellip;</a>
-                           <ul>
-                              <li><a href="#">Lorem ipsum dolor</a></li>
-                              <li><a href="#">Phasellus consequat</a></li>
-                              <li><a href="#">Magna phasellus</a></li>
-                              <li><a href="#">Etiam dolore nisl</a></li>
-                           </ul>
-                        </li>
-                        <li><a href="#">Veroeros feugiat</a></li>
+                        <li><a th:href="@{/mypage/form}" class="side-hver">&nbsp;나의 정보</a></li>
+                        <li><a th:href="@{/mypage/bookmark}" class="side-hver">&nbsp;찜하기</a></li>
+                        <li><a th:href="@{/mypage/myBoard}" class="side-hver">&nbsp;나의 게시판</a></li>
                      </ul>
                   </li>
                </ul>
@@ -64,22 +62,25 @@
 
          <!-- Main -->
          <div class="wrapper style1">
-            <div id="sidebar_section">
-               <div id="side_menu">
-                  <a th:href="@{/mypage/myinfo}" class="side_menu_button" style="width: 80%; background-color: black; color: white;">나의 정보</a>
-                  <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 80%;">FAVORITES</a>
-                  <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 80%">나의 게시물</a>
-               </div>
-            </div>
-            <div style="width: 25px;"></div>
-            <div class="container">
-               <article id="main" class="special">
-                  <header>
+			<div class="sidebar">
+			         
+              <div id="sidebar_section" >
+                 <div id="side_menu">
+					<a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%; background-color: black; color: white;">나의 정보</a>
+                    <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 80%;">FAVORITES</a>
+                    <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 80%">나의 게시물</a>
+                 </div>
+              </div>
+           </div>
+            <div style="width: 250px; height: 100%; "></div>
+            <div class="information_box">
+				<p class="Board_text"><br>_My Information</p>
+               <div id="info_info_box" >
                      <table id="info_box">
                         <tr>
                            <th>닉네임</th>
 						   <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
-						   <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
+						   <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
                         </tr>
                         <tr>
                            <th>아이디</th>
@@ -102,25 +103,21 @@
                            <th>전화번호</th>
                            <td th:text="${session.user.memberPhoneNum}"></td>
                         </tr>
-                        <tr>
-                           <td colspan="3" id="edit_save_td" th:if="${session.user.memberSocial == '회원'}">
-                              <button type="button" onclick="verifyPassword()">수정하기</button>
-                           </td>
-                           <td colspan="3" id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}">
-                              <a th:href="@{/mypage/myinfo_social_edit}"><button type="button">수정하기</button></a>
-                           </td>
-                        </tr>
                      </table>
-                  </header>
-               </article>
-               <hr />
+					 <br>
+					 <div class="change">
+						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}"style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button">수정하기</button></a>
+						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button">수정하기</button></a>
+					</div>
+               </div>
             </div>
-         </div>
-
+		</div>
+			<hr>
+	
          <!-- Footer -->
-         <div id="footer">
-         </div>
-      </div>
+         <footer>
+			@ carini
+         </footer>
 
       <!-- Scripts -->
       <script src="/js/jquery.min.js"></script>

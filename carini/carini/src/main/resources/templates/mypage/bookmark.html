@@ -27,7 +27,7 @@
                   <li>
                      <a th:href="@{/My_info.html}">MyPage</a>
                      <ul>
-                        <li><a th:href="@{/mypage/myinfo}">나의 정보</a></li>
+                        <li><a th:href="@{/mypage/form}">나의 정보</a></li>
                         <li><a th:href="@{/mypage/bookmark}">FAVORITES</a></li>
                         <li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
                      </ul>
@@ -40,7 +40,7 @@
          <div class="wrapper style1">
             <div id="sidebar_section">
                <div id="side_menu">
-                  <a th:href="@{/mypage/myinfo}" class="side_menu_button" style=" width: 80%">나의 정보</a>
+                  <a th:href="@{/mypage/form}" class="side_menu_button" style=" width: 80%">나의 정보</a>
                   <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="background-color: black; color: white; width: 80%;">FAVORITES</a>
                   <a th:href="@{/mypage/myBoard}" class="side_menu_button" style=" width: 80%">나의 게시물</a>
 
@@ -56,14 +56,17 @@
 					<form th:action="@{/mypage/bookmark/delete/{carId}(carId=${car.car_id})}" method="post">
                      <img th:src="@{${car.car_img}}" class="card-img-top" alt="이미지">
                      <div class="card-body">
-                        <h5 class="card-title" style="font-size: 20px;" th:text="${car.car_name}"></h5>
+                        
+						<h5 class="card-title" style="font-size: 20px;" th:text="${car.car_name}"></h5>
                         <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|가격(최소) : ${car.car_min_price}|"></p>
 						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.car_size}|"></p>
 						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.car_fuel}|"></p>
 						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="| 연비 : ${car.car_eff}|"></p>
                         <div class="card_button_box" style="margin-top:20px; font-size: 15px;">
-                           <a href="/mypage/getbookmark/{carId}" style="padding: 0px 5px;" class="btn btn-primary">자세히 보기</a>
-                           <button class="delete_button" type='submit' value='Delete'>
+                           
+							<a href="/mypage/getbookmark/{carId}" style="padding: 0px 5px;" class="btn btn-primary">자세히 보기</a>
+                           
+							<button class="delete_button" type='submit' value='Delete'>
 								<img th:src="@{/img/delete_icon.png}" value="Delete" alt="삭제" >
                            </button>
                         </div>

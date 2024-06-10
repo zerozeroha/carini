@@ -20,9 +20,9 @@ public interface MemberService {
 	void updateAllMember(String memberId, Member member);
 
 	//void updateMember(Member member, String memberNickname, String memberNickname2);
+
 	List<Member> findByMemberEmail(String memberEmail);
 	List<Member> findByMemberNickname(String memberNickname);
-
-
+	void updatememberSocialNickname(Member member, String memberSocialNickname);
 
 }

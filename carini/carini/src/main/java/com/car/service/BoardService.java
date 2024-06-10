@@ -14,16 +14,17 @@ import com.car.dto.Member;
 public interface BoardService {
 	
 	long getTotalRowCount(Board board);
-	Board getBoard(Board board);
 	Page<Board> getBoardList(Pageable pageable, String searchType, String searchWord);
-	void insertBoard(Board board);
+	Board getBoard(Board board, String memberId);
 	void updateBoard(Board board);
+	void insertBoard(Board board);
 	void deleteBoard(Board board);
 	Board getBoardById(Long boardId);
 	void deleteFile(Long boardId) throws Exception;
 	
 	List<Board> boardList(Member member);
 	Board selectBoard(Long boardId);
+	Board getBoardWithoutIncreasingCount(Long boardId);
 		
 
 }
