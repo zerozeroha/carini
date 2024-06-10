@@ -51,22 +51,39 @@ public class LoginController {
      * 회원가입 
      * */
 	@PostMapping("/signup")
-	public String join_result(Member member) {
-			System.out.println(member.getMemberId());
-			System.out.println(member.getMemberNickname());
-			System.out.println(member.getMemberPw());
+	public String join_result(Member member,Model model) {
+			
+			List<Member> findmemberEmail=memberService.findByMemberEmail(member.getMemberEmail());
+			List<Member> findmemberNickname=memberService.findByMemberNickname(member.getMemberNickname());
+			if(!findmemberEmail.isEmpty()) {
+				model.addAttribute("msg", "사용중인 이메일입니다.");
+                model.addAttribute("url", "/signup");
+                return "alert";  
+			}
+			
+			if(!findmemberNickname.isEmpty()) {
+				model.addAttribute("msg", "사용중인 닉네임입니다.");
+                model.addAttribute("url", "/signup");
+                return "alert";  
+			}
+			
 			final Pattern PASSWORD_PATTERN = Pattern.compile(passwordRegex);
 			if (member.getMemberPw() == null || member.getMemberPw().isEmpty()) {
-				return "비밀번호를 입력해주세요.";
+				model.addAttribute("msg", "비밀번호를 입력해주세요.");
+                model.addAttribute("url", "/signup");
+                return "alert";  
 		    } else if (!PASSWORD_PATTERN.matcher(member.getMemberPw()).matches()) {
-		        return "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해야 합니다.";
+		    	model.addAttribute("msg", "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해야 합니다.");
+                model.addAttribute("url", "/signup");
+                return "alert";
 		    } else {
 		    	member.setMemberSocial("회원");
 				member.setMemberRole("사용자");
 				
 				Member save_member=memberService.insertMember(member);
-				
-				return "member/login.html";
+				model.addAttribute("msg", "성공적으로 회원가입이 되었습니다.");
+                model.addAttribute("url", "member/login.html");
+                return "alert";
 		    }
 	}
 	
