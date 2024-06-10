@@ -25,7 +25,7 @@
 			첨부된 파일=
 			<a th:href="@{/download(boardId=${board.boardId}, fn=${board.boardFilename})}" 
 				th:text="${board.boardFilename}"></a>
-			<a href="#" onclick="deleteFile('[[${board.boardId}]]')">파일 삭제</a>
+			<a href="#" th:onclick="deleteFile('[[${board.boardId}]]')">파일 삭제</a>
 		</div>
 		<div>
             uploadFile = <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"><br/>
@@ -36,7 +36,7 @@
 		<a th:href="@{/board/deleteBoard(boardId=${board.boardId})}">게시글삭제</a>
 	</form>
 </div>
-<script>
+<script th:inline="javascript">
 	function deleteFile(boardId) {
 	    if (confirm("정말로 파일을 삭제하시겠습니까?")) {
 	        fetch('/board/deleteFile/' + boardId, {

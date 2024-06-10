@@ -26,7 +26,7 @@
 			<div th:if="${board.boardFilename == null}">첨부된 파일=null</div>
 			boardDate=<input type="text" name="boardDate" th:placeholder="${board.boardDate}" disabled><br />
 			boardCnt=<input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled><br />
-			<a th:href="@{/board/updateBoard(boardId=${board.boardId})}" class="btn">게시글수정</a>
+			<a th:href="@{/board/updateBoard(boardId=${board.boardId})}">게시글 수정</a>
 			<a th:href="@{/board/getBoardList}" class="btn">게시글목록</a>         
 		</form>
 		<a th:href="@{/home}" class="btn">홈으로 돌아가기</a>
