@@ -48,9 +48,8 @@
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <li><a href="index.html">Home</a></li>
                 <li>
-                    <a href="Board.html">Board</a>
+                    <a th:href="@{/board/getBoardList}">Board</a>
                     <ul>
                         <li><a href="Board.html">유저 게시판</a></li>
                         <li><a href="Board_Qna.html ">Q&A</a></li>
@@ -120,10 +119,10 @@
 	                    </div>
 	                    <div class="content">
 	                        <div><a th:text="${board.boardId}"></a></div>
-	                        <div class="align_center"><a th:text="${board.baordTitle}"></a></div>
-	                        <div class="align_center"><a th:text="${board.baordWriter}"></a></div>
-	                        <div class="upload_day"><a th:text="${board.baordDate}"></a></div>
-							<div class="upload_day"><a th:text="${board.boardFilename}"></a></div>
+	                        <div class="align_center"><a class="Board-hover" th:href="@{/board/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></a></div>
+	                        <div class="align_center"><a th:text="${board.boardWriter}"></a></div>
+	                        <div class="upload_day"><a th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd')}"></a></div>
+							<div class="upload_day"><img src="/img/board_clip.png" style="height: 15px;" alt="" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></div>
 							<div class="upload_day"><a th:text="${board.boardCnt}"></a></div>
 	                    </div>
                 	</li>
@@ -146,7 +145,7 @@
 
     <!-- Footer -->
     <div id="footer">
-
+		@carini
     </div>
 
 </div>
