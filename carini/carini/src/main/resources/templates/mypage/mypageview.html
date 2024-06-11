@@ -37,7 +37,7 @@
             <!-- Inner -->
             <div class="inner">
                <header>
-                  <a href="/home" class="header_carini carini-hover" >CARINI</a>
+                  <a th:href="@{/home}" class="header_carini carini-hover" >CARINI</a>
                </header>
             </div>
 
@@ -50,9 +50,9 @@
                   <li>
                      <a>MyPage</a>
                      <ul>
-                        <li><a th:href="@{/mypage/form}" class="side-hver">&nbsp;나의 정보</a></li>
-                        <li><a th:href="@{/mypage/bookmark}" class="side-hver">&nbsp;찜하기</a></li>
-                        <li><a th:href="@{/mypage/myBoard}" class="side-hver">&nbsp;나의 게시판</a></li>
+                        <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
+                        <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
+                        <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
                      </ul>
                   </li>
                </ul>
@@ -65,48 +65,48 @@
 			         
               <div id="sidebar_section" >
                  <div id="side_menu">
-					<a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%; background-color: black; color: white;">나의 정보</a>
-                    <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 80%;">FAVORITES</a>
-                    <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 80%">나의 게시물</a>
+					<a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%; background-color: black; color: white;" th:text="#{side.menu1}"></a>
+                    <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 80%;" th:text="#{side.menu2}"></a>
+                    <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 80%" th:text="#{side.menu3}"></a>
                  </div>
               </div>
            </div>
             <div style="width: 250px; height: 100%; "></div>
             <div class="information_box">
-				<p class="Board_text"><br>_My Information</p>
+				<p class="Board_text"><br>_My_Information</p>
                <div id="info_info_box" >
                      <table id="info_box">
                         <tr>
-                           <th>닉네임</th>
+                           <th th:text="#{info.nickname}"></th>
 						   <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
 						   <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
                         </tr>
                         <tr>
-                           <th>아이디</th>
+                           <th th:text="#{info.id}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberId}" aria-disabled="true"></td>
                            <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
                         </tr>
                         <tr>
-                           <th>비밀번호</th>
+                           <th th:text="#{info.pw}"></th>
                            <td th:text="${session.user.memberPw}"></td>
                         </tr>
                         <tr>
-                           <th>이름</th>
+                           <th th:text="#{info.name}"></th>
                            <td th:text="${session.user.memberName}"></td>
                         </tr>
                         <tr>
-                           <th>이메일</th>
+                           <th th:text="#{info.email}"></th>
                            <td th:text="${session.user.memberEmail}"></td>
                         </tr>
                         <tr>
-                           <th>전화번호</th>
+                           <th th:text="#{info.phone}"></th>
                            <td th:text="${session.user.memberPhoneNum}"></td>
                         </tr>
                      </table>
 					 <br>
 					 <div class="change">
-						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" onclick="verifyPassword()">수정하기</button></a>
-						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button">수정하기</button></a>
+						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" onclick="verifyPassword()" th:text="#{info.btn.edit}"></button></a>
+						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" th:text="#{info.btn.edit}"></button></a>
 					</div>
                </div>
             </div>

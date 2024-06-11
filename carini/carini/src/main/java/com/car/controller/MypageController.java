@@ -3,11 +3,13 @@ package com.car.controller;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Board;
 import com.car.dto.Bookmark;
@@ -48,6 +51,10 @@ public class MypageController {
     @Autowired
     private BoardService boardService;
     
+    @Autowired
+    private MessageSource messageSource;
+    @Autowired
+    private LocaleResolver localeResolver;
    @ModelAttribute("member")
    public Member setMember() {
       return new Member(); // 기본 Member 객체를 세션에 저장
@@ -93,20 +100,19 @@ public class MypageController {
      * 패스워드확인후 소셜 | 회원 판단
      * */
     @GetMapping("/myinfo")
-    public ResponseEntity<Map<String, Object>> myinfo(@RequestParam("user_password") String memberPw, @ModelAttribute("member") Member members) {
+    public ResponseEntity<Map<String, Object>> myinfo(@RequestParam("user_password") String memberPw, @ModelAttribute("member") Member members , HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         Member member = memberService.findByMemberId(members.getMemberId());
-
+        Locale locale = localeResolver.resolveLocale(request);
         if (member != null && member.getMemberPw().equals(memberPw)) {
-        	
             response.put("success", true);
-            response.put("message", "비밀번호가 확인되었습니다.");
+            response.put("message", messageSource.getMessage("info.success", null, locale));
             response.put("redirectUrl", member.getMemberSocial().equals("kakao") || member.getMemberSocial().equals("naver")
                 ? "/mypage/myinfo_social_edit"
                 : "/mypage/myinfo_edit");
         } else {
             response.put("success", false);
-            response.put("message", "비밀번호가 일치하지 않습니다. 다시 확인해주세요!");
+            response.put("message", messageSource.getMessage("info.failure", null, locale));
         }
 
         return ResponseEntity.ok(response);
