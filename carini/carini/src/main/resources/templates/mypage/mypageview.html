@@ -60,56 +60,58 @@
          </div>
 
          <!-- Main -->
-         <div class="wrapper style1">
-			<div class="sidebar">
-			         
-              <div id="sidebar_section" >
-                 <div id="side_menu">
-					<a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%; background-color: black; color: white;" th:text="#{side.menu1}"></a>
-                    <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 80%;" th:text="#{side.menu2}"></a>
-                    <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 80%" th:text="#{side.menu3}"></a>
-                 </div>
-              </div>
-           </div>
-            <div style="width: 250px; height: 100%; "></div>
-            <div class="information_box">
-				<p class="Board_text"><br>_My_Information</p>
-               <div id="info_info_box" >
-                     <table id="info_box">
-                        <tr>
-                           <th th:text="#{info.nickname}"></th>
-						   <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
-						   <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
-                        </tr>
-                        <tr>
-                           <th th:text="#{info.id}"></th>
-                           <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberId}" aria-disabled="true"></td>
-                           <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
-                        </tr>
-                        <tr>
-                           <th th:text="#{info.pw}"></th>
-                           <td th:text="${session.user.memberPw}"></td>
-                        </tr>
-                        <tr>
-                           <th th:text="#{info.name}"></th>
-                           <td th:text="${session.user.memberName}"></td>
-                        </tr>
-                        <tr>
-                           <th th:text="#{info.email}"></th>
-                           <td th:text="${session.user.memberEmail}"></td>
-                        </tr>
-                        <tr>
-                           <th th:text="#{info.phone}"></th>
-                           <td th:text="${session.user.memberPhoneNum}"></td>
-                        </tr>
-                     </table>
-					 <br>
-					 <div class="change">
-						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" onclick="verifyPassword()" th:text="#{info.btn.edit}"></button></a>
-						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" th:text="#{info.btn.edit}"></button></a>
-					</div>
-               </div>
-            </div>
+         <div class="wrapper style1" style="width: 100%;">
+			<div style="display: flex; margin: 0 auto;"> 
+				<div class="sidebar"style="width:25%">
+				         
+	              <div id="sidebar_section" >
+	                 <div id="side_menu" >
+						<a th:href="@{/mypage/form}" class="side_menu_button" style="width: 100%; background-color: black; color: white;margin-left:20px" th:text="#{side.menu1}"></a>
+	                    <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="width: 100%;  ;margin-left:20px" th:text="#{side.menu2}"></a>
+	                    <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="width: 100%; ;margin-left:20px" th:text="#{side.menu3}"></a>
+	                 </div>
+	              </div>
+	           </div>
+	            <div style="width: 250px; height: 100%; "></div>
+	            <div class="information_box">
+					<p class="Board_text"><br>_My_Information</p>
+	               <div id="info_info_box" >
+	                     <table id="info_box">
+	                        <tr style="height: 40px;">
+	                           <th th:text="#{info.nickname}"></th>
+							   <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
+							   <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
+	                        </tr>
+	                        <tr style="height: 40px;">
+	                           <th th:text="#{info.id}"></th>
+	                           <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberId}" aria-disabled="true"></td>
+	                           <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
+	                        </tr>
+	                        <tr style="height: 40px;">
+	                           <th th:text="#{info.pw}"></th>
+	                           <td th:text="${session.user.memberPw}"></td>
+	                        </tr>
+	                        <tr style="height: 40px;">
+	                           <th th:text="#{info.name}"></th>
+	                           <td th:text="${session.user.memberName}"></td>
+	                        </tr>
+	                        <tr style="height: 40px;">
+	                           <th th:text="#{info.email}"></th>
+	                           <td th:text="${session.user.memberEmail}"></td>
+	                        </tr>
+	                        <tr style="height: 40px;">
+	                           <th th:text="#{info.phone}"></th>
+	                           <td th:text="${session.user.memberPhoneNum}"></td>
+	                        </tr>
+	                     </table>
+						 <br>
+						 <div class="change">
+							<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" onclick="verifyPassword()" th:text="#{info.btn.edit}"></button></a>
+							<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;"><button type="button" th:text="#{info.btn.edit}"></button></a>
+						</div>
+	               </div>
+	            </div>
+			</div>
 		</div>
 			<hr>
 	

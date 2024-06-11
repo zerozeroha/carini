@@ -40,10 +40,10 @@ public class Notice {
 	
 	@Column(insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String noticeDate;
+	private Date noticeDate;
 	
 	@Column(insertable = false, updatable = true, columnDefinition = "bigint default 0")
-	private String noticeCnt;
+	private int noticeCnt;
 	
 	private String noticeFilename;
 	
