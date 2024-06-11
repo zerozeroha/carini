@@ -498,7 +498,7 @@ input, select, textarea {
 
       .sidebar {
          text-align: center;
-         width: 20%;
+         width: 30%;
          float: right;
          background-color: whitesmoke;
          margin: 2%;
@@ -2668,9 +2668,8 @@ input, select, textarea {
 
 
 .information_box{
-   width: 70%;
+   width: 130%;
    height: 100%;
-   
 }
 
 
@@ -3392,7 +3391,7 @@ input, select, textarea {
 
    #info_info_box {
       width: 550px;
-      height: 100%;
+      height: 80%;
       /* align-items: center; */
 
       margin-right: 200px;
@@ -3415,7 +3414,7 @@ input, select, textarea {
    }
 
    #info_box th, #info_box td {
-      padding: 15px;
+      padding-top: 25px;
       text-align: center;
    }
 

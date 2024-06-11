@@ -101,8 +101,8 @@
 
 								<!-- <span class="container";> -->
 								<div class="Board">
-									<select class="form-select" id="searchType" name="searchType">
-										<option class="select_options" value="boardTitle" th:selected="${st=='boardTitle'}" th:text="#{board.search.title}"></option>
+									<select class="form-select" id="searchType" name="searchType" >
+										<option class="select_options" value="boardTitle" th:selected="${st=='boardTitle'}" th:text="#{board.search.title}" ></option>
 										<option class="select_options" value="boardWriter" th:selected="${st =='boardWriter'}" th:text="#{board.search.writer}"></option>
 										<option class="select_options" value="boardContent" th:selected="${st =='boardContent'}" th:text="#{board.search.content}"></option>
 									</select>

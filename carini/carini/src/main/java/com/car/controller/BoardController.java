@@ -94,8 +94,8 @@ public class BoardController {
 	public String getBoardList(Model model, Board board,
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
 	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
-	       @RequestParam(name = "searchType", defaultValue = "boardTitle") String searchType,
-	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
+	       @RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
+	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,HttpSession session) {
 		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
@@ -112,6 +112,9 @@ public class BoardController {
 	    if (noticeList.size() > 2) {
 	        noticeList = noticeList.subList(0, 3);
 	    }
+	    
+	    System.out.println("board");
+	    System.out.println((Member)session.getAttribute("user"));
 	    
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
