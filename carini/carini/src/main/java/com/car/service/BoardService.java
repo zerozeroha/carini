@@ -1,6 +1,5 @@
 package com.car.service;
 
-
 import java.io.IOException;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -24,7 +23,6 @@ public interface BoardService {
 	
 	List<Board> boardList(Member member);
 	Board selectBoard(Long boardId);
-	Board getBoardWithoutIncreasingCount(Long boardId);
 		
 
 }
