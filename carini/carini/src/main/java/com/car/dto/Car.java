@@ -22,49 +22,22 @@ import lombok.ToString;
 public class Car {
 
 	@Id
-	@Column(name="CAR_ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키가 데이터베이스에 의해 자동으로 생성되도록 지정
-	private int car_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long carId;
 	
-	@Column(name="CAR_NAME")
-	private String car_name;
+	private String carName;
+	private String carMinPrice;
+	private String carMaxPrice;
+	private String carSize;
+	private String carFuel;
+	private String carEff;
+	private String carImg;
 	
-	@Column(name="CAR_MIN_PRICE")
-	private String car_min_price;
-	
-	@Column(name="CAR_MAX_PRICE")
-	private String car_max_price;
-	
-	@Column(name="CAR_SIZE")
-	private String car_size;
-	
-	@Column(name="CAR_FUEL")
-	private String car_fuel;
-	
-	@Column(name="CAR_EFF")
-	private String car_eff;
-	
-	@Column(name="CAR_IMG")
-	private String car_img;
-	
-	@Column(name="CAR_SC_PER")
-	private double car_sc_per;
-	
-	@Column(name="CAR_SC_PRICE")
-	private double car_sc_price;
-	
-	@Column(name="CAR_SC_GEOJU")
-	private double car_sc_geoju;
-	
-	@Column(name="CAR_SC_QUALITY")
-	private double car_sc_quality;
-	
-	@Column(name="CAR_SC_DESIGN")
-	private double car_sc_design;
-	
-	@Column(name="CAR_SC_EFF")
-	private double car_sc_eff;
-	
-	@Column(name="CAR_SC_AVG")
-	private double car_sc_avg;
+	private double carScPer;
+	private double carScPrice;
+	private double carScGeoju;
+	private double carScQuality;
+	private double carScDesign;
+	private double carScEff;
+	private double carScAvg;
 }
