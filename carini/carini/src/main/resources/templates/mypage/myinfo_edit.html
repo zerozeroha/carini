@@ -9,9 +9,9 @@
    <title>No Sidebar - Helios by HTML5 UP</title>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <link rel="stylesheet" href="assets/css/edit_info.css" />
    <link rel="stylesheet" href="/css/mypage_edit.css" />
    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+   
    <!-- 비번 아이콘 -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
@@ -24,14 +24,13 @@
          <!-- Inner -->
          <div class="inner">
             <header>
-                 <h1><a href="index.html" class="header_carini carini-hover" >CARINI</a></h1>
+                 <h1><a th:href="@{/home}" class="header_carini carini-hover" >CARINI</a></h1>
             </header>
          </div>
 
          <!-- Nav -->
          <nav id="nav">
             <ul>
-               <li><a th:href="@{/home}">Home</a></li>
 			   <li>
                    <a href="Board.html">Board</a>
                    <ul>
@@ -46,9 +45,9 @@
                <li>
                   <a href="#">MyPage</a>
                   <ul>
-                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/form}">나의 정보</a></li>
-                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/bookmark}">찜목록</a></li>
-                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/myBoard}">나의 게시물</a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/form}" th:text="#{side.menu1}"></a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/bookmark}" th:text="#{side.menu2}"></a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/myBoard}" th:text="#{side.menu3}"></a></li>
                   </ul>
                </li>
             </ul>
@@ -78,7 +77,7 @@
 					<p class="Board_text">_Edit_My_Inforamtion</p>
 					<form th:action="${session.user.memberSocial == '회원' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}" method="post">
 					    <tr>
-					        <th>닉네임</th>
+					        <th th:text="#{info.nickname}"></th>
 					        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}">
 					            <input type="text" name="memberNickname" th:value="${session.user.memberNickname}">
 					            <button class="pencil-button" id="editNickname" type='submit'>
@@ -95,12 +94,12 @@
 					</form>
                      <form th:action="@{/mypage/myinfo/updateAll}" method="post">
                         <tr>
-                           <th>아이디</th>
+                           <th th:text="#{info.id}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberId}"></span></td>
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly>이메일</span></td>
                         </tr>
 						<tr>
-                           <th>비밀번호</th>
+                           <th th:text="#{info.pw}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}">
                               <div class="password-input-container" style="margin-left: 27px;">
                                  <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
@@ -110,31 +109,32 @@
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPw}" readonly></span></td>
                         </tr>
                         <tr>
-                           <th>이름</th>
+                           <th th:text="#{info.name}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}"><input type="text" name="memberName" th:value="${session.user.memberName}" placeholder="memberName" /></td>
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberName}" readonly></span></td>
                         </tr>
                         <tr>
-                           <th>이메일</th>
+                           <th th:text="#{info.email}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}"><input type="email" name="memberEmail" th:value="${session.user.memberEmail}" placeholder="memberEmail"/></td>
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly></span></td>
                         </tr>
                         <tr>
-                           <th>전화번호</th>
+                           <th th:text="#{info.phone}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}"><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
                            <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPhoneNum}" readonly></span></td>
                         </tr>
 					</table>
 					</div>
 					<div style="padding: 10%;">
-                    <input type="button" id="edit_save_td" value="확인하기">
+						<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}" style="padding: 10px 20px;">
+                    
 
                 </form>
                
                
 			   </article>
 			   <form th:action="@{/mypage/myinfo/delete}" method="post">
-			                     <button id="member_quit">탈퇴하기</button>
+			                     <button id="member_quit" th:text="#{info.btn.unsubscribe}"></button>
 			   </form>
          </div>
       </div>
@@ -147,14 +147,14 @@
    </div>
 
    <!-- Scripts -->
-   <script src="assets/js/jquery.min.js"></script>
-   <script src="assets/js/jquery.dropotron.min.js"></script>
-   <script src="assets/js/jquery.scrolly.min.js"></script>
-   <script src="assets/js/jquery.scrollex.min.js"></script>
-   <script src="assets/js/browser.min.js"></script>
-   <script src="assets/js/breakpoints.min.js"></script>
-   <script src="assets/js/util.js"></script>
-   <script src="assets/js/main.js"></script>
+   <script src="/js/jquery.min.js"></script>
+   <script src="/js/jquery.dropotron.min.js"></script>
+   <script src="/js/jquery.scrolly.min.js"></script>
+   <script src="/js/jquery.scrollex.min.js"></script>
+   <script src="/js/browser.min.js"></script>
+   <script src="/js/breakpoints.min.js"></script>
+   <script src="/js/util.js"></script>
+   <script src="/js/main.js"></script>
 
 </body>
 </html>
