@@ -41,19 +41,9 @@
                         <li>
                            <a>MyPage</a>
                            <ul>
-                              <li><a th:href="@{/mypage/form}">나의 정보</a></li>
-                              <li><a th:href="@{/mypage/bookmark}">찜 목록</a></li>
-                              <li><a th:href="@{/mypage/myBoard}">나의 게시물</a></li>
-                              <li>
-                                 <a href="#">And a submenu &hellip;</a>
-                                 <ul>
-                                    <li><a href="#">Lorem ipsum dolor</a></li>
-                                    <li><a href="#">Phasellus consequat</a></li>
-                                    <li><a href="#">Magna phasellus</a></li>
-                                    <li><a href="#">Etiam dolore nisl</a></li>
-                                 </ul>
-                              </li>
-                              <li><a href="#">Veroeros feugiat</a></li>
+                              <li><a th:href="@{/mypage/form}"th:text="#{side.menu1}" style="text-align: center;"></a></li>
+                              <li><a th:href="@{/mypage/bookmark}" th:text="#{side.menu2}" style="text-align: center;"></a></li>
+                              <li><a th:href="@{/mypage/myBoard}" th:text="#{side.menu3}" style="text-align: center;"></a></li>
                            </ul>
                         </li>
                      

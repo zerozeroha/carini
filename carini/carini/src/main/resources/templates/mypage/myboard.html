@@ -48,9 +48,8 @@
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <li><a href="index.html">Home</a></li>
                 <li>
-                    <a href="Board.html">Board</a>
+                    <a th:href="@{/board/getBoardList}">Board</a>
                     <ul>
                         <li><a href="Board.html">유저 게시판</a></li>
                         <li><a href="Board_Qna.html ">Q&A</a></li>
@@ -65,9 +64,9 @@
                 <li>
                     <a href="My_page.html">MyPage</a>
                     <ul>
-                        <li><a th:href="@{/mypage/form}">나의 정보</a></li>
-                        <li><a th:href="@{/mypage/bookmark}">찜목록</a></li>
-                        <li><a th:href="@{/mypage/posts}">나의 게시물</a></li>
+                        <li><a th:href="@{/mypage/form}" style="text-align: center;" th:text="#{side.menu1}"></a></li>
+                        <li><a th:href="@{/mypage/bookmark}"style="text-align: center;"th:text="#{side.menu2}"></a></li>
+                        <li><a th:href="@{/mypage/posts}" style="text-align: center;"th:text="#{side.menu3}" ></a></li>
                         <li>
                             <a href="#">And a submenu &hellip;</a>
                             <ul>
@@ -88,10 +87,10 @@
     <div class="wrapper style1">
         <div id="sidebar_section">
             <div id="side_menu">
-                <a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%;">나의 정보</a>
-                <a th:href="@{/mypage/bookmark}" class="side_menu_button" style=" width: 80%;">즐겨찾기</a>
+                <a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%; " th:text="#{side.menu1}"></a>
+                <a th:href="@{/mypage/bookmark}" class="side_menu_button" style=" width: 80%;" th:text="#{side.menu2}"></a>
                 <a th:href="@{/mypage/myBoard}" class="side_menu_button"
-                   style=" width: 80%; background-color: black; color: white;">나의 게시물</a>
+                   style=" width: 80%; background-color: black; color: white;" th:text="#{side.menu3}"></a>
             </div>
         </div>
 
@@ -105,13 +104,12 @@
                             <input type="checkbox" id="header_checkbox" name="header_checkbox" value="header_checkbox" onclick="selectAll()">
                         </div>
                         <div class="content">
-                            <div>번호</div>
-                            <div class="align_center">제목</div>
-                            <div class="align_center">작성자</div>
-                            <div class="upload_day">등록일</div>
-							<div class="upload_day">파일</div>
-							<div class="upload_day">조회수</div>
-														
+                            <div th:text="#{label.id}"></div>
+                            <div class="align_center" th:text="#{label.title}"></div>
+                            <div class="align_center" th:text="#{label.writer}"></div>
+                            <div class="upload_day" th:text="#{label.date}"></div>
+							<div class="upload_day" th:text="#{label.file}"></div>
+							<div class="upload_day" th:text="#{label.cnt}"></div>							
                         </div>
                     </li>
 					<li class="my_board_list" id="my_board_header" th:each="board : ${boards}">
@@ -120,14 +118,14 @@
 	                    </div>
 	                    <div class="content">
 	                        <div><a th:text="${board.boardId}"></a></div>
-	                        <div class="align_center"><a th:text="${board.baordTitle}"></a></div>
-	                        <div class="align_center"><a th:text="${board.baordWriter}"></a></div>
-	                        <div class="upload_day"><a th:text="${board.baordDate}"></a></div>
-							<div class="upload_day"><a th:text="${board.boardFilename}"></a></div>
+	                        <div class="align_center"><a class="Board-hover" th:href="@{/board/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></a></div>
+
+	                        <div class="align_center"><a th:text="${board.boardWriter}"></a></div>
+	                        <div class="upload_day"><a th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd')}"></a></div>
+							<div class="upload_day"><img src="/img/board_clip.png" style="height: 15px;" alt="" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></div>
 							<div class="upload_day"><a th:text="${board.boardCnt}"></a></div>
 	                    </div>
                 	</li>
-                    <!-- 게시글 리스트는 JavaScript로 동적으로 추가됩니다. -->
                 </ul>
             </div>
             <div id="board_page">
@@ -146,7 +144,7 @@
 
     <!-- Footer -->
     <div id="footer">
-
+		@carini
     </div>
 
 </div>
