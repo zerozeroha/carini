@@ -326,7 +326,6 @@ input, select, textarea {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-
 	    /* select 요소의 패딩 제거 */
         #select_select {
             padding: 0px;
@@ -334,12 +333,11 @@ input, select, textarea {
 			height: 40px;
         }
         
-        /* option 요소의 패딩 제거 */
-        .select_options {
-            padding: 0;
-            /* 필요에 따라 추가 스타일링 */
-			font-size: 1rem;
-        }
+		.form-select, .select_options {
+		    padding: 10px; /* 필요에 따라 조정 */
+		    height: auto; /* 또는 적절한 높이로 설정 */
+		    line-height: 1.5; /* 필요에 따라 조정 */
+		}
 
 		#board_num_test {
 			padding: 0px ;
