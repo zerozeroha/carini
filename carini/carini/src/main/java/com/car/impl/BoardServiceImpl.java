@@ -111,12 +111,6 @@ public class BoardServiceImpl implements BoardService{
 	    return newFilename;
 	}
 	
-	@Override
-    public Board getBoardWithoutIncreasingCount(Long boardId) {
-        return getBoardById(boardId);
-    }
-	
-	
 
 	@Override
 	public void insertBoard(Board board) {
@@ -126,15 +120,11 @@ public class BoardServiceImpl implements BoardService{
 
 	
 	@Override
-	public Board getBoardById(Long boardId) {
-	    return boardRepository.findById(boardId).orElseThrow(() -> new RuntimeException("Board not found"));
-	}
-	
-	@Override
 	public void deleteBoard(Board board) {
 		boardRepository.deleteById(board.getBoardId());
 	}
 
+	
 	@Override
 	public Board selectBoard(Long boardId) {
 		
@@ -142,7 +132,14 @@ public class BoardServiceImpl implements BoardService{
 		
 		return board.get();
 	}
+	
+	
+	@Override
+	public Board getBoardById(Long boardId) {
+		return boardRepository.findById(boardId).orElseThrow(() -> new RuntimeException("Board not found"));
+	}
 
+	
 	@Override
 	public void deleteFile(Long boardId) throws Exception {
 		

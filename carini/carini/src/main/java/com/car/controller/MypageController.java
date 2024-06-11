@@ -337,11 +337,12 @@ public class MypageController {
         System.out.println(bookmarkCarID);
         List<Car> bookmarkCarList = bookMarkService.findAllCar(bookmarkCarID);
         for(Car car: bookmarkCarList) {
-           car.setCar_max_price(NumberFormat.getInstance().format(Long.parseLong(car.getCar_max_price().replace(" ", ""))));
-           car.setCar_max_price(car.getCar_max_price()+messageSource.getMessage("bookmark.unit", null, locale));
-           car.setCar_min_price(NumberFormat.getInstance().format(Long.parseLong(car.getCar_min_price().replace(" ", ""))));
 
-           car.setCar_min_price(car.getCar_min_price()+messageSource.getMessage("bookmark.unit", null, locale));
+           car.setCarMaxPrice(NumberFormat.getInstance().format(Long.parseLong(car.getCarMaxPrice().replace(" ", ""))));
+           car.setCarMaxPrice(car.getCarMaxPrice()+"만원");
+           car.setCarMinPrice(NumberFormat.getInstance().format(Long.parseLong(car.getCarMinPrice().replace(" ", ""))));
+           car.setCarMinPrice(car.getCarMinPrice()+"만원");
+
         }
         
         model.addAttribute("BookmarkCarList", bookmarkCarList);

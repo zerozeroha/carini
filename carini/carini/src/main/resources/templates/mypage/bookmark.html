@@ -53,15 +53,17 @@
                <!-- 카드 박스 반복 -->
                <div class="card_box" id="first_card_box"  >
                   <div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${BookmarkCarList}">
-					<form th:action="@{/mypage/bookmark/delete/{carId}(carId=${car.car_id})}" method="post">
-                     <img th:src="@{${car.car_img}}" class="card-img-top" alt="이미지">
+					<form th:action="@{/mypage/bookmark/delete/{carId}(carId=${car.carId})}" method="post">
+                     <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
                      <div class="card-body">
                         
-						<h5 class="card-title" style="font-size: 20px;" th:text="${car.car_name}"></h5>
-                        <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|#{bookmark.price} : ${car.car_min_price}|"></p>
-						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|#{bookmark.size} : ${car.car_size}|"></p>
-						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|#{bookmark.fuel} : ${car.car_fuel}|"></p>
-						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|#{bookmark.fuel_efficiency} : ${car.car_eff}|"></p>
+
+						<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
+            <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|가격(최소) : ${car.carMinPrice}|"></p>
+						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
+						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
+						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="| 연비 : ${car.carEff}|"></p>
+
                         <div class="card_button_box" style="margin-top:20px; font-size: 15px;">
                            
 							<a href="/mypage/getbookmark/{carId}" style="padding: 0px 5px;" class="btn btn-primary" th:text="#{detail}"></a>

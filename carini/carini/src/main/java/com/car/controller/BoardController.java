@@ -9,11 +9,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -36,14 +41,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.car.dto.Board;
 import com.car.dto.Member;
+import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
 import com.car.persistence.BoardRepository;
 import com.car.service.BoardService;
 import com.car.service.MemberService;
+import com.car.service.NoticeService;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -60,7 +68,14 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private MemberService memberService;
-
+	@Autowired
+	private NoticeService noticeService;
+	
+	
+	@Autowired
+    private MessageSource messageSource;
+    @Autowired
+    private LocaleResolver localeResolver;
 	
 	public PagingInfo pagingInfo = new PagingInfo();
 	
@@ -75,7 +90,6 @@ public class BoardController {
 	/*
 	 * 게시판 목록보기
 	 * */
-	
 	@GetMapping("/board/getBoardList")
 	public String getBoardList(Model model, Board board,
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
@@ -86,6 +100,18 @@ public class BoardController {
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
 	    Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
+	    List<Notice> noticeList = noticeService.noticeList();
+	    System.out.println(noticeList);
+	    
+	    // Sort noticeList in descending order based on noticeDate
+	    noticeList = noticeList.stream()
+	                   .sorted(Comparator.comparing(Notice::getNoticeDate).reversed())
+	                   .collect(Collectors.toList());
+
+	    // Limit the noticeList to the first 2 items
+	    if (noticeList.size() > 2) {
+	        noticeList = noticeList.subList(0, 3);
+	    }
 	    
 	    System.out.println("board");
 	    System.out.println((Member)session.getAttribute("user"));
@@ -119,11 +145,14 @@ public class BoardController {
 		model.addAttribute("st", searchType);
 		model.addAttribute("sw", searchWord);
 	    model.addAttribute("boardList", pagedResult.getContent()); // Add this line
+	    model.addAttribute("noticeList", noticeList);
 
 	    return "board/getBoardList";
 	}
 
-
+	/*
+     * 게시판 상세보기
+     * */
 	@GetMapping("/board/getBoard")
 	public String getBoard(Board board, Model model, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
@@ -134,6 +163,9 @@ public class BoardController {
 		return "board/getBoard";
 	}
 	
+	/*
+     * 게시판 작성
+     * */
 	@GetMapping("/board/insertBoard")
 	public String insertBoardForm(Member member, Board board, Model model, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
@@ -145,7 +177,9 @@ public class BoardController {
 	}
 	
 	
-	
+	/*
+     * 게시판 작성
+     * */
 	@PostMapping("/board/insertBoard")
 	public String insertBoard(Board board, HttpSession session) 
 			throws IOException {
@@ -165,13 +199,15 @@ public class BoardController {
 		return "redirect:/board/getBoardList";
 	}
 	
-	
+	/*
+     * 게시판 수정
+     * */
 	@GetMapping("/board/updateBoard")
     public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
         if(user == null) { return "redirect:/member_login"; }
 		
-		Board board = boardService.getBoardWithoutIncreasingCount(boardId); // 조회수 증가 없음
+		Board board = boardService.getBoardById(boardId); // 조회수 증가 없음
         model.addAttribute("board", board);
         return "board/updateBoard";  // 게시글 수정 페이지
     }
@@ -201,8 +237,9 @@ public class BoardController {
 	}
 	
 	
-	
-	
+	/*
+     * 게시판 삭제
+     * */
 	@GetMapping("/board/deleteBoard")
 	public String deleteBoard(Board board, HttpSession session)  {
 		Member user = (Member) session.getAttribute("user");
@@ -213,6 +250,9 @@ public class BoardController {
 		return "forward:/board/getBoardList";
 	}
 	
+	/*
+     * 파일 다운로드
+     * */
 	@GetMapping("/board/download")
 	public ResponseEntity<Resource> handleFileDownload(HttpServletRequest req, 
 			@RequestParam(name = "boardId") Long boardId, @RequestParam(name = "fn") String fn) throws Exception {
@@ -236,18 +276,21 @@ public class BoardController {
 	    }
 	}
 	
-	
+	/*
+     * 파일 삭제
+     * */
 	@PostMapping("/board/deleteFile/{boardId}")
 	@ResponseBody
-	public Map<String, String> deleteFile(@PathVariable(name = "boardId") Long boardId) {
+	public Map<String, String> deleteFile(@PathVariable(name = "boardId") Long boardId, HttpServletRequest request) {
 	    Map<String, String> response = new HashMap<>();
+	    Locale locale = localeResolver.resolveLocale(request);
 	    try {
 	        boardService.deleteFile(boardId);
-	        response.put("message", "파일이 삭제되었습니다!");
+	        response.put("message", messageSource.getMessage("board.filedelete.success", null, locale));
 	        response.put("status", "success");
 	    } catch (Exception e) {
 	    	log.error("Error deleting file for boardId {}: {}", boardId, e.getMessage(), e);
-	        response.put("message", "파일 삭제 중 오류가 발생하였습니다: " + e.getMessage());
+	    	response.put("message", messageSource.getMessage("board.filedelete.failure", null, locale));
 	        response.put("status", "error");
 	    }
 	    return response;
