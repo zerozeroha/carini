@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/signup.css">
+	
+	<script src="/src/main/resources/static/script/available.js" defer></script>
 </head>
 <script>
     import TextField from '@mui/material/TextField';
@@ -55,7 +57,7 @@
                     <br>
                     <h3> _WELCOME_</h3>
             <br>  
-            <input type="id" name="memberId" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
+            <input type="id" id="id_input" name="memberId" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
             <br><br>
                     
                     <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요."  size="25" minlength="8" maxlength="16">
