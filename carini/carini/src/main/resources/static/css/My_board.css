@@ -2333,6 +2333,14 @@ footer {
     -webkit-text-stroke: 0.4px rgb(115, 109, 119);
 
 }
+
+.carini-hover:hover{
+	color: black;
+	-webkit-text-stroke: 0.9px white;
+            text-shadow: 9px 9px 1px whitesmoke;
+         }
+
+
   
   
 
@@ -3647,4 +3655,24 @@ a {
 
 body {
     background-color: white;
+}
+
+ /* 수정하기랑 목록 */
+ 
+.change_list {
+   display: flex;
+   width: 100%;
+   flex-direction: row-reverse;
+}
+
+.change_list a{
+   margin:0;
+   padding: 0;
+}
+
+.change_list a:hover{
+   margin:0;
+   padding: 0;
+   color: rgb(192, 192, 192);
+   font-weight:600;
 }
