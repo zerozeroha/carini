@@ -1,35 +1,161 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<!--
+    Helios by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-   <title>Spring Framework</title>
-   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">   
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
-      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
-      crossorigin="anonymous">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
+    <title> 상세보기 - Helios by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/getBoard.css" />
+
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+    <style>
+
+    </style>
 </head>
-<body>
-	<h3>게시글 상세</h3>
-	
-	<div class="container" align="center">
+
+<body class="no-sidebar is-preload">
+
+    <div id="page-wrapper">
+
+        <!-- Header -->
+       <div id="header">
+
+            <!-- Inner -->
+            <div class="inner">
+                <header><br><br>
+                	<a th:href="@{/home}" class="header_carini carini-hover btn">CARINI</a>
+                </header>
+            </div>
+
+                 <!-- 우측 플로팅 아이콘 -->
+   
+                <div  id="float_icons">
+                    <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+                        <img th:src="@{/img/챗봇아이콘.png}" alt="챗봇">
+                    </a>
+                    <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="qr">
+                        <img th:src="@{/img/큐알.png}" alt="큐알">
+                    </a>
+                </div>
+
+
+            <!-- nav-->
+            <nav id="nav">
+                <ul>
+                    <li>
+                        <a th:href="@{/Board.html}">Board</a>
+                        <ul>
+                            <li><a class="title-hover" style="text-align: center;" th:href="@{/Board.html}">유저 게시판</a></li>
+                            <li><a class="title-hover" style="text-align: center;" th:href="@{/Board_Qna.html}">Q&A</a></li>
+                            <li><a class="title-hover" style="text-align: center;" th:href="@{/My_board.html}">나의 게시물</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a th:href="@{/Models.html}">Model</a></li>
+                    <li><a th:href="@{/Center.html}">Center</a></li>
+                    
+                    <li>
+                        <a th:href="@{/My_page.html}">MyPage</a>
+                        <ul>
+                            <li><a class="title-hover" style="text-align: center;" th:href="@{/My_Page.html}">나의 정보</a></li>
+                            <li><a class="title-hover" style="text-align: center;" th:href="@{/Favorites.html}">찜목록</a></li>
+                            <li><a class="title-hover" style="text-align: center;" th:href="@{/My_board.html}">나의 게시물</a></li>
+                        
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <!-- Main -->
+        <div class="wrapper style1">
+            <div class="container">
+                <p class="Board_text"><br>_My_Board_Detailed</p>
+            
 		<form th:action="@{/board/getBoard}" method="get" enctype="multipart/form-data">
 			<input name="boardId" type="hidden" th:value="${board.boardId}">
-			boardTitle=<input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled><br />
-			boardWriter=<input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled><br />
-			boardContent=<textarea th:text="${board.boardContent}"  name="boardContent" rows="15" disabled ></textarea><br />
-			<div th:if="${board.boardFilename != null}">
-				첨부된 파일=
-				<a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}" th:text="${board.boardFilename}"></a>
-			</div>
-			<div th:if="${board.boardFilename == null}">첨부된 파일=null</div>
-			boardDate=<input type="text" name="boardDate" th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled><br />
-			boardCnt=<input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled><br />
-			<a th:href="@{/board/updateBoard(boardId=${board.boardId})}">게시글 수정</a>
-			<a th:href="@{/board/getBoardList}" class="btn">게시글목록</a>         
-		</form>
-		<a th:href="@{/home}" class="btn">홈으로 돌아가기</a>
-	</div>
+		
+            <table id="board_info">
+                <tr>
+                    <td class="gangjo">닉네임</td>
+                    <td input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled>boardWriter</td>
+                    <td class="gangjo">조회수</td>
+                    <td input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled>boardCnt</td>
+                </tr>
+               
+                <tr>
+                    <td class="gangjo">제목</td>
+                    <td input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled>boardTitle</td>
+                    <td class="gangjo">등록일</td>
+                    <td input type="text" name="boardDate" th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled>boardDate</td>
+                </tr>
+
+                <tr>
+                    <td class="gangjo" colspan="4">내용</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="padding: 20px;">
+                        <textarea th:text="${board.boardContent}"  name="boardContent" rows="15" disabled />
+
+                    </td>
+                </tr>
+            </table>
+
+            <div id="button_section">
+                
+                <div th:if="${board.boardFilename != null}" id="uploadFile_div">
+                    <a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}" id="uploadFile" class="icon-hover">
+                        <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
+                    </a>
+                    <a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}" th:text="${board.boardFilename}"></a>
+                    
+                </div>
+
+      			<div class="change_list">
+					<div style="width: 85px;">
+                    	<a th:href="@{/board/updateBoard(boardId=${board.boardId})}">수정하기</a>
+					</div>
+					<div style="width:75px;">
+						<a th:href="@{/board/getBoardList}" class="btn">목록</a>
+					</div>
+				</div>
+        
+          
+            </div>
+              
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer">
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+   <hr style="">
+    <footer style="opacity: 50%;">
+        <!-- Contact -->            
+    <h1 >@ carini</h1>      
+    </footer>
+
+    <!-- Scripts -->
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.dropotron.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
+    <script th:src="@{/assets/js/browser.min.js}"></script>
+    <script th:src="@{/assets/js/breakpoints.min.js}"></script>
+    <script th:src="@{/assets/js/util.js}"></script>
+    <script th:src="@{/assets/js/main.js}"></script>
+
 </body>
+
 </html>
