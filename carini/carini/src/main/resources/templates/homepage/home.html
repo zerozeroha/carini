@@ -34,7 +34,12 @@
                <!-- Nav -->
                   <nav id="nav">
                      <ul>
-                        <li><a th:href="@{/board/getBoardList}">Board</a></li>
+                        <li><a th:href="@{/board/getBoardList}">Board</a>
+							<ul>
+                              <li><a th:href="@{/mypage/form}"th:text="#{side.menu1}" style="text-align: center;"></a></li>
+                              <li><a th:href="@{/mypage/bookmark}" th:text="#{side.menu2}" style="text-align: center;"></a></li>
+                           </ul>
+							</li>
                         <li><a href="Models.html">Model</a></li>
                         <li><a href="Center.html">Center</a></li>
                         <li>
