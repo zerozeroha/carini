@@ -77,7 +77,7 @@
         <!-- Main -->
         <div class="wrapper style1">
             <div class="container">
-                <p class="Board_text"><br>_My_Board_Detailed</p>
+                <p class="Board_text"><br>_Board_Detailed</p>
             
 		<form th:action="@{/board/getBoard}" method="get" enctype="multipart/form-data">
 			<input name="boardId" type="hidden" th:value="${board.boardId}">
@@ -85,16 +85,16 @@
             <table id="board_info">
                 <tr>
                     <td class="gangjo">닉네임</td>
-                    <td input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled>boardWriter</td>
+                    <td><input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled></td>
                     <td class="gangjo">조회수</td>
-                    <td input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled>boardCnt</td>
+                    <td><input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled></td>
                 </tr>
                
                 <tr>
                     <td class="gangjo">제목</td>
-                    <td input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled>boardTitle</td>
+                    <td><input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled></td>
                     <td class="gangjo">등록일</td>
-                    <td input type="text" name="boardDate" th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled>boardDate</td>
+                    <td><input type="text" name="boardDate" th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
                 </tr>
 
                 <tr>
@@ -103,7 +103,6 @@
                 <tr>
                     <td colspan="4" style="padding: 20px;">
                         <textarea th:text="${board.boardContent}"  name="boardContent" rows="15" disabled />
-
                     </td>
                 </tr>
             </table>
