@@ -83,8 +83,7 @@
 									<div class="col-8"><a th:href="@{/notice/getNotice(noticeId=${notice.noticeId})}" class="side-hover" th:text="${notice.noticeTitle}"></a></div>
 								</div>
 								<div class="lookharder">
-									<!--<input type="button" name="자세히 보기" id="button" value="자세히 보기">-->
-									<a th:href="@{/notice/getNoticeList}" class="button">자세히보기</a>
+								<a th:href="@{/notice/getNoticeList}" class="button"th:text="#{detail}"></a>
 								</div>
 								<div style="width: 10%; height: 80%;"></div>
 							</section>
@@ -107,7 +106,7 @@
 										<option class="select_options" value="boardContent" th:selected="${st =='boardContent'}" th:text="#{board.search.content}"></option>
 									</select>
 									<div>
-										<input name="searchWord" type="text" value="searchWord" th:placeholder="|#{board.search.title} / #{board.search.writer} / #{board.search.content}">
+										<input name="searchWord" type="text" th:placeholder="|#{board.search.title} / #{board.search.writer}">
 									</div>
 									<div>
 										<input type="submit" name="검색" class="gradient" value="Search">
