@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Spring Framework</title>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
+      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
+      crossorigin="anonymous">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
+</head>
+<body>
+	<h3>공지사항 상세</h3>
+	
+	<div class="container" align="center">
+		<form th:action="@{/notice/getNotice}" method="get" enctype="multipart/form-data">
+			<input name="noticeId" type="hidden" th:value="${notice.noticeId}">
+			noticeTitle=<input type="text" name="noticeTitle" th:value="${ notice.noticeTitle }" disabled><br />
+			noticeContent=<textarea th:text="${notice.noticeContent}"  name="noticeContent" rows="15" disabled ></textarea><br />
+			<div th:if="${notice.noticeFilename != null}">
+				첨부된 파일=
+				<a th:href="@{/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})}" th:text="${notice.noticeFilename}"></a>
+			</div>
+			<div th:if="${notice.noticeFilename == null}">첨부된 파일=null</div>
+			noticeDate=<input type="text" name="noticeDate" th:placeholder="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}" disabled><br />
+			noticeCnt=<input type="text" name="noticeCnt" th:value="${ notice.noticeCnt }" disabled><br />
+			<a th:href="@{/notice/getNoticeList}" class="btn">공지사항목록</a>         
+		</form>
+	</div>
+</body>
+</html>
