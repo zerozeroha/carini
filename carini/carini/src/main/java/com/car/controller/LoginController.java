@@ -36,6 +36,22 @@ public class LoginController {
 	public Member setMember() {
 		return new Member(); // 기본 Member 객체를 세션에 저장
 	}
+    
+    /*세션 초기화 */
+	@GetMapping("/")
+	public String backhome(HttpServletRequest request) {
+		// 세션을 삭제
+		System.out.println("1111");
+		HttpSession session = request.getSession(false);
+		// session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
+		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
+		if (session != null) {
+			session.invalidate();
+			session.getAttribute("user");
+		}
+		return "index.html";
+	}
+    
     /*
      * 회원가입 view
      * */
