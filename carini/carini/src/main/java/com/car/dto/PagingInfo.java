@@ -19,8 +19,14 @@ public class PagingInfo {
 	private int totalPageCount;        // 총 페이지 건수
 	private int startPage; 	           // 페이지 리스트에서 시작  페이지 번호 
 	private int endPage;               // 페이지 리스트에서 마지막 페이지 번호 
-	private String searchWord;
-	private String searchType;
+	
+	private String searchWord;		   // (게시판) 검색할 단어
+	private String searchType;         // (게시판) 검색할 타입
+	private Long carMinPrice;          // (필터링) 자동차 최저가
+	private Long carMaxPrice;          // (필터링) 자동차 최고가
+	private String carSize;            // (필터링) 자동차 크기
+	private String carFuel;            // (필터링) 자동차 연료
+	
 	
 	//page계산
 	public void pageSetting() {

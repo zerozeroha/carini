@@ -33,7 +33,7 @@
 	<div>
 		<ul class="col pagination justify-content-center">	
 			<th:block th:if="${sp > ps}">
-				<li class="page-item"><a th:href="@{/board/getNoticeList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{notice.prev}"></a></li>				
+				<li class="page-item"><a th:href="@{/board/getNoticeList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
 			</th:block>
 			
 			<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
@@ -45,7 +45,7 @@
 			</th:block>
 			
 			<th:block th:if="${ ep lt tp }">
-				<li class="page-item"><a th:href="@{/notice/getNoticeList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{notice.next}"></a></li>								
+				<li class="page-item"><a th:href="@{/notice/getNoticeList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
 			</th:block>
 		</ul>
 	</div><!--pagination-->
