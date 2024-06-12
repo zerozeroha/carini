@@ -187,3 +187,12 @@ footer {
    height: 15%; 
    clear: both; 
 }
+
+/*유효성 검사후 border 색상을 바꿉니다.*/
+.change_green {
+	border: greenyellow;
+}
+
+.change_red {
+	border: red;
+}

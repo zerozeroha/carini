@@ -10,12 +10,11 @@
     import TextField from '@mui/material/TextField';
 </script>
 <body>
-    <form action="/member_login" method="post">
+		
+    <form action="/member_login_check" method="post">
         <header>
 
-            <span style=" text-shadow: 4px 4px black;letter-spacing:10px">
-                &nbsp;CARINI&nbsp;
-            </span>  
+            <a href="./index.html" class="header_carini carini-hover">CARINI</a>
 
             <p class="header-1">
                 <br>CARINI SEMPRE CON VUESTRO
@@ -56,9 +55,9 @@
                     <h3> _WELCOME_</h3>
             <br><br>   
 
-                    <input type="id" name="id" class="btn btn-outline-secondary" placeholder="ID" size="25">
+                    <input type="id" name="memberId" class="btn btn-outline-secondary" placeholder="ID" size="25">
             <br>
-                    <input type="password" name="password" class="btn btn-outline-secondary" placeholder="PASSWORD" size="25">
+                    <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="PASSWORD" size="25">
             <br><br>
                     <input id="login" type="submit" name="submit" class="btn btn-light" value="LOGIN" size="25" style="text-align: center;">
             <br><br><br>
@@ -76,11 +75,11 @@
         <br><br>
 
         <a href="/api/naver/oauth" >
-            <img src="./img/naver.png" class="img-1" id="login">
+            <img src="/img/naver.png" class="img-1" id="login">
         </a>
     <br>    
         <a href="/oauth/kakao" >
-            <img src="./img/kakaotalk.png" class="img-1" id="login">
+            <img src="/img/kakaotalk.png" class="img-1" id="login">
         </a>
     <br><br>
 
@@ -94,7 +93,7 @@
         <footer>
             
         </footer>
-    </body>
-    </form>
-
+	</form>
+</body>
+	
 </html>

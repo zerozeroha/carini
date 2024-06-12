@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="/src/main/resources/static/css/signup.css">
+	
+	<script src="/src/main/resources/static/script/available.js" defer></script>
 </head>
 <script>
     import TextField from '@mui/material/TextField';
@@ -13,9 +15,9 @@
     <form action="/signup" method="post">
         <header>
 
-            <span style=" text-shadow: 4px 4px black;letter-spacing:10px">
+            <a th:href="@{/}" style=" text-shadow: 4px 4px black;letter-spacing:10px">
                 &nbsp;CARINI&nbsp;
-            </span>  
+            </a>  
 
             <p class="header-1">
                 <br>CARINI SEMPRE CON VUESTRO
@@ -55,16 +57,16 @@
                     <br>
                     <h3> _WELCOME_</h3>
             <br>  
-            <input type="id" name="memberId" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
+            <input type="id" id="id_input" name="memberId" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
             <br><br>
                     
-                    <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요." size="25" minlength="8" maxlength="16">
+                    <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요."  size="25" minlength="8" maxlength="16">
             <br><br>
-                    <input type="text" name="memberName" class="btn btn-outline-secondary" placeholder="이름" size="25">
+                    <input type="text" name="memberName" class="btn btn-outline-secondary" placeholder="이름"  size="25">
             <br><br>
-                    <input type="text" name="memberNickname" class="btn btn-outline-secondary" placeholder="닉네임" size="25">
+                    <input type="text" name="memberNickname" class="btn btn-outline-secondary" placeholder="닉네임"  size="25">
             <br><br>
-                     <input type="email" name="memberEmail" class="btn btn-outline-secondary" placeholder="이메일 입력해 주세요" size="25">
+                     <input type="email" name="memberEmail" class="btn btn-outline-secondary" placeholder="이메일 입력해 주세요"  size="25">
             <br><br>
                     <input type="tel" name="memberPhoneNum" class="btn btn-outline-secondary" placeholder="전화번호를 입력해 주세요" size="25">
             <br><br>

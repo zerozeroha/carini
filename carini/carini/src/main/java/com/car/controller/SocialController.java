@@ -3,6 +3,7 @@ package com.car.controller;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import com.car.dto.Member;
@@ -24,7 +27,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
 @Controller
-public class socialController {
+@SessionAttributes("member")
+public class SocialController {
     
     private final SocialService socialService;
     
@@ -34,8 +38,11 @@ public class socialController {
     @Value("${kakao.redirect-uri}")
     private String redirectUri;
     
-    
-    public socialController(SocialService socialService) {
+    @ModelAttribute("member")
+   	public Member setMember() {
+   		return new Member(); // 기본 Member 객체를 세션에 저장
+   	}
+    public SocialController(SocialService socialService) {
         this.socialService = socialService;
     }
    
@@ -56,7 +63,7 @@ public class socialController {
     */
    
    @RequestMapping(value = "/login")
-   public String login(@RequestParam("code") String code, Model model, Member member) {
+   public String login(@RequestParam("code") String code, Model model, Member member, HttpServletRequest request,HttpSession session) {
 
       
       // 1번 인증코드로 요청 전달
@@ -87,10 +94,10 @@ public class socialController {
          Member save_member = socialService.kakaoSignUp(member);
          System.out.println(save_member.getMemberEmail());
          
-         // member데이터를 모델에 저장
-         model.addAttribute("member", save_member);
+         // member데이터를 세션에 저장
+         session.setAttribute("user", save_member);
          
-         return "homepage/home.html";
+         return "redirect:/home";
       }
    }
 
@@ -144,7 +151,8 @@ public class socialController {
    
    
    @RequestMapping(value = "/api/naver/callback", method = {RequestMethod.GET, RequestMethod.POST})
-   public String naverLogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state, Model model, Member member){
+   public String naverLogin(@RequestParam(value = "code") String code, @RequestParam(value = "state") String state
+		   					, Model model, Member member, HttpServletRequest request,HttpSession session) {
 	   String token = socialService.getNaverAccessToken(code, state, client_id, client_secret);
 	   HashMap<String, Object> userInfo = socialService.getNaverUserInfo(token);
 	   
@@ -153,13 +161,6 @@ public class socialController {
       if(userInfo == null) {
          return "/api/naver/callback";
       }else {
-         System.out.println("login info :" + userInfo.toString());
-         
-         System.out.println("id = {}" + userInfo.get("id"));
-         System.out.println("name = {}" + userInfo.get("name"));
-         System.out.println("nickname = {}" + userInfo.get("nickname"));
-         System.out.println("email = {}" + userInfo.get("email"));
-         System.out.println("mobile = {}" + userInfo.get("mobile"));
          
          member.setMemberId((String)userInfo.get("id"));
          member.setMemberName((String)userInfo.get("name"));
@@ -167,40 +168,23 @@ public class socialController {
          member.setMemberEmail((String) userInfo.get("email"));
          member.setMemberPhoneNum((String) userInfo.get("mobile"));
          
-         // 카카오 회원정보 데이터베이스 넣기!
+         // 네이버 회원정보 데이터베이스 넣기!
          Member save_member = socialService.naverSignUp(member);
-         System.out.println(save_member.getMemberEmail());
-         
-         // member데이터를 세션에 저장
-         model.addAttribute("member", save_member);
+         Member memberOne=socialService.findByMemberId(save_member.getMemberId());
+         memberOne.setMemberPw("*****");
+         memberOne.setMemberPhoneNum("***-****-****");
+         memberOne.setMemberEmail("****@****.***");
+    	 
+         // member데이터를 세션에 저장 
+
+         session.setAttribute("user",memberOne);
+
          
          return "homepage/home.html";
       }
 	   
    }
-   
-   /*
-    * 네이버 - 받은 정보로 비회원이라면 회원가입
-    */
-   @PostMapping("/api/naver/signup")
-   public String naverSignUp(@RequestBody Member member, HttpServletRequest request) {
-      System.out.println("===============");
-      System.out.println("id = {}" + member.getMemberId());
-      System.out.println("name = {}" + member.getMemberName());
-      System.out.println("nickname = {}" + member.getMemberNickname());
-      System.out.println("email = {}" + member.getMemberEmail());
-      System.out.println("PhoneNum = {}" + member.getMemberPhoneNum());
 
-      
-//      member = socialService.naverSignUp(member);
-      
-//       HttpSession session = request.getSession(); 
-//       session.setAttribute("member",member);
-//       System.out.println(member);
-//       
-      return "homepage/home.html";
-
-   }
 }
 
 

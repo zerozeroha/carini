@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<!--
+   Helios by HTML5 UP
+   html5up.net | @ajlkn
+   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <title>No Sidebar - Helios by HTML5 UP</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="stylesheet" href="/css/mypage_edit.css" />
+   <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+   
+   <!-- 비번 아이콘 -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+<body class="no-sidebar is-preload">
+   <div id="page-wrapper">
+
+      <!-- Header -->
+      <div id="header">
+
+         <!-- Inner -->
+         <div class="inner">
+            <header>
+
+                 <h1><a th:href="@{/home}" class="header_carini carini-hover" >CARINI</a></h1>
+
+            </header>
+         </div>
+
+         <!-- Nav -->
+         <nav id="nav">
+            <ul>
+			   <li>
+                   <a href="Board.html">Board</a>
+                   <ul>
+                       <li><a class="title-hover" style="text-align: center;" href="Board.html">유저 게시판</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="Board_Qna.html ">Q&A</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="My_board.html">나의 게시물</a></li>
+                       <li><a class="title-hover" style="text-align: center;" href="#">Veroeros feugiat</a></li>
+                   </ul>
+               </li>
+               <li><a th:href="@{/models}">Model</a></li>
+               <li><a th:href="@{/center}">Center</a></li>
+               <li>
+                  <a href="#">MyPage</a>
+                  <ul>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/form}" th:text="#{side.menu1}"></a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/bookmark}" th:text="#{side.menu2}"></a></li>
+                     <li><a class="title-hover" style="text-align: center;" th:href="@{/mypage/myBoard}" th:text="#{side.menu3}"></a></li>
+                  </ul>
+               </li>
+            </ul>
+         </nav>
+      </div>
+
+	  <!-- 우측 아이콘 -->
+	  <!--수정부분 : 우측 아이콘 class 다름-->
+
+          <div  id="float_icons">
+             <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+                <img src="/img/챗봇아이콘.png" alt="챗봇">
+             </a>
+             <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="qr">
+                <img src="/img/큐알.png" alt="큐알">
+             </a>
+             
+           </div>
+
+	  
+      <!-- Main -->
+      <div class="wrapper style1">
+         <div class="container">
+            <article  id="main" class="special" style="background-color: white;">
+               <div>
+                  <table id="info_box">
+					<p class="Board_text">_Edit_My_Inforamtion</p>
+					<form th:action="${session.user.memberSocial == '회원' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}" method="post">
+					    <tr>
+					        <th th:text="#{info.nickname}"></th>
+					        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}">
+					            <input type="text" name="memberNickname" th:value="${session.user.memberNickname}">
+					            <button class="pencil-button" id="editNickname" type='submit'>
+					                <img th:src="@{/img/edit_icon.png}" alt="edit icon" style="height: 15px; width: 15px;">
+					            </button>
+					        </td>
+					        <td th:unless="${session.user.memberSocial == '회원'}">
+					            <input type="text" name="memberSocialNickname" th:value="${session.user.memberSocialNickname}">
+					            <button class="pencil-button" id="editNickname" type='submit'>
+					                <img th:src="@{/img/edit_icon.png}" alt="edit icon" style="height: 15px; width: 15px;">
+					            </button>
+					        </td>
+					    </tr>
+					</form>
+                     <form th:action="@{/mypage/myinfo/updateAll}" method="post">
+                        <tr>
+                           <th th:text="#{info.id}"></th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberId}"></span></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly>이메일</span></td>
+                        </tr>
+						<tr>
+                           <th th:text="#{info.pw}"></th>
+                           <td th:if="${session.user.memberSocial == '회원'}">
+                              <div class="password-input-container" style="margin-left: 27px;">
+                                 <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
+                                  &nbsp;<i class="fa fa-eye fa-lg"></i>
+                              </div>
+                           </td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPw}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <th th:text="#{info.name}"></th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="text" name="memberName" th:value="${session.user.memberName}" placeholder="memberName" /></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberName}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <th th:text="#{info.email}"></th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="email" name="memberEmail" th:value="${session.user.memberEmail}" placeholder="memberEmail"/></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly></span></td>
+                        </tr>
+                        <tr>
+                           <th th:text="#{info.phone}"></th>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPhoneNum}" readonly></span></td>
+                        </tr>
+					</table>
+					</div>
+					<div style="padding: 10%;">
+						<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}" style="padding: 10px 20px;">
+                    
+
+                </form>
+               
+               
+			   </article>
+			   <form th:action="@{/mypage/myinfo/delete}" method="post">
+			                     <button id="member_quit" th:text="#{info.btn.unsubscribe}"></button>
+			   </form>
+         </div>
+      </div>
+
+      <!-- Footer -->
+	  <hr />
+      <footer>
+         @ carini
+      </footer>
+   </div>
+
+   <!-- Scripts -->
+   <script src="/js/jquery.min.js"></script>
+   <script src="/js/jquery.dropotron.min.js"></script>
+   <script src="/js/jquery.scrolly.min.js"></script>
+   <script src="/js/jquery.scrollex.min.js"></script>
+   <script src="/js/browser.min.js"></script>
+   <script src="/js/breakpoints.min.js"></script>
+   <script src="/js/util.js"></script>
+   <script src="/js/main.js"></script>
+
+</body>
+</html>
