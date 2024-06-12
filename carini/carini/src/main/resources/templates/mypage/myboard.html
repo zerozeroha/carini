@@ -23,11 +23,6 @@
 </head>
 
 <body class="no-sidebar is-preload">
-<button id="test_button" onclick="test_alert()"
-        style="display: none; width: 200px; height: 200px; 
-    background-color: red; position:absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 999999;">핵폭발
-</button>
-
 <div id="page-wrapper">
 
     <!-- Header -->
@@ -60,25 +55,21 @@
             </ul>
         </nav>
     </div>
-
+	<br>
     <!-- Main -->
-    <div class="wrapper style1">
-		<div style="display: flex; width: 70%; margin:0 auto;">
-        <div id="sidebar_section" style="text-align: center; width: 20%;background-color: red;">
-            <div id="side_menu">
-                <a th:href="@{/mypage/form}" class="side_menu_button" style="width: 80%; " th:text="#{side.menu1}"></a>
-                <a th:href="@{/mypage/bookmark}" class="side_menu_button" style=" width: 80%;" th:text="#{side.menu2}"></a>
-                <a th:href="@{/mypage/myBoard}" class="side_menu_button"
-                   style=" width: 80%; background-color: black; color: white;" th:text="#{side.menu3}"></a>
+    <div class="wrapper style1" >
+		<div style="display: flex; width: 70%; margin:0 auto; ">
+			<div id="sidebar_section" style="text-align: center; width: 20%;">
+			   <div id="side_menu" style="float: center;">
+                  <a th:href="@{/mypage/form}" class="side_menu_button" style=" width: 80%; text-align: center; margin-left:30px;" th:text="#{side.menu1}"></a>
+                  <a th:href="@{/mypage/bookmark}" class="side_menu_button" style="  width: 80%; text-align: center;margin-left:30px;" th:text="#{side.menu2}"></a>
+                  <a th:href="@{/mypage/myBoard}" class="side_menu_button" style="background-color: black; color: white;width: 80%; text-align: center;margin-left:30px;" th:text="#{side.menu3}"></a>
+               </div>
             </div>
-        </div>
-
-
-        <div style="width: 25px;"></div>
-		
-        <div class="container">
+		<div style=" width: 5%;"></div>
+        <div class="container" >
 			<p class="Board_text">_My_Board</p>
-            <div id="my_board_box" style="height:550px;">
+            <div id="my_board_box" style="height:765px; ">
 				<form th:action="@{/mypage/myBoard}" method="get">
 					<input type="hidden" id="curPage" name="curPage"  th:value="0">
 					<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
@@ -101,8 +92,8 @@
 					<!-- </span> -->
 				</form>
 				<br>
-				<div class="main_board" style="height: 100%;">
-					<table border="1">
+				<div class="main_board" >
+					<table>
 						<tr style="display: flex;">
 							<th><input type="checkbox" id="header_checkbox" name="header_checkbox" value="header_checkbox" onclick="selectAll()"></th>
 							<th class="center ellipsis" style="width: 10%;" th:text="#{label.id}"></th>
