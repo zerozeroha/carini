@@ -139,7 +139,7 @@
 							<div class="center">
 								<ul class="col pagination justify-content-center" style="list-style-type: none; display: flex; justify-content: center; width: 130%;">	
 									<th:block th:if="${sp > ps}">
-										<li class="page-item"><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{board.prev}"></a></li>				
+										<li class="page-item"><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
 									</th:block>
 									
 									<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
@@ -151,7 +151,7 @@
 									</th:block>
 									
 									<th:block th:if="${ ep lt tp }">
-										<li class="page-item"><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{board.next}"></a></li>								
+										<li class="page-item"><a class="Board-hover page-link" th:href="@{/board/getBoardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
 									</th:block>
 								</ul>
 							</div><!--pagination-->
