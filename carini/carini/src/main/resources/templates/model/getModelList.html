@@ -12,48 +12,101 @@
 </head>
 <body>
    <h3>Model List</h3>
+   <!-- 필터링 폼 -->
+     <form th:action="@{/model/getModelList}" method="get">
+         <div class="form-group row">
+             <label for="carMinPrice" class="col-sm-2 col-form-label">최소 가격:</label>
+             <div class="col-sm-10">
+                 <input type="number" class="form-control" id="carMinPrice" name="carMinPrice" placeholder="최소 가격을 입력하세요">
+             </div>
+         </div>
+         <div class="form-group row">
+             <label for="carMaxPrice" class="col-sm-2 col-form-label">최대 가격:</label>
+             <div class="col-sm-10">
+                 <input type="number" class="form-control" id="carMaxPrice" name="carMaxPrice" placeholder="최대 가격을 입력하세요">
+             </div>
+         </div>
+         <div class="form-group row">
+             <label for="carSize" class="col-sm-2 col-form-label">자동차 크기:</label>
+             <div class="col-sm-10">
+                 <select class="form-select" id="carSize" name="carSize">
+                     <option selected>선택안함</option>
+                     <option>경형</option>
+                     <option>소형</option>
+                     <option>중형</option>
+                     <option>준중형</option>
+                     <option>대형</option>
+                     <option>준대형</option>
+                 </select>
+             </div>
+         </div>
+         <div class="form-group row">
+             <label for="carFuel" class="col-sm-2 col-form-label">자동차 연료 타입:</label>
+             <div class="col-sm-10">
+                 <select class="form-select" id="carFuel" name="carFuel">
+                     <option selected>선택안함</option>
+                     <option>가솔린</option>
+                     <option>디젤</option>
+                     <option>전기</option>
+                     <option>하이브리드</option>
+                     <option>LPG</option>
+                 </select>
+             </div>
+         </div>
+         <div class="form-group row">
+             <label for="carSort" class="col-sm-2 col-form-label">정렬:</label>
+             <div class="col-sm-10">
+                 <select class="form-select" id="carSort" name="carSort">
+                     <option selected>저가순</option>
+                     <option>고가순</option>
+                     <option>이름순</option>
+                 </select>
+             </div>
+         </div>
+         <div class="form-group row">
+             <div class="col-sm-10">
+                 <button type="submit" class="btn btn-primary">필터 적용</button>
+             </div>
+         </div>
+     </form>
 
    <!-- 카드 박스 반복 -->
    <div class="card_box" id="first_card_box" >
-      <div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${CarList}">
-		<form th:action="@{/model/modelList}" method="post">
+      <div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${carList}">
          <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
          <div class="card-body">
-            
 			<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
             <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|가격(최소) : ${car.carMinPrice}|"></p>
 			<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
 			<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
 			<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연비 : ${car.carEff}|"></p>
             <div class="card_button_box" style="margin-top:20px; font-size: 15px;">
-				<a href="/model/modelDetail/{carId}" style="padding: 0px 5px;" class="btn btn-primary">자세히 보기</a>
+				<a href="/model/getModel/{carId}" style="padding: 0px 5px;" class="btn btn-primary">자세히 보기</a>
             </div>
          </div>
-		</form>
       </div>
    </div>
-
 	
-	
+   <!--pagination-->
 	<div>
 		<ul class="col pagination justify-content-center">	
 			<th:block th:if="${sp > ps}">
-				<li class="page-item"><a th:href="@{/board/getNoticeList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{notice.prev}"></a></li>				
+				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
 			</th:block>
 			
 			<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
 			  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
 			    <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-			       th:href="@{/notice/getNoticeList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+			       th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
 			       th:text="${page}"></a>
 			  </li>
 			</th:block>
 			
 			<th:block th:if="${ ep lt tp }">
-				<li class="page-item"><a th:href="@{/notice/getNoticeList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{notice.next}"></a></li>								
+				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
 			</th:block>
 		</ul>
-	</div><!--pagination-->
+	</div>
 </body>
 </html>
 
