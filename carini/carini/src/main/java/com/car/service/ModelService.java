@@ -1,16 +1,20 @@
 package com.car.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.car.dto.Car;
 
+@Service
 public interface ModelService {
 	
 	long getTotalRowCount(Car car);
-	Page<Car> getModelList(Pageable pageable, String car_price, String car_size, String car_fuel);
-	Car getCar(Car car, Long car_id);
+	List<Car> getAllCarList();
 	Car getCarbyId(Long carId);
+	Page<Car> filterCars(Pageable pageable, Long carMinPrice, Long carMaxPrice, String carSize, String carFuel);
 	
 	
 }
