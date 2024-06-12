@@ -26,8 +26,8 @@ public class Car {
 	private Long carId;
 	
 	private String carName;
-	private String carMinPrice;
-	private String carMaxPrice;
+	private Long carMinPrice;
+	private Long carMaxPrice;
 	private String carSize;
 	private String carFuel;
 	private String carEff;
