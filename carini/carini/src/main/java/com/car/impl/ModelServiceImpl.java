@@ -77,7 +77,7 @@ public class ModelServiceImpl implements ModelService{
             if (!"선택안함".equals(carFuel)) {
                 predicates.add(criteriaBuilder.like(root.get("carFuel"), "%" + carFuel + "%"));
             }
-            System.out.println("predicates" + predicates);
+            System.out.println("predicates : " + predicates);
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
