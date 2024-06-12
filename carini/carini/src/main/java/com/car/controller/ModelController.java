@@ -59,6 +59,9 @@ public class ModelController {
 	       @RequestParam(name = "carSort", defaultValue = "저가순") String carSort,
 	       HttpSession session) {
 		
+		System.out.println("Received carSize: " + carSize); // 디버깅 로그 추가
+	    System.out.println("Received carFuel: " + carFuel); // 디버깅 로그 추가
+		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 		
 		Pageable pageable;

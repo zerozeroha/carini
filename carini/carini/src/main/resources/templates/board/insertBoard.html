@@ -74,33 +74,37 @@
             <div class="container">
                 <p class="Board_text"><br>_Write_My_Board</p>
             
-		<form th:action="@{/board/insertBoard}" method="post" enctype="multipart/form-data">
-			<input name="memberId" type="hidden" th:value="${ session.user.memberId }">
+
+		<form th:action="@{/board/insertBoard}" method="post" enctype="multipart/form-data" name="boardForm" id="boardForm">
+			<input name="memberId" type="hidden" th:value="${session.user.memberId}">
 		
             <table id="board_info">
                 <tr>
-                    <td class="gangjo" th:text="#{ board.write.writer }"></td>
-                    <td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }" disabled></td>
-					<td class="gangjo" th:text="#{ board.write.date }"></td>
+                    <td class="gangjo" th:text="#{board.write.writer}"></td>
+                    <td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }" id="boardWriter" readonly></td>
+					<td class="gangjo" th:text="#{board.write.date}"></td>
+
 					<td><input type="text" name="boardDate" th:value="${date}" disabled></td>
                 </tr>
                
                 <tr>
-                    <td colspan="1" class="gangjo" th:text="#{ board.write.title }"></td>
-					<td colspan="3"><input type="text" name="boardTitle" ></td>
+
+                    <td colspan="1" class="gangjo" th:text="#{board.write.title}"></td>
+					          <td colspan="3"><input type="text" name="boardTitle" id="boardTitle" required></td>
+
                 </tr>
 				
-				<tr>
+				        <tr>
                    <td colspan="1" class="gangjo" th:text="#{ board.write.uploadfile }"></td>
-					<td colspan="3"><input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"></td>
+					          <td colspan="3"><input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"></td>
                </tr>
 
                 <tr>
-                    <td class="gangjo" colspan="4" th:text="#{ board.write.content }"></td>
+                    <td class="gangjo" colspan="4" th:text="#{board.write.content}" ></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="padding: 20px;">
-                        <textarea th:text="${ board.boardContent }"  name="boardContent" rows="15" />
+                        <textarea name="boardContent" rows="15" required></textarea>
 
                     </td>
                 </tr>
@@ -112,16 +116,18 @@
                     <a th:href="@{/board/download(boardId=${ board.boardId }, fn=${ board.boardFilename })}" id="uploadFile" class="icon-hover">
                         <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
                     </a>
-                    <a th:href="@{/board/download(boardId=${ board.boardId }, fn=${ board.boardFilename })}" th:text="${board.boardFilename}"></a>
+					          <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"/>
+
                     
                 </div>
 
       			<div class="change_list">
 					<div style="width: 85px;">
-                    	<a><button th:text="#{ board.writing }" type="submit"></button></a>
+						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"></a>
 					</div>
 					<div style="width:75px;">
-						<a th:text="#{ board.list }" class="btn"></a>
+						<a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="btn"></a>
+
 					</div>
 				</div>
 			</form>
