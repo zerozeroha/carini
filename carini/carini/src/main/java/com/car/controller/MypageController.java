@@ -71,17 +71,7 @@ public class MypageController {
 		return new Member(); // 기본 Member 객체를 세션에 저장
 	}
 
-	@GetMapping("/")
-	public String backhome(HttpServletRequest request) {
-		// 세션을 삭제
-		HttpSession session = request.getSession(false);
-		// session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
-		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
-		if (session != null) {
-			session.invalidate();
-		}
-		return "index.html";
-	}
+
 
 	@GetMapping("/no_login")
 	public String mypageNo_login(Model model) {
