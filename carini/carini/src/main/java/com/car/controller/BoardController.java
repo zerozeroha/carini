@@ -157,6 +157,7 @@ public class BoardController {
    @GetMapping("/board/getBoard")
    public String getBoard(Board board, Model model, HttpSession session) {
       Member user = (Member) session.getAttribute("user");
+      System.out.println("====================================================");
       if(user == null) { return "redirect:/member_login"; }
        
       model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
@@ -207,14 +208,28 @@ public class BoardController {
      * 게시판 수정
      * */
    @GetMapping("/board/updateBoard")
-    public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
-      Member user = (Member) session.getAttribute("user");
-        if(user == null) { return "redirect:/member_login"; }
-      
-      Board board = boardService.getBoardById(boardId); // 조회수 증가 없음
-        model.addAttribute("board", board);
-        return "board/updateBoard";  // 게시글 수정 페이지
-    }
+   public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
+	       Member user = (Member) session.getAttribute("user");
+	       if (user == null) {
+	           return "redirect:/member_login";
+	       }
+	       
+	       Board board = boardService.getBoardById(boardId);
+	       if (board == null) {
+	           model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
+	           model.addAttribute("url", "/board/getBoardList");
+	           return "alert";
+	       }
+	       
+	       if (board.getMemberId().equals(user.getMemberId())) {
+	           model.addAttribute("board", board);
+	           return "board/updateBoard";  // 게시글 수정 페이지
+	       }
+	       
+	       model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
+	       model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
+	       return "alert";
+   }
    
    @PostMapping("/board/updateBoard")
    public String updateBoard(Board board, Model model, HttpSession session)  {
@@ -235,9 +250,9 @@ public class BoardController {
       }
       
       boardService.updateBoard(board);
-      model.addAttribute("msg", "게시글이 수정되었습니다!");
-        model.addAttribute("url", "/board/getBoardList");
-        return "redirect:/board/getBoard?boardId=" + board.getBoardId();
+        model.addAttribute("msg", "게시글이 수정되었습니다!");
+        model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
+        return "alert";
    }
    
    

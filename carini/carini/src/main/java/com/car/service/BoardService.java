@@ -23,6 +23,7 @@ public interface BoardService {
 	
 	List<Board> boardList(Member member);
 	Board selectBoard(Long boardId);
+	void updateBoardWriter(Member member, String memberNickname);
 		
 
 }

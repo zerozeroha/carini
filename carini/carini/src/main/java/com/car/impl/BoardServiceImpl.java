@@ -164,6 +164,13 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
+	@Override
+	@Transactional
+	public void updateBoardWriter(Member member, String newmemberNickname) {
+		boardRepository.updateBoardWriter(newmemberNickname,member.getMemberId());
+		
+	}
+
 	
 
 	

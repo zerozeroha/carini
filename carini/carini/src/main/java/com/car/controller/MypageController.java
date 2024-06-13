@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.LocaleResolver;
@@ -86,12 +87,13 @@ public class MypageController {
 	public String mypageForm(HttpSession session) {
 
 		Member user = (Member) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/";
+		}
 		Member findmember = memberService.findMember(user);
-		if (!findmember.getMemberSocial().equals("회원")) {
 			findmember.setMemberPw("*****");
 			findmember.setMemberPhoneNum("***-****-****");
 			findmember.setMemberEmail("****@****.***");
-		}
 		session.setAttribute("user", findmember);
 		return "mypage/mypageview.html";
 	}
@@ -184,7 +186,9 @@ public class MypageController {
 		}
 
 		memberService.updateMember(member, memberNickname);
+		boardService.updateBoardWriter(member,memberNickname);
 		Member savemember = memberService.findByMemberId(members.getMemberId());
+		
 		session.setAttribute("user", savemember);
 		model.addAttribute("msg", messageSource.getMessage("info.Nickinput.success", null, locale));
 		model.addAttribute("url", "/mypage/form");
@@ -345,15 +349,22 @@ public class MypageController {
 	@PostMapping("/bookmark/{carId}")
 	public String myPagebookmarkAdd(@PathVariable("carId") String carId, @ModelAttribute("member") Member members,
 			Model model, Bookmark bookmark, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member user = (Member) session.getAttribute("user");
 
+	    if (user == null) {
+	        return "redirect:/member_login"; // 로그인 페이지로 리디렉션
+	    }
+		
 		Locale locale = localeResolver.resolveLocale(request);
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(members.getMemberId());
 		Bookmark save_bookmark = bookMarkService.insertMember(bookmark);
-
+		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
-		model.addAttribute("url", "/mypage/getbookmark/" + carId);
-		return "alert";
+		model.addAttribute("url", request.getHeader("Referer"));
+	    return "alert";
 	}
 
 	/*
@@ -439,14 +450,15 @@ public class MypageController {
 	/*
 	 * 내 게시물 상세 조회
 	 */
-	@PostMapping("/myBoard/{boardId}")
-	public String myPagemyboard(@PathVariable("boardId") Long boardId, Model model) {
-		// 추가 로직이 필요할 경우 작성
-		Board board = boardService.selectBoard(boardId);
-
-		model.addAttribute("board", board);
-		return null;
-		// return "alert"; <----- 수정해야함 글 상세보기 페이지경로
+	@GetMapping("/myBoard/getBoard")
+	public String myPagemyboard(Board board, Model model,HttpSession session) {
+			
+		Member user = (Member) session.getAttribute("user");
+	    if(user == null) { return "redirect:/member_login"; }
+	       
+	    model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
+	      
+	    return "mypage/getMyBoard";
 	}
 
 	@PostMapping("/myBoard/deleteBoard")
