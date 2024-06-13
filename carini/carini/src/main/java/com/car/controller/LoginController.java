@@ -46,7 +46,6 @@ public class LoginController {
 		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
 		if (session != null) {
 			session.invalidate();
-			session.getAttribute("user");
 		}
 		return "index.html";
 	}
