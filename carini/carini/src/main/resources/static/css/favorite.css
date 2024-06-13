@@ -166,12 +166,16 @@ input, select, textarea {
          background-color: rgba(0, 0, 0, 0.8);
          
       }
-
-      .carini-hover:hover{
-         color: black;
-         -webkit-text-stroke: 0.9px white;
-            text-shadow: 9px 9px 1px whitesmoke;
-         }
+.carini-hover{
+	display: block;
+	margin-top:40px;
+}
+       .carini-hover:hover {
+      color: black !important;
+      -webkit-text-stroke: 0.9px white;
+      text-shadow: 9px 9px 1px whitesmoke;
+      transition: none;
+  }
 
 
    sub {
@@ -2338,7 +2342,7 @@ input, select, textarea {
    }
 
    .header_carini{
-      color: white;
+        color: white;
       font-size: 6rem;
       font-weight: 700;
       text-shadow: 9px 9px 1px gray;
@@ -3264,6 +3268,8 @@ input, select, textarea {
       /* Footer */
 
          #footer {
+
+            padding: 4em 2em 4em 2em;
             padding-left: 1em;
             padding-right: 1em;
          }

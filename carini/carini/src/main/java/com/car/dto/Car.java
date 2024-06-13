@@ -31,6 +31,7 @@ public class Car {
 	private Long carMinPrice;
 	private Long carMaxPrice;
 	private double carAvgPrice;
+
 	private String carSize;
 	private String carFuel;
 	private String carEff;

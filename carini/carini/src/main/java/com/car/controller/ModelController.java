@@ -66,7 +66,7 @@ public class ModelController {
 	       @RequestParam(name = "carFuel", defaultValue = "선택안함") String carFuel,
 	       @RequestParam(name = "carSort", defaultValue = "저가순") String carSort,
 	       HttpSession session) {
-		
+
 		Member user = (Member) session.getAttribute("user");
 
 		
@@ -117,12 +117,12 @@ public class ModelController {
 	    model.addAttribute("pagingInfo", pagingInfo);
 	    model.addAttribute("pagedResult", pagedResult);
 	    model.addAttribute("pageable", pageable);
-		model.addAttribute("cp", curPage);
-		model.addAttribute("sp", startPage);
-		model.addAttribute("ep", endPage);
-		model.addAttribute("ps", pageSize);
-		model.addAttribute("rp", rowSizePerPage);
-		model.addAttribute("tp", totalPageCount);
+        model.addAttribute("cp", curPage);
+        model.addAttribute("sp", startPage);
+        model.addAttribute("ep", endPage);
+        model.addAttribute("ps", pageSize);
+        model.addAttribute("rp", rowSizePerPage);
+        model.addAttribute("tp", totalPageCount);
 	    model.addAttribute("carList", pagedResult.getContent());
 	    model.addAttribute("user", user);
 
