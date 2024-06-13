@@ -13,10 +13,13 @@ public interface BookMarkService {
 
 	List<Car> findAllCar(List<Bookmark> bookmarkCar_ID);
 
-	void findBookmarkByCarDelete(int car_id,String member_id);
+	boolean isBookmarkedByMember(String memberId, int carId);
+	
+	void findBookmarkByCarDelete(int carId, String member_id);
 
 	Bookmark insertMember(Bookmark bookmark);
 
 	Car selectCar(int carId);
+
 	
 }
