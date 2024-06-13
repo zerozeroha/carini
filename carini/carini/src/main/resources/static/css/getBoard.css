@@ -2281,20 +2281,24 @@ input, select {
 }
 
  .header_carini{
-    color: white;
-    font-size: 6rem;
-    font-weight: 700;
-    text-shadow: 9px 9px 1px gray;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    -webkit-text-stroke: 0.4px rgb(115, 109, 119);
+     color: white;
+      font-size: 6rem;
+      font-weight: 700;
+      text-shadow: 9px 9px 1px gray;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      -webkit-text-stroke: 0.4px rgb(115, 109, 119);
 
 }
-
-.carini-hover:hover{
-   color: black;
-   -webkit-text-stroke: 0.9px white;
-            text-shadow: 9px 9px 1px whitesmoke;
-         }
+.carini-hover{
+	display:block;
+	margin-top:40px;
+}
+  .carini-hover:hover {
+      color: black !important;
+      -webkit-text-stroke: 0.9px white;
+      text-shadow: 9px 9px 1px whitesmoke;
+      transition: none;
+  }
 
 
 
@@ -3234,7 +3238,7 @@ footer {
  #board_info textarea {
 	border: 2px solid red;
     width: 100%;
-    height: 35em;
+    height: 25em;
     border: none;
     resize: none;
     font-size: larger;

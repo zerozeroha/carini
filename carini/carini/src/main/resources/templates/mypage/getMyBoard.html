@@ -10,7 +10,7 @@
     <title> 상세보기 - Helios by HTML5 UP</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/css/getBoard.css" />
+    <link rel="stylesheet" href="/css/getMyBoard.css" />
 
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
@@ -57,7 +57,7 @@
         <!-- Main -->
         <div class="wrapper style1">
             <div class="container">
-                <p class="Board_text"><br>_Board_Detailed</p>
+                <p class="Board_text"><br>_My_Board_Detailed</p>
             
 		<form th:action="@{/board/getBoard}" method="get" enctype="multipart/form-data">
 			<input name="boardId" type="hidden" th:value="${board.boardId}">
@@ -75,7 +75,6 @@
                     <td><input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled></td>
                     <td class="gangjo">등록일</td>
                     <td><input type="text" name="boardDate" th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
-
                 </tr>
 
                 <tr>
@@ -98,12 +97,12 @@
                     
                 </div>
 
-      			<div class="change_list">
-					<div style="width: 85px;">
-                    	<a th:href="@{/board/updateBoard(boardId=${board.boardId})}">수정하기</a>
+      			<div class="change_list" style="gap:10px">
+					<div class="footer_btn1" style="width: 125px;">
+                    	<a th:href="@{/board/updateBoard(boardId=${board.boardId})}" class="btn" style="padding: 10px 20px; border: 1px solid black;">수정하기</a>
 					</div>
-					<div style="width:75px;">
-						<a th:href="@{/board/getBoardList}" class="btn">목록</a>
+					<div  class="footer_btn2" style="width:85px;">
+						<a th:href="@{/mypage/myBoard}" class="btn" style="padding: 10px 20px; border: 1px solid black;">목록</a>
 					</div>
 				</div>
         
@@ -126,15 +125,15 @@
     <h1 >@ carini</h1>      
     </footer>
 
-    <!-- Scripts -->
-    <script th:src="@{/assets/js/jquery.min.js}"></script>
-    <script th:src="@{/assets/js/jquery.dropotron.min.js}"></script>
-    <script th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
-    <script th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
-    <script th:src="@{/assets/js/browser.min.js}"></script>
-    <script th:src="@{/assets/js/breakpoints.min.js}"></script>
-    <script th:src="@{/assets/js/util.js}"></script>
-    <script th:src="@{/assets/js/main.js}"></script>
+	<!-- Scripts -->
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/jquery.scrolly.min.js"></script>
+	<script src="/js/jquery.scrollex.min.js"></script>
+	<script src="/js/browser.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/util.js"></script>
+	<script src="/js/main.js"></script>
 
 </body>
 

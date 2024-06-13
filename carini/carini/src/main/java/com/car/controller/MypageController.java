@@ -87,12 +87,13 @@ public class MypageController {
 	public String mypageForm(HttpSession session) {
 
 		Member user = (Member) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/";
+		}
 		Member findmember = memberService.findMember(user);
-		if (!findmember.getMemberSocial().equals("회원")) {
 			findmember.setMemberPw("*****");
 			findmember.setMemberPhoneNum("***-****-****");
 			findmember.setMemberEmail("****@****.***");
-		}
 		session.setAttribute("user", findmember);
 		return "mypage/mypageview.html";
 	}
@@ -185,7 +186,9 @@ public class MypageController {
 		}
 
 		memberService.updateMember(member, memberNickname);
+		boardService.updateBoardWriter(member,memberNickname);
 		Member savemember = memberService.findByMemberId(members.getMemberId());
+		
 		session.setAttribute("user", savemember);
 		model.addAttribute("msg", messageSource.getMessage("info.Nickinput.success", null, locale));
 		model.addAttribute("url", "/mypage/form");
@@ -447,14 +450,15 @@ public class MypageController {
 	/*
 	 * 내 게시물 상세 조회
 	 */
-	@PostMapping("/myBoard/{boardId}")
-	public String myPagemyboard(@PathVariable("boardId") Long boardId, Model model) {
-		// 추가 로직이 필요할 경우 작성
-		Board board = boardService.selectBoard(boardId);
-
-		model.addAttribute("board", board);
-		return null;
-		// return "alert"; <----- 수정해야함 글 상세보기 페이지경로
+	@GetMapping("/myBoard/getBoard")
+	public String myPagemyboard(Board board, Model model,HttpSession session) {
+			
+		Member user = (Member) session.getAttribute("user");
+	    if(user == null) { return "redirect:/member_login"; }
+	       
+	    model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
+	      
+	    return "mypage/getMyBoard";
 	}
 
 	@PostMapping("/myBoard/deleteBoard")

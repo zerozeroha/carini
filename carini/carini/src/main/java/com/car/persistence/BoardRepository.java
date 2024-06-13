@@ -39,4 +39,10 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	
 	List<Board> findBymemberId(String memberId);
 
+	@Modifying
+	@Query("UPDATE Board b SET b.boardWriter = :newNickname WHERE b.memberId = :memberId")
+	void updateBoardWriter(@Param("newNickname") String newNickname,@Param("memberId") String memberId);
+	
+	
+
 }

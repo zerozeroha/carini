@@ -151,8 +151,10 @@ input, select, textarea {
       font-style: italic;
    }
 
-   a {
+  a {
       color: inherit;
+      border-radius: 5px;
+      border-bottom: solid 1px rgba(128, 128, 128, 0.15);
       text-decoration: none;
       -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
       -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
@@ -161,9 +163,8 @@ input, select, textarea {
    }
 
    a:hover {
-        color: white;
-        text-shadow: 2px 2px 2px whitesmoke; 
-        -webkit-text-stroke: 0.9px white;
+        color: white; 
+        -webkit-text-stroke: 0.9px white ;
         border-bottom-color: transparent;
         background-color: black;
         border-radius: 0.3rem;
@@ -643,10 +644,8 @@ footer {
 
  
       .wrapper.style1 {
-         
          display: flex;
          justify-content: center;
-         overflow-x: hidden;
          background-color: white;
       }
 
@@ -2325,19 +2324,22 @@ footer {
 }
 
  .header_carini{
-    color: white;
     font-size: 6rem;
-    font-weight: 700;
-    text-shadow: 9px 9px 1px gray;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    -webkit-text-stroke: 0.4px rgb(115, 109, 119);
+      font-weight: 700;
+      text-shadow: 9px 9px 1px gray;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      -webkit-text-stroke: 0.4px rgb(115, 109, 119);
 
 }
-
+.carini-hover{
+	display: block;
+	
+}
 .carini-hover:hover{
-	color: black;
-	-webkit-text-stroke: 0.9px white;
-            text-shadow: 9px 9px 1px whitesmoke;
+	color: black !important;
+      -webkit-text-stroke: 0.9px white;
+      text-shadow: 9px 9px 1px whitesmoke;
+      transition: none;
          }
 
 
@@ -2885,13 +2887,6 @@ h3 {
             padding-right: 2em;
          }
 
-      /* Footer */
-
-         #footer {
-            padding-left: 2em;
-            padding-right: 2em;
-         }
-
    }
 
 /* Narrow */
@@ -2918,9 +2913,7 @@ h3 {
 
       /* Footer */
 
-         #footer {
-            padding: 4em 2em 4em 2em;
-         }
+
 
       /* Carousel */
 
@@ -3311,6 +3304,8 @@ h3 {
       /* Footer */
 
          #footer {
+
+            padding: 4em 2em 4em 2em;
             padding-left: 1em;
             padding-right: 1em;
          }

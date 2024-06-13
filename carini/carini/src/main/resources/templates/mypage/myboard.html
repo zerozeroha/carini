@@ -26,32 +26,35 @@
 <div id="page-wrapper">
 
     <!-- Header -->
-    <div id="header">
-
-        <!-- Inner -->
-        <div class="inner">
-            <header><br><br>
-                <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-            </header>
-        </div>
-
-        <!-- Nav -->
-        <nav id="nav">
-           <ul>
-              <li><a th:href="@{/board/getBoardList}">Board</a></li>
-              <li><a th:href="@{/Models.html}">Model</a></li>
-              <li><a th:href="@{/Center.html}">Center</a></li>
-              <li>
-                 <a>MyPage</a>
-                 <ul>
-                    <li><a th:href="@{/mypage/form}" style="text-align: center;" th:text="#{side.menu1}"></a></li>
-                    <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" th:text="#{side.menu2}"></a></li>
-                    <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" th:text="#{side.menu3}"></a></li>
-                 </ul>
-              </li>
-           </ul>
-        </nav>
-    </div>
+	<div id="header">
+	     <!-- Inner -->
+	     <div class="inner">
+	         <header>
+	             <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+	         </header>
+	     </div>
+	     <!-- Nav -->
+	     <nav id="nav">
+	         <ul>
+	             <li><a th:href="@{/board/getBoardList}" >Board</a>
+					<ul>
+	                     <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
+	                     <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
+	                 </ul>	
+				</li>
+	             <li><a href="Models.html">&nbsp;Model</a></li>
+	             <li><a href="Center.html">&nbsp;Center</a></li>
+	             <li>
+	                 <a>&nbsp;MyPage</a>
+	                 <ul>
+	                     <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
+	                     <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
+	                     <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
+	                 </ul>
+	             </li>
+	         </ul>
+	     </nav>
+	 </div>
     <br>
 
     <!-- Main -->
@@ -95,7 +98,7 @@
                                         <input type="hidden" name="boards" th:value="${board}">
                                     </td>
                                     <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardId}"></td>
-                                    <td class="ellipsis" style="width: 30%; text-align: center;"><a class="Board-hover" th:href="@{/board/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></a></td>
+                                    <td class="ellipsis" style="width: 30%; text-align: center;"><a class="Board-hover" th:href="@{/mypage/myBoard/getBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></a></td>
                                     <td class="ellipsis" style="width: 20%; text-align: center;" th:text="${board.boardWriter}"></td>
                                     <td class="ellipsis" style="width: 20%; text-align: center;" th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd')}"></td>
                                     <td class="ellipsis" style="width: 10%; text-align: center;"><img src="/img/board_clip.png" style="height: 15px;" alt="" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></td>
@@ -122,28 +125,25 @@
                             </th:block>
                         </ul>
                     </div>
-					
-					<div class="change_list">
-					    <div style="width: 85px;">
-					         <a th:href="@{/board/updateBoard(boardId=${board.boardId})}" th:value="#{myboard.delete}" onclick="submitForm()" >수정하기</a>
-					    </div>
-					    <div style="width:75px;">
-					         <a th:href="@{/board/getBoardList}" th:value="#{board.writing}" class="btn">목록</a>
-					    </div>
-					</div>
-                   <!-- <div class="right" style="width: 100%;">
-						<input type="button" th:value="#{myboard.delete}" onclick="submitForm()" class="greylist" style="float:right;">
-                        <input type="button" th:value="#{board.writing}" class="gradient" style="float:right; margin-right: 10px;">
-                    </div>-->
+                  
                 </form>
+				<div class="change_list"style="gap:10px" >
+				    <div style="width: 85px;">
+				         <a th:text="#{myboard.delete}" onclick="submitForm()" style="padding:10px 20px; border: 1px solid black;"></a>
+				    </div>
+				    <div style="width:85px;">
+				         <a th:href="@{/mypage/myBoard}" th:value="#{board.writing}" style="padding:10px 20px; border: 1px solid black;" class="btn">목록</a>
+				    </div>
+				</div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <div id="footer">
-        @carini
-    </div>
+	<footer >   
+		<hr >
+	 	  <h1 style="padding-bottom: 50px;">@ carini</h1 >      
+	 </footer>
 
 </div>
 

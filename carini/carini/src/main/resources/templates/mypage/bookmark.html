@@ -10,31 +10,35 @@
    <body>
       <div id="page-wrapper" >
          <!-- Header -->
-         <div id="header">
-            <!-- Inner -->
-            <div class="inner">
-               <header>
-                  <br><br>
-                  <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-               </header>
-            </div>
-            <!-- Nav --> 
-            <nav id="nav">
-               <ul>
-                  <li><a th:href="@{/board/getBoardList}">Board</a></li>
-                  <li><a th:href="@{/Models.html}">Model</a></li>
-                  <li><a th:href="@{/Center.html}">Center</a></li>
-                  <li>
-                     <a>MyPage</a>
-                     <ul>
-                        <li><a th:href="@{/mypage/form}" style="text-align: center;" th:text="#{side.menu1}"></a></li>
-                        <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" th:text="#{side.menu2}"></a></li>
-                        <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" th:text="#{side.menu3}"></a></li>
-                     </ul>
-                  </li>
-               </ul>
-            </nav>
-         </div>
+		 <div id="header">
+	         <!-- Inner -->
+	         <div class="inner">
+	             <header>
+	                 <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+	             </header>
+	         </div>
+	         <!-- Nav -->
+	         <nav id="nav">
+	             <ul>
+	                 <li><a th:href="@{/board/getBoardList}">Board</a>
+						<ul>
+	                         <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
+	                         <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
+	                     </ul>	
+					</li>
+	                 <li><a href="Models.html">Model</a></li>
+	                 <li><a href="Center.html">Center</a></li>
+	                 <li>
+	                     <a>MyPage</a>
+	                     <ul>
+	                         <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
+	                         <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
+	                         <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
+	                     </ul>
+	                 </li>
+	             </ul>
+	         </nav>
+	     </div>
          <!-- Main -->
          <div class="wrapper style1" style="padding-top: 20px;">
 			<div style="display: flex; width: 70%; margin:0 auto;">
