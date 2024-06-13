@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.LocaleResolver;
@@ -71,17 +72,7 @@ public class MypageController {
 		return new Member(); // 기본 Member 객체를 세션에 저장
 	}
 
-	@GetMapping("/")
-	public String backhome(HttpServletRequest request) {
-		// 세션을 삭제
-		HttpSession session = request.getSession(false);
-		// session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
-		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
-		if (session != null) {
-			session.invalidate();
-		}
-		return "index.html";
-	}
+
 
 	@GetMapping("/no_login")
 	public String mypageNo_login(Model model) {
@@ -344,16 +335,6 @@ public class MypageController {
 
 		System.out.println(bookmarkCarID);
 		List<Car> bookmarkCarList = bookMarkService.findAllCar(bookmarkCarID);
-		for (Car car : bookmarkCarList) {
-
-			car.setCarMaxPrice(
-					NumberFormat.getInstance().format(Long.parseLong(car.getCarMaxPrice().replace(" ", ""))));
-			car.setCarMaxPrice(car.getCarMaxPrice() + "만원");
-			car.setCarMinPrice(
-					NumberFormat.getInstance().format(Long.parseLong(car.getCarMinPrice().replace(" ", ""))));
-			car.setCarMinPrice(car.getCarMinPrice() + "만원");
-
-		}
 
 		model.addAttribute("BookmarkCarList", bookmarkCarList);
 		return "mypage/bookmark.html";
@@ -365,15 +346,22 @@ public class MypageController {
 	@PostMapping("/bookmark/{carId}")
 	public String myPagebookmarkAdd(@PathVariable("carId") String carId, @ModelAttribute("member") Member members,
 			Model model, Bookmark bookmark, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member user = (Member) session.getAttribute("user");
 
+	    if (user == null) {
+	        return "redirect:/member_login"; // 로그인 페이지로 리디렉션
+	    }
+		
 		Locale locale = localeResolver.resolveLocale(request);
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(members.getMemberId());
 		Bookmark save_bookmark = bookMarkService.insertMember(bookmark);
-
+		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
-		model.addAttribute("url", "/mypage/getbookmark/" + carId);
-		return "alert";
+		model.addAttribute("url", request.getHeader("Referer"));
+	    return "alert";
 	}
 
 	/*

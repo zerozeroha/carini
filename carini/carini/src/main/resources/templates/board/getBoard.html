@@ -109,11 +109,11 @@
 
             <div id="button_section">
                 
-                <div th:if="${board.boardFilename != null}" id="uploadFile_div">
-                    <a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}" id="uploadFile" class="icon-hover">
-                        <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
+                <div th:if="${ board.boardFilename != null }" id="uploadFile_div">
+                    <a th:href="@{ /board/download(boardId=${board.boardId }, fn=${ board.boardFilename })}" id="uploadFile" class="icon-hover">
+                        <img th:src="@{ /img/download_icon.png }" alt="다운로드이미지">
                     </a>
-                    <a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}" th:text="${board.boardFilename}"></a>
+                    <a th:href="@{/board/download(boardId=${board.boardId}, fn=${ board.boardFilename })}" th:text="${ board.boardFilename }"></a>
                     
                 </div>
 
