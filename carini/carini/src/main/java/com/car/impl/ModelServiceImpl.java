@@ -61,7 +61,6 @@ public class ModelServiceImpl implements ModelService{
 		
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-
             if (carMinPrice != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("carMinPrice"), carMinPrice));
             }

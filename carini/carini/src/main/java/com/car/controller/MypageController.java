@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.LocaleResolver;
@@ -345,15 +346,22 @@ public class MypageController {
 	@PostMapping("/bookmark/{carId}")
 	public String myPagebookmarkAdd(@PathVariable("carId") String carId, @ModelAttribute("member") Member members,
 			Model model, Bookmark bookmark, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+	    Member user = (Member) session.getAttribute("user");
 
+	    if (user == null) {
+	        return "redirect:/member_login"; // 로그인 페이지로 리디렉션
+	    }
+		
 		Locale locale = localeResolver.resolveLocale(request);
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(members.getMemberId());
 		Bookmark save_bookmark = bookMarkService.insertMember(bookmark);
-
+		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
-		model.addAttribute("url", "/mypage/getbookmark/" + carId);
-		return "alert";
+		model.addAttribute("url", request.getHeader("Referer"));
+	    return "alert";
 	}
 
 	/*

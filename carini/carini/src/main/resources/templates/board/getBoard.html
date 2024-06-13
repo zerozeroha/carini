@@ -94,7 +94,6 @@
                     <td class="gangjo">제목</td>
                     <td><input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled></td>
                     <td class="gangjo">등록일</td>
-
                     <td><input type="text" name="boardDate" th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
 
                 </tr>
@@ -104,7 +103,6 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="padding: 20px;">
-
                         <textarea th:text="${board.boardContent}"  name="boardContent" rows="15" disabled />
                     </td>
                 </tr>

@@ -32,11 +32,12 @@ public class BookMarkServiceImpl implements BookMarkService{
 	
 	@Autowired
 	private BoardRepository boardRepository;
+	
 	/* 멤버 아이디로 차데이터(번호) 추출 */
 	@Override
 	public List<Bookmark> findAllBookmarkCar(String id) {
-		List<Bookmark> BookmarkCarList = bookMarkRepository.findBookmarkByMemberId(id);
 		
+		List<Bookmark> BookmarkCarList = bookMarkRepository.findBookmarkByMemberId(id);
 		
 		return BookmarkCarList;
 	}
@@ -54,13 +55,18 @@ public class BookMarkServiceImpl implements BookMarkService{
 		System.out.println(BookmarkList);
 		return BookmarkList;
 	}
+	
+	@Override
+	public boolean isBookmarkedByMember(String memberId, int carId) {
+        return bookMarkRepository.existsByMemberIdAndCarId(memberId, carId);
+    }
 
 	/* bookmark 삭제 */
 	@Override
 	@Transactional
-	public void findBookmarkByCarDelete(int carid,String memberId) {
+	public void findBookmarkByCarDelete(int carId, String memberId) {
 		
-		bookMarkRepository.deleteByBookmarkIdAndMemberId(carid, memberId);
+		bookMarkRepository.deleteByBookmarkIdAndMemberId(carId, memberId);
 	}
 
 	@Override

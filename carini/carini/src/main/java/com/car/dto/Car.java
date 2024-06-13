@@ -1,5 +1,7 @@
 package com.car.dto;
 
+import org.springframework.data.annotation.Transient;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,11 +25,13 @@ public class Car {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long carId;
+	private int carId;
 	
 	private String carName;
 	private Long carMinPrice;
 	private Long carMaxPrice;
+	private double carAvgPrice;
+
 	private String carSize;
 	private String carFuel;
 	private String carEff;
@@ -40,4 +44,7 @@ public class Car {
 	private double carScDesign;
 	private double carScEff;
 	private double carScAvg;
+	
+	@Transient
+	private boolean isBookmarked;
 }
