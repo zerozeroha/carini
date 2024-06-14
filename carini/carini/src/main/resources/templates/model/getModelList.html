@@ -104,57 +104,197 @@
      </form>
 	
 	 <!-- 카드 박스 반복 -->
-	 <div class="card_box" id="first_card_box" >
-	     <div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${carList}">
-	         <a th:href="@{/model/modelCompare(carId=${car.carId})}"><img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지"></a>
+	 <div class="card_box" id="first_card_box">
+	     <div class="card" style="width: 18rem; max-height: 23rem;" th:each="car : ${carList}">
+			<a href="#" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" style="cursor: pointer;" id="goToComparison">
+				<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
+			</a>
 	         <div class="card-body">
 	             <h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
-				 <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}원|"></p>
-	             <p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
-	             <p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
-	             <p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연비 : ${car.carEff}|"></p>
-	             <div class="card_button_box" style="margin-top:20px; font-size: 15px;">
-	                 <a href="/model/getModel/{carId}" style="padding: 0px 5px;" class="btn">자세히 보기</a>
-                     <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
-                          th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
-                          th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
-                          style="cursor: pointer; width: 16px; height: 16px;"
-                          alt="즐겨찾기 버튼">
+	             <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}원|"></p>
+	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
+	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
+	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|"></p>
+	             <div class="card_button_box" style="margin-top: 20px; font-size: 15px;">
+	                 <a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;" class="btn">자세히 보기</a>
+	                 <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
+	                      th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
+	                      th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
+	                      style="cursor: pointer; width: 16px; height: 16px;" alt="즐겨찾기 버튼">
 	             </div>
 	         </div>
 	     </div>
 	 </div>
+	 
+	 <!--pagination-->
+	 	<div>
+	 		<ul class="col pagination justify-content-center">	
+	 			<th:block th:if="${sp > ps}">
+	 				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
+	 			</th:block>
+	 			
+	 			<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+	 			  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+	 			    <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+	 			       th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+	 			       th:text="${page}"></a>
+	 			  </li>
+	 			</th:block>
+	 			
+	 			<th:block th:if="${ ep lt tp }">
+	 				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
+	 			</th:block>
+	 		</ul>
+	 	</div>
+	 
+	 <!-- Comparison Section -->
+	 <div id="comparisonSection" style="margin-top: 30px; display: none;">
+	     <h2>차 비교</h2>
+	     <div id="comparisonTable" class="row">
+	         <div class="col-md-6" id="car1Container">
+	             <div class="card">
+	                 <img id="car1Img" class="card-img-top" alt="이미지">
+	                 <div class="card-body">
+	                     <h5 class="card-title" id="car1Name"></h5>
+	                     <p class="card-text">가격: <span id="car1Price"></span>원</p>
+	                     <p class="card-text">크기: <span id="car1Size"></span></p>
+	                     <p class="card-text">연료: <span id="car1Fuel"></span></p>
+	                     <p class="card-text">연비: <span id="car1Eff"></span></p>
+	                     <button onclick="removeCarFromComparison(1)" class="btn btn-danger">삭제</button>
+	                 </div>
+	             </div>
+	         </div>
+	         <div class="col-md-6" id="car2Container">
+	             <div class="card">
+	                 <img id="car2Img" class="card-img-top" alt="이미지">
+	                 <div class="card-body">
+	                     <h5 class="card-title" id="car2Name"></h5>
+	                     <p class="card-text">가격: <span id="car2Price"></span>원</p>
+	                     <p class="card-text">크기: <span id="car2Size"></span></p>
+	                     <p class="card-text">연료: <span id="car2Fuel"></span></p>
+	                     <p class="card-text">연비: <span id="car2Eff"></span></p>
+	                     <button onclick="removeCarFromComparison(2)" class="btn btn-danger">삭제</button>
+	                 </div>
+	             </div>
+	         </div>
+	     </div>
+	 </div>
+
+	 
+   
 	
-   <!--pagination-->
-	<div>
-		<ul class="col pagination justify-content-center">	
-			<th:block th:if="${sp > ps}">
-				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
-			</th:block>
-			
-			<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-			  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-			    <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-			       th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-			       th:text="${page}"></a>
-			  </li>
-			</th:block>
-			
-			<th:block th:if="${ ep lt tp }">
-				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
-			</th:block>
-		</ul>
-	</div>
+	 <script>
+	     function toggleBookmark(carId, isBookmarked) {
+	         let form = document.createElement('form');
+	         form.method = 'POST';
+	         form.action = isBookmarked ? '/mypage/bookmark/delete/' + carId : '/mypage/bookmark/' + carId;
+	         document.body.appendChild(form);
+	         form.submit();
+	     }
+	     
+		 //페이지 넘어가도 comparisonSection이 초기화되지 않도록 localStorage에 저장
+	     let selectedCarIds = JSON.parse(localStorage.getItem('selectedCarIds')) || [];
+
+	     function selectCarForComparison(carId) {
+	         if (selectedCarIds.includes(carId)) {
+	             alert('이 차는 이미 선택되었습니다.');
+	             return;
+	         }
+
+	         if (selectedCarIds.length >= 2) {
+	             alert('비교할 차는 두 대만 선택할 수 있습니다.');
+	             return;
+	         }
+
+	         selectedCarIds.push(carId);
+	         localStorage.setItem('selectedCarIds', JSON.stringify(selectedCarIds));
+	         
+			 	
+	         if (selectedCarIds.length === 2) {
+	             fetchComparisonData(selectedCarIds[0], selectedCarIds[1]);
+	         } else {
+	             fetchSingleCarData(carId);
+	         }
+	     }
+
+	     function fetchSingleCarData(carId) {
+	         fetch(`/model/getModel?carId=${carId}`)
+	             .then(response => response.json())
+	             .then(data => {
+	                 if (selectedCarIds.length === 1) {
+	                     document.getElementById('comparisonSection').style.display = 'block';
+	                     populateCarData(data, 1);
+	                 } else if (selectedCarIds.length === 2) {
+	                     populateCarData(data, 2);
+	                 }
+	             });
+	     }
+
+	     function fetchComparisonData(carId1, carId2) {
+	         fetch(`/model/compare?carId1=${carId1}&carId2=${carId2}`)
+	             .then(response => response.json())
+	             .then(data => {
+	                 document.getElementById('comparisonSection').style.display = 'block';
+	                 populateCarData(data.car1, 1);
+	                 populateCarData(data.car2, 2);
+	             });
+	     }
+
+	     function populateCarData(car, position) {
+	         document.getElementById(`car${position}Img`).src = car.carImg;
+	         document.getElementById(`car${position}Name`).innerText = car.carName;
+	         document.getElementById(`car${position}Price`).innerText = new Intl.NumberFormat('ko-KR').format(Math.round(car.carAvgPrice));
+	         document.getElementById(`car${position}Size`).innerText = car.carSize;
+	         document.getElementById(`car${position}Fuel`).innerText = car.carFuel;
+	         document.getElementById(`car${position}Eff`).innerText = car.carEff;
+	     }
+
+	     function removeCarFromComparison(position) {
+	         if (position === 1) {
+	             selectedCarIds = selectedCarIds.filter((_, index) => index !== 0);
+	         } else if (position === 2) {
+	             selectedCarIds = selectedCarIds.filter((_, index) => index !== 1);
+	         }
+	         
+	         localStorage.setItem('selectedCarIds', JSON.stringify(selectedCarIds));
+
+	         if (selectedCarIds.length === 0) {
+	             document.getElementById('comparisonSection').style.display = 'none';
+	         } else {
+	             const remainingCarId = selectedCarIds[0];
+	             fetchSingleCarData(remainingCarId);
+	         }
+
+	         clearCarData(position);
+	     }
+
+	     function clearCarData(position) {
+	         document.getElementById(`car${position}Img`).src = '';
+	         document.getElementById(`car${position}Name`).innerText = '';
+	         document.getElementById(`car${position}Price`).innerText = '';
+	         document.getElementById(`car${position}Size`).innerText = '';
+	         document.getElementById(`car${position}Fuel`).innerText = '';
+	         document.getElementById(`car${position}Eff`).innerText = '';
+	     }
+	     
+	     // 페이지 로드 시 로컬 스토리지에 저장된 데이터 가져오기
+	     window.onload = function() {
+	         if (selectedCarIds.length > 0) {
+	             document.getElementById('comparisonSection').style.display = 'block';
+	             fetchComparisonData(selectedCarIds[0], selectedCarIds[1]);
+	         }
+	     };
+	     
+	     // Scroll to comparison section
+	     document.querySelectorAll('#goToComparison').forEach(item => {
+	         item.addEventListener('click', event => {
+	             event.preventDefault(); // Prevent default anchor click behavior
+	             document.getElementById('comparisonSection').scrollIntoView({ behavior: 'smooth' });
+	         });
+	     });
+	 </script>
+
 	
-	<script>
-	    function toggleBookmark(carId, isBookmarked) {
-	        let form = document.createElement('form');
-	        form.method = 'POST';
-	        form.action = isBookmarked ? '/mypage/bookmark/delete/' + carId : '/mypage/bookmark/' + carId;
-	        document.body.appendChild(form);
-	        form.submit();
-	    }
-	</script>
 	
 </body>
 </html>
