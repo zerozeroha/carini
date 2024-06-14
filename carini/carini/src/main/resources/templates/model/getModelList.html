@@ -1,35 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Spring Framework</title>
-   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">   
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
-      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
-      crossorigin="anonymous">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
+<title>Spring Framework</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">   
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
+	   integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
+	   crossorigin="anonymous">
+	<link rel="stylesheet" href="/css/favorite.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
 </head>
 <body>
-   <h3>Model List</h3>
+	<div id="page-wrapper" >
+	     <!-- Header -->
+		 <div id="header">
+	         <!-- Inner -->
+	         <div class="inner">
+	             <header>
+	                 <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+	             </header>
+	         </div>
+	         <!-- Nav -->
+	         <nav id="nav">
+	             <ul>
+	                 <li><a th:href="@{/board/getBoardList}">Board</a>
+						<ul>
+	                         <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
+	                         <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
+	                     </ul>	
+					</li>
+	                 <li><a th:href="@{/model/getModelList}">Model</a></li>
+	                 <li><a href="Center.html">Center</a></li>
+	                 <li>
+	                     <a>MyPage</a>
+	                     <ul>
+	                         <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
+	                         <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
+	                         <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
+	                     </ul>
+	                 </li>
+	             </ul>
+	         </nav>
+	     </div>
+	
+   <p>_Model</p>
    <!-- 필터링 폼 -->
      <form th:action="@{/model/getModelList}" method="get">
          <div class="form-group row">
              <label for="carMinPrice" class="col-sm-2 col-form-label">최소 가격:</label>
              <div class="col-sm-10">
-                 <input type="number" class="form-control" id="carMinPrice" name="carMinPrice" placeholder="최소 가격을 입력하세요">
+                 <input type="number" class="form-control" id="filterMinPrice" name="filterMinPrice" placeholder="최소 가격을 입력하세요">
              </div>
          </div>
          <div class="form-group row">
-             <label for="carMaxPrice" class="col-sm-2 col-form-label">최대 가격:</label>
+             <label for="filterMaxPrice" class="col-sm-2 col-form-label">최대 가격:</label>
              <div class="col-sm-10">
-                 <input type="number" class="form-control" id="carMaxPrice" name="carMaxPrice" placeholder="최대 가격을 입력하세요">
+                 <input type="number" class="form-control" id="filterMaxPrice" name="filterMaxPrice" placeholder="최대 가격을 입력하세요">
              </div>
          </div>
          <div class="form-group row">
-             <label for="carSize" class="col-sm-2 col-form-label">자동차 크기:</label>
+             <label for="filterSize" class="col-sm-2 col-form-label">자동차 크기:</label>
              <div class="col-sm-10">
-                 <select class="form-select" id="carSize" name="carSize">
+                 <select class="form-select" id="filterSize" name="filterSize">
                      <option selected>선택안함</option>
                      <option>경형</option>
                      <option>소형</option>
@@ -41,9 +74,9 @@
              </div>
          </div>
          <div class="form-group row">
-             <label for="carFuel" class="col-sm-2 col-form-label">자동차 연료 타입:</label>
+             <label for="filterFuel" class="col-sm-2 col-form-label">자동차 연료 타입:</label>
              <div class="col-sm-10">
-                 <select class="form-select" id="carFuel" name="carFuel">
+                 <select class="form-select" id="filterFuel" name="filterFuel">
                      <option selected>선택안함</option>
                      <option>가솔린</option>
                      <option>디젤</option>
@@ -69,14 +102,14 @@
              </div>
          </div>
      </form>
-
+	
 	 <!-- 카드 박스 반복 -->
 	 <div class="card_box" id="first_card_box" >
 	     <div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${carList}">
-	         <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
+	         <a th:href="@{/model/modelCompare(carId=${car.carId})}"><img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지"></a>
 	         <div class="card-body">
 	             <h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
-	             <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|가격 : ${(car.carMinPrice+car.carMaxPrice)/2}원|"></p>
+				 <p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}원|"></p>
 	             <p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
 	             <p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
 	             <p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연비 : ${car.carEff}|"></p>

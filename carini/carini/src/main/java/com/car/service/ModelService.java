@@ -13,7 +13,7 @@ public interface ModelService {
 	
 	long getTotalRowCount(Car car);
 	List<Car> getAllCarList();
-	Car getCarbyId(Long carId);
+	Car getCarbyId(int carId);
 	Page<Car> filterCars(Pageable pageable, Long carMinPrice, Long carMaxPrice, String carSize, String carFuel);
 	
 	
