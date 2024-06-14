@@ -74,9 +74,9 @@ public class ModelController {
 		
 		Pageable pageable;
 		
-		if(carSort == "저가순"){
+		if(carSort.equals("저가순")){
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carMinPrice").ascending());
-		}else if(carSort == "고가순") {
+		}else if(carSort.equals("고가순")) {
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carMinPrice").descending());
 		}else {
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carName").ascending());

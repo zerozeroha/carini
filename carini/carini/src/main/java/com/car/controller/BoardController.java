@@ -205,7 +205,7 @@ public class BoardController {
    }
    
    /*
-     * 게시판 수정
+     * 게시판 수정 폼
      * */
    @GetMapping("/board/updateBoard")
    public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
@@ -230,7 +230,9 @@ public class BoardController {
 	       model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
 	       return "alert";
    }
-   
+   /*
+    * 게시판 수정 하기
+    * */
    @PostMapping("/board/updateBoard")
    public String updateBoard(Board board, Model model, HttpSession session)  {
       Member user = (Member) session.getAttribute("user");
@@ -300,19 +302,20 @@ public class BoardController {
      * */
    @PostMapping("/board/deleteFile/{boardId}")
    @ResponseBody
-   public Map<String, String> deleteFile(@PathVariable(name = "boardId") Long boardId, HttpServletRequest request) {
+   public ResponseEntity<Map<String, String>> deleteFile(@PathVariable(name = "boardId") Long boardId, HttpServletRequest request) {
        Map<String, String> response = new HashMap<>();
        Locale locale = localeResolver.resolveLocale(request);
        try {
            boardService.deleteFile(boardId);
            response.put("message", messageSource.getMessage("board.filedelete.success", null, locale));
            response.put("status", "success");
+           return ResponseEntity.ok(response);
        } catch (Exception e) {
-          log.error("Error deleting file for boardId {}: {}", boardId, e.getMessage(), e);
-          response.put("message", messageSource.getMessage("board.filedelete.failure", null, locale));
+           log.error("게시글 파일 삭제 중 오류 발생: {}", e.getMessage(), e);
+           response.put("message", messageSource.getMessage("board.filedelete.failure", null, locale));
            response.put("status", "error");
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
        }
-       return response;
    }
 
 }
