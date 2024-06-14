@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.car.dto.Car;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public interface ModelService {
 	
@@ -15,6 +17,9 @@ public interface ModelService {
 	List<Car> getAllCarList();
 	Car getCarbyId(int carId);
 	Page<Car> filterCars(Pageable pageable, Long carMinPrice, Long carMaxPrice, String carSize, String carFuel);
+	void addCarToComparison(int carId, HttpSession session);
+	void removeCarFromComparison(int position, HttpSession session);
+	List<Car> getComparisonCars(HttpSession session);
 	
 	
 }

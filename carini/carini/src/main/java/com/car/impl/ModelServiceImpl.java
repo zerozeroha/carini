@@ -15,6 +15,7 @@ import com.car.persistence.CarRepository;
 import com.car.service.ModelService;
 
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class ModelServiceImpl implements ModelService{
@@ -78,6 +79,46 @@ public class ModelServiceImpl implements ModelService{
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
+    }
+	
+	@Override
+	public void addCarToComparison(int carId, HttpSession session) {
+        List<Car> comparisonCars = (List<Car>) session.getAttribute("comparisonCars");
+        if (comparisonCars == null) {
+            comparisonCars = new ArrayList<>();
+        }
+        
+     // Assuming you have a method to find a car by its ID
+        Optional<Car> car = carRepository.findById(carId);
+        if (car != null && comparisonCars.size() < 2) {
+            comparisonCars.add(car.get());
+            session.setAttribute("comparisonCars", comparisonCars);
+        }
+        
+	}
+	
+	@Override
+    public void removeCarFromComparison(int position, HttpSession session) {
+        List<Integer> selectedCarIds = (List<Integer>) session.getAttribute("selectedCarIds");
+        if (selectedCarIds != null && position >= 0 && position < selectedCarIds.size()) {
+            selectedCarIds.remove(position);
+        }
+        session.setAttribute("selectedCarIds", selectedCarIds);
+    }
+	
+	@Override
+    public List<Car> getComparisonCars(HttpSession session) {
+        List<Integer> selectedCarIds = (List<Integer>) session.getAttribute("selectedCarIds");
+        if (selectedCarIds == null || selectedCarIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return findCarsByIds(selectedCarIds); // 자동차 ID로 자동차 정보를 찾는 메서드
+    }
+
+    private List<Car> findCarsByIds(List<Integer> carIds) {
+        // 자동차 ID로 자동차 정보를 가져오는 로직 (예: DB 조회)
+        // 이 예시에서는 임의로 List<Car>를 반환합니다.
+        return new ArrayList<>();
     }
 
 }

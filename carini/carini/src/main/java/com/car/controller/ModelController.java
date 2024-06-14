@@ -1,7 +1,9 @@
 package com.car.controller;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.car.dto.Board;
@@ -38,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/model")
 @SessionAttributes({"member", "pagingInfo"})
 public class ModelController {
 	
@@ -61,7 +66,7 @@ public class ModelController {
 	/*
 	 * 모델 목록보기
 	 * */
-	@GetMapping("/model/getModelList")
+	@GetMapping("/getModelList")
 	public String getBoardList(Model model, 
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
 	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
@@ -121,30 +126,47 @@ public class ModelController {
 	    model.addAttribute("pagingInfo", pagingInfo);
 	    model.addAttribute("pagedResult", pagedResult);
 	    model.addAttribute("pageable", pageable);
-      model.addAttribute("cp", curPage);
-      model.addAttribute("sp", startPage);
-      model.addAttribute("ep", endPage);
-      model.addAttribute("ps", pageSize);
-      model.addAttribute("rp", rowSizePerPage);
-      model.addAttribute("tp", totalPageCount);
+		model.addAttribute("cp", curPage);
+		model.addAttribute("sp", startPage);
+		model.addAttribute("ep", endPage);
+		model.addAttribute("ps", pageSize);
+		model.addAttribute("rp", rowSizePerPage);
+		model.addAttribute("tp", totalPageCount);
 	    model.addAttribute("carList", pagedResult.getContent());
 	    model.addAttribute("user", user);
 
-	    return "model/getModelList";
+	    return "model/getModelList.html";
 	}
 	
-
-	@PostMapping("model/modelCompare/{carId}")
-	public String ModelCompare(@PathVariable("carId") int carId,
-			HttpServletRequest request, Model model) {
-		
-		Car findcar = modelService.getCarbyId(carId);
-		System.out.println(findcar);
-		model.addAttribute("compareCard1", findcar);
-		
-		return  "/model/modelCompare";
-	}
+    @GetMapping("/getModel")
+    @ResponseBody
+    public Car getCar(@RequestParam("carId") int carId) {
+    	
+    	Car car1 = modelService.getCarbyId(carId);
+    	System.out.println("~~~~~~~~~~~~~");
+    	System.out.println("car1=======>" + car1);
+    	
+        return car1;
+    }
+    
 	
+    @GetMapping("/compare")
+    @ResponseBody
+    public Map<String, Car> compareCars(@RequestParam("carId1") int carId1, @RequestParam("carId2") int carId2) {
+        Car car1 = modelService.getCarbyId(carId1);
+        Car car2 = modelService.getCarbyId(carId2);
+        
+        System.out.println("=====================");
+        System.out.println("car1=======>" + car1);
+        System.out.println("car2=======>" + car2);
+        
+        Map<String, Car> comparisonData = new HashMap<>();
+        comparisonData.put("car1", car1);
+        comparisonData.put("car2", car2);
+        
+        return comparisonData;
+    }
+    
 	
 
 }
