@@ -98,7 +98,7 @@
 					       <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload" th:value="${board.boardFilename}" onchange="toggleDeleteLink(this)">
 						   </div>
 						   <div id="deleteLink" th:if="${board.boardFilename}" >
-					           <a href="#" onclick="deleteFile('[[${board.boardId}]]')">
+					           <a href="#" th:onclick="deleteFile('[[${board.boardId}]]')">
 					               <img th:src="@{/img/delete_icon.png}" alt="삭제 이미지" style="width:18px; height: 18px; opacity: 0.7;">
 					           </a>
 					       </div>

@@ -377,7 +377,7 @@ public class MypageController {
 		Locale locale = localeResolver.resolveLocale(request);
 		bookMarkService.findBookmarkByCarDelete(Integer.parseInt(carId), members.getMemberId());
 		model.addAttribute("msg", messageSource.getMessage("bookmark.delete", null, locale));
-		model.addAttribute("url", "/mypage/bookmark");
+		model.addAttribute("url", request.getHeader("Referer"));
 		return "alert";
 	}
 
