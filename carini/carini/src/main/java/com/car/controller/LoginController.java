@@ -23,7 +23,7 @@ import org.springframework.ui.Model;
 
 
 @Controller
-@SessionAttributes("member")
+@SessionAttributes("user")
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
@@ -111,7 +111,7 @@ public class LoginController {
 	}
 	
 	@GetMapping("/home")
-	public String goHome( HttpSession session)  {
+	public String goHome(HttpSession session)  {
 //		System.out.println(member.getMemberId());
 //		System.out.println(member.getMemberNickname());
 //		System.out.println("-=============");
@@ -148,9 +148,6 @@ public class LoginController {
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
-	    	 
-	    	   	 
-	    	 
 	    	 return "redirect:/home";
 	     } else {
 	         // 로그인 실패 시 로그인 페이지로 리디렉션

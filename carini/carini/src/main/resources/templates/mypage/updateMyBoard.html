@@ -10,7 +10,7 @@
     <title> 상세보기 - Helios by HTML5 UP</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/css/getBoard_edit.css" />
+    <link rel="stylesheet" href="/css/getMyBoard_edit.css" />
 
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
@@ -23,43 +23,43 @@
 
     <div id="page-wrapper">
 
-		<!-- Header -->
+        <!-- Header -->
 		<div id="header">
-		    <!-- Inner -->
-		    <div class="inner">
-		        <header>
-		            <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-		        </header>
-		    </div>
-		    <!-- Nav -->
-		    <nav id="nav">
-		        <ul>
-		            <li><a th:href="@{/board/getBoardList}">Board</a>
-					<ul>
-		                    <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
-		                    <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
-		                </ul>	
-				</li>
-		            <li><a href="Models.html">Model</a></li>
-		            <li><a href="Center.html">Center</a></li>
-		            <li>
-		                <a>MyPage</a>
-		                <ul>
-		                    <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
-		                    <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
-		                    <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
-		                </ul>
-		            </li>
-		        </ul>
-		    </nav>
-		</div>
+			         <!-- Inner -->
+			         <div class="inner">
+			             <header>
+			                 <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+			             </header>
+			         </div>
+			         <!-- Nav -->
+			         <nav id="nav">
+			             <ul>
+			                 <li><a th:href="@{/board/getBoardList}">Board</a>
+								<ul>
+			                         <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
+			                         <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
+			                     </ul>	
+							</li>
+			                 <li><a href="Models.html">Model</a></li>
+			                 <li><a href="Center.html">Center</a></li>
+			                 <li>
+			                     <a>MyPage</a>
+			                     <ul>
+			                         <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
+			                         <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
+			                         <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
+			                     </ul>
+			                 </li>
+			             </ul>
+			         </nav>
+			     </div>
 
         <!-- Main -->
         <div class="wrapper style1">
             <div class="container">
-                <p class="Board_text"><br>_Edit_Board</p>
+                <p class="Board_text"><br>_Edit_My_Board</p>
             
-		<form th:action="@{/board/updateBoard}" method="post"  enctype="multipart/form-data" id="boardForm" name="boardForm">
+		<form th:action="@{/mypage/updateBoard}" method="post"  enctype="multipart/form-data" id="boardForm" name="boardForm">
 			<input name="boardId" type="hidden" th:value="${board.boardId}">
 		
             <table id="board_info">
@@ -112,18 +112,21 @@
 
                 </div>
 
-      			<div class="change_list">
+      			<div class="change_list" style="gap:10px">
 					<div style="width: 125px;" class="footer_btn1">
-                    	<a  onclick="document.forms['boardForm'].submit();">수정하기</a>
+                    	<a onclick="document.forms['boardForm'].submit();">수정하기</a>
 					</div>
-					<div style="width:85px;" class="footer_btn2">
-						<a th:text="#{board.list}" class="btn"></a>
+					<div style="width:85px;"  class="footer_btn2">
+						<a th:href="@{/mypage/myBoard}"  th:text="#{board.list}" class="btn"></a>
+					</div>
+					<div style="width:85px;"  class="footer_btn3">
+						<a th:href="@{/mypage/myBoard/getBoard(boardId=${board.boardId})}" class="btn">삭제</a>
 					</div>
 				</div>
         
           
             </div>
-              
+              </form>
             </div>
         </div>
 
@@ -140,16 +143,15 @@
     <h1 >@ carini</h1>      
     </footer>
 
-    <!-- Scripts -->
-	<script src="/js/jquery.min.js"></script>
-	<script src="/js/jquery.dropotron.min.js"></script>
-	<script src="/js/jquery.scrolly.min.js"></script>
-	<script src="/js/jquery.scrollex.min.js"></script>
-	<script src="/js/browser.min.js"></script>
-	<script src="/js/breakpoints.min.js"></script>
-	<script src="/js/util.js"></script>
-	<script src="/js/main.js"></script>
-
+	<!-- Scripts -->
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/jquery.dropotron.min.js"></script>
+		<script src="/js/jquery.scrolly.min.js"></script>
+		<script src="/js/jquery.scrollex.min.js"></script>
+		<script src="/js/browser.min.js"></script>
+		<script src="/js/breakpoints.min.js"></script>
+		<script src="/js/util.js"></script>
+		<script src="/js/main.js"></script>
 	<script>
 		function deleteFile(boardId) {
 		    if (confirm("정말로 파일을 삭제하시겠습니까?")) {
@@ -159,23 +161,15 @@
 		                'Content-Type': 'application/json'
 		            }
 		        })
-		        .then(response => {
-		            if (!response.ok) {
-		                throw new Error('서버에서 오류 응답을 받았습니다. (' + response.status + ')');
-		            }
-		            return response.json();
-		        })
+		        .then(response => response.json())
 		        .then(result => {
-		            if (result.message) {
-		                alert(result.message);
-		            }
+		            alert(result.message);
 		            if (result.status === 'success') {
 		                location.reload();
 		            }
 		        })
 		        .catch(error => {
-		            console.error('파일 삭제 중 오류 발생:', error);
-		            alert('파일 삭제 중 오류가 발생하였습니다.');
+		            alert("파일 삭제 중 오류가 발생하였습니다: " + error);
 		        });
 		    }
 		}

@@ -34,8 +34,12 @@
                <!-- Nav -->
                   <nav id="nav">
                      <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a th:href="@{/board/getBoardList}">Board</a></li>
+						<li><a th:href="@{/board/getBoardList}">Board</a>
+							<ul>
+		                         <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
+		                         <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
+		                     </ul>	
+						</li>
                         <li><a th:href="@{/model/getModelList}">Model</a></li>
                         <li><a href="Center.html">Center</a></li>
                         <li><a href="/member_login">Login</a></li>
