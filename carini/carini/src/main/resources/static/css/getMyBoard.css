@@ -2299,6 +2299,7 @@ input, select {
       text-shadow: 9px 9px 1px whitesmoke;
       transition: none;
   }
+
 /* Sidebar */
 
 #sidebar {
@@ -2494,6 +2495,7 @@ a.icon-hover:hover {
 .float_hover:hover {
  background-color: white !important;
 }
+
 
    .side-hover:hover {
       color: black;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +9,19 @@
 <script>
     import TextField from '@mui/material/TextField';
 </script>
-<body>
-		
-    <form action="/member_login_check" method="post">
-        <header>
+<style>
+	.field-error {
+	           border-color: #dc3545;
+	           color: #dc3545;
+	       }
 
-            <a href="./index.html" class="header_carini carini-hover">CARINI</a>
+</style>
+<body>
+	
+    <form action="/member_login_check" th:object="${LoginFormValidation}" method="post" >
+        <header>
+			
+            <a th:href="@{/}" class="header_carini carini-hover">CARINI</a>
 
             <p class="header-1">
                 <br>CARINI SEMPRE CON VUESTRO
@@ -45,20 +52,26 @@
      
         </section>
 
-        
         <aside>
             
-            <div class="loginbox">
-                <fieldset>
+            <div class="loginbox" >
+                <fieldset >
                     <legend> &nbsp;&nbsp;login&nbsp;&nbsp;</legend>
                     <br>
                     <h3> _WELCOME_</h3>
             <br><br>   
-
-                    <input type="id" name="memberId" class="btn btn-outline-secondary" placeholder="ID" size="25">
-            <br>
-                    <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="PASSWORD" size="25">
-            <br><br>
+                    <input type="text"  th:field="*{memberId}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="ID" size="25">
+				<br>
+					<div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
+		                아이디 오류
+		            </div>
+				<br>
+                    <input type="password"  th:field="*{memberPw}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="PASSWORD" size="25">
+				<br>
+					<div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
+		                비물번호 오류
+		            </div>			
+			<br>
                     <input id="login" type="submit" name="submit" class="btn btn-light" value="LOGIN" size="25" style="text-align: center;">
             <br><br><br>
 
@@ -87,12 +100,8 @@
     </fieldset>       
     </div>     
     <br><br><br>
-    </div>
-    </div>
+
         </aside>
-        <footer>
-            
-        </footer>
 	</form>
 </body>
 	

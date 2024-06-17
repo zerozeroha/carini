@@ -32,6 +32,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +55,7 @@ import com.car.persistence.BoardRepository;
 import com.car.service.BoardService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
+import com.car.validation.BoardWriteFormValidation;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -87,6 +90,12 @@ public class BoardController {
    public Member setMember() {
       return new Member(); // 기본 Member 객체를 세션에 저장
    }
+   /*
+   @GetMapping("/layoutExtend")
+   public String layoutExtends() {
+    return "test/main";
+   }
+   */
    
    /*
     * 게시판 목록보기
@@ -169,15 +178,16 @@ public class BoardController {
      * 게시판 작성
      * */
    @GetMapping("/board/insertBoard")
-   public String insertBoardForm(Member member, Board board, Model model, HttpSession session) {
-      LocalDate currentDate = LocalDate.now();
-      
+   public String insertBoardForm(Board board, Member member, @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation ,Model model, HttpSession session) {
+	   
+	  LocalDate currentDate = LocalDate.now();
+	  
       Member user = (Member) session.getAttribute("user");
-      System.out.println("insert-----------"+user);
+      model.addAttribute("date",currentDate);
       if( user == null ) { 
          return "redirect:/member_login";  
       }
-      model.addAttribute("date",currentDate );
+      
       return "board/insertBoard";
    }
    
@@ -186,11 +196,17 @@ public class BoardController {
      * 게시판 작성
      * */
    @PostMapping("/board/insertBoard")
-   public String insertBoard(Board board, HttpSession session) 
+   public String insertBoard(Board board,@Validated @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, BindingResult bindingResult, HttpSession session,Model model) 
          throws IOException {
+	  LocalDate currentDate = LocalDate.now();
+	  model.addAttribute("date",currentDate);
+      if(bindingResult.hasErrors()) {
+			return "board/insertBoard";
+      }
+      
       Member user = (Member) session.getAttribute("user");
       if(user.getMemberId() == null) {return "redirect:/member_login";}
-
+      
       // 파일업로드
       MultipartFile uploadFile = board.getUploadFile();
       if(!uploadFile.isEmpty()) {
@@ -198,6 +214,8 @@ public class BoardController {
          uploadFile.transferTo(new File(uploadFolder + fileName));
          board.setBoardFilename(fileName);
       }
+      
+      
 
       boardService.insertBoard(board);
       
