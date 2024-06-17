@@ -14,9 +14,13 @@
 
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <style>
+	<style>
+		.field-error {
+		           border-color: #dc3545;
+		           color: #dc3545;
+		       }
 
-    </style>
+	</style>
 </head>
 
 <body class="no-sidebar is-preload">
@@ -73,9 +77,16 @@
         <div class="wrapper style1">
             <div class="container">
                 <p class="Board_text"><br>_Write_My_Board</p>
-		<form th:action="@{/board/insertBoard}" method="post" enctype="multipart/form-data" name="boardForm" id="boardForm">
+		<form th:action="@{/board/insertBoard}" th:object="${BoardWriteFormValidation}" method="post" enctype="multipart/form-data" name="boardForm" id="boardForm">
 			<input name="memberId" type="hidden" th:value="${session.user.memberId}">
-		
+			<div style="display: flex; gap:10px;color:red;font-weight: 600;">
+				<div th:if="${#fields.hasErrors('boardTitle')}">
+		            <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
+		        </div>
+				<div th:if="${#fields.hasErrors('boardContent')}">
+		            <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
+		        </div>
+			</div>
             <table id="board_info">
                 <tr>
                     <td class="gangjo" th:text="#{board.write.writer}"></td>
@@ -88,13 +99,13 @@
                 <tr>
 
                     <td colspan="1" class="gangjo" th:text="#{board.write.title}"></td>
-					          <td colspan="3"><input type="text" name="boardTitle" id="boardTitle" required></td>
+					          <td colspan="3"><input type="text" th:field="*{boardTitle}"  th:errorclass="field-error" required></td>
 
                 </tr>
 
 				        <tr>
                    <td colspan="1" class="gangjo" th:text="#{ board.write.uploadfile }"></td>
-					          <td colspan="3"><input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"></td>
+					<td colspan="3"><input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"></td>
                </tr>
 
                 <tr>
@@ -102,8 +113,7 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="padding: 20px;">
-                        <textarea name="boardContent" rows="15" required></textarea>
-
+                        <textarea th:field="*{boardContent}"  th:errorclass="field-error" rows="15" required></textarea>
                     </td>
                 </tr>
             </table>
@@ -115,18 +125,15 @@
                         <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
                     </a>
 
-					          <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"/>
+					<input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload"/>
 
-
-
-                    
                 </div>
 
-      			<div class="change_list">
-					<div style="width: 85px;">
+      			<div class="change_list" style="gap:10px">
+					<div style="width: 105px;">
 						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"></a>
 					</div>
-					<div style="width:75px;">
+					<div style="width:85px;">
 						<a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="btn"></a>
 
 					</div>

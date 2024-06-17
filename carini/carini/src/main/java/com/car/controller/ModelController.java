@@ -42,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+
 @RequestMapping("/model")
 @SessionAttributes({"user", "pagingInfo"})
 public class ModelController {

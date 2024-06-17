@@ -12,7 +12,7 @@ public interface MemberService {
 	//Page<Member> getMemberList(Pageable pageable, String searchType, String searchWord);
 
 	Member insertMember(Member member);
-	Member findMember(Member member);
+	Member findMember(String memberId);
 	List<Member> findAllMember();
 	void updateMember(Member member,String newmemberNickname);
 	void deleteMember(Member member);
@@ -24,5 +24,6 @@ public interface MemberService {
 	List<Member> findByMemberEmail(String memberEmail);
 	List<Member> findByMemberNickname(String memberNickname);
 	void updatememberSocialNickname(Member member, String memberSocialNickname);
+	List<Member> findByMemberPhoneNum(String memberPhoneNum);
 
 }

@@ -42,9 +42,9 @@ public class MemberServiceImpl implements MemberService {
 	 * 해당 멤버 찾기
 	 * */
 	@Override
-	public Member findMember(Member member) {
+	public Member findMember(String memberId) {
 		
-		Optional<Member> findeMember = memberRepository.findByMemberId(member.getMemberId());
+		Optional<Member> findeMember = memberRepository.findByMemberId(memberId);
 		
 		if(!findeMember.isPresent()) {
 			
@@ -68,8 +68,12 @@ public class MemberServiceImpl implements MemberService {
 	 * */
 	@Override
 	public Member findByMemberId(String id) {
-		
+		System.out.println("sadadsa");
 		Optional<Member> findeMember = memberRepository.findByMemberId(id);
+		System.out.println(findeMember.isPresent());
+		if(!findeMember.isPresent()) {
+			return null;
+		}
 		
 		return findeMember.get();
 	}
@@ -132,6 +136,11 @@ public class MemberServiceImpl implements MemberService {
 				member.getMemberName(),member.getMemberEmail(),member.getMemberPhoneNum());
 		
 		
+	}
+	@Override
+	public List<Member> findByMemberPhoneNum(String memberPhoneNum) {
+		List<Member> findeMember= memberRepository.findByMemberPhoneNum(memberPhoneNum);
+		return findeMember;
 	}
 	
 //	@Override
