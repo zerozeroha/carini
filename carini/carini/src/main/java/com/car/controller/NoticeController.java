@@ -36,7 +36,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@SessionAttributes({"member", "pagingInfo"})
+@SessionAttributes({"user", "pagingInfo"})
 public class NoticeController {
 	
 	@Autowired

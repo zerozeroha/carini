@@ -23,7 +23,7 @@ import org.springframework.ui.Model;
 
 
 @Controller
-@SessionAttributes("member")
+@SessionAttributes("user")
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")

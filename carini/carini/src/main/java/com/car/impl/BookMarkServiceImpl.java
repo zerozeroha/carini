@@ -20,7 +20,6 @@ import com.car.service.BookMarkService;
 import jakarta.transaction.Transactional;
 
 @Service
-
 public class BookMarkServiceImpl implements BookMarkService{
 
 

@@ -38,6 +38,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import com.car.dto.Board;
 import com.car.dto.Bookmark;
 import com.car.dto.Car;
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
 import com.car.service.MemberService;
@@ -54,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/mypage")
-@SessionAttributes({ "member", "pagingInfo" })
+@SessionAttributes({ "user", "pagingInfo" })
 public class MypageController {
 
 	@Value("${pw-role.password-rejex}")
@@ -91,7 +92,7 @@ public class MypageController {
 	 * 회원정보 수정(나의 정보)
 	 */
 	@GetMapping("/form")
-	public String mypageForm(HttpSession session) {
+	public String mypageForm(HttpSession session,Model model,HttpServletRequest request) {
 
 		Member user = (Member) session.getAttribute("user");
 		if(user == null) {
@@ -101,7 +102,9 @@ public class MypageController {
 			findmember.setMemberPw("*****");
 			findmember.setMemberPhoneNum("***-****-****");
 			findmember.setMemberEmail("****@****.***");
+	    session.setAttribute("originalUrl", request.getRequestURI());
 		session.setAttribute("user", findmember);
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/mypageview.html";
 	}
 

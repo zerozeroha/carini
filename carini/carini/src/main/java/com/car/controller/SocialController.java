@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
 @Controller
-@SessionAttributes("member")
+@SessionAttributes("user")
 public class SocialController {
     
     private final SocialService socialService;
