@@ -3280,7 +3280,14 @@ footer {
 	color:white !important;
 	font-weight:700 !important;
 }
-
+.change_list .footer_btn3 a:hover{
+	
+	background-color: black !important;
+	margin:0 !important;
+	padding: 10px 20px !important;
+	color:white !important;
+	font-weight:700 !important;
+}
 /* 게시판 내용(textarea) */
 
 #boardinfo {
@@ -3297,4 +3304,7 @@ footer {
     resize: none;
     font-size: larger;
 
+  }
+  a:hover{
+	cursor:pointer;
   }

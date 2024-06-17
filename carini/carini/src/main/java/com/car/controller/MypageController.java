@@ -1,5 +1,10 @@
 package com.car.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +32,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Board;
 import com.car.dto.Bookmark;
 import com.car.dto.Car;
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
 import com.car.service.MemberService;
@@ -48,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/mypage")
-@SessionAttributes({ "member", "pagingInfo" })
+@SessionAttributes({ "user", "pagingInfo" })
 public class MypageController {
 
 	@Value("${pw-role.password-rejex}")
@@ -72,7 +79,8 @@ public class MypageController {
 		return new Member(); // 기본 Member 객체를 세션에 저장
 	}
 
-
+	@Value("${path.upload}")
+	public String uploadFolder;
 
 	@GetMapping("/no_login")
 	public String mypageNo_login(Model model) {
@@ -84,7 +92,7 @@ public class MypageController {
 	 * 회원정보 수정(나의 정보)
 	 */
 	@GetMapping("/form")
-	public String mypageForm(HttpSession session) {
+	public String mypageForm(HttpSession session,Model model,HttpServletRequest request) {
 
 		Member user = (Member) session.getAttribute("user");
 		if(user == null) {
@@ -94,7 +102,9 @@ public class MypageController {
 			findmember.setMemberPw("*****");
 			findmember.setMemberPhoneNum("***-****-****");
 			findmember.setMemberEmail("****@****.***");
+	    session.setAttribute("originalUrl", request.getRequestURI());
 		session.setAttribute("user", findmember);
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/mypageview.html";
 	}
 
@@ -460,7 +470,62 @@ public class MypageController {
 	      
 	    return "mypage/getMyBoard";
 	}
-
+	/*
+	 * 수정하기 폼
+	 * */
+	 @GetMapping("/updateMyBoard")
+	   public String updateMyBoard(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
+		       Member user = (Member) session.getAttribute("user");
+		       if (user == null) {
+		           return "redirect:/member_login";
+		       }
+		       
+		       Board board = boardService.getBoardById(boardId);
+		       if (board == null) {
+		           model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
+		           model.addAttribute("url", "/board/getBoardList");
+		           return "alert";
+		       }
+		       
+		       if (board.getMemberId().equals(user.getMemberId())) {
+		           model.addAttribute("board", board);
+		           return "mypage/updateMyBoard";  // 게시글 수정 페이지
+		       }
+		       
+		       model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
+		       model.addAttribute("url", "/mypage/myBoard");
+		       return "alert";
+	   }
+	 /*
+	  * 나의 게시물 수정하기
+	  * */
+	 @PostMapping("/updateBoard")
+	   public String updateBoard(Board board, Model model, HttpSession session)  {
+	      Member user = (Member) session.getAttribute("user");
+	        if(user == null) { return "redirect:/member_login"; }
+	      
+	      // 파일재업로드
+	      MultipartFile uploadFile = board.getUploadFile();
+	      if(uploadFile != null && !uploadFile.isEmpty()) {
+	         String fileName = uploadFile.getOriginalFilename();
+	         Path filePath = Paths.get(uploadFolder + fileName);
+	         try {
+	            Files.copy(uploadFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+	               board.setBoardFilename(fileName);
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	         }         
+	      }
+	      
+	      boardService.updateBoard(board);
+	        model.addAttribute("msg", "게시글이 수정되었습니다!");
+	        model.addAttribute("url", "/mypage/myBoard/getBoard?boardId=" + board.getBoardId());
+	        return "alert";
+	   }
+	 
+	 /*
+	  * 나의게시글 삭제
+	  * */
 	@PostMapping("/myBoard/deleteBoard")
 	public String myPagemydeleteBoard(@RequestParam("selectedBoardsData") String selectedBoards,
 			@RequestParam(name = "curPage", defaultValue = "0") int curPage,
