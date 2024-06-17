@@ -2496,7 +2496,6 @@ a.icon-hover:hover {
  background-color: white !important;
 }
 
-
    .side-hover:hover {
       color: black;
       -webkit-text-stroke: 0.1px black;
@@ -3234,3 +3233,4 @@ footer {
  border-radius: 0.5rem;
  padding: 1.5%;
 }
+

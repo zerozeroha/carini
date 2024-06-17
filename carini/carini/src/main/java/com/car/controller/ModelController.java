@@ -66,6 +66,7 @@ public class ModelController {
 	/*
 	 * 모델 목록보기
 	 * */
+
 	@GetMapping("/getModelList")
 	public String getBoardList(Model model, 
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
@@ -93,6 +94,16 @@ public class ModelController {
 		}
 	    
 	    Page<Car> pagedResult = modelService.filterCars(pageable, filterMinPrice, filterMaxPrice, filterSize, filterFuel);
+
+	    // 즐겨찾기 추가
+	    for (Car car1 : pagedResult) {
+	    	boolean isBookmarked = false;
+	    	if (user != null) {
+	    		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car1.getCarId());
+	    	}
+	        car1.setBookmarked(isBookmarked);
+
+	    }
 
 	    // 즐겨찾기 추가
 	    for (Car car1 : pagedResult) {
