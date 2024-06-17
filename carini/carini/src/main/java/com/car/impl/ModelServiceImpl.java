@@ -15,6 +15,7 @@ import com.car.persistence.CarRepository;
 import com.car.service.ModelService;
 
 import jakarta.persistence.criteria.Predicate;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class ModelServiceImpl implements ModelService{
@@ -37,22 +38,22 @@ public class ModelServiceImpl implements ModelService{
 	}
 
 	@Override
-	public Car getCarbyId(Long carId) {
+	public Car getCarbyId(int carId) {
 
-		return null;
+		Car car = carRepository.findById(carId).get();
+		
+		return car;
 	}
 	
 	@Override
-	public Page<Car> filterCars(Pageable pageable, Long carMinPrice, Long carMaxPrice, String carSize, String carFuel) {
+	public Page<Car> filterCars(Pageable pageable, Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel) {
 		
 		// 주어진 조건에 따른 Specification 생성
-        Specification<Car> spec = createSpecification(carMinPrice, carMaxPrice, carSize, carFuel);
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println(spec);
+        Specification<Car> spec = createSpecification(filterMinPrice, filterMaxPrice, filterSize, filterFuel);
         return carRepository.findAll(spec, pageable);
     }
 	
-	private Specification<Car> createSpecification(Long carMinPrice, Long carMaxPrice, String carSize, String carFuel) {
+	private Specification<Car> createSpecification(Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel) {
 		// root: 조회할 엔티티의 루트를 나타내며, 엔티티의 속성에 접근할 수 있음.
 		// query: 쿼리 객체로, 쿼리 자체를 나타냄. select, where 등의 조건을 설정할 수 있음.
 		// criteriaBuilder: Predicate(조건)를 생성하는 데 사용되는 빌더 객체.
@@ -61,24 +62,63 @@ public class ModelServiceImpl implements ModelService{
 		
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (carMinPrice != null) {
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("carMinPrice"), carMinPrice));
+            if (filterMinPrice != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("carAvgPrice"), filterMinPrice));
             }
 
-            if (carMaxPrice != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("carMaxPrice"), carMaxPrice));
+            if (filterMaxPrice != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("carAvgPrice"), filterMaxPrice));
             }
 
-            if (!"선택안함".equals(carSize)) {
-                predicates.add(criteriaBuilder.like(root.get("carSize"), "%" + carSize + "%"));
+            if (!"선택안함".equals(filterSize)) {
+                predicates.add(criteriaBuilder.like(root.get("carSize"), "%" + filterSize + "%"));
             }
 
-            if (!"선택안함".equals(carFuel)) {
-                predicates.add(criteriaBuilder.like(root.get("carFuel"), "%" + carFuel + "%"));
+            if (!"선택안함".equals(filterSize)) {
+                predicates.add(criteriaBuilder.like(root.get("carFuel"), "%" + filterFuel + "%"));
             }
-            System.out.println("predicates : " + predicates);
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
+    }
+	
+	@Override
+	public void addCarToComparison(int carId, HttpSession session) {
+        List<Car> comparisonCars = (List<Car>) session.getAttribute("comparisonCars");
+        if (comparisonCars == null) {
+            comparisonCars = new ArrayList<>();
+        }
+        
+     // Assuming you have a method to find a car by its ID
+        Optional<Car> car = carRepository.findById(carId);
+        if (car != null && comparisonCars.size() < 2) {
+            comparisonCars.add(car.get());
+            session.setAttribute("comparisonCars", comparisonCars);
+        }
+        
+	}
+	
+	@Override
+    public void removeCarFromComparison(int position, HttpSession session) {
+        List<Integer> selectedCarIds = (List<Integer>) session.getAttribute("selectedCarIds");
+        if (selectedCarIds != null && position >= 0 && position < selectedCarIds.size()) {
+            selectedCarIds.remove(position);
+        }
+        session.setAttribute("selectedCarIds", selectedCarIds);
+    }
+	
+	@Override
+    public List<Car> getComparisonCars(HttpSession session) {
+        List<Integer> selectedCarIds = (List<Integer>) session.getAttribute("selectedCarIds");
+        if (selectedCarIds == null || selectedCarIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return findCarsByIds(selectedCarIds); // 자동차 ID로 자동차 정보를 찾는 메서드
+    }
+
+    private List<Car> findCarsByIds(List<Integer> carIds) {
+        // 자동차 ID로 자동차 정보를 가져오는 로직 (예: DB 조회)
+        // 이 예시에서는 임의로 List<Car>를 반환합니다.
+        return new ArrayList<>();
     }
 
 }
