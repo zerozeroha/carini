@@ -23,7 +23,7 @@ import org.springframework.ui.Model;
 
 
 @Controller
-@SessionAttributes("member")
+@SessionAttributes("user")
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
@@ -59,6 +59,11 @@ public class LoginController {
 		model.addAttribute("models", memberList);
 		return "member/signup.html";
 	}
+	
+	@GetMapping("/test")
+    public String getTestPage(Model model) {
+        return "base/test.html";
+    }
 	
 
     /*

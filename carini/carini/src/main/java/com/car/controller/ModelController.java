@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/model")
-@SessionAttributes({"member", "pagingInfo"})
+@SessionAttributes({"user", "pagingInfo"})
 public class ModelController {
 	
 	@Autowired
@@ -66,6 +66,7 @@ public class ModelController {
 	/*
 	 * 모델 목록보기
 	 * */
+
 	@GetMapping("/getModelList")
 	public String getBoardList(Model model, 
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
@@ -84,15 +85,25 @@ public class ModelController {
 		
 		Pageable pageable;
 		
-		if(carSort == "저가순"){
+		if(carSort.equals("저가순")){
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carMinPrice").ascending());
-		}else if(carSort == "고가순") {
+		}else if(carSort.equals("고가순")) {
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carMinPrice").descending());
 		}else {
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carName").ascending());
 		}
 	    
 	    Page<Car> pagedResult = modelService.filterCars(pageable, filterMinPrice, filterMaxPrice, filterSize, filterFuel);
+
+	    // 즐겨찾기 추가
+	    for (Car car1 : pagedResult) {
+	    	boolean isBookmarked = false;
+	    	if (user != null) {
+	    		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car1.getCarId());
+	    	}
+	        car1.setBookmarked(isBookmarked);
+
+	    }
 
 	    // 즐겨찾기 추가
 	    for (Car car1 : pagedResult) {

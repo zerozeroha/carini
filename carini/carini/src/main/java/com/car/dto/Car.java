@@ -56,5 +56,6 @@ public class Car {
         if (carMinPrice != null && carMaxPrice != null) {
             this.carAvgPrice = (carMinPrice + carMaxPrice) / 2.0;
         }
+
     }
 }

@@ -186,7 +186,7 @@ input, select, textarea {
     }
 
     .side-hover:hover {
-      color: black;
+      color: white;
       -webkit-text-stroke: 0.1px black;
       background-color: whitesmoke;
       padding: 2.5%;
@@ -2538,7 +2538,8 @@ footer {
          }
 
          .dropotron li:hover {
-            color: #ef8376;
+            color:  rgb(187, 179, 179);
+            -webkit-text-stroke: 0.4px rgb(115, 109, 119);
          }
 
          .dropotron li a, .dropotron li span {

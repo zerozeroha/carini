@@ -20,7 +20,6 @@ import com.car.service.BookMarkService;
 import jakarta.transaction.Transactional;
 
 @Service
-
 public class BookMarkServiceImpl implements BookMarkService{
 
 
@@ -55,7 +54,8 @@ public class BookMarkServiceImpl implements BookMarkService{
 		System.out.println(BookmarkList);
 		return BookmarkList;
 	}
-	
+  
+	/*memberId와 carId에 대해 북마크가 존재하는지를 확인*/
 	@Override
 	public boolean isBookmarkedByMember(String memberId, int carId) {
         return bookMarkRepository.existsByMemberIdAndCarId(memberId, carId);
