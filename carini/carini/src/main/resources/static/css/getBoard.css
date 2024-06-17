@@ -2278,7 +2278,7 @@ input, select {
 }
 
  .header_carini{
-      color: white;
+     color: white;
       font-size: 6rem;
       font-weight: 700;
       text-shadow: 9px 9px 1px gray;
@@ -2287,7 +2287,7 @@ input, select {
 
 }
 .carini-hover{
-		display: block;
+display: block;
 	margin-top:40px;
 }
 .carini-hover:hover {

@@ -66,6 +66,7 @@ public class ModelController {
 	/*
 	 * 모델 목록보기
 	 * */
+
 	@GetMapping("/getModelList")
 	public String getBoardList(Model model, 
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
@@ -104,6 +105,15 @@ public class ModelController {
 
 	    }
 
+	    // 즐겨찾기 추가
+	    for (Car car1 : pagedResult) {
+	    	boolean isBookmarked = false;
+	    	if (user != null) {
+	    		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car1.getCarId());
+	    	}
+	        car1.setBookmarked(isBookmarked);
+	    }
+
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
 	    int pageSize       = pagingInfo.getPageSize();
@@ -126,12 +136,12 @@ public class ModelController {
 	    model.addAttribute("pagingInfo", pagingInfo);
 	    model.addAttribute("pagedResult", pagedResult);
 	    model.addAttribute("pageable", pageable);
-		model.addAttribute("cp", curPage);
-		model.addAttribute("sp", startPage);
-		model.addAttribute("ep", endPage);
-		model.addAttribute("ps", pageSize);
-		model.addAttribute("rp", rowSizePerPage);
-		model.addAttribute("tp", totalPageCount);
+      model.addAttribute("cp", curPage);
+      model.addAttribute("sp", startPage);
+      model.addAttribute("ep", endPage);
+      model.addAttribute("ps", pageSize);
+      model.addAttribute("rp", rowSizePerPage);
+      model.addAttribute("tp", totalPageCount);
 	    model.addAttribute("carList", pagedResult.getContent());
 	    model.addAttribute("user", user);
 
