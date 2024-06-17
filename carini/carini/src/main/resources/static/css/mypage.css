@@ -175,7 +175,11 @@ input, select, textarea {
   .float_hover:hover {
    background-color: whitesmoke !important;
   }
-
+.carini-hover{
+	display: block;
+	margin-left:17px;
+	margin-bottom:32px;
+}
   .carini-hover:hover {
       color: black !important;
       -webkit-text-stroke: 0.9px white;
@@ -3721,6 +3725,7 @@ input, select, textarea {
 			 #getpopup_title {
 			    margin-top: 20px;
 			 }
+
 
 			 #title_area{
 			    /* margin-top: 15px; */
