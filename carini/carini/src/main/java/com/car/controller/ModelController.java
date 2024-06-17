@@ -42,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+
 @RequestMapping("/model")
 @SessionAttributes({"user", "pagingInfo"})
 public class ModelController {
@@ -112,6 +113,7 @@ public class ModelController {
 	    		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car1.getCarId());
 	    	}
 	        car1.setBookmarked(isBookmarked);
+
 	    }
 
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();

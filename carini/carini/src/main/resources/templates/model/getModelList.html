@@ -8,9 +8,97 @@
 	   integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
 	   crossorigin="anonymous">
 	<link rel="stylesheet" href="/css/favorite.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
+<style>
+	#priceSlider {
+	    height: 10px;
+	}
+	#priceSlider .slider-container {
+	    width: 300px;
+	    position: relative;
+	    text-align: center;
+	}
+
+	input[type="range"] {
+	    width: 100%;
+	    position: absolute;
+	    pointer-events: none;
+	    -webkit-appearance: none;
+	    appearance: none;
+	}
+
+	input[type="range"]::-webkit-slider-thumb {
+	    pointer-events: all;
+	    position: relative;
+	    z-index: 1;
+	    -webkit-appearance: none;
+	    appearance: none;
+	    height: 20px;
+	    width: 20px;
+	    background: white;
+	    border-radius: 50%;
+	    cursor: pointer;
+	}
+
+	input[type="range"]:nth-of-type(2) {
+	    z-index: 2;
+	}
+
+	.price-display {
+	    margin-top: 60px;
+	    font-size: 1.2em;
+	}
+	#priceSlider .noUi-connect {
+	    background: rgb(204, 219, 232);
+	}
+
+	#priceSlider .noUi-handle {
+	    height: 18px;
+	    width: 18px;
+	    top: -5px;
+	    right: -9px; /* half the width */
+	    border-radius: 9px;
+	}
+	
+	
+	#comparisonTable {
+	    table-layout: fixed;
+	    width: 100%;
+	}
+
+	#comparisonTable th, #comparisonTable td {
+	    text-align: center; /* 중앙 정렬 */
+	}
+
+	#comparisonTable th:nth-child(1), #comparisonTable td:nth-child(1) {
+	    width: 45%; /* 첫 번째 열 너비 */
+	}
+
+	#comparisonTable th:nth-child(2), #comparisonTable td:nth-child(2) {
+	    width: 10%; /* 두 번째 열 너비 */
+	}
+
+	#comparisonTable th:nth-child(3), #comparisonTable td:nth-child(3) {
+	    width: 45%; /* 세 번째 열 너비 */
+	}
+	
+	/* 고정된 표의 행 높이 설정 */
+    #comparisonTable tbody tr {
+        height: 50px; /* 원하는 높이로 변경 */
+    }
+	
+	canvas[id^="car1Chart"],
+    canvas[id^="car2Chart"] {
+        height: 30px;
+    }
+
+</style>
 <body>
 	<div id="page-wrapper" >
 	     <!-- Header -->
@@ -43,22 +131,20 @@
 	             </ul>
 	         </nav>
 	     </div>
-	
-   <p>_Model</p>
+
+   <p>_Model</p>   
    <!-- 필터링 폼 -->
      <form th:action="@{/model/getModelList}" method="get">
-         <div class="form-group row">
-             <label for="carMinPrice" class="col-sm-2 col-form-label">최소 가격:</label>
-             <div class="col-sm-10">
-                 <input type="number" class="form-control" id="filterMinPrice" name="filterMinPrice" placeholder="최소 가격을 입력하세요">
-             </div>
-         </div>
-         <div class="form-group row">
-             <label for="filterMaxPrice" class="col-sm-2 col-form-label">최대 가격:</label>
-             <div class="col-sm-10">
-                 <input type="number" class="form-control" id="filterMaxPrice" name="filterMaxPrice" placeholder="최대 가격을 입력하세요">
-             </div>
-         </div>
+		<div class="form-group row">
+	        <label for="filterPrice" class="col-sm-2 col-form-label">가격 범위 설정:</label>
+	        <div class="col-sm-10 filterPrice">
+	            <div id="priceSlider"></div>
+				<input type="hidden" class="form-control" id="filterMinPrice" name="filterMinPrice">
+				<input type="hidden" class="form-control" id="filterMaxPrice" name="filterMaxPrice">
+				<span style="text-align: justify;">0원 30000만원</span>
+			</div>
+			
+	    </div>
          <div class="form-group row">
              <label for="filterSize" class="col-sm-2 col-form-label">자동차 크기:</label>
              <div class="col-sm-10">
@@ -111,7 +197,7 @@
 			</a>
 	         <div class="card-body">
 	             <h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
-	             <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}원|"></p>
+	             <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
 	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
 	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
 	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|"></p>
@@ -147,41 +233,95 @@
 	 		</ul>
 	 	</div>
 	 
-	 <!-- Comparison Section -->
-	 <div id="comparisonSection" style="margin-top: 30px; display: none;">
-	     <h2>차 비교</h2>
-	     <div id="comparisonTable" class="row">
-	         <div class="col-md-6" id="car1Container">
-	             <div class="card">
-	                 <img id="car1Img" class="card-img-top" alt="이미지">
-	                 <div class="card-body">
-	                     <h5 class="card-title" id="car1Name"></h5>
-	                     <p class="card-text">가격: <span id="car1Price"></span>원</p>
-	                     <p class="card-text">크기: <span id="car1Size"></span></p>
-	                     <p class="card-text">연료: <span id="car1Fuel"></span></p>
-	                     <p class="card-text">연비: <span id="car1Eff"></span></p>
-	                     <button onclick="removeCarFromComparison(1)" class="btn btn-danger">삭제</button>
-	                 </div>
-	             </div>
-	         </div>
-	         <div class="col-md-6" id="car2Container">
-	             <div class="card">
-	                 <img id="car2Img" class="card-img-top" alt="이미지">
-	                 <div class="card-body">
-	                     <h5 class="card-title" id="car2Name"></h5>
-	                     <p class="card-text">가격: <span id="car2Price"></span>원</p>
-	                     <p class="card-text">크기: <span id="car2Size"></span></p>
-	                     <p class="card-text">연료: <span id="car2Fuel"></span></p>
-	                     <p class="card-text">연비: <span id="car2Eff"></span></p>
-	                     <button onclick="removeCarFromComparison(2)" class="btn btn-danger">삭제</button>
-	                 </div>
-	             </div>
-	         </div>
-	     </div>
-	 </div>
+		<!-- Comparison Section -->
+		<div id="comparisonSection" style="margin-top: 30px; display: none;">
+		    <h2>차 비교</h2>
+		    <table id="comparisonTable" class="table table-bordered">
+		        <thead>
+		            <tr>
+		                <th>차 1</th>
+		                <th>항목</th>
+		                <th>차 2</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+		                <td><img id="car1Img" class="img-fluid" alt="이미지"></td>
+		                <td>이미지</td>
+		                <td><img id="car2Img" class="img-fluid" alt="이미지"></td>
+		            </tr>
+		            <tr>
+		                <td id="car1Name"></td>
+						<td>이름</td>
+		                <td id="car2Name"></td>
+		            </tr>
+		            <tr>
+		                <td><span id="car1Price"></span>만원</td>
+						<td>가격</td>
+		                <td><span id="car2Price"></span>만원</td>
+		            </tr>
+		            <tr>
+		                <td id="car1Size"></td>
+						<td>크기</td>
+		                <td id="car2Size"></td>
+		            </tr>
+		            <tr>
+		                <td id="car1Fuel"></td>
+						<td>연료</td>
+		                <td id="car2Fuel"></td>
+		            </tr>
+		            <tr>
+		                <td id="car1Eff"></td>
+						<td>연비</td>
+		                <td id="car2Eff"></td>
+		            </tr>
+					<tr>
+		                <td><canvas id="car1ChartPer" style="transform: scaleX(-1)"></canvas></td>
+		                <td>주행</td>
+		                <td><canvas id="car2ChartPer"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><canvas id="car1ChartPrice" style="transform: scaleX(-1)"></canvas></td>
+		                <td>가격</td>
+		                <td><canvas id="car2ChartPrice"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><canvas id="car1ChartGeoju" style="transform: scaleX(-1)"></canvas></td>
+		                <td>거주성</td>
+		                <td><canvas id="car2ChartGeoju"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><canvas id="car1ChartQuality" style="transform: scaleX(-1)"></canvas></td>
+		                <td>품질</td>
+		                <td><canvas id="car2ChartQuality"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><canvas id="car1ChartDesign" style="transform: scaleX(-1)"></canvas></td>
+		                <td>디자인</td>
+		                <td><canvas id="car2ChartDesign"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><canvas id="car1ChartEff" style="transform: scaleX(-1)"></canvas></td>
+		                <td>연비</td>
+		                <td><canvas id="car2ChartEff"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><canvas id="car1ChartAvg" style="transform: scaleX(-1)"></canvas></td>
+		                <td>평균</td>
+		                <td><canvas id="car2ChartAvg"></canvas></td>
+		            </tr>
+		            <tr>
+		                <td><button onclick="removeCarFromComparison(1)" class="btn btn-danger">삭제</button></td>
+		                <td>삭제</td>
+		                <td><button onclick="removeCarFromComparison(2)" class="btn btn-danger">삭제</button></td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div>
 
 	
 	 <script>
+		// 즐겨찾기 =====================================================================
 	     function toggleBookmark(carId, isBookmarked) {
 	         let form = document.createElement('form');
 	         form.method = 'POST';
@@ -189,8 +329,50 @@
 	         document.body.appendChild(form);
 	         form.submit();
 	     }
+		 
+		 // 가격 범위 설정 ===============================================================
+ 		 document.addEventListener('DOMContentLoaded', function () {
+ 		     var priceSlider = document.getElementById('priceSlider');
+ 		     var filterMinPrice = document.getElementById('filterMinPrice');
+ 		     var filterMaxPrice = document.getElementById('filterMaxPrice');
+
+ 		     noUiSlider.create(priceSlider, {
+ 		         start: [0, 30000],
+ 		         connect: true,
+ 		         range: {
+ 		             'min': 0,
+ 		             'max': 30000
+ 		         },
+ 		         step: 100,
+ 				 tooltips: true,
+ 		         format: {
+ 		             to: function (value) {
+ 		                 return Math.round(value);
+ 		             },
+ 		             from: function (value) {
+ 		                 return Number(value);
+ 		             }
+ 		         }
+ 		     });
+
+ 		     // 슬라이더 값이 변경될 때 input 요소 업데이트
+ 		     priceSlider.noUiSlider.on('update', function (values, handle) {
+ 		         var value = values[handle];
+
+ 		         if (handle === 0) {
+ 		             filterMinPrice.value = value;
+ 		         } else {
+ 		             filterMaxPrice.value = value;
+ 		         }
+ 		     });
+
+ 		 });
 	     
-		 //페이지 넘어가도 comparisonSection이 초기화되지 않도록 localStorage에 저장
+		 // 차 비교 =====================================================================
+		 
+		 var charts = {}; // 차트 인스턴스를 저장할 객체
+		 
+		 // 페이지 넘어가도 comparisonSection이 초기화되지 않도록 localStorage에 저장
 	     let selectedCarIds = JSON.parse(localStorage.getItem('selectedCarIds')) || [];
 
 	     function selectCarForComparison(carId) {
@@ -238,14 +420,103 @@
 	             });
 	     }
 
-	     function populateCarData(car, position) {
-	         document.getElementById(`car${position}Img`).src = car.carImg;
-	         document.getElementById(`car${position}Name`).innerText = car.carName;
-	         document.getElementById(`car${position}Price`).innerText = new Intl.NumberFormat('ko-KR').format(Math.round(car.carAvgPrice));
-	         document.getElementById(`car${position}Size`).innerText = car.carSize;
-	         document.getElementById(`car${position}Fuel`).innerText = car.carFuel;
-	         document.getElementById(`car${position}Eff`).innerText = car.carEff;
-	     }
+		 function populateCarData(car, position) {
+		     document.getElementById(`car${position}Img`).src = car.carImg;
+		     document.getElementById(`car${position}Name`).innerText = car.carName;
+		     document.getElementById(`car${position}Price`).innerText = new Intl.NumberFormat('ko-KR').format(Math.round(car.carAvgPrice));
+		     document.getElementById(`car${position}Size`).innerText = car.carSize;
+		     document.getElementById(`car${position}Fuel`).innerText = car.carFuel;
+		     document.getElementById(`car${position}Eff`).innerText = car.carEff;
+
+		     var chartIds = [
+		         `car${position}ChartPer`,
+		         `car${position}ChartPrice`,
+		         `car${position}ChartGeoju`,
+		         `car${position}ChartQuality`,
+		         `car${position}ChartDesign`,
+		         `car${position}ChartEff`,
+		         `car${position}ChartAvg`
+		     ];
+
+		     var carYValues = [
+		         car.carScPer,
+		         car.carScPrice,
+		         car.carScGeoju,
+		         car.carScQuality,
+		         car.carScDesign,
+		         car.carScEff,
+		         car.carScAvg
+		     ];
+
+		     for (let i = 0; i < chartIds.length; i++) {
+		         var chartId = chartIds[i];
+
+		         // 기존 차트가 있으면 제거
+		         if (charts[chartId]) {
+		             charts[chartId].destroy();
+		         }
+
+		         // 새로운 차트 생성 및 저장
+		         charts[chartId] = new Chart(chartId, {
+		             type: "bar",
+		             data: {
+		                 labels: [""], // X축 레이블 숨김
+		                 datasets: [{
+		                     backgroundColor: 'skyblue',
+		                     data: [carYValues[i]],
+		                     barThickness: 10 // 바의 두께를 줄임
+		                 }]
+		             },
+		             options: {
+						aspectRatio: 20,
+		                 plugins: {
+		                     legend: {
+		                         display: false // 범례를 숨김
+		                     }
+		                 },
+		                 scales: {
+		                     x: {
+		                         display: false // x축 틱 숨기기
+		                     },
+		                     y: {
+		                         beginAtZero: true,
+		                         ticks: {
+		                             display: false // y축 틱 숨기기
+		                         }
+		                     }
+		                 },
+		                 indexAxis: 'y'
+		             }
+		         });
+		     }
+		 }
+
+		 function clearCarData(position) {
+		     document.getElementById(`car${position}Img`).src = '';
+		     document.getElementById(`car${position}Name`).innerText = '';
+		     document.getElementById(`car${position}Price`).innerText = '';
+		     document.getElementById(`car${position}Size`).innerText = '';
+		     document.getElementById(`car${position}Fuel`).innerText = '';
+		     document.getElementById(`car${position}Eff`).innerText = '';
+
+		     var chartIds = [
+		         `car${position}ChartPer`,
+		         `car${position}ChartPrice`,
+		         `car${position}ChartGeoju`,
+		         `car${position}ChartQuality`,
+		         `car${position}ChartDesign`,
+		         `car${position}ChartEff`,
+		         `car${position}ChartAvg`
+		     ];
+
+		     for (let chartId of chartIds) {
+		         if (charts[chartId]) {
+		             charts[chartId].destroy(); // 차트 제거
+		             charts[chartId] = null; // 차트 인스턴스 삭제
+		         }
+		         document.getElementById(chartId).innerText = ''; // 차트 캔버스 초기화
+		     }
+		 }
 
 	     function removeCarFromComparison(position) {
 	         if (position === 1) {
@@ -273,6 +544,12 @@
 	         document.getElementById(`car${position}Size`).innerText = '';
 	         document.getElementById(`car${position}Fuel`).innerText = '';
 	         document.getElementById(`car${position}Eff`).innerText = '';
+			 var chartId = `car${position}Chart`;
+		     if (charts[chartId]) {
+		         charts[chartId].destroy(); // 차트 제거
+		         charts[chartId] = null; // 차트 인스턴스 삭제
+		     }
+		     document.getElementById(chartId).innerText = ''; 
 	     }
 	     
 	     // 페이지 로드 시 로컬 스토리지에 저장된 데이터 가져오기
@@ -290,10 +567,10 @@
 	             document.getElementById('comparisonSection').scrollIntoView({ behavior: 'smooth' });
 	         });
 	     });
-	 </script>
+		 
 
-	
-	
+	 </script>
+	 
 </body>
 </html>
 

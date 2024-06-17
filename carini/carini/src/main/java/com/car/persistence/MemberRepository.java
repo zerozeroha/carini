@@ -20,6 +20,8 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	Optional<Member> findByMemberId(String memberId);
 	List<Member> findByMemberEmail(String memberEmail);
 	List<Member> findByMemberNickname(String memberNickname);
+	List<Member> findByMemberPhoneNum(String memberPhoneNum);
+	
 	@Modifying
 	@Query("UPDATE Member m SET m.memberNickname = :newNickname WHERE m.memberId = :memberId")
 	void updateMemberNickname(@Param("newNickname") String newNickname, @Param("memberId") String memberId);
@@ -31,6 +33,7 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	@Modifying
 	@Query("UPDATE Member m SET m.memberId = :newmemberId , m.memberPw = :newmemberPw , m.memberName = :newmemberName , m.memberEmail = :newmemberEmail , m.memberPhoneNum = :newmemberPhoneNum WHERE m.memberId = :memberId")
 	void updateAllMember(@Param("memberId") String memberId, @Param("newmemberId") String newmemberId, @Param("newmemberPw") String newmemberPw, @Param("newmemberName") String newmemberName, @Param("newmemberEmail") String newmemberEmail, @Param("newmemberPhoneNum") String newmemberPhoneNum);
+	
 	
 
 

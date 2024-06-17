@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/src/main/resources/static/css/signup.css">
+    <link rel="stylesheet" href="/css/signup.css">
 	
 	<script src="/src/main/resources/static/script/available.js" defer></script>
 </head>
 <script>
     import TextField from '@mui/material/TextField';
 </script>
+<style>
+	.field-error {
+	           border-color: #dc3545;
+	           color: #dc3545;
+	       }
+
+</style>
 <body>
-    <form action="/signup" method="post">
+    <form action="/signup" method="post" th:object="${SignupFormValidation}">
         <header>
 
             <a th:href="@{/}" style=" text-shadow: 4px 4px black;letter-spacing:10px">
@@ -57,26 +64,48 @@
                     <br>
                     <h3> _WELCOME_</h3>
             <br>  
-            <input type="id" id="id_input" name="memberId" class="btn btn-outline-secondary" placeholder="아이디" size="25" minlength="5" maxlength="15">
-            <br><br>
-                    
-                    <input type="password" name="memberPw" class="btn btn-outline-secondary" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요."  size="25" minlength="8" maxlength="16">
-            <br><br>
-                    <input type="text" name="memberName" class="btn btn-outline-secondary" placeholder="이름"  size="25">
-            <br><br>
-                    <input type="text" name="memberNickname" class="btn btn-outline-secondary" placeholder="닉네임"  size="25">
-            <br><br>
-                     <input type="email" name="memberEmail" class="btn btn-outline-secondary" placeholder="이메일 입력해 주세요"  size="25">
-            <br><br>
-                    <input type="tel" name="memberPhoneNum" class="btn btn-outline-secondary" placeholder="전화번호를 입력해 주세요" size="25">
-            <br><br>
+								
+	            <input type="text" id="id_input" th:field="*{memberId}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="아이디를 입력해주세요" size="25" minlength="5" maxlength="15">
+			<br>
+				<div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
+					아이디 오류
+				</div>
+			<br>
+                <input type="password" th:field="*{memberPw}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요."  size="25" minlength="8" maxlength="16">
+			<br>
+				<div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
+					비밀번호 오류
+				</div>
+			<br>
+                <input type="text" th:field="*{memberName}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="이름을 입력해주세요"  size="25">
+			<br>
+				<div class="field-error" th:errors="*{memberName}" style="font-size: 15px;">
+					이름 오류
+				</div>
+			<br>
+                <input type="text" th:field="*{memberNickname}"  class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="닉네임"  size="25">
+			<br>
+				<div class="field-error" th:errors="*{memberNickname}" style="font-size: 15px;">
+					닉네임 오류
+				</div>
+            <br>
+                 <input type="email" th:field="*{memberEmail}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="이메일 입력해 주세요"  size="25">
+			<br>
+				 <div class="field-error" th:errors="*{memberEmail}" style="font-size: 15px;">
+				 	이메일 오류
+				 </div>
+            <br>
+                <input type="tel" th:field="*{memberPhoneNum}" class="btn btn-outline-secondary"  placeholder="전화번호를 입력해 주세요" size="25">
+			<br>	
+				<div class="field-error" th:errors="*{memberPhoneNum}" style="font-size: 15px;">
+					전화번호 오류
+				</div>
+        	<br>
                   <input id="login" type="submit" name="submit" class="btn btn-light" value="가입하기" style="text-align: center;" size="25">
             <br><br>
-    
-
-                
+      
     </fieldset>       
-    </div>     
+    	</div>     
     <br><br><br>
     </div>
     </div>
