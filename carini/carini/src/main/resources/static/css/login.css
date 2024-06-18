@@ -99,9 +99,9 @@ aside {/*오른쪽 하얀 로그인페이지 영역*/
 
 
 .loginbox{/*하얀 로그인 페이지*/
-   padding-top: 10%;
+   
    align-items: center;
-   height: 92%;
+   height: 100%;
    width: 85%;
    background-color: white;
    border: 1px solid black;

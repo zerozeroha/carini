@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestAttributes;
 
+import com.car.validation.LoginFormValidation;
+import com.car.validation.SignupFormValidation;
 import com.car.dto.Member;
 import com.car.persistence.MemberRepository;
 import com.car.service.MemberService;
@@ -20,6 +22,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 
 @Controller
@@ -54,9 +58,7 @@ public class LoginController {
      * 회원가입 view
      * */
 	@GetMapping("/signup")
-	public String joinView(Model model) {
-		List<Member> memberList = memberService.findAllMember();
-		model.addAttribute("models", memberList);
+	public String joinView(@ModelAttribute("SignupFormValidation") SignupFormValidation member) {
 		return "member/signup.html";
 	}
 	
@@ -70,47 +72,70 @@ public class LoginController {
      * 회원가입 
      * */
 	@PostMapping("/signup")
-	public String join_result(Member member,Model model) {
+	public String join_result(@Validated @ModelAttribute("SignupFormValidation") SignupFormValidation member,BindingResult bindingResult,Model model) {
+			
+			if(bindingResult.hasErrors()) {
+				return "member/signup";
+			}
+			
 			
 			List<Member> findmemberEmail=memberService.findByMemberEmail(member.getMemberEmail());
 			List<Member> findmemberNickname=memberService.findByMemberNickname(member.getMemberNickname());
+			Member findmemberId=memberService.findByMemberId(member.getMemberId());
+			List<Member> findmemberPhone = memberService.findByMemberPhoneNum(member.getMemberPhoneNum());
+			/*
+			 * 이메일중복검사
+			 * */
 			if(!findmemberEmail.isEmpty()) {
-				model.addAttribute("msg", "사용중인 이메일입니다.");
-                model.addAttribute("url", "/signup");
-                return "alert";  
+				bindingResult.rejectValue("memberEmail",null, "존재하는 이메일입니다."); 
+				return "member/signup";
 			}
-			
+			/*
+			 * 닉네임 중복검사
+			 * */
 			if(!findmemberNickname.isEmpty()) {
-				model.addAttribute("msg", "사용중인 닉네임입니다.");
-                model.addAttribute("url", "/signup");
-                return "alert";  
+				bindingResult.rejectValue("memberNickname",null, "존재하는 닉네임입니다."); 
+				return "member/signup";
+			}
+			/*
+			 * 아이디중복검사
+			 * */
+			if(findmemberId != null && findmemberId.getMemberId().equals(member.getMemberId())) {
+				bindingResult.rejectValue("memberId", null, "존재하는 아이디입니다."); 
+				return "member/signup";
+			}
+			/*
+			 * 전화번호 중복검사
+			 * */
+			if(!findmemberPhone.isEmpty()) {
+				bindingResult.rejectValue("memberPhoneNum", null, "존재하는 전화번호입니다"); 
+				return "member/signup";
 			}
 			
-			final Pattern PASSWORD_PATTERN = Pattern.compile(passwordRegex);
-			if (member.getMemberPw() == null || member.getMemberPw().isEmpty()) {
-				model.addAttribute("msg", "비밀번호를 입력해주세요.");
-                model.addAttribute("url", "/signup");
-                return "alert";  
-		    } else if (!PASSWORD_PATTERN.matcher(member.getMemberPw()).matches()) {
-		    	model.addAttribute("msg", "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해야 합니다.");
-                model.addAttribute("url", "/signup");
-                return "alert";
-		    } else {
-		    	member.setMemberSocial("회원");
-				member.setMemberRole("사용자");
+			
+			Member Member = new Member();
+			Member.setMemberEmail(member.getMemberEmail());
+			Member.setMemberId(member.getMemberId());
+			Member.setMemberPw(member.getMemberPw());
+			Member.setMemberName(member.getMemberName());
+			Member.setMemberNickname(member.getMemberNickname());
+			Member.setMemberPhoneNum(member.getMemberPhoneNum());
+			Member.setMemberSocial("회원");
+			Member.setMemberRole("사용자");
 				
-				Member save_member=memberService.insertMember(member);
-				model.addAttribute("msg", "성공적으로 회원가입이 되었습니다.");
-                model.addAttribute("url", "/member_login");
-                return "alert";
-		    }
+			Member save_member=memberService.insertMember(Member);
+				
+			model.addAttribute("msg", "성공적으로 회원가입이 되었습니다.");
+            model.addAttribute("url", "/member_login");	
+            return "alert";	
+               
 	}
 	
 	/*
 	 * 로그인 view
 	 * */
 	@GetMapping("/member_login")
-	public String loginView(Model model) {
+	public String loginView(@ModelAttribute("LoginFormValidation") LoginFormValidation member) {
 		
 		return "member/login.html";
 	}
@@ -134,17 +159,21 @@ public class LoginController {
 	 * 로그인
 	 * */
 	@PostMapping("/member_login_check")
-	public String login_result(Member member,Model model,HttpServletRequest request, HttpSession session) {
+	public String login_result(@Validated @ModelAttribute("LoginFormValidation") LoginFormValidation membercheck,BindingResult bindingResult ,Model model,HttpServletRequest request, HttpSession session) {
 
-		String memberId = member.getMemberId();
-		String memberPw = member.getMemberPw();
+		String memberId = membercheck.getMemberId();
+		String memberPw = membercheck.getMemberPw();
+		System.out.println(memberId);
+		if(bindingResult.hasErrors()) {
+			return "member/login";
+		}
 		
+		Member findmember = memberService.findMember(memberId);
 		
-		if(memberId.isEmpty() || memberPw.isEmpty()) {
-	    		return "/login";
-	    }
-		// 데이터베이스에서 사용자 조회
-		Member findmember = memberService.findMember(member);
+		if(findmember==null) {
+			bindingResult.rejectValue("memberId",null, "존재하지 않는 아이디입니다.");
+			return "member/login";
+		}
 		
 	     // 사용자가 존재하고 비밀번호가 일치하는지 확인
 	     if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
@@ -154,10 +183,9 @@ public class LoginController {
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
 	    	 return "redirect:/home";
-	     } else {
-	         // 로그인 실패 시 로그인 페이지로 리디렉션
-	         System.out.println("로그인 실패: 잘못된 아이디 또는 비밀번호");
-	         return "redirect:/login";
+	     }else{
+	    	 bindingResult.rejectValue("memberPw",null, "비밀번호가 일치하지 않습니다.");
+	    	 return "member/login";
 	     }
 	}
 	
