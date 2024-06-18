@@ -2287,8 +2287,12 @@ input, select {
 
 }
 .carini-hover{
+<<<<<<< HEAD
 
 	display: block;
+=======
+		display: block;
+>>>>>>> 64ff81d88cd2de900c1d9bf67e29596d49dfa2c4
 	margin-top:40px;
 }
 .carini-hover:hover {
