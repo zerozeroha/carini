@@ -51,11 +51,10 @@ public class Car {
 	private boolean isBookmarked;
 	
 	@PrePersist
-    @PreUpdate
-    private void calculateCarAvgPrice() {
-        if (carMinPrice != null && carMaxPrice != null) {
-            this.carAvgPrice = (carMinPrice + carMaxPrice) / 2.0;
-        }
-
+  @PreUpdate
+  private void calculateCarAvgPrice() {
+      if (carMinPrice != null && carMaxPrice != null) {
+          this.carAvgPrice = (carMinPrice + carMaxPrice) / 2.0;
+      }
     }
 }
