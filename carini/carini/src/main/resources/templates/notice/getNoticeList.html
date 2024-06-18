@@ -1,212 +1,135 @@
 <!DOCTYPE HTML>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
+
 <head>
-	<title>Helios - Helios by HTML5 UP</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/css/getNoticeList.css" />
-	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <title>No Sidebar - Helios by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/getNoticeList.css" />
+    <script src="assets/script/getNoticelist_script.js" defer></script>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+    <style>
+        input[type="checkbox"] {
+            -webkit-appearance: checkbox;
+            -moz-appearance: checkbox;
+            appearance: checkbox;
+        }
+    </style>
 </head>
 
-<body class="left-sidebar is-preload">
-<div id="page-wrapper">
+<body class="no-sidebar is-preload">
+    <div id="page-wrapper">
+        <!-- Header -->
+		<div id="header">
+		         <!-- Inner -->
+		         <div class="inner">
+		             <header>
+		                 <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+		             </header>
+		         </div>
+		         <!-- Nav -->
+		         <nav id="nav">
+		             <ul>
+		                 <li><a th:href="@{/board/getBoardList}">Board</a>
+							<ul>
+		                         <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
+		                         <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
+		                     </ul>	
+						</li>
+		                 <li><a href="Models.html">Model</a></li>
+		                 <li><a href="Center.html">Center</a></li>
+		                 <li>
+		                     <a>MyPage</a>
+		                     <ul>
+		                         <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
+		                         <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
+		                         <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
+		                     </ul>
+		                 </li>
+		             </ul>
+		         </nav>
+		     </div>
 
-	<!-- Header -->
-	<div id="header">
-		<!-- Inner -->
-		<div class="inner">
-			<header>
-				<!-- <a href="index.html" id="logo"></a> --> <br><br>
-				<a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-			</header>
-		</div>
+        <!-- Main -->
+        <div class="wrapper style1">
+            <div class="container">
+                <div id="my_board_box">
+					<form th:action="@{/notice/getNoticeList}" method="get">
+						<input type="hidden" id="curPage" name="curPage"  th:value="0">
+						<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
+						<span> <span th:text="#{board.total.start}"></span> <span th:text="${pagedResult.getTotalElements()}"></span> <span th:text="#{board.total}"></span></span>
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul>
-				<li><a th:href="@{/board/getBoardList}">Board</a></li>
-				<li><a href="Models.html">Model</a></li>
-				<li><a href="Center.html">Center</a></li>
-				<li>
-					<a>MyPage</a>
-					<ul>
-					   <li><a th:href="@{/mypage/form}" class="side-hver" style="text-align: center;" th:text="#{side.menu1}"></a></li>
-					   <li><a th:href="@{/mypage/bookmark}" class="side-hver" style="text-align: center;" th:text="#{side.menu2}"></a></li>
-					   <li><a th:href="@{/mypage/myBoard}" class="side-hver" style="text-align: center;" th:text="#{side.menu3}"></a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
-	</div>
-	<!-- 우측 플로팅 아이콘 -->
-	<div id="float_icons">
-		<a class="button-a" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
-			<img src="/img/chatbot_icon.png" alt="챗봇">
-		</a>
-		<a class="button-a" href="http://pf.kakao.com/_tAMDG" id="qr">
-			<img src="/img/QR.png" alt="큐알">
-		</a>
-	</div>
-
-	<div id="page-wrapper">
-		<!-- Main -->
-		<div class="wrapper style1">
-			<div class="container">
-				<div class="row gtr-200">
-					<div class="col-4 col-12-mobile" id="sidebar">
-						<hr class="first"/>
-						<div class="sidepart a-hover:hover">
-							<section style="align-items: center;">
-								<header>
-									<h3>_7월달 추천모델 <br> : 제네시스 G80 </h3><br>
-									<a href="#"><img class="side-hover" src="/img/제네.png" style="max-width: 100%;" alt="이달의 추천모델"></a>
-								</header>
-								<div>
-									<br><input type="button" name="보러가기" id="button" value="제네시스g80 보러가기">
-									<!-- <a href="#" class="button lookharder">보러가기</a> -->
-								</div>
-							</section>
-							<hr />
-							<section style="width: 95%;">
-								<div>
-									<h3>_공지사항</h3>
-									<br>
-								</div>
-								<div class="row gtr-50" th:each="notice : ${noticeList}">
-									<!-- <div class="col-4"><a href="">공지1</a></div> -->
-									<div class="col-8"><a th:href="@{/notice/getNotice(noticeId=${notice.noticeId})}" class="side-hover" th:text="${notice.noticeTitle}"></a></div>
-								</div>
-								<div class="lookharder">
-								<a th:href="@{/notice/getNoticeList}" class="button"th:text="#{detail}"></a>
-								</div>
-								<div style="width: 10%; height: 80%;"></div>
-							</section>
-						</div>
-					</div>
-
-					<div class="col-7 col-12-mobile imp-mobile" id="content" style="padding-top: 0;">
-						<p class="Board_text">공지사항</p>
-						<article id="main">
-							<form th:action="@{/notice/getNoticeList}" method="get">
-								<input type="hidden" id="curPage" name="curPage"  th:value="0">
-								<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
-
-
-								<!-- <span class="container";> -->
-								<div class="Board" id="select_boardtype">
-									<select class="form-select" id="searchType" name="searchType" >
-										<option class="select_options" value="noticeTitle" th:selected="${st=='noticeTitle'}" th:text="#{board.search.title}" ></option>
-										<option class="select_options" value="noticeContent" th:selected="${st =='noticeContent'}" th:text="#{board.search.content}"></option>
-									</select>
-									<div>
-										<input class="gradient" id="text_box" name="searchWord" type="text" th:placeholder="|#{board.search.title} ">
-									</div>
-									<div>
-										<input id="search_button" type="submit" name="검색" class="gradient" value="Search">
-									</div>
-								</div>
-								<!-- </span> -->
-							</form>
-							<br>
-							<div class="main_board" style="height: 100%;">
-								<table border="1">
-									<tr style="display: flex;">
-										<th class="center ellipsis" style="width: 14%;" th:text="#{label.id}"></th>
-										<th class="center ellipsis" style="width: 34%;" th:text="#{label.title}"></th>
-										<th class="center ellipsis" style="width: 24%;" th:text="#{label.date}"></th>
-										<th class="center ellipsis" style="width: 14%;" th:text="#{label.file}"></th>
-										<th class="center ellipsis" style="width: 14%;" th:text="#{label.cnt}"></th>
-									</tr>
-									<tr style="display: flex; text-align: center;" th:each="notice, state : ${noticeList}">
-										<td class="ellipsis" style="width: 14%; text-align: center;" th:text="${notice.noticeId}"></td>
-										<td class="ellipsis" style="width: 34%; text-align: center;"><a class="notice-hover" th:href="@{/notice/getNotice(noticeId=${notice.noticeId})}" th:text="${notice.noticeTitle}"></a></td>
-										<td class="ellipsis" style="width: 24%; text-align: center;" th:text="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}"></td>
-										<td class="ellipsis" style="width: 14%; text-align: center;"><img src="/img/board_clip.png" style="height: 15px;" alt="" th:if="${notice.noticeFilename != null && !notice.noticeFilename.isEmpty()}"></td>
-										<td class="ellipsis" style="width: 14%; text-align: center;" th:text="${notice.noticeCnt}"></td>
-									</tr>
-								</table>
+						<!-- <span class="container";> -->
+						<div class="Board">
+							<select class="form-select" id="searchType" name="searchType" >
+								<option class="select_options" value="noticeTitle" th:selected="${st=='noticeTitle'}" th:text="#{board.search.title}" ></option>
+								<option class="select_options" value="noticeContent" th:selected="${st =='noticeContent'}" th:text="#{board.search.content}"></option>
+							</select>
+							<div>
+								<input class="gradient" id="text_box" name="searchWord" type="text" th:placeholder="|#{board.search.title} ">
 							</div>
-							</br>
-							<div class="center">
-								<ul class="col pagination justify-content-center" style="list-style-type: none; display: flex; justify-content: center; width: 130%;">	
-									<th:block th:if="${sp > ps}">
-										<li class="page-item"><a class="Board-hover page-link" th:href="@{/notice/getNoticeList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
-									</th:block>
-									
-									<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-									  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-									    <a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-									       th:href="@{/board/getNoticeList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-									       th:text="${page}"></a>
-									  </li>
-									</th:block>
-									
-									<th:block th:if="${ ep lt tp }">
-										<li class="page-item"><a class="Board-hover page-link" th:href="@{/notice/getNoticeList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
-									</th:block>
-								</ul>
-							</div><!--pagination-->
-						
-						</article>
-					</div>
-				</div>
-				<!-- <hr />
-				<div class="row">
-					<article class="col-4 col-12-mobile special">
-						<a href="#" class="image featured"><img src="../images/볼보 EX30.png" alt="볼보 EX30" /></a>
-						<header>
-							<h3><a href="#">볼보 EX30</a></h3>
-						</header>
-						<p>	가격 : 4,945~5,516만원 </p>
-						<p>	연료 : 전기 </p>
-						<p> 출력 : 200kW 모터 268hp (단순환산치)</p>
-						<p> 축거 : 2,650mm </p>	
-					</article>
-					<article class="col-4 col-12-mobile special">
-						<a href="#" class="image featured"><img src="../images/테슬라 모델S.png" alt="테슬라 모델S" /></a>
-						<header>
-							<h3><a href="#">테슬라 모델S</a></h3>
-						</header>
-						<p>	가격 : 11,525~12,554만원 </p>
-						<p>	연료 : 전기 </p>
-						<p> 출력 : 500~760kW 모터 670~1,018hp (단순환산치)</p>
-						<p> 축거 : 2,960mm </p>	
-						</p>
-					</article>
-					<article class="col-4 col-12-mobile special">
-						<a href="#" class="image featured"><img src="../images/폭스바겐 제타.png" alt="폭스바겐 제타" /></a>
-						<header>
-							<h3><a href="#">폭스바겐 제타</a></h3>
-						</header>
-						<p>	가격 : 3,426~3,810만원 </p>
-						<p>	연료 : 가솔린 </p>
-						<p> 출력 : 160hp 엔진</p>
-						<p> 축거 : 2,686mm </p>	
-					</article>
-				</div> -->
-			</div>
-		</div>
+							<div>
+								<input id="search_button" type="submit" name="검색" class="gradient" value="Search">
+							</div>
+						</div>
+						<!-- </span> -->
+					</form>
+					<table border="1">				
+						<tr >
+							<th class="center ellipsis" style="width: 10%;" th:text="#{label.id}">번호</th>
+							<th class="center ellipsis" style="width: 30%;" th:text="#{label.title}">제목</th>
+							<th class="center ellipsis" style="width: 20%;" th:text="#{label.date}">등록일</th>
+							<th class="center ellipsis" style="width: 10%;" th:text="#{label.file}"파일></th>
+							<th class="center ellipsis" style="width: 10%;" th:text="#{label.cnt}">조회수</th>
+						</tr>
+						<tr th:each="notice, state : ${pagedResult.getContent()}">
+							<td class="ellipsis" style="width: 10%; text-align: center;" th:text="${notice.noticeId}"></td>
+							<td class="ellipsis" style="width: 30%; text-align: center;"><a class="Board-hover" th:href="@{/notice/getNotice(noticeId=${notice.noticeId})}" th:text="${notice.noticeTitle}"></a></td>
+							<td class="ellipsis" style="width: 20%; text-align: center;" th:text="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}"></td>
+							<td class="ellipsis" style="width: 10%; text-align: center;"><img src="/img/board_clip.png" style="height: 15px;" alt="" th:if="${notice.noticeFilename != null && !notice.noticeFilename.isEmpty()}"></td>
+							<td class="ellipsis" style="width: 10%; text-align: center;" th:text="${notice.noticeCnt}"></td>
+						</tr>
+					</table>
+                	</div>
+					<div class="center">
+						<ul class="col pagination justify-content-center" style="list-style-type: none; display: flex; justify-content: center; width: 130%;">	
+							<th:block th:if="${sp > ps}">
+								<li class="page-item"><a class="Board-hover page-link" th:href="@{/notice/getNoticeList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
+							</th:block>
+							
+							<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+							  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+							    <a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+							       th:href="@{/notice/getNoticeList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+							       th:text="${page}"></a>
+							  </li>
+							</th:block>
+							
+							<th:block th:if="${ ep lt tp }">
+								<li class="page-item"><a class="Board-hover page-link" th:href="@{/notice/getNoticeList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
+							</th:block>
+						</ul>
+					</div><!--pagination-->
+            	</div>
+        	</div>
 
-		<hr style="">
-		<footer style="opacity: 50%;">
-			<!-- Contact -->
-			<h1>@ carini</h1>
-		</footer>
-	</div>
+	        <!-- Footer -->
+	        <div id="footer">
+	            <!-- Footer content -->
+	        </div>
+
+    	</div>
 	<!-- Scripts -->
-	   	<script src="/js/jquery.min.js"></script>
-	   	<script src="/js/jquery.dropotron.min.js"></script>
-	   	<script src="/js/jquery.scrolly.min.js"></script>
-	   	<script src="/js/jquery.scrollex.min.js"></script>
-	   	<script src="/js/browser.min.js"></script>
-	   	<script src="/js/breakpoints.min.js"></script>
-	   	<script src="/js/util.js"></script>
-	   	<script src="/js/main.js"></script>
-</div>
-</body>
+   	<script src="/js/jquery.min.js"></script>
+   	<script src="/js/jquery.dropotron.min.js"></script>
+   	<script src="/js/jquery.scrolly.min.js"></script>
+   	<script src="/js/jquery.scrollex.min.js"></script>
+   	<script src="/js/browser.min.js"></script>
+   	<script src="/js/breakpoints.min.js"></script>
+   	<script src="/js/util.js"></script>
+   	<script src="/js/main.js"></script>
+	</body>
+
 </html>

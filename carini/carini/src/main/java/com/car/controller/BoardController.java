@@ -55,6 +55,8 @@ import com.car.persistence.BoardRepository;
 import com.car.service.BoardService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
+import com.car.validation.BoardUpdateFormValidation;
+
 import com.car.validation.BoardWriteFormValidation;
 
 import jakarta.servlet.ServletOutputStream;
@@ -105,13 +107,12 @@ public class BoardController {
           @RequestParam(name = "curPage", defaultValue = "0") int curPage,
           @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
           @RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
-          @RequestParam(name = "searchWord", defaultValue = "") String searchWord,HttpSession session) {
+          @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
       
-      curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
+       curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
        Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
        Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
        List<Notice> noticeList = noticeService.noticeList();
-       System.out.println(noticeList);
        
        // Sort noticeList in descending order based on noticeDate
        noticeList = noticeList.stream()
@@ -122,9 +123,6 @@ public class BoardController {
        if (noticeList.size() > 2) {
            noticeList = noticeList.subList(0, 3);
        }
-       
-       System.out.println("board");
-       System.out.println((Member)session.getAttribute("user"));
        
        int totalRowCount  = (int)pagedResult.getNumberOfElements();
        int totalPageCount = pagedResult.getTotalPages();
@@ -146,14 +144,14 @@ public class BoardController {
        model.addAttribute("pagingInfo", pagingInfo);
        model.addAttribute("pagedResult", pagedResult);
        model.addAttribute("pageable", pageable);
-      model.addAttribute("cp", curPage);
-      model.addAttribute("sp", startPage);
-      model.addAttribute("ep", endPage);
-      model.addAttribute("ps", pageSize);
-      model.addAttribute("rp", rowSizePerPage);
-      model.addAttribute("tp", totalPageCount);
-      model.addAttribute("st", searchType);
-      model.addAttribute("sw", searchWord);
+       model.addAttribute("cp", curPage);
+       model.addAttribute("sp", startPage);
+       model.addAttribute("ep", endPage);
+       model.addAttribute("ps", pageSize);
+       model.addAttribute("rp", rowSizePerPage);
+       model.addAttribute("tp", totalPageCount);
+       model.addAttribute("st", searchType);
+       model.addAttribute("sw", searchWord);
        model.addAttribute("boardList", pagedResult.getContent()); // Add this line
        model.addAttribute("noticeList", noticeList);
 
@@ -166,8 +164,6 @@ public class BoardController {
    @GetMapping("/board/getBoard")
    public String getBoard(Board board, Model model, HttpSession session) {
       Member user = (Member) session.getAttribute("user");
-      System.out.println("====================================================");
-      if(user == null) { return "redirect:/member_login"; }
        
       model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
       
@@ -178,15 +174,11 @@ public class BoardController {
      * 게시판 작성
      * */
    @GetMapping("/board/insertBoard")
-   public String insertBoardForm(Board board, Member member, @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation ,Model model, HttpSession session) {
+   public String insertBoardForm(Board board, Member member, @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation ,Model model) {
 	   
 	  LocalDate currentDate = LocalDate.now();
 	  
-      Member user = (Member) session.getAttribute("user");
       model.addAttribute("date",currentDate);
-      if( user == null ) { 
-         return "redirect:/member_login";  
-      }
       
       return "board/insertBoard";
    }
@@ -196,17 +188,14 @@ public class BoardController {
      * 게시판 작성
      * */
    @PostMapping("/board/insertBoard")
-   public String insertBoard(Board board,@Validated @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, BindingResult bindingResult, HttpSession session,Model model) 
+   public String insertBoard(Board board,@Validated @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, BindingResult bindingResult,Model model) 
+
          throws IOException {
 	  LocalDate currentDate = LocalDate.now();
 	  model.addAttribute("date",currentDate);
       if(bindingResult.hasErrors()) {
 			return "board/insertBoard";
       }
-      
-      Member user = (Member) session.getAttribute("user");
-      if(user.getMemberId() == null) {return "redirect:/member_login";}
-      
       // 파일업로드
       MultipartFile uploadFile = board.getUploadFile();
       if(!uploadFile.isEmpty()) {
@@ -218,43 +207,52 @@ public class BoardController {
       
 
       boardService.insertBoard(board);
-      
-      return "redirect:/board/getBoardList";
+      model.addAttribute("msg", "게시글이 작성되었습니다!");
+      model.addAttribute("url", "/board/getBoardList");
+      return "alert";
    }
    
    /*
      * 게시판 수정 폼
      * */
    @GetMapping("/board/updateBoard")
-   public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
-	       Member user = (Member) session.getAttribute("user");
-	       if (user == null) {
-	           return "redirect:/member_login";
-	       }
-	       
-	       Board board = boardService.getBoardById(boardId);
-	       if (board == null) {
-	           model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
-	           model.addAttribute("url", "/board/getBoardList");
-	           return "alert";
-	       }
-	       
-	       if (board.getMemberId().equals(user.getMemberId())) {
-	           model.addAttribute("board", board);
-	           return "board/updateBoard";  // 게시글 수정 페이지
-	       }
-	       
-	       model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
-	       model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
-	       return "alert";
+   public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model,
+                                 @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
+                                 BindingResult bindingResult, HttpSession session) {
+       Member user = (Member) session.getAttribute("user");
+       
+       Board board = boardService.getBoardById(boardId);
+       if (board == null) {
+           model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
+           model.addAttribute("url", "/board/getBoardList");
+           return "alert";
+       }
+       
+       if (board.getMemberId().equals(user.getMemberId())) {
+           boardValidation.setBoardTitle(board.getBoardTitle());
+           boardValidation.setBoardContent(board.getBoardContent());
+           
+           model.addAttribute("BoardUpdateFormValidation", boardValidation);
+           model.addAttribute("board", board);
+           
+           return "board/updateBoard";  // 게시글 수정 페이지
+       }
+       
+       model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
+       model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
+       return "alert";
    }
    /*
     * 게시판 수정 하기
     * */
    @PostMapping("/board/updateBoard")
-   public String updateBoard(Board board, Model model, HttpSession session)  {
-      Member user = (Member) session.getAttribute("user");
-        if(user == null) { return "redirect:/member_login"; }
+   public String updateBoard(Board board,@Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation ,
+		   BindingResult bindingResult, Model model)  {
+	   
+	   if (bindingResult.hasErrors()) {
+
+	       return "board/updateBoard";
+	    }
       
       // 파일재업로드
       MultipartFile uploadFile = board.getUploadFile();
@@ -270,9 +268,9 @@ public class BoardController {
       }
       
       boardService.updateBoard(board);
-        model.addAttribute("msg", "게시글이 수정되었습니다!");
-        model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
-        return "alert";
+      model.addAttribute("msg", "게시글이 수정되었습니다!");
+      model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
+      return "alert";
    }
    
    
@@ -281,10 +279,6 @@ public class BoardController {
      * */
    @GetMapping("/board/deleteBoard")
    public String deleteBoard(Board board, HttpSession session)  {
-      Member user = (Member) session.getAttribute("user");
-      if(user.getMemberId() == null) {
-         return "redirect:/member_login";
-      }   
       boardService.deleteBoard(board);
       return "forward:/board/getBoardList";
    }
@@ -295,8 +289,8 @@ public class BoardController {
    @GetMapping("/board/download")
    public ResponseEntity<Resource> handleFileDownload(HttpServletRequest req, 
          @RequestParam(name = "boardId") Long boardId, @RequestParam(name = "fn") String fn) throws Exception {
-      req.setCharacterEncoding("utf-8");
-      String fileName = req.getParameter("fn");
+	   req.setCharacterEncoding("utf-8");
+	   String fileName = req.getParameter("fn");
        Path filePath = Paths.get(uploadFolder + fileName).toAbsolutePath();
        Resource resource = null;
        try {

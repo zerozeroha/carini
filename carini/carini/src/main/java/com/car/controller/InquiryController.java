@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.service.InquiryService;
+import com.car.validation.BoardUpdateFormValidation;
+import com.car.validation.InquiryWriteValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -41,7 +46,6 @@ public class InquiryController {
 		
 		Member user = (Member) session.getAttribute("user");
 		
-		
 		Map<String, Object> response = new HashMap<>();
 		if( user == null ) { 
 			response.put("message", "로그인후 이용 가능합니다.");
@@ -62,8 +66,7 @@ public class InquiryController {
 	 * 문의함 상세보기
 	 * */
 	@GetMapping("/getinquiry")
-	public ResponseEntity<Map<String, Object>> getinquiry(@ModelAttribute Inquiry inquiry,HttpSession session,HttpServletRequest request,Model model) {
-		Member user = (Member) session.getAttribute("user");
+	public ResponseEntity<Map<String, Object>> getinquiry(@ModelAttribute Inquiry inquiry,HttpServletRequest request,Model model) {
 		Map<String, Object> response = new HashMap<>();
 		Inquiry getinquiry = inquiryService.findbyreIdinquiry(inquiry.getReId());
 
@@ -77,7 +80,6 @@ public class InquiryController {
 			getinquiry.setReDateRq(null);
 			getinquiry.getReDateRq();
 		}
-		System.out.println(getinquiry.getReContentRq());
 		response.put("inquiry", getinquiry);
 		response.put("success", true);
         return ResponseEntity.ok(response);
@@ -87,18 +89,27 @@ public class InquiryController {
 	 * 문의작성
 	 * */
 	@PostMapping("/inquirywrite")
-	public String inquirywrite(@ModelAttribute Inquiry inquiry,HttpSession session,HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> inquirywrite(@ModelAttribute Inquiry inquiry,
+			@Validated @ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation,BindingResult bindingResult ,
+			HttpSession session,HttpServletRequest request,
+			Model model) {
+		Map<String, Object> response = new HashMap<>();
+		 if (bindingResult.hasErrors()) {
+			 List<ObjectError> errors = bindingResult.getAllErrors();
+			 response.put("errors", errors);
+			 return ResponseEntity.ok(response);
+		}
+
 		Member user = (Member) session.getAttribute("user");
-		
 		inquiry.setMemberId(user.getMemberId());
 		inquiry.setReHero(user.getMemberNickname());
 		inquiry.setReCheckRq(false);
-		/*
-		 * 검증 해야함
-		 * */
 		inquiryService.inquiryWrite(inquiry);
-		
-		return "redirect:"+session.getAttribute("originalUrl"); 
+		System.out.println(session.getAttribute("originalUrl"));
+		response.put("redirectUrl", session.getAttribute("originalUrl"));
+		response.put("message", "정상적으로 작성되었습니다");
+		response.put("success", true);
+		return ResponseEntity.ok(response); 
 	}
 	
 	/*
