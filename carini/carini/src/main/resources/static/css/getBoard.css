@@ -3293,7 +3293,7 @@ footer {
  #board_info textarea {
 	border: 2px solid red;
     width: 100%;
-    height: 25em;
+    height: 20em;
     border: none;
     resize: none;
     font-size: larger;

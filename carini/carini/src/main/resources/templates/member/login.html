@@ -18,7 +18,7 @@
 </style>
 <body>
 	
-    <form action="/member_login_check" th:object="${LoginFormValidation}" method="post" >
+    <form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}" method="post" >
         <header>
 			
             <a th:href="@{/}" class="header_carini carini-hover">CARINI</a>

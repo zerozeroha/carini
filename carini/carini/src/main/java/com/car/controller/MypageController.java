@@ -24,6 +24,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +44,8 @@ import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
 import com.car.service.MemberService;
+import com.car.validation.BoardUpdateFormValidation;
+import com.car.validation.InquiryWriteValidation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,16 +96,13 @@ public class MypageController {
 	 * 회원정보 수정(나의 정보)
 	 */
 	@GetMapping("/form")
-	public String mypageForm(HttpSession session,Model model,HttpServletRequest request) {
+	public String mypageForm(HttpSession session,Model model,HttpServletRequest request,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		Member user = (Member) session.getAttribute("user");
-		if(user == null) {
-			return "redirect:/";
-		}
 		Member findmember = memberService.findMember(user.getMemberId());
-			findmember.setMemberPw("*****");
-			findmember.setMemberPhoneNum("***-****-****");
-			findmember.setMemberEmail("****@****.***");
+		findmember.setMemberPw("*****");
+		findmember.setMemberPhoneNum("***-****-****");
+		findmember.setMemberEmail("****@****.***");
 	    session.setAttribute("originalUrl", request.getRequestURI());
 		session.setAttribute("user", findmember);
 		model.addAttribute("inquiry", new Inquiry());
@@ -114,9 +115,11 @@ public class MypageController {
 	@GetMapping("/myinfo")
 	public ResponseEntity<Map<String, Object>> myinfo(@RequestParam("user_password") String memberPw,
 			@ModelAttribute("member") Member members, HttpServletRequest request) {
+		
 		Map<String, Object> response = new HashMap<>();
 		Member member = memberService.findByMemberId(members.getMemberId());
 		Locale locale = localeResolver.resolveLocale(request);
+		
 		if (member != null && member.getMemberPw().equals(memberPw)) {
 			response.put("success", true);
 			response.put("message", messageSource.getMessage("info.success", null, locale));
@@ -143,11 +146,10 @@ public class MypageController {
 
 	@GetMapping("/myinfo_edit")
 	public String myinfo_edit(@ModelAttribute("member") Member members, HttpSession session) {
-		Member findmember = memberService.findMember(members.getMemberId());
 
+		
+		Member findmember = memberService.findMember(members.getMemberId());
 		session.setAttribute("user", findmember);
-		Member user = (Member) session.getAttribute("user");
-		System.out.println(user);
 		return "mypage/myinfo_edit.html";
 	}
 
@@ -360,13 +362,6 @@ public class MypageController {
 	public String myPagebookmarkAdd(@PathVariable("carId") String carId, @ModelAttribute("member") Member members,
 			Model model, Bookmark bookmark, HttpServletRequest request) {
 		
-		HttpSession session = request.getSession();
-	    Member user = (Member) session.getAttribute("user");
-
-	    if (user == null) {
-	        return "redirect:/member_login"; // 로그인 페이지로 리디렉션
-	    }
-		
 		Locale locale = localeResolver.resolveLocale(request);
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(members.getMemberId());
@@ -392,23 +387,8 @@ public class MypageController {
 	}
 
 	/*
-	 * 자동차데이터 상세보기
-	 */
-
-	@GetMapping("/getbookmark/{carId}")
-	public String myPagegetbookmark(@PathVariable("carId") int carId, Model model) {
-
-		Car car = bookMarkService.selectCar(carId);
-
-		model.addAttribute("car", car);
-		return null;
-		// return "alert"; <----- 수정해야함 자동차 상세보기 페이지경로
-	}
-
-	/*
 	 * =================================== 나의 게시물
 	 */
-
 	@RequestMapping("/myBoard")
 	public String getBoardList(Model model, Board board,
 			@RequestParam(name = "curPage", defaultValue = "0") int curPage,
@@ -464,22 +444,20 @@ public class MypageController {
 	public String myPagemyboard(Board board, Model model,HttpSession session) {
 			
 		Member user = (Member) session.getAttribute("user");
-	    if(user == null) { return "redirect:/member_login"; }
 	       
 	    model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
 	      
 	    return "mypage/getMyBoard";
 	}
 	/*
-	 * 수정하기 폼
+	 * 내 게시물 수정하기 폼
 	 * */
 	 @GetMapping("/updateMyBoard")
-	   public String updateMyBoard(@RequestParam("boardId") Long boardId, Model model, HttpSession session) {
+	   public String updateMyBoard(@RequestParam("boardId") Long boardId, Model model, HttpSession session,
+			   @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
+			   BindingResult bindingResult) {
 		       Member user = (Member) session.getAttribute("user");
-		       if (user == null) {
-		           return "redirect:/member_login";
-		       }
-		       
+
 		       Board board = boardService.getBoardById(boardId);
 		       if (board == null) {
 		           model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
@@ -488,6 +466,10 @@ public class MypageController {
 		       }
 		       
 		       if (board.getMemberId().equals(user.getMemberId())) {
+		    	   boardValidation.setBoardTitle(board.getBoardTitle());
+		           boardValidation.setBoardContent(board.getBoardContent());
+		           
+		           model.addAttribute("BoardUpdateFormValidation", boardValidation);
 		           model.addAttribute("board", board);
 		           return "mypage/updateMyBoard";  // 게시글 수정 페이지
 		       }
@@ -500,9 +482,14 @@ public class MypageController {
 	  * 나의 게시물 수정하기
 	  * */
 	 @PostMapping("/updateBoard")
-	   public String updateBoard(Board board, Model model, HttpSession session)  {
-	      Member user = (Member) session.getAttribute("user");
-	        if(user == null) { return "redirect:/member_login"; }
+	   public String updateBoard(Board board, Model model,
+			   @Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation ,
+			   BindingResult bindingResult)  {
+	     
+		 if (bindingResult.hasErrors()) {
+
+		       return "mypage/updateMyBoard";
+		    }
 	      
 	      // 파일재업로드
 	      MultipartFile uploadFile = board.getUploadFile();
@@ -531,7 +518,7 @@ public class MypageController {
 			@RequestParam(name = "curPage", defaultValue = "0") int curPage,
 			@RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 			@RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
-			@RequestParam(name = "searchWord", defaultValue = "") String searchWord,HttpSession session) {
+			@RequestParam(name = "searchWord", defaultValue = "") String searchWord,HttpSession session,Model model) {
 		
 		Member user = (Member) session.getAttribute("user");
         if (user == null || user.getMemberId() == null) {
@@ -540,7 +527,6 @@ public class MypageController {
         }
 		// ObjectMapper 객체 생성
 	    ObjectMapper objectMapper = new ObjectMapper();
-	    System.out.println(selectedBoards);
 	    try {
 	        // JSON 문자열을 Board 배열로 역직렬화
 	        Board[] selectedBoardsArray = objectMapper.readValue(selectedBoards, Board[].class);
@@ -548,7 +534,7 @@ public class MypageController {
 	        // 선택된 게시물을 순회하면서 삭제 작업 수행
 	        for (Board board : selectedBoardsArray) {
 	            boardService.deleteBoard(board);
-	            System.out.println("Deleting board with ID: " + board.getBoardId());
+	          
 	        }
 
 
@@ -561,7 +547,10 @@ public class MypageController {
 	        // 오류 페이지로 리다이렉트 또는 오류 메시지 반환 등의 작업 수행
 	    }
 	    // 삭제 작업 완료 후 게시물 목록 페이지로 이동
-	    return "forward:/mypage/myBoard?curPage=" + curPage + "&rowSizePerPage=" + rowSizePerPage + "&searchType=" + searchType + "&searchWord=" + searchWord;
+	    
+	    model.addAttribute("msg", "게시글이 삭제되었습니다!");
+        model.addAttribute("url", "/mypage/myBoard?curPage=" + curPage + "&rowSizePerPage=" + rowSizePerPage + "&searchType=" + searchType + "&searchWord=" + searchWord);
+        return "alert";
 	}
 
 }
