@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/find_pw.css">
+</head>
+<style>
+	.field-error {
+	           border-color: #dc3545;
+	           color: #dc3545;
+	       }
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<body>
+    <main>
+        <div class="find_box1" style="display: block;">
+            <div class="find_header">
+                <a th:href="@{find_idForm}" id="find_id">아이디 찾기</a>
+                <a id="find_pw">비밀번호 찾기</a>
+            </div>
+
+            <div class="find_main">
+                <div id="insert_nickname">
+                    <span id="nickname_title">아이디</span>
+                    <input type="text" th:field="${Find_pwFormValidation.memberId}" class="find_main_id"  placeholder="아이디를 입력하세요">
+					<div class="field-error" id="memberIdErrors" style="font-size: 15px;margin-left:10px">
+					</div>
+                </div>
+                <div class="find_main_tel">
+                    <span>전화번호</span>
+                    <input type="text" th:field="${Find_pwFormValidation.memberPhoneNumber}" placeholder="전화번호를 입력하세요. ('-' 없이)">
+                    <button id="code_btn" th:onclick="verification_id_tel()">인증</button>
+					<div class="field-error" id="memberPhoneNumberErrors" style="font-size: 15px;">
+						
+					</div>
+                </div>
+                <div class="find_main_tel" id="c_num" style="display: none;">
+                    <div id="timer_wrapper">
+                        <span>인증번호</span>
+                        <span id="timer">3:00</span>
+                    </div>
+                    <input type="text" id="verificationCode" placeholder="인증번호를 입력하세요">
+                    <button onclick="moveToPasswordChange()">확인</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="find_box2" id="find_box2" style="display: none;">
+            <div class="find_header">
+                <a href="Find_pw.html" id="find_pw_link" onclick="showPasswordChangePage()">비밀번호 수정</a>
+				<a th:href="@{/find_pwForm}">X</a>
+            </div>
+            <div class="find_main">
+                <div id="insert_nickname">
+                    <span id="nickname_title">비밀번호 확인</span>
+                    <input type="text" id="first_pw" class="find_main_id" placeholder="새 비밀번호를 입력하세요">
+                </div>
+                <div class="find_main_tel">
+                    <span id="nickname_title2">새 비밀번호 확인</span>
+                    <input type="text" id="second_pw" th:field="${Update_pwFormValidation.memberPw}" class="find_main_id" placeholder="비밀번호를 확인해주세요">
+                    <span id="password_match_status" style="color: red;"></span>
+					<div class="field-error" id="memberPwErrors" style="font-size: 15px;">
+											
+					</div>
+                </div>
+                <button id="send_new_pw" value="수정" onclick="updatepw()"></button>
+            </div>
+        </div>
+        
+    </main>
+
+    <script>
+		let timer; // 타이머 변수 선언
+	    let timeLeft = 180; // 초기 타이머 시간 설정 (3분 = 180초)
+	    var find_main_tel = document.querySelector("#c_num");
+		let memberId;
+		let memberPhoneNum;
+		
+		function verification_id_tel() {
+			let memberId=document.getElementById('memberId').value;
+			
+			let memberPhoneNum=document.getElementById('memberPhoneNumber').value;
+			event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "/find_pw",
+                data: { memberId: memberId ,
+						memberPhoneNumber:memberPhoneNum},
+                success: function(response) {
+                    if (response.success) {
+						alert(response.message);  // 성공 메시지 표시
+						document.getElementById('memberId').disabled = true;
+						document.getElementById('memberPhoneNumber').disabled = true;
+						document.getElementById('code_btn').disabled = true;
+						find_main_tel.style.display = 'block';
+						startTimer(); // 타이머 시작
+                    } else {
+						console.log(response.errors)
+                        displayErrors(response.errors)
+						alert(response.message);
+                    }
+                }
+            });
+
+            
+        }
+		
+		// 오류 메시지 출력 함수
+	   function displayErrors(errors) {
+	       // 이름 필드 오류 메시지 표시
+	       if (errors.memberId) {
+	           $("#memberIdErrors").text(errors.memberId);
+	       } else {
+	           $("#memberIdErrors").text(""); // 오류가 없으면 빈 문자열로 초기화
+	       }
+
+	       // 전화번호 필드 오류 메시지 표시
+	       if (errors.memberPhoneNumber) {
+	           $("#memberPhoneNumberErrors").text(errors.memberPhoneNumber);
+	       } else {
+	           $("#memberPhoneNumberErrors").text(""); // 오류가 없으면 빈 문자열로 초기화
+	       }
+	   }
+
+	   // 확인 버튼 클릭 시 비밀번호 수정 페이지 이동
+	   function moveToPasswordChange() {
+		var findBox1 = document.querySelector('.find_box1'); 
+		code=document.getElementById('verificationCode').value;       
+		event.preventDefault();
+		$.ajax({
+            type: "GET",
+            url: "/find_pw_code_check",
+            data: { code: code },
+            success: function(response) {
+                if (response.success) {
+					findBox1.style.display = 'none';
+					alert(response.message);
+					showPasswordChangePage(); // 비밀번호 수정 페이지 보이기 함수 호출
+					
+                } else {
+					alert(response.message);
+                   	window.location.href=response.redirectUrl;
+                }
+            }
+        });
+	   }
+	   
+	   // 비밀번호 수정 페이지 보이기
+	   function showPasswordChangePage() {
+		   var findBox2 = document.querySelector('#find_box2');
+	       findBox2.style.display = 'block'; // 비밀번호 수정 페이지 보이기
+	       clearInterval(timer); // 타이머 종료
+	   }
+
+	   // 팝업 닫기 함수
+	   function closePopup() {
+	       var findBox2 = document.querySelector('#find_box2');
+	       findBox2.style.display = 'none'; // 비밀번호 수정 페이지 숨기기
+	   }
+
+	   //비밀번호 수정
+	   function updatepw(){
+		let first_pw = document.getElementById('first_pw').value;
+	    let second_pw = document.getElementById('second_pw').value;
+	    
+	    // 비밀번호 일치 여부 확인
+	    if (first_pw !== second_pw) {
+			document.getElementById('password_match_status').style.border = '3px solid red' ;
+
+	        document.getElementById('password_match_status').textContent = "비밀번호가 일치하지 않습니다.";
+	        return;
+	    } else {
+			document.getElementById('password_match_status').style.border = '3px solid green' ;
+	        document.getElementById('password_match_status').textContent = "";
+	    }
+		console.log(second_pw);
+		event.preventDefault();
+		$.ajax({
+            type: "POST",
+            url: "/update_pw",
+            data: { memberPw: second_pw },
+            success: function(response) {
+                if (response.success) {
+					alert(response.message);
+					window.location.href=response.redirectUrl;
+                } else {
+					alert(response.message);
+					if (response.errors.memberPw) {
+			           $("#memberPwErrors").text(response.errors.memberPw);
+			       	} else {
+			           $("#memberPwErrors").text(""); // 오류가 없으면 빈 문자열로 초기화
+			       	}
+                }
+            }
+        });
+	   }
+	   function startTimer() {
+	   	var find_main_tel = document.querySelector("#c_num");
+	   	            timer = setInterval(updateTimer, 1000); // 1초마다 updateTimer 함수 호출
+	   }
+	   function updateTimer() {
+           var minutes = Math.floor(timeLeft / 60);
+           var seconds = timeLeft % 60;
+           
+
+           document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+           if (timeLeft === 0) {
+               clearInterval(timer); // 타이머 종료
+               // 여기에 타이머 종료 시 동작할 코드 추가
+
+               //타이머 시간이 10초 미만일 때 빨간색으로 변경
+          
+           }
+           if (timeLeft === 0) {
+               clearInterval(timer); // 타이머 종료
+             alert("시간이 경과되었습니다.")
+			 window.location.href="/find_pwForm";
+           } else if (timeLeft < 10) {
+               find_main_tel.style.color = "red";
+           }
+
+           timeLeft--; // 시간 감소
+
+       }
+    </script>
+</body>
+</html>

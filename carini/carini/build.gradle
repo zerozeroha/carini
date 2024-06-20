@@ -40,8 +40,6 @@ dependencies {
    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
    implementation 'net.nurigo:sdk:4.3.0'
    implementation 'org.apache.commons:commons-lang3:3.0'
-
-
 }
 
 tasks.named('test') {
