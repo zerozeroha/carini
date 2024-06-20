@@ -1,17 +1,24 @@
 package com.car.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestAttributes;
 
+import com.car.validation.Find_idFormValidation;
+import com.car.validation.Find_pwFormValidation;
 import com.car.validation.LoginFormValidation;
 import com.car.validation.SignupFormValidation;
 import com.car.dto.Member;
@@ -24,8 +31,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-
-
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import org.apache.commons.lang3.RandomStringUtils;
 @Controller
 @SessionAttributes("user")
 public class LoginController {
@@ -33,6 +40,15 @@ public class LoginController {
 	@Value("${pw-role.password-rejex}")
 	private String passwordRegex;
 
+	@Value("${coolsms.api.key}")
+	private String APIKEY;
+	
+	@Value("${coolsms.api.secret}")
+	private String SECRETKEY;
+	
+	@Value("${coolsms.api.form_number}")
+	private String FROM_NUMBER;
+	
     @Autowired
 	private MemberService memberService;
 	
@@ -111,8 +127,6 @@ public class LoginController {
 				bindingResult.rejectValue("memberPhoneNum", null, "존재하는 전화번호입니다"); 
 				return "member/signup";
 			}
-			
-			
 			Member Member = new Member();
 			Member.setMemberEmail(member.getMemberEmail());
 			Member.setMemberId(member.getMemberId());
@@ -135,8 +149,13 @@ public class LoginController {
 	 * 로그인 view
 	 * */
 	@GetMapping("/member_login")
-	public String loginView(@ModelAttribute("LoginFormValidation") LoginFormValidation member) {
-		
+	public String loginView(@ModelAttribute("LoginFormValidation") LoginFormValidation memberm,
+			@RequestParam(value="redirectURL",defaultValue = "/home") String redirectURL,
+			Model model) {
+		System.out.println("~~~~~~~~~~~");
+		System.out.println(redirectURL);
+		model.addAttribute("redirectURL", redirectURL);
+
 		return "member/login.html";
 	}
 	
@@ -145,13 +164,7 @@ public class LoginController {
 //		System.out.println(member.getMemberId());
 //		System.out.println(member.getMemberNickname());
 //		System.out.println("-=============");
-		// HttpSession session = request.getSession();
-		Member user = (Member) session.getAttribute("user");
-		System.out.println("home----------" + user);
-		
-		if(user == null) {
-			return "redirect:/";
-		}	
+		// HttpSession session = request.getSession();	
 		return "homepage/home.html";
 	}
 	
@@ -159,7 +172,9 @@ public class LoginController {
 	 * 로그인
 	 * */
 	@PostMapping("/member_login_check")
-	public String login_result(@Validated @ModelAttribute("LoginFormValidation") LoginFormValidation membercheck,BindingResult bindingResult ,Model model,HttpServletRequest request, HttpSession session) {
+	public String login_result(@Validated @ModelAttribute("LoginFormValidation") LoginFormValidation membercheck,BindingResult bindingResult ,
+			@RequestParam(value="redirectURL",defaultValue = "/home") String redirectURL,
+			Model model,HttpServletRequest request, HttpSession session) {
 
 		String memberId = membercheck.getMemberId();
 		String memberPw = membercheck.getMemberPw();
@@ -182,13 +197,21 @@ public class LoginController {
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
-	    	 return "redirect:/home";
+	    	 
+	    	 if(redirectURL.contains("/mypage/bookmark/")) {
+	    		 return redirectURL;
+	    	 }
+	    	 
+	    	 return "redirect:"+redirectURL;
 	     }else{
 	    	 bindingResult.rejectValue("memberPw",null, "비밀번호가 일치하지 않습니다.");
 	    	 return "member/login";
 	     }
 	}
 	
+	/*
+	 * 로그아웃
+	 * */
 	@PostMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		//세션을 삭제
@@ -200,4 +223,161 @@ public class LoginController {
 		}
 		return "redirect:/";
 	}
+	/*
+	 * 아이디 찾기 폼
+	 * */
+	@GetMapping("/find_idForm")
+	public String find_idForm(@ModelAttribute("Find_idFormValidation") Find_idFormValidation find_idFormValidation) {
+		return "member/find_id";
+	}
+	/*
+	 * 비밀번호 찾기 폼
+	 * */
+	@GetMapping("/find_pwForm")
+	public String find_pwForm(@ModelAttribute("find_pwFormValidation") Find_pwFormValidation find_pwFormValidation) {
+		
+		return "member/find_pw";
+	}
+	
+	/*
+	 * 아이디찾기(인증번호 전송하기)
+	 * */
+	@PostMapping("/find_id")
+	public ResponseEntity<Map<String, Object>> find_id(@Validated @ModelAttribute("find_idFormValidation") Find_idFormValidation find_idFormValidation,BindingResult bindingResult,
+			HttpSession session,HttpServletRequest request) {
+		
+		Map<String, Object> response = new HashMap<>();
+
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errors = new HashMap<>();
+			// 필드별로 발생한 모든 오류 메시지를 맵에 담음
+	        bindingResult.getFieldErrors().forEach(error -> {
+	            String fieldName = error.getField();
+	            String errorMessage = error.getDefaultMessage();
+	            errors.put(fieldName, errorMessage);
+	        });
+			
+			response.put("message", "회원정보오류");
+			response.put("redirectUrl", "/find_idForm");
+			response.put("success", false);
+			response.put("errors",errors);
+			return ResponseEntity.ok(response);
+		}
+		
+		Member findmember = memberService.SMSfindMember(find_idFormValidation.getMemberName(),find_idFormValidation.getMemberPhoneNumber(),session);
+		if(findmember ==null) {
+			Map<String, String> errors = new HashMap<>();
+			bindingResult.getFieldErrors().forEach(error -> {
+	            String fieldName = error.getField();
+	            String errorMessage = error.getDefaultMessage();
+	            errors.put(fieldName, errorMessage);
+	        });
+			response.put("message", "회원정보가 일치하지 않습니다.");
+	        response.put("success", false);
+	        response.put("errors", "errors");
+	        response.put("redirect", "/find_idForm");
+	        return ResponseEntity.ok(response);
+		}else if(find_idFormValidation.getMemberName() !=null && findmember.getMemberName().equals(find_idFormValidation.getMemberName())){
+			if(findmember.getMemberPhoneNum().equals(find_idFormValidation.getMemberPhoneNumber())){
+				sendmessage(find_idFormValidation.getMemberPhoneNumber(),request);
+				response.put("success", true);
+				response.put("message", "인증번호가 요청되었습니다.");
+				return ResponseEntity.ok(response);
+			}
+		}
+		response.put("message", "회원정보가 일치하지 않습니다.");
+        response.put("success", false);
+        response.put("redirect", "/find_idForm");
+        return ResponseEntity.ok(response);
+	}
+	
+	/*
+	 * 비밀번호찾기(인증번호 전송하기)
+	 * */
+	@GetMapping("/find_pw")
+	public ResponseEntity<Map<String, Object>> find_pw(@Validated @ModelAttribute("find_pwFormValidation") Find_pwFormValidation find_pwFormValidation,BindingResult bindingResult,
+			HttpServletRequest request) {
+		
+		Map<String, Object> response = new HashMap<>();
+		if(bindingResult.hasErrors()) {
+			response.put("redirect", "/find_pwForm");
+			return ResponseEntity.ok(response);
+		}
+		Member findmember = memberService.SMSfindMemberPw(find_pwFormValidation.getMemberId(),find_pwFormValidation.getMemberPhoneNumber());
+		System.out.println(findmember);
+		if(find_pwFormValidation.getMemberId() !=null && findmember.getMemberId().equals(find_pwFormValidation.getMemberId())) {
+			if(findmember.getMemberPhoneNum().equals(find_pwFormValidation.getMemberPhoneNumber())){
+				sendmessage(find_pwFormValidation.getMemberPhoneNumber(),request);
+				
+				response.put("success", true);
+				return ResponseEntity.ok(response);
+			}
+		}else {
+			response.put("message", "회원정보가 일치하지 않습니다.");
+	        response.put("success", false);
+	        response.put("redirect", "/find_pwForm");
+	        return ResponseEntity.ok(response);
+		}
+		response.put("message", "회원정보가 일치하지 않습니다.");
+        response.put("success", false);
+        response.put("redirect", "/find_pwForm");
+        return ResponseEntity.ok(response);
+	}
+	
+	/*
+	 * 아이디찾기(인증번호 확인)
+	 * */
+	@PostMapping("/find_id_code_check")
+    public ResponseEntity<Map<String, Object>> find_id_code_check(@RequestParam("code") String code, HttpServletRequest request,Model model,HttpSession session) {
+    	
+    	Map<String, Object> response = new HashMap<>();
+
+    	if(code.equals(session.getAttribute("codeNumber")) && session.getAttribute("find_idMember") != null) {
+    		session.removeAttribute("code");
+    		response.put("success", true);
+    		response.put("memberId", ((Member)session.getAttribute("find_idMember")).getMemberId());
+    		session.removeAttribute("find_idMember");
+    		return ResponseEntity.ok(response);
+    	}
+    	else {
+    		response.put("message", "인증번호가 일치하지 않습니다.");
+    		response.put("success", false);
+    		response.put("redirectUrl", "/find_idForm");
+    		return ResponseEntity.ok(response);
+    	}
+    }
+	@GetMapping("/find_pw_code_check")
+    public ResponseEntity<Map<String, Object>> find_pw_code_check(@RequestParam String code, HttpServletRequest request,Model model) {
+    	HttpSession session = request.getSession();
+    	Map<String, Object> response = new HashMap<>();
+    	if(code.equals(session.getAttribute("code")) && session.getAttribute("find_pwMember") != null) {
+    		session.removeAttribute("code");
+    		
+    		response.put("success", true);
+    		response.put("member", session.getAttribute("find_pwMember"));
+    		response.put("redirect", "/member_login");
+    		session.removeAttribute("find_pwMember");
+    		return ResponseEntity.ok(response);
+    	}
+    	else {
+    		response.put("msg", "인증번호가 일치하지 않습니다. 다시 입력헤주세요");
+    		response.put("success", false);
+    		response.put("redirect", "/find_pwForm");
+    		return ResponseEntity.ok(response);
+    	}
+    }
+	
+	/*
+	 * 인증번호 메세지 뿌리기
+	 * */
+	public SingleMessageSentResponse sendmessage(String phone,HttpServletRequest request) {
+		String codeNumber=RandomStringUtils.randomNumeric(6);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("codeNumber", codeNumber);
+		System.out.println(session.getAttribute("codeNumber"));
+		SingleMessageSentResponse response=memberService.sendmessage(phone,codeNumber,APIKEY,SECRETKEY,FROM_NUMBER);
+		
+		return response;
+	}
+	
 }

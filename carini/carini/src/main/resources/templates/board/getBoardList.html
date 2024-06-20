@@ -81,9 +81,9 @@
 									<h3>_공지사항</h3>
 									<br>
 								</div>
-								<div class="row gtr-50" th:each="notice : ${noticeList}">
+								<div class="row gtr-50" th:each="notice ,state: ${noticeList}">
 									<!-- <div class="col-4"><a href="">공지1</a></div> -->
-									<div class="col-8"><a th:href="@{/notice/getNotice(noticeId=${notice.noticeId})}" class="side-hover" th:text="${notice.noticeTitle}"></a></div>
+									<div class="col-8"><a th:href="@{/notice/getNotice(noticeId=${notice.noticeId})}" class="side-hover" th:text="|${state.index + 1}. ${notice.noticeTitle}|"></a></div>
 								</div>
 								<div class="lookharder">
 								<a th:href="@{/notice/getNoticeList}" class="button"th:text="#{detail}"></a>
@@ -165,40 +165,6 @@
 						</article>
 					</div>
 				</div>
-				<!-- <hr />
-				<div class="row">
-					<article class="col-4 col-12-mobile special">
-						<a href="#" class="image featured"><img src="../images/볼보 EX30.png" alt="볼보 EX30" /></a>
-						<header>
-							<h3><a href="#">볼보 EX30</a></h3>
-						</header>
-						<p>	가격 : 4,945~5,516만원 </p>
-						<p>	연료 : 전기 </p>
-						<p> 출력 : 200kW 모터 268hp (단순환산치)</p>
-						<p> 축거 : 2,650mm </p>	
-					</article>
-					<article class="col-4 col-12-mobile special">
-						<a href="#" class="image featured"><img src="../images/테슬라 모델S.png" alt="테슬라 모델S" /></a>
-						<header>
-							<h3><a href="#">테슬라 모델S</a></h3>
-						</header>
-						<p>	가격 : 11,525~12,554만원 </p>
-						<p>	연료 : 전기 </p>
-						<p> 출력 : 500~760kW 모터 670~1,018hp (단순환산치)</p>
-						<p> 축거 : 2,960mm </p>	
-						</p>
-					</article>
-					<article class="col-4 col-12-mobile special">
-						<a href="#" class="image featured"><img src="../images/폭스바겐 제타.png" alt="폭스바겐 제타" /></a>
-						<header>
-							<h3><a href="#">폭스바겐 제타</a></h3>
-						</header>
-						<p>	가격 : 3,426~3,810만원 </p>
-						<p>	연료 : 가솔린 </p>
-						<p> 출력 : 160hp 엔진</p>
-						<p> 축거 : 2,686mm </p>	
-					</article>
-				</div> -->
 			</div>
 		</div>
 

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/getModel.css">
+    <title>자동차상세보기(getModel.html)</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="/script/getModel.js"></script>
+</head>
+<body>
+
+    <header>header</header>
+
+    <section class="SubTitle">MODEL_DETAILED</section>
+        
+    <form action="">
+
+        <main>
+            <!-- main 안에 있는 큰 박스 -->
+            <div style="display: flex; flex-direction:column;"> 
+
+                <!-- 자동차 이름 라인 -->
+                <div style="height: 300px; width: 100%;">
+                    <div class="image-container">
+                        <img th:src="@{${car.carImg}}" alt="Example Image">
+                        <span class="text" th:text="${car.carName}"></span>
+                    </div>
+                </div>
+
+                <!-- 첫번째 라인 -->
+                <div class="flex-container">
+
+                    <!-- 왼쪽 박스 : 육각형차트 들어갈 자리 -> 현재 이미지로 대체중 -->
+                    <fieldset style="width: 400px; height: 400px;">
+                        <legend>ASSESSMENT</legend>
+						<canvas id="carRadarChart" style="height: 380px; width: 350px;"></canvas>
+                    </fieldset>
+
+                    <!-- 오른쪽 박스 : 자동차 사진 -->
+                    <fieldset style="width: 700px; height: 400px;">
+                        <legend th:text="${car.carName}"></legend>
+                        <img class="flipped-image" th:src="@{${car.carImg}}" style="width: 850px; height: 400px;" alt="좌우반전 자동차사진">
+                    </fieldset>
+   
+                </div> 
+
+                <!-- 두번째 라인 -->
+                <div class="flex-container">
+
+                    <!-- 왼쪽 박스 : 평점차트 -->
+                    <fieldset style="width: 750px; height: 400px;">
+                        <legend>CHART</legend>
+                        <div class="chart-container">
+                            <canvas id="carBarChart" style="height: 380px; width: 350px;"></canvas>
+                        </div>
+                    </fieldset>
+
+                    <!-- 오른쪽 박스 : table -->
+                    <fieldset style="width: 450px; height: 400px;">
+                        <legend class="legend_brand">TABLE</legend>
+                        <table class="car_table">
+                            <thead>
+                                <tr>
+                                    <th>구분</th>
+                                    <th>수치</th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="background-color: whitesmoke;">크기</td>
+                                    <td><p th:text="${car.carSize}"></p></td> 
+                                </tr>
+                                <tr>
+                                    <td style="background-color: whitesmoke;">연료</td>
+                                    <td><p th:text="${car.carFuel}"></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: whitesmoke;">연비</td>
+                                    <td><p th:text="${car.carEff}"></p></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: whitesmoke;">가격</td>
+                                    <td><p th:text="|${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset> 
+
+                </div>
+
+                <!-- 세번째 라인 -->
+                <div class="flex-container">
+
+                    <!-- 왼쪽 박스 : 로고 -> 링크:홈페이지 -->
+                    <fieldset style="width: 390px; height: 400px;">
+                        <legend>BRAND</legend>
+                        <a th:href="@{https://www.volvocar.co.kr/buy/purchase/test-drive/?type=digital&source=sa&utm_source=other&utm_medium=paidsearch&utm_content=range_google-pc-branda&utm_campaign=kr_range_consideration-action_2304_nameplates_always-on_search_paid&sourceapplicationinformation=kr_rng_cat_npl&gad_source=1&gclid=Cj0KCQjw4MSzBhC8ARIsAPFOuyUhtnxHWMUBresiy_hrJG4LDwk-5TkVniF7PhlRBnn4bGAaRMi_uSkaAlBOEALw_wcB}" class="car_logo">
+                            <img th:src="@{/img/carBrandLogo/{carBrand}.jpg(carBrand=${carBrand})}" alt="자동차로고이미지" style="height: 200px; width: 200px; padding-left: 10%;">
+                        </a>
+                    </fieldset>
+
+                    <!-- 중간 박스 : 뭐넣을지 몰라박스 -->
+                    <fieldset style="width: 390px; height: 400px; background-color: whitesmoke;">
+                        <legend>&nbsp;</legend>      
+                    </fieldset> 
+
+                    <!-- 오른쪽 박스 : 대리점 -> 링크:홈페이지 -->
+                    <fieldset style="width: 390px; height: 400px;">
+                        <legend> AGENCY</legend>
+                        <!--<a th:href="@{/html/KakaoMap}" style="margin-right: 10%;">
+                            <img th:src="@{/html/카리니이미지/대리점.png}" alt="대리점" style="height:150px; width:150px; padding-left:80%;">
+                        </a>-->
+                    </fieldset> 
+                    
+                </div>     
+                   
+            </div> <!-- main 안에 있는 큰 박스 닫음 -->
+			
+        </main>
+    </form>
+
+    <footer>
+        <hr>
+        footer
+    </footer>
+	
+	<script th:inline="javascript">
+		// Car data passed from the server
+		/*<![CDATA[*/
+        var car = /*[[${car}]]*/ {};
+        /*]]>*/
+
+	
+		// Create the charts once the page loads
+		window.onload = function() {
+		    createRadarChart(car);
+		    createBarChart(car);
+		};
+	</script>
+
+</body>
+</html>

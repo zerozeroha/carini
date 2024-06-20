@@ -80,7 +80,7 @@ function selectCarForComparison(carId) {
  * carData 한개일 때
  */
 function fetchSingleCarData(carId) {
-    fetch(`/model/getModel?carId=${carId}`)
+    fetch(`/model/getCompareModel?carId=${carId}`)
         .then(response => response.json())
         .then(data => {
             if (selectedCarIds.length === 1) {
@@ -120,69 +120,6 @@ function populateCarData(car, position) {
     document.getElementById(`car${position}Fuel`).innerText = car.carFuel;
     document.getElementById(`car${position}Eff`).innerText = car.carEff;
 	
-    var chartIds = [
-        `car${position}ChartPrice`,
-        `car${position}ChartAvg`
-    ];
-
-    var carYValues = [
-        car.carAvgPrice,
-        car.carScAvg
-    ];
-
-    for (let i = 0; i < chartIds.length; i++) {
-        var chartId = chartIds[i];
-
-        // 기존 차트가 있으면 제거
-        if (charts[chartId]) {
-            charts[chartId].destroy();
-        }
-        
-		let carBarDatasets = [];
-		
-		if(position === 1) {
-			barColor = 'rgba(255, 99, 132, 0.5)';
-		} else if(position === 2) {
-			barColor = 'rgba(54, 162, 235, 0.5)';
-		}
-		
-		carBarDatasets.push({
-			backgroundColor: barColor,
-            data: [carYValues[i]],
-            barThickness: 10
-		})
-		
-        // 새로운 차트 생성 및 저장
-        charts[chartId] = new Chart(chartId, {
-            type: "bar",
-            data: {
-                labels: [""], // X축 레이블 숨김
-                datasets: carBarDatasets
-            }, // data end
-            options: {
-				responsive: true,
-				aspectRatio: 10,
-                plugins: {
-                    legend: {
-                        display: false // 범례를 숨김
-                    }
-                },
-                scales: {
-                    x: {
-                        display: false // x축 틱 숨기기
-                    },
-                    y: {
-						beginAtZero : true,
-                        ticks: {
-                           display: true, // y축 틱 숨기기
-                        }
-                    }
-                },
-                indexAxis: 'y'
-            } // options END
-        }); // 바 차트 생성 END
-    } // for END
-	 
 	 // 육각형 차트 만들기
 	 
 	 // label, y값, datasets 설정
@@ -321,7 +258,6 @@ function combineRadarChart() {
         	charts[`carCombineRadarChart`].destroy();
 		}
 		
-		document.getElementById("carRadarChart").remove();
 		
         // Radar 차트 생성
         charts[`carCombineRadarChart`] = new Chart(radarChartElement, {
@@ -381,18 +317,12 @@ function clearCarData(position) {
         `car${position}ChartAvg`
     ];
 
-    for (let chartId of chartIds) {
-        if (charts[chartId]) {
-            charts[chartId].destroy(); // 차트 제거
-            charts[chartId] = null; // 차트 인스턴스 삭제
-        }   
-    document.getElementById(chartId).innerText = ''; // 차트 캔버스 초기화
-    }
     
     // RadarChart 제거
     if (charts[`car${position}RadarChart`]) {
     	charts[`car${position}RadarChart`].destroy();
     }
+    document.getElementById(`car${position}RadarChart`).innerText = ''; // 캔버스 초기화
 
     console.log(selectedCarIds);
 }
