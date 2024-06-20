@@ -14,9 +14,13 @@
 
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-    <style>
-
-    </style>
+	<style>
+		.field-error {
+		           border-color: #dc3545;
+		           color: #dc3545;
+		       }
+	
+	</style>
 </head>
 
 <body class="no-sidebar is-preload">
@@ -59,9 +63,16 @@
             <div class="container">
                 <p class="Board_text"><br>_Edit_Board</p>
             
-		<form th:action="@{/board/updateBoard}" method="post"  enctype="multipart/form-data" id="boardForm" name="boardForm">
+		<form th:action="@{/board/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"  enctype="multipart/form-data" id="boardForm" name="boardForm">
 			<input name="boardId" type="hidden" th:value="${board.boardId}">
-		
+			<div style="display: flex; gap:10px;color:red;font-weight: 600;">
+				<div th:if="${#fields.hasErrors('boardTitle')}">
+		            <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
+		        </div>
+				<div th:if="${#fields.hasErrors('boardContent')}">
+		            <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
+		        </div>
+			</div>
             <table id="board_info">
                 <tr>
                     <td class="gangjo" th:text="#{board.write.writer}"></td>
@@ -72,7 +83,9 @@
                
                 <tr>
                     <td colspan="1" class="gangjo" th:text="#{board.write.title}"></td>
-					<td colspan="3"><input type="text" name="boardTitle" th:value="${board.boardTitle}"></td>
+					<td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error">
+	
+					</td>
                 </tr>
 				
 				<tr>
@@ -96,8 +109,7 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="padding: 20px;">
-                        <textarea th:text="${board.boardContent}"  name="boardContent" rows="15"  />
-
+                        <textarea th:field="*{boardContent}" th:errorclass="field-error" rows="15"  />
                     </td>
                 </tr>
             </table>
@@ -122,8 +134,8 @@
 				</div>
         
           
-            </div>
-              
+            		</div>
+				</form>
             </div>
         </div>
 

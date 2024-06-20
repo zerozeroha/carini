@@ -105,9 +105,9 @@ public class NoticeController {
      * */
 	@GetMapping("/notice/getNotice")
 	public String getNotice(Notice notice, Model model) {
-		 
+
 		model.addAttribute("notice", noticeService.getNoticebyId(notice.getNoticeId())); // 여기서 조회수 증가
-		
+		System.out.println(model.getAttribute("notice").toString());
 		return "notice/getNotice";
 	}
 	

@@ -22,6 +22,12 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	List<Member> findByMemberNickname(String memberNickname);
 	List<Member> findByMemberPhoneNum(String memberPhoneNum);
 	
+	Optional<Member> findByMemberNameAndMemberPhoneNum(String memberName,String memberPhoneNum);
+	
+	@Modifying
+	@Query("SELECT m FROM Member m WHERE m.memberId = :memberId AND m.memberPhoneNum = :memberPhoneNum")
+	Member findByMemberIdAndPhoneNum(@Param("memberId") String memberId, @Param("memberPhoneNum") String memberPhoneNum);
+	
 	@Modifying
 	@Query("UPDATE Member m SET m.memberNickname = :newNickname WHERE m.memberId = :memberId")
 	void updateMemberNickname(@Param("newNickname") String newNickname, @Param("memberId") String memberId);
@@ -33,6 +39,8 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	@Modifying
 	@Query("UPDATE Member m SET m.memberId = :newmemberId , m.memberPw = :newmemberPw , m.memberName = :newmemberName , m.memberEmail = :newmemberEmail , m.memberPhoneNum = :newmemberPhoneNum WHERE m.memberId = :memberId")
 	void updateAllMember(@Param("memberId") String memberId, @Param("newmemberId") String newmemberId, @Param("newmemberPw") String newmemberPw, @Param("newmemberName") String newmemberName, @Param("newmemberEmail") String newmemberEmail, @Param("newmemberPhoneNum") String newmemberPhoneNum);
+	
+	
 	
 	
 

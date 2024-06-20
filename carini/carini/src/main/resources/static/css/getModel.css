@@ -1,0 +1,474 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* body */
+
+body {
+    background: white;
+    color: #5b5b5b;
+    margin: 0;
+    padding: 0;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    letter-spacing: 2px;
+ }
+
+
+
+/* 우측 아이콘 */
+ 
+#float_icons {
+    position: sticky; /* 화면에서 고정 위치에 놓습니다 */
+    top: 40%; /* 화면 높이의 50%에서 고정됩니다 */
+    bottom : 50%;
+    right: 0px;
+    z-index: 300; /* 다른 요소 위에 표시될 수 있도록 설정합니다 */
+    float: right;   
+    background-color: white;
+ }
+ 
+ #float_icons a {
+    margin-top: 18px; /* 아이콘 사이의 간격을 5px로 설정합니다 */
+    display: block;
+    margin-right: 15px;
+    background-color: white;
+ }
+ 
+ #float_icons img {
+    width: 50px;
+    height: auto;
+    opacity: 85%;
+    background-color: white;
+ }
+
+
+
+ /* Header */
+
+header {
+    width: 100%;
+    position: relative;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2%;
+    cursor: default;
+    height:250px;
+ }
+
+ .header_carini{
+    color: white;
+    font-size: 6rem;
+    font-weight: 700;
+    text-shadow: 9px 9px 1px gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-text-stroke: 0.4px rgb(115, 109, 119);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+
+
+ /* 소제목 */
+
+section {   /* 소제목 영역 */
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin: 5% 16%;
+}
+
+.SubTitle {   /* 소제목 : MODEL_DETAILED */
+    font-size: 60px;
+    font-weight: 1000;
+    color: black;
+    width: 70%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+ }
+
+  
+    
+/* Container */
+
+.container {
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 1200px;
+}
+
+.div {
+    width: 100%;
+    height: 5%;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+}
+
+.div_search {
+    width: 100%;
+    height: 5%;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+}
+
+
+
+ /* Main */
+
+     
+main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: whitesmoke;
+}
+
+
+
+/* 자동차 이름 라인(사진이랑 이름) */
+
+.image-container {
+    width: 50%;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.image-container img {
+    margin-left: 60%;
+    width: 80%;
+    height: auto;
+    display: block;
+    opacity: 35%;
+}
+
+.image-container .text {
+    margin-left: 50%;
+    font-size: 50px;
+    display: block;
+    width: 100%;
+    color: black;
+    margin-top: -150px; /* 텍스트를 이미지 위로 이동 */
+}
+
+
+/* 각 라인들을 감싸는 박스 */
+.flex-container { 
+    display: flex;
+    align-items: center;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.flex-container > div {
+    background-color: white;
+    text-align: center;
+}
+
+
+/* 각 라인 박스들 */
+fieldset { 
+    border: 4px solid whitesmoke; 
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    text-align: center;
+    margin: 1%;
+}
+
+/* fieldset 제목부분 */
+legend { 
+    font-size: 15px;
+    letter-spacing: 3px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+
+
+/* 자동차 첫번째 라인 사진 좌우반전 처리 */
+
+.flipped-image { 
+    transform: scaleX(-1);
+}
+
+
+
+/* 두번째 라인의 왼쪽 bar chart */
+
+.chart-container { 
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 300px; 
+}
+
+.bar {
+    width: 10%;
+    background-color: darkgray;
+    opacity: 0.5;
+    text-align: center;
+    color: black;
+    padding-top: 5px;
+    border-radius: 3px 3px 0 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.bar-label { /* bar에 이름 붙인 거 */
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 5px;
+    color: black; 
+    font-weight: bold;
+}
+
+
+
+/* 세번째 랑인 왼쪽 logo image 조정 */
+
+.car_logo { 
+    height: 200px;
+    width: auto;
+    margin-left: 20%;
+}
+
+
+
+/* Form요소 - Input, textarea, select */
+
+input, textarea, select {
+    font-size: 15pt;
+    line-height: 1.85em;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+ }
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="submit"],
+form select,
+form textarea {
+    background: #fafafa;
+    border-radius: 0.5em;
+    border: 1.5px solid black;
+    margin: 0.1px;
+    padding: 0.1px;
+}
+
+form textarea {
+    min-height: 9em;
+}
+
+#search {
+    height: 15px;
+    width: 30px;
+}
+
+
+
+
+/* Table */
+
+.car_table { /* 두번째 라인에 오른쪽 table */
+    width: 400px;
+    height: 300px;
+    overflow: auto; 
+    padding-left: 10%;
+}
+ 
+table {
+    width: 100%;
+    height: 10%;;
+    /* border-collapse: collapse; */
+    border:  2px solid white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 2px solid whitesmoke;
+}
+
+th {
+    background-color: whitesmoke;
+    color: black;
+    font-weight: bold;
+}
+
+tr {
+    background-color: white;
+} 
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
+
+
+
+/* Button */
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button,
+.button {
+    padding: 2px;
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 0.5em;
+    text-decoration: none;
+    padding: 0.65em 3em 0.65em 3em;
+    border: 2px solid black;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 300;
+    -webkit-text-stroke: 0.4px black;
+    /* 버튼 화면전환 효과 (0.35초씩 늦게 껐다가 켜짐) */
+    /* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
+}
+
+
+/* button.hover */
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover,
+.button:hover {
+    color: white;
+    background: black;
+    -webkit-text-stroke: 0.9px white;
+}
+
+    
+
+/* a */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
+/* a.hover */
+
+a:hover {
+    color: white;
+    -webkit-text-stroke: 0.5px white;
+    border-bottom-color: transparent;
+    border-radius: 0.5rem;
+    background-color: none; 
+    opacity: 70%;
+}
+
+a.icon-hover:hover {
+    background-color: white;
+}
+
+
+
+/* hover */
+
+.float_hover:hover {
+    background-color: whitesmoke;
+}
+
+.carini-hover:hover {
+    color: black !important;
+    -webkit-text-stroke: 0.9px white;
+    text-shadow: 9px 9px 1px whitesmoke;
+    transition: none;
+}
+
+.side-hover:hover {
+    color: white !important;
+    background-color: black !important;
+    border-radius: 0.5rem;
+    padding: 1.5%;
+}
+
+a.Board-hover {
+    text-decoration: none;
+    color: black;
+}
+
+a.Board-hover:hover {
+    text-decoration: underline;
+}
+
+
+
+/* footer */
+
+hr {
+    position: relative;
+    display: block;
+    border: 0;
+    top: 4.5em;
+    margin-bottom: 9em;
+    height: 6px;
+    border-top: solid 1px rgba(128, 128, 128, 0.2);
+    border-bottom: solid 1px rgba(128, 128, 128, 0.2);
+}
+
+footer {
+	margin-top: 50px;
+	width: 100%;
+	height: 50px;
+	margin-bottom: 50px;
+	align-items: center;
+	text-align: center;
+	background-color: white;
+ }
+  
+

@@ -218,7 +218,40 @@
 	        });
 		}
 		
-		
+		function verifyPassword(event) {
+            event.preventDefault();
+			var reTitle = $("input[name='reTitle']").val();
+			var reContent = $("#write_qna").val();
+			$.ajax({
+                type: "Post",
+                url: "/inquiry/inquirywrite",
+                data: { reTitle: reTitle,
+					 reContent: reContent },
+					
+                success: function(response) {
+					// 오류 메시지 초기화
+		            $("#reTitleError").text("");
+		            $("#reContentError").text("");
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.href  = response.redirectUrl;
+                    } else {
+						if (response.errors) {
+		                    // 검증 오류 메시지 처리
+							$.each(response.errors, function(index, error) {
+		                        if (error.field === "reTitle") {
+		                            $("#reTitleError").text(error.defaultMessage);
+		                        } else if (error.field === "reContent") {
+		                            $("#reContentError").text(error.defaultMessage);
+		                        }
+		                    });
+		                } else {
+		                    alert("요청 처리 중 오류가 발생했습니다.");
+		                }
+                    }
+                }
+            });
+        }
     </script>
 </head>
 <body class="no-sidebar is-preload">
@@ -336,13 +369,20 @@
 		     <button onclick="to_insert_popup()" class="qna_button">문의하기</button>
 		 </div>
 		 <!-- 문의 글 작성하기 -->
-	 	  <div id="insertpopup" class="popup_hidden"  >
+	 	  <div id="insertpopup" class="popup_hidden"  th:object="${InquiryWriteValidation}">
 	 	      <button id="close-popup" class="close-popup" onclick="closePopup()">x</button>
 	 	      <div id="qna_header">문의하기</div>
-			  <form th:action="@{/inquiry/inquirywrite}"  th:object="${inquiry}" method="post">
-	 	           <input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
-	 	          <textarea class="qna_container" th:field="*{reContent}"id="write_qna" placeholder="문의사항을 작성해주세요"></textarea>
-	 	          <button type="submit" class="qna_button">제출하기</button>
+			  <form onsubmit="verifyPassword(event)"  th:object="${InquiryWriteValidation}" >
+	 	          <input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
+				  <div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
+				              <!-- 제목 오류 메시지 표시 영역 -->
+				  </div>
+				  
+				  <textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요" style="width:100%;height: 250px; resize: none; "></textarea>
+				  <div class="field-error" id="reContentError"  style="font-size: 15px; color: red;">
+		              <!-- 내용 오류 메시지 표시 영역 -->
+		          </div>
+				  <button type="submit" class="qna_button">제출하기</button>
 				</form>
 	 	  </div>
 		  
@@ -373,68 +413,6 @@
 		        </div>
 
 		  </div>
-
-		<!-- Popup and Overlay -->
-		<!-- <div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
-		<div id="popup" class="popup_hidden" style="width:1000px;height: 500px;">
-			<button id="close-popup" onclick="closePopup()">X</button>
-			문의 내용 
-			
-			<div>
-				<h1>문의 리스트</h1>
-				<table id="inquiryTable">
-				           <thead>
-				               <tr>
-				                   <th>문의 제목</th>
-				                   <th>문의 내용</th>
-				                   <th>문의 날짜</th>
-				                   <th>답변 확인</th>
-								   <th>문의 삭제</th>
-				               </tr>
-				           </thead>
-				           <tbody>
-				              
-				           </tbody>
-				       </table>
-				<a th:href="@{/inquiry/inquirywrite}">글쓰기</a>
-			</div>
-			</div>
-			-->
-		<!-- 문의 작성 -->
-		<!--
-			<div>
-				<form th:action="@{/inquiry/inquirywrite}"  th:object="${inquiry}" method="post">
-						<div>
-				            <label for="reTitle">문의 제목:</label>
-				            <textarea id="reTitle" th:field="*{reTitle}"></textarea>
-				        </div>
-				        <div>
-				            <label for="reContent">문의 내용:</label>
-				            <textarea id="reContent" th:field="*{reContent}"></textarea>
-				        </div>
-				        <div>
-				            <button type="submit">제출</button>
-				        </div>
-				   </form>
-			</div>
-			
-			
-		</div>-->
-		<!-- 문의 상세보기 -->
-		<!--
-					<div id="inquiryDetails">
-					        <h2>사용자 문의 내용</h2>
-					        <p><strong>제목:</strong> <span id="detailsreTitle"></span></p>
-					        <p><strong>내용:</strong> <span id="detailsreContent"></span></p>
-					        <p><strong>등록 날짜:</strong> <span id="detailsreDate"></span></p>
-					        
-					        <h2>관리자 답변</h2>
-					        <p><strong>제목:</strong> <span id="detailsreTitleRq"></span></p>
-					        <p><strong>내용:</strong> <span id="detailsreContentRq"></span></p>
-					        <p><strong>등록 날짜:</strong> <span id="detailsreDateRq"></span></p>
-					    </div>
-						
-						-->
         <hr>
         <!-- Footer -->
         <footer>
@@ -450,6 +428,12 @@
         <script src="/js/breakpoints.min.js"></script>
         <script src="/js/util.js"></script>
         <script src="/js/main.js"></script>
+		<script>
+			function change_info() {
+			    // 비밀번호 확인을 위한 팝업 창 열기
+			    var passwordWindow = window.open('password.html', '_blank', 'width=400,height=300');
+		}
+			</script>
     </div>
 </body>
 </html>

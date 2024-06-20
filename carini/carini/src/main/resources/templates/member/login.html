@@ -18,7 +18,7 @@
 </style>
 <body>
 	
-    <form action="/member_login_check" th:object="${LoginFormValidation}" method="post" >
+    <form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}" method="post" >
         <header>
 			
             <a th:href="@{/}" class="header_carini carini-hover">CARINI</a>
@@ -76,10 +76,10 @@
             <br><br><br>
 
 
-                <a href="http://www.naver.com" style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" >
+                <a th:href="@{/find_idForm}" style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" >
                     아이디찾기
                 </a> /
-                <a href="http://www.naver.com"  style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" >
+                <a th:href="@{/find_pwForm}"  style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" >
                     비밀번호찾기
                 </a> /
                 <a href="/signup" style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">

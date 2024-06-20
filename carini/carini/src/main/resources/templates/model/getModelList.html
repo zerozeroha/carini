@@ -15,10 +15,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <style>
-main {
-	margin-left: 15rem;
-	margin-right: 15rem;
-}
 #priceSlider {
     height: 10px;
 }
@@ -265,9 +261,17 @@ canvas[id^="car2Chart"] {
 	    <table id="comparisonTable" class="table table-bordered">
 	        <thead>
 	            <tr>
-	                <td><span id="car1Name" style="font-weight: bold;"></span><button onclick="removeCarFromComparison(1)" class="btn btn-danger">삭제</button></td>
+	                <td><span id="car1Name" style="font-weight: bold;"></span>
+						<a href="#" onclick="removeCarFromComparison(1)">
+							<img src="/img/cancel.png" alt="삭제" style="height: 16px; width: 16px; opacity: 0.5;" />
+						</a>
+					</td>
 	                <th></th>
-	                <td><span id="car2Name" style="font-weight: bold;"></span><button onclick="removeCarFromComparison(2)" class="btn btn-danger">삭제</button></td>
+	                <td><span id="car2Name" style="font-weight: bold;"></span>
+						<a href="#" onclick="removeCarFromComparison(2)">
+							<img src="/img/cancel.png" alt="삭제" style="height: 16px; width: 16px; opacity: 0.5;"/>
+						</a>
+					</td>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -296,26 +300,16 @@ canvas[id^="car2Chart"] {
 					<td>연비</td>
 	                <td id="car2Eff"></td>
 	            </tr>
-	            <tr>
-	                <td><canvas id="car1ChartPrice" style="transform: scaleX(-1)"></canvas></td>
-	                <td>가격</td>
-	                <td><canvas id="car2ChartPrice"></canvas></td>
-	            </tr>
-	            <tr>
-	                <td><canvas id="car1ChartAvg" style="transform: scaleX(-1)"></canvas></td>
-	                <td>평균</td>
-	                <td><canvas id="car2ChartAvg"></canvas></td>
-	            </tr>
 				<tr id="carRadarChart">
-					<td text-align: center;><canvas id="car1RadarChart" style="height:40vh; width:30vw"></canvas></td>
+					<td text-align: center;><canvas id="car1RadarChart"></canvas></td>
 					<td>RadarChart<br />
 						<button onclick="combineRadarChart()" class="btn">combine</button>
 					</td>
-					<td><canvas id="car2RadarChart" style="height:40vh; width:30vw"></canvas></td>
+					<td><canvas id="car2RadarChart"></canvas></td>
 				</tr>
 				<tr id="carCombineRadarChartTR">
 					<td colspan="3" style="text-align: center;">
-						<canvas id="carCombineRadarChart" style="height:40vh; width:40vw"></canvas>
+						<canvas id="carCombineRadarChart"></canvas>
 						<button onclick="returnChart()" class="btn">return</button>
 					</td>
 				</tr>
@@ -327,7 +321,7 @@ canvas[id^="car2Chart"] {
 
 
 <!-- Scripts -->
-<script src="/js/getModelList.js"></script>
+<script src="/script/getModelList.js"></script>
 
 </body>
 </html>

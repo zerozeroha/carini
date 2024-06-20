@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/find_id.css">
+    
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+	.field-error {
+	           border-color: #dc3545;
+	           color: #dc3545;
+	       }
+
+</style>
+<body>
+	<main>
+		
+        <div class="find_box">
+            <div class="find_header">
+                <a href="Find_id.html" id="find_id">아이디 찾기</a>
+                <a href="Find_pw.html" id="find_pw">비밀번호 변경</a>
+            </div>
+            <div id="find_main">
+                <div id="insert_nickname">
+                    <span id="nickname_title">이름</span>
+                    <input type="text" th:field="${Find_idFormValidation.memberName}" class="find_main_id" placeholder="이름을 입력하세요">
+					<div class="field-error" id="memberNameErrors" style="font-size: 15px;margin-left:10px">
+					</div>	
+				</div>
+                <div class="find_main_tel">
+                    <span>전화번호</span>
+                    <input type="text" th:field="${Find_idFormValidation.memberPhoneNumber}" placeholder="전화번호를 입력하세요">
+                    <button onclick="verification_tel()">인증</button>
+					<div class="field-error" id="memberPhoneNumberErrors" style="font-size: 15px;">
+	
+					</div>
+                </div>
+                <div class="find_main_tel"  id="c_num" style="display: none;">
+                    <div id="timer_wrapper">
+                        인증번호
+                        <span id="timer">3:00</span>
+                    </div>
+                    <input type="text" id="verificationCode" placeholder="인증번호를 입력하세요">
+                    <button onclick="showPopup()">확인</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="popup" class="popup_hidden"> 
+            <div id="popup-content" class="popup_content">
+                <p>
+                    회원님의 아이디는 [<span id="memberId"></span>]입니다.
+                    <button id="close-popup" class="close-popup" onclick="closePopup()">X</button>
+                </p>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+        let timer; // 타이머 변수 선언
+        let timeLeft = 180; // 초기 타이머 시간 설정 (3분 = 180초)
+        var find_main_tel = document.querySelector("#c_num");
+		let memberName;
+		let memberPhoneNum;
+        // 전화번호 인증 버튼 클릭 시
+        function verification_tel() {
+			memberName=document.getElementById('memberName').value;
+			memberPhoneNum=document.getElementById('memberPhoneNumber').value;
+            
+			event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/find_id",
+                data: { memberName: memberName ,
+						memberPhoneNumber:memberPhoneNum},
+                success: function(response) {
+                    if (response.success) {
+						alert(response.message);  // 성공 메시지 표시
+						startTimer(); // 타이머 시작
+						find_main_tel.style.display = 'block';
+                    } else {
+                        displayErrors(response.errors)
+						alert(response.message);
+                    }
+                }
+            });
+
+            
+        }
+
+		// 오류 메시지 출력 함수
+		   function displayErrors(errors) {
+		       // 이름 필드 오류 메시지 표시
+		       if (errors.memberName) {
+				   console.log(errors.memberName);
+		           $("#memberNameErrors").text(errors.memberName);
+		       } else {
+		           $("#memberNameErrors").text(""); // 오류가 없으면 빈 문자열로 초기화
+		       }
+
+		       // 전화번호 필드 오류 메시지 표시
+		       if (errors.memberPhoneNumber) {
+		           $("#memberPhoneNumberErrors").text(errors.memberPhoneNumber);
+		       } else {
+		           $("#memberPhoneNumberErrors").text(""); // 오류가 없으면 빈 문자열로 초기화
+		       }
+		   }
+		
+        // 타이머 시작 함수
+        function startTimer() {
+            var find_main_tel = document.querySelector("#c_num");
+            timer = setInterval(updateTimer, 1000); // 1초마다 updateTimer 함수 호출
+
+        }
+
+
+
+        // 타이머 업데이트 함수
+        function updateTimer() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = timeLeft % 60;
+            
+
+            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+            if (timeLeft === 0) {
+                clearInterval(timer); // 타이머 종료
+                // 여기에 타이머 종료 시 동작할 코드 추가
+
+                //타이머 시간이 10초 미만일 때 빨간색으로 변경
+           
+            }
+            if (timeLeft === 0) {
+                clearInterval(timer); // 타이머 종료
+              
+            } else if (timeLeft < 10) {
+                find_main_tel.style.color = "red";
+            }
+
+            timeLeft--; // 시간 감소
+
+                        
+    
+          
+        }
+
+        // 팝업 닫기 함수
+        function closePopup() {
+            var findBox = document.querySelector('.find_box');
+            findBox.style.display = 'block';
+
+            var popup = document.getElementById('popup');
+            popup.classList.add('popup_hidden');
+        }
+
+        // 팝업 보이기 함수
+        function showPopup() {
+            var findBox = document.querySelector('.find_box');
+            
+			code=document.getElementById('verificationCode').value;       
+			event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/find_id_code_check",
+                data: { code: code },
+                success: function(response) {
+                    if (response.success) {
+						findBox.style.display = 'none';
+						console.log(response.memberId);
+						$("#memberId").text(response.memberId);
+						var popup = document.getElementById('popup');
+						popup.classList.remove('popup_hidden');
+                    } else {
+						alert(response.message);
+                       	window.location.href=response.redirectUrl;
+                    }
+                }
+            });
+			
+            
+        }
+    </script>
+
+   
+</body>
+</html>
