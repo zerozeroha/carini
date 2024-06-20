@@ -10,3 +10,9 @@ naver:
   client-id: 89sNuCel1ctNo5pSU3bR
   client-secret: O4Bof6cwVl
   redirect-uri: http://localhost:8080/api/naver/callback
+  
+coolsms:
+  api:
+    key: NCSQLKTTUEFKVFUV
+    secret: D4JMVWJN10VRNAFPFPLKZZPTNQIFPV6R
+    form_number: 01086310457

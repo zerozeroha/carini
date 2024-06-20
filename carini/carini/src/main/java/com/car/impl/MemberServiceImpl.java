@@ -10,7 +10,14 @@ import com.car.dto.Member;
 import com.car.persistence.MemberRepository;
 import com.car.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
 	
 
@@ -141,6 +148,48 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> findByMemberPhoneNum(String memberPhoneNum) {
 		List<Member> findeMember= memberRepository.findByMemberPhoneNum(memberPhoneNum);
 		return findeMember;
+	}
+
+	@Override
+	public SingleMessageSentResponse sendmessage(String phone, String codeNumber, String APIKEY, String SECRETKEY,String FROM_NUMBER) {
+		
+		DefaultMessageService messageService =   NurigoApp.INSTANCE.initialize(APIKEY, SECRETKEY, "https://api.coolsms.co.kr");
+		Message message = new Message();
+		
+		message.setFrom(FROM_NUMBER);	//발신번호
+		message.setTo(phone);	// 수신번호
+		message.setText("CARINI[인증번호]"+codeNumber +"를 입력해주세요!");
+		
+		SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+		
+		return response;
+	}
+	
+	@Override
+	@Transactional
+	public Member SMSfindMember(String memberName, String memberPhoneNumber,HttpSession session) {
+		System.out.println(memberName);
+		System.out.println(memberPhoneNumber);
+		Optional<Member> member = memberRepository.findByMemberNameAndMemberPhoneNum(memberName,memberPhoneNumber);
+		
+		if(!member.isPresent()) {
+			return null;
+		}
+		
+		System.out.println(member.get());
+		session.setAttribute("find_idMember", member.get());
+		//return member;
+		return member.get();
+	}
+	
+	@Override
+	@Transactional
+	public Member SMSfindMemberPw(String memberId, String memberPhoneNumber) {
+		HttpServletRequest request = null;
+		Member member = memberRepository.findByMemberIdAndPhoneNum(memberId,memberPhoneNumber);
+		HttpSession session = request.getSession();
+		session.setAttribute("find_pwMember", member);
+		return member;
 	}
 	
 //	@Override

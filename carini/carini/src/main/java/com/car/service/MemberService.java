@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.car.dto.Member;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+
 public interface MemberService {
 
 	//long getTotalRowCont(Member member);
@@ -25,5 +29,9 @@ public interface MemberService {
 	List<Member> findByMemberNickname(String memberNickname);
 	void updatememberSocialNickname(Member member, String memberSocialNickname);
 	List<Member> findByMemberPhoneNum(String memberPhoneNum);
+	SingleMessageSentResponse sendmessage(String phone, String codeNumber, String aPIKEY, String sECRETKEY,String FROM_NUMBER);
+
+	Member SMSfindMemberPw(String memberId, String memberPhoneNumber);
+	Member SMSfindMember(String memberName, String memberPhoneNumber, HttpSession session);
 
 }

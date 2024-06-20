@@ -233,13 +233,11 @@
 		            $("#reTitleError").text("");
 		            $("#reContentError").text("");
                     if (response.success) {
-						console.log(response.redirectUrl);
                         alert(response.message);
                         window.location.href  = response.redirectUrl;
                     } else {
 						if (response.errors) {
 		                    // 검증 오류 메시지 처리
-							console.log("1111111")
 							$.each(response.errors, function(index, error) {
 		                        if (error.field === "reTitle") {
 		                            $("#reTitleError").text(error.defaultMessage);
@@ -430,6 +428,12 @@
         <script src="/js/breakpoints.min.js"></script>
         <script src="/js/util.js"></script>
         <script src="/js/main.js"></script>
+		<script>
+			function change_info() {
+			    // 비밀번호 확인을 위한 팝업 창 열기
+			    var passwordWindow = window.open('password.html', '_blank', 'width=400,height=300');
+		}
+			</script>
     </div>
 </body>
 </html>
