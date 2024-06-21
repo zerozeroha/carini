@@ -361,6 +361,7 @@ public class MypageController {
 	 */
 	@PostMapping("/bookmark/{carId}")
 	public String myPagebookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
+
 		
 		Locale locale = localeResolver.resolveLocale(request);
 
