@@ -368,14 +368,30 @@ public class MypageController {
 
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
-		
-		Bookmark save_bookmark = bookMarkService.insertMember(bookmark);
+
+		bookMarkService.insertMember(bookmark,user);
 		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
 		model.addAttribute("url", request.getHeader("Referer"));
 	    return "alert";
 	}
+	
+	@GetMapping("/bookmark/{carId}")
+	public String myPagebookmarkAddGet(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
 
+		
+		Locale locale = localeResolver.resolveLocale(request);
+
+		Member user = (Member) session.getAttribute("user");
+
+		bookmark.setCarId(Integer.parseInt(carId));
+		bookmark.setMemberId(user.getMemberId());
+		
+		bookMarkService.insertMember(bookmark,user);
+		
+
+	    return "redirect:/model/getModelList";
+	}
 	/*
 	 * bookmark 삭제
 	 */

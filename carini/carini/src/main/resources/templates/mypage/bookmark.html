@@ -69,7 +69,7 @@
 
                         <div class="card_button_box" style="margin-top:20px; font-size: 15px;">
                            
-							<a href="/mypage/getbookmark/{carId}" style="padding: 0px 5px;" class="btn btn-primary" th:text="#{detail}"></a>
+							<a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;" class="btn btn-primary" th:text="#{detail}"></a>
                            
 							<button class="delete_button" type='submit' value='Delete'>
 								<img th:src="@{/img/delete_icon.png}" value="Delete" alt="삭제" >

@@ -15,5 +15,9 @@ coolsms:
   api:
     key: NCS53PZHXZGQTIMZ
     secret: OZJQ52BWLKR8SKHBRUEPGZWY70ROXHKO
+<<<<<<< HEAD
     form_number: 01086176289
 
+=======
+    form_number: 01086176289
+>>>>>>> d7cfd0748faf6010021aab6d47291010e030077d

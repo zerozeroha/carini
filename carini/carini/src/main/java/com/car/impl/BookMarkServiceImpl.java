@@ -70,9 +70,22 @@ public class BookMarkServiceImpl implements BookMarkService{
 	}
 
 	@Override
-	public Bookmark insertMember(Bookmark bookmark) {
-		bookMarkRepository.save(bookmark);
-		return null;
+	@Transactional
+	public void insertMember(Bookmark bookmark,Member user) {
+		
+		List<Bookmark> BookmarkList =bookMarkRepository.findAllByMemberId(user.getMemberId());
+		
+		if(BookmarkList.isEmpty()) {
+			bookMarkRepository.save(bookmark);
+		}
+		
+		for(Bookmark bookmarkone : BookmarkList) {
+			if(bookmarkone.getBookmarkNum() == bookmark.getBookmarkNum()) {
+			}else {
+				bookMarkRepository.save(bookmark);
+			}
+		}
+
 	}
 
 	@Override
