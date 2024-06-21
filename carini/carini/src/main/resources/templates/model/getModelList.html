@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Spring Framework</title>
+<title> getModelList.html </title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">   
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
 	   integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
 	   crossorigin="anonymous">
-	<link rel="stylesheet" href="/css/favorite.css" />
+	<link rel="stylesheet" href="/css/getModelLsit.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <style>
 #priceSlider {
     height: 10px;
@@ -156,7 +157,7 @@ canvas[id^="car2Chart"] {
 <main>
    <h1>_Model</h1>   
    <!-- 필터링 폼 -->
-     <form th:action="@{/model/getModelList}" method="get">
+   <form th:action="@{/model/getModelList}" method="get">
 		<div class="form-group row">
 	        <label for="filterPrice" class="col-sm-2 col-form-label">가격 범위 설정:</label>
 	        <div class="col-sm-10 filterPrice">
@@ -328,7 +329,12 @@ canvas[id^="car2Chart"] {
 
 <!-- Scripts -->
 <script src="/script/getModelList.js"></script>
-
+	 
+	 <footer>
+		<hr>
+		footer
+	 </footer>
+	
 </body>
 </html>
 
