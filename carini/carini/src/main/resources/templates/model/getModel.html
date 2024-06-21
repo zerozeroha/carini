@@ -34,13 +34,16 @@
                     <!-- 왼쪽 박스 : 육각형차트 들어갈 자리 -> 현재 이미지로 대체중 -->
                     <fieldset style="width: 400px; height: 400px;">
                         <legend>ASSESSMENT</legend>
-						<canvas id="carRadarChart" style="height: 380px; width: 350px;"></canvas>
+						            <canvas id="carRadarChart" style="height: 380px; width: 350px;"></canvas>
+
                     </fieldset>
 
                     <!-- 오른쪽 박스 : 자동차 사진 -->
                     <fieldset style="width: 700px; height: 400px;">
+
                         <legend th:text="${car.carName}"></legend>
                         <img class="flipped-image" th:src="@{${car.carImg}}" style="width: 850px; height: 400px;" alt="좌우반전 자동차사진">
+
                     </fieldset>
    
                 </div> 
@@ -124,6 +127,7 @@
         <hr>
         footer
     </footer>
+
 	
 	<script th:inline="javascript">
 		// Car data passed from the server
