@@ -196,6 +196,7 @@ public class BoardController {
       if(bindingResult.hasErrors()) {
 			return "board/insertBoard";
       }
+
       // 파일업로드
       MultipartFile uploadFile = board.getUploadFile();
       if(!uploadFile.isEmpty()) {

@@ -168,15 +168,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public Member SMSfindMember(String memberName, String memberPhoneNumber,HttpSession session) {
-		System.out.println(memberName);
-		System.out.println(memberPhoneNumber);
+
 		Optional<Member> member = memberRepository.findByMemberNameAndMemberPhoneNum(memberName,memberPhoneNumber);
 		
 		if(!member.isPresent()) {
 			return null;
 		}
 		
-		System.out.println(member.get());
 		session.setAttribute("find_idMember", member.get());
 		//return member;
 		return member.get();
@@ -184,12 +182,22 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	@Transactional
-	public Member SMSfindMemberPw(String memberId, String memberPhoneNumber) {
-		HttpServletRequest request = null;
-		Member member = memberRepository.findByMemberIdAndPhoneNum(memberId,memberPhoneNumber);
-		HttpSession session = request.getSession();
-		session.setAttribute("find_pwMember", member);
-		return member;
+	public Member SMSfindMemberPw(String memberId, String memberPhoneNumber,HttpSession session) {
+		Optional<Member> member = memberRepository.findByMemberIdAndMemberPhoneNum(memberId,memberPhoneNumber);
+		if(!member.isPresent()) {
+			return null;
+		}
+		session.setAttribute("find_pwMember", member.get());
+		return member.get();
+	}
+	
+	/*
+	 * 비밀번호 수정
+	 * */
+	@Override
+	@Transactional
+	public void updatepw(String memberId, String newmemberPw) {
+		memberRepository.updateMemberPw(newmemberPw,memberId);
 	}
 	
 //	@Override
@@ -201,18 +209,3 @@ public class MemberServiceImpl implements MemberService {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
