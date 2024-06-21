@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.car.dto.Car;
+import com.car.dto.CarBrand;
+import com.car.persistence.CarBrandRepository;
 import com.car.persistence.CarRepository;
 import com.car.service.ModelService;
 
@@ -22,6 +24,8 @@ public class ModelServiceImpl implements ModelService{
 	
 	@Autowired
 	private CarRepository carRepository;
+	@Autowired
+	private CarBrandRepository carBrandRepository;
 	
 
 	@Override
@@ -46,14 +50,14 @@ public class ModelServiceImpl implements ModelService{
 	}
 	
 	@Override
-	public Page<Car> filterCars(Pageable pageable, Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel) {
+	public Page<Car> filterCars(Pageable pageable, Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel, String searchWord) {
 		
 		// 주어진 조건에 따른 Specification 생성
-        Specification<Car> spec = createSpecification(filterMinPrice, filterMaxPrice, filterSize, filterFuel);
+        Specification<Car> spec = createSpecification(filterMinPrice, filterMaxPrice, filterSize, filterFuel, searchWord);
         return carRepository.findAll(spec, pageable);
     }
 	
-	private Specification<Car> createSpecification(Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel) {
+	private Specification<Car> createSpecification(Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel, String searchWord) {
 		// root: 조회할 엔티티의 루트를 나타내며, 엔티티의 속성에 접근할 수 있음.
 		// query: 쿼리 객체로, 쿼리 자체를 나타냄. select, where 등의 조건을 설정할 수 있음.
 		// criteriaBuilder: Predicate(조건)를 생성하는 데 사용되는 빌더 객체.
@@ -76,6 +80,10 @@ public class ModelServiceImpl implements ModelService{
 
             if (!"선택안함".equals(filterSize)) {
                 predicates.add(criteriaBuilder.like(root.get("carFuel"), "%" + filterFuel + "%"));
+            }
+            
+            if (searchWord != null) {
+            	predicates.add(criteriaBuilder.like(root.get("carName"), "%" + searchWord + "%"));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
@@ -120,5 +128,14 @@ public class ModelServiceImpl implements ModelService{
         // 이 예시에서는 임의로 List<Car>를 반환합니다.
         return new ArrayList<>();
     }
+    
+    @Override
+	public CarBrand getURLbrBrand(String carBrandName) {
+
+    	CarBrand carBrand = carBrandRepository.findById(carBrandName).get();
+		
+		return carBrand;
+	}
+
 
 }

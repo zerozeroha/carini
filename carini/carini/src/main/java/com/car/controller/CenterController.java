@@ -96,13 +96,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class CenterController {
 
-    @GetMapping("/map")
+    @GetMapping("center/map")
     public String showMap(Model model) {
         List<Position> positions = new ArrayList<>();
         positions.add(new Position("여기", 37.55684, 126.91404));
         positions.add(new Position("저기", 37.55834, 126.91302));
         model.addAttribute("positions", positions);
-        return "map";
+        return "center/CenterMap";
     }
 
     public static class Position {

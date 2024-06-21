@@ -34,13 +34,16 @@
                     <!-- 왼쪽 박스 : 육각형차트 들어갈 자리 -> 현재 이미지로 대체중 -->
                     <fieldset style="width: 400px; height: 400px;">
                         <legend>ASSESSMENT</legend>
-						<canvas id="carRadarChart" style="height: 380px; width: 350px;"></canvas>
+						            <canvas id="carRadarChart" style="height: 380px; width: 350px;"></canvas>
+
                     </fieldset>
 
                     <!-- 오른쪽 박스 : 자동차 사진 -->
                     <fieldset style="width: 700px; height: 400px;">
+
                         <legend th:text="${car.carName}"></legend>
                         <img class="flipped-image" th:src="@{${car.carImg}}" style="width: 850px; height: 400px;" alt="좌우반전 자동차사진">
+
                     </fieldset>
    
                 </div> 
@@ -95,8 +98,8 @@
                     <!-- 왼쪽 박스 : 로고 -> 링크:홈페이지 -->
                     <fieldset style="width: 390px; height: 400px;">
                         <legend>BRAND</legend>
-                        <a th:href="@{https://www.volvocar.co.kr/buy/purchase/test-drive/?type=digital&source=sa&utm_source=other&utm_medium=paidsearch&utm_content=range_google-pc-branda&utm_campaign=kr_range_consideration-action_2304_nameplates_always-on_search_paid&sourceapplicationinformation=kr_rng_cat_npl&gad_source=1&gclid=Cj0KCQjw4MSzBhC8ARIsAPFOuyUhtnxHWMUBresiy_hrJG4LDwk-5TkVniF7PhlRBnn4bGAaRMi_uSkaAlBOEALw_wcB}" class="car_logo">
-                            <img th:src="@{/img/carBrandLogo/{carBrand}.jpg(carBrand=${carBrand})}" alt="자동차로고이미지" style="height: 200px; width: 200px; padding-left: 10%;">
+                        <a th:href="@{${carBrand.carBrandURL}}" class="car_logo">
+                            <img th:src="@{/img/carBrandLogo/{carBrandName}.png(carBrandName=${carBrand.carBrandName})}" alt="자동차로고이미지" style="height: 200px; width: 200px; padding-left: 10%;">
                         </a>
                     </fieldset>
 
@@ -108,9 +111,15 @@
                     <!-- 오른쪽 박스 : 대리점 -> 링크:홈페이지 -->
                     <fieldset style="width: 390px; height: 400px;">
                         <legend> AGENCY</legend>
+<<<<<<< HEAD
+                        <a th:href="@{/center/map}" style="margin-right: 10%;">
+                            <img th:src="@{/img/agency.png}" alt="대리점" style="height:150px; width:150px; padding-left:80%;">
+                        </a>
+=======
                         <!--<a th:href="@{/html/KakaoMap}" style="margin-right: 10%;">
                             <img th:src="@{/html/카리니이미지/대리점.png}" alt="대리점" style="height:150px; width:150px; padding-left:80%;">
                         </a>-->
+>>>>>>> a0233bc5645fd35912370fe9db2e0410fa18e8f9
                     </fieldset> 
                     
                 </div>     
@@ -124,6 +133,7 @@
         <hr>
         footer
     </footer>
+
 	
 	<script th:inline="javascript">
 		// Car data passed from the server
