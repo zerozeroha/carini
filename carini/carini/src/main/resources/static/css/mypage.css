@@ -1498,7 +1498,6 @@ input, select, textarea {
             }
 
             .row > .off-2-narrower {
-
                 margin-left: 16.66667%;
              }
  
@@ -3721,14 +3720,7 @@ input, select, textarea {
 			 #getpopup_title {
 			    margin-top: 20px;
 
-<<<<<<< HEAD
-			 }
 
-<<<<<<< HEAD
-=======
-        }
->>>>>>> 299d9c9c324f08bfa80a2b11c9cec341a91a4a4d
-=======
 			 #title_area{
 			    /* margin-top: 15px; */
 			    display: flex;
@@ -4680,13 +4672,6 @@ input, select, textarea {
 			     opacity: 85%;
 			     background-color: white;
 			  }
-			  
-			  
-			  
-			  
-			  
-			  
-			  
 			  
 			  
 			     #header {
@@ -8333,7 +8318,6 @@ input, select, textarea {
 
 			 }
 
->>>>>>> 74dffabd8c6d2b3726fe1479eca3854416e43211
 
 			 #title_area{
 			    /* margin-top: 15px; */

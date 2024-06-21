@@ -153,6 +153,7 @@ public class LoginController {
 			@RequestParam(value="redirectURL",defaultValue = "/home") String redirectURL,
 			Model model) {
 		System.out.println("~~~~~~~~~~~");
+
 		System.out.println(redirectURL);
 		model.addAttribute("redirectURL", redirectURL);
 
@@ -197,7 +198,7 @@ public class LoginController {
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
-	    	 
+
 	    	 if(redirectURL.contains("/mypage/bookmark/")) {
 	    		 return redirectURL;
 	    	 }
