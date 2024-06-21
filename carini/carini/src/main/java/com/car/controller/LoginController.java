@@ -198,14 +198,7 @@ public class LoginController {
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
-<<<<<<< HEAD
-=======
 
-	    	 if(redirectURL.contains("/mypage/bookmark/")) {
-	    		 return redirectURL;
-	    	 }
-
->>>>>>> d1251e3e1724aebccbfaf6ccd29831c13d510b2d
 	    	 return "redirect:"+redirectURL;
 	     }else{
 	    	 bindingResult.rejectValue("memberPw",null, "비밀번호가 일치하지 않습니다.");
