@@ -13,7 +13,6 @@ public class LoginFormValidation {
 
 	@NotEmpty(message = "아이디를 입력해주세요.")
     private String memberId;
-	
 
 	@NotBlank(message = "비밀번호를 입력해주세요.")
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$",

@@ -17,7 +17,7 @@ public interface BookMarkService {
 	
 	void findBookmarkByCarDelete(int carId, String member_id);
 
-	Bookmark insertMember(Bookmark bookmark);
+	void insertMember(Bookmark bookmark, Member user);
 
 	Car selectCar(int carId);
 

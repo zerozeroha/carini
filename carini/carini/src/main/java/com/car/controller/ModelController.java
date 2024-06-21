@@ -3,10 +3,12 @@ package com.car.controller;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 import com.car.dto.Board;
 import com.car.dto.Bookmark;
@@ -57,6 +60,9 @@ public class ModelController {
 	@Autowired
 	private BookMarkRepository bookMarkRepository;
 
+	@Autowired
+	private LocaleResolver localeResolver;
+	
 	public PagingInfo pagingInfo = new PagingInfo();
 	
 	@ModelAttribute("member")
@@ -191,6 +197,23 @@ public class ModelController {
         return comparisonData;
     }
     
+    /*
+     * 자동차 상세페이지 즐겨찾기 추가
+     * */
+    @PostMapping("/bookmark/{carId}")
+    public String myPagebookmarkAddGet(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
+    	
+    	Locale locale = localeResolver.resolveLocale(request);
+
+		Member user = (Member) session.getAttribute("user");
+
+		bookmark.setCarId(Integer.parseInt(carId));
+		bookmark.setMemberId(user.getMemberId());
+		
+		bookMarkService.insertMember(bookmark,user);
+	
+		return "redirect:/model/getModel?carId=" + carId;
+    }
 	
 
 }

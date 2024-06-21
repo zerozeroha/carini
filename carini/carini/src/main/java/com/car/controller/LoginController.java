@@ -199,10 +199,6 @@ public class LoginController {
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
-
-	    	 if(redirectURL.contains("/mypage/bookmark/")) {
-	    		 return redirectURL;
-	    	 }
 	    	 return "redirect:"+redirectURL;
 	     }else{
 	    	 bindingResult.rejectValue("memberPw",null, "비밀번호가 일치하지 않습니다.");
@@ -339,7 +335,6 @@ public class LoginController {
 				return ResponseEntity.ok(response);
 			}
 		}
-
 		response.put("message", "회원정보가 일치하지 않습니다.");
         response.put("success", false);
         response.put("redirect", "/find_pwForm");
