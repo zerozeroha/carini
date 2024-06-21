@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestAttributes;
 
@@ -335,6 +334,7 @@ public class LoginController {
 				return ResponseEntity.ok(response);
 			}
 		}
+
 		response.put("message", "회원정보가 일치하지 않습니다.");
         response.put("success", false);
         response.put("redirect", "/find_pwForm");

@@ -98,8 +98,8 @@
                     <!-- 왼쪽 박스 : 로고 -> 링크:홈페이지 -->
                     <fieldset style="width: 390px; height: 400px;">
                         <legend>BRAND</legend>
-                        <a th:href="@{https://www.volvocar.co.kr/buy/purchase/test-drive/?type=digital&source=sa&utm_source=other&utm_medium=paidsearch&utm_content=range_google-pc-branda&utm_campaign=kr_range_consideration-action_2304_nameplates_always-on_search_paid&sourceapplicationinformation=kr_rng_cat_npl&gad_source=1&gclid=Cj0KCQjw4MSzBhC8ARIsAPFOuyUhtnxHWMUBresiy_hrJG4LDwk-5TkVniF7PhlRBnn4bGAaRMi_uSkaAlBOEALw_wcB}" class="car_logo">
-                            <img th:src="@{/img/carBrandLogo/{carBrand}.jpg(carBrand=${carBrand})}" alt="자동차로고이미지" style="height: 200px; width: 200px; padding-left: 10%;">
+                        <a th:href="@{${carBrand.carBrandURL}}" class="car_logo">
+                            <img th:src="@{/img/carBrandLogo/{carBrandName}.png(carBrandName=${carBrand.carBrandName})}" alt="자동차로고이미지" style="height: 200px; width: 200px; padding-left: 10%;">
                         </a>
                     </fieldset>
 
