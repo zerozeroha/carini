@@ -21,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer{
 					"/model/**","/script/**","/update_pw","center/map",
 					"/api/naver/oauth", "/oauth/kakao", "/admin/**"
 
+
 			);
 	 }
 }

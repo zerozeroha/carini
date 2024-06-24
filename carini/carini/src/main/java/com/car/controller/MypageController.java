@@ -361,6 +361,7 @@ public class MypageController {
 	 */
 	@PostMapping("/bookmark/{carId}")
 	public String myPagebookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
+
 		
 		Locale locale = localeResolver.resolveLocale(request);
 
@@ -368,7 +369,7 @@ public class MypageController {
 
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
-
+    
 		bookMarkService.insertMember(bookmark,user);
 		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
