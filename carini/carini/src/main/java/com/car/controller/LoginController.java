@@ -135,7 +135,7 @@ public class LoginController {
 			Member.setMemberNickname(member.getMemberNickname());
 			Member.setMemberPhoneNum(member.getMemberPhoneNum());
 			Member.setMemberSocial("회원");
-			Member.setMemberRole("사용자");
+			Member.setMemberRole("ROLE_USER");
 				
 			Member save_member=memberService.insertMember(Member);
 				
@@ -152,9 +152,6 @@ public class LoginController {
 	public String loginView(@ModelAttribute("LoginFormValidation") LoginFormValidation memberm,
 			@RequestParam(value="redirectURL",defaultValue = "/home") String redirectURL,
 			Model model) {
-		System.out.println("~~~~~~~~~~~");
-
-		System.out.println(redirectURL);
 		model.addAttribute("redirectURL", redirectURL);
 
 		return "member/login.html";
@@ -162,10 +159,6 @@ public class LoginController {
 	
 	@GetMapping("/home")
 	public String goHome(HttpSession session)  {
-//		System.out.println(member.getMemberId());
-//		System.out.println(member.getMemberNickname());
-//		System.out.println("-=============");
-		// HttpSession session = request.getSession();	
 		return "homepage/home.html";
 	}
 	
@@ -198,6 +191,7 @@ public class LoginController {
 	    	 findmember.setMemberEmail("****@****.***");
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
+
 	    	 return "redirect:"+redirectURL;
 	     }else{
 	    	 bindingResult.rejectValue("memberPw",null, "비밀번호가 일치하지 않습니다.");

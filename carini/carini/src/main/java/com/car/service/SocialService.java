@@ -162,42 +162,42 @@ public class SocialService {
    }
    
    public Member kakaoSignUp(Member member) {
-	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
-	    boolean isExistingMember = !foundMembers.isEmpty();
-	    // stream().anyMatch 메서드는 Java 스트림 API의 일부로, 스트림 내의 요소 중 특정 조건을 만족하는 요소가 하나라도 있는지 여부를 확인하는데 사용
-	    //anyMatch는 조건에 맞는 요소를 찾으면 즉시 true를 반환, 조건에 맞는 요소가 하나도 없으면 false를 반환
-	    boolean isNaverUser = isExistingMember && foundMembers.stream()
-	                                .anyMatch(m -> m.getMemberSocial().equals("naver"));
-	    
-	    
-	    boolean iskakaoUser = isExistingMember && foundMembers.stream()
+       List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
+       boolean isExistingMember = !foundMembers.isEmpty();
+       // stream().anyMatch 메서드는 Java 스트림 API의 일부로, 스트림 내의 요소 중 특정 조건을 만족하는 요소가 하나라도 있는지 여부를 확인하는데 사용
+       //anyMatch는 조건에 맞는 요소를 찾으면 즉시 true를 반환, 조건에 맞는 요소가 하나도 없으면 false를 반환
+       boolean isNaverUser = isExistingMember && foundMembers.stream()
+                                   .anyMatch(m -> m.getMemberSocial().equals("naver"));
+       
+       
+       boolean iskakaoUser = isExistingMember && foundMembers.stream()
                 .anyMatch(m -> m.getMemberSocial().equals("kakao"));
-//	    
-//	    System.out.println(isExistingMember);
-//	    System.out.println(isNaverUser);
-//	    System.out.println(iskakaoUser);
-	    
-	    if((isExistingMember || isNaverUser) && !iskakaoUser) {
-	        SecureRandom random = new SecureRandom();
-	        String id = new BigInteger(130, random).toString(32);
-	        member.setMemberId(id);
-	        member.setMemberEmail(member.getMemberEmail());
-	        member.setMemberName(member.getMemberNickname());
-	        member.setMemberNickname(member.getMemberNickname());
-	        member.setMemberSocial("kakao");
-	        member.setMemberRole("사용자");
-	        memberRepository.save(member);
+//       
+//       System.out.println(isExistingMember);
+//       System.out.println(isNaverUser);
+//       System.out.println(iskakaoUser);
+       
+       if((isExistingMember || isNaverUser) && !iskakaoUser) {
+           SecureRandom random = new SecureRandom();
+           String id = new BigInteger(130, random).toString(32);
+           member.setMemberId(id);
+           member.setMemberEmail(member.getMemberEmail());
+           member.setMemberName(member.getMemberNickname());
+           member.setMemberNickname(member.getMemberNickname());
+           member.setMemberSocial("kakao");
+           member.setMemberRole("사용자");
+           memberRepository.save(member);
 
-	        return member;
-	    }
-	    
+           return member;
+       }
+       
 
-	    
-	    return foundMembers.stream()
+       
+       return foundMembers.stream()
                 .filter(m -> m.getMemberSocial().equals("kakao"))
                 .findFirst()
                 .orElse(null);
-	}
+   }
    
    // 네이버===============================================================================================
    
@@ -289,38 +289,38 @@ public class SocialService {
    }
    
    public Member naverSignUp(Member member) {
-	    List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
-	    boolean isExistingMember = !foundMembers.isEmpty();
-	    boolean iskakaoUser = isExistingMember && foundMembers.stream()
-	                                .anyMatch(m -> m.getMemberSocial().equals("kakao"));
-	    boolean isnaverUser = isExistingMember && foundMembers.stream()
+       List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
+       boolean isExistingMember = !foundMembers.isEmpty();
+       boolean iskakaoUser = isExistingMember && foundMembers.stream()
+                                   .anyMatch(m -> m.getMemberSocial().equals("kakao"));
+       boolean isnaverUser = isExistingMember && foundMembers.stream()
                 .anyMatch(m -> m.getMemberSocial().equals("naver"));
-	    
-//	    System.out.println(isExistingMember);
-//	    System.out.println(isnaverUser);
-//	    System.out.println(iskakaoUser);
-	    if((isExistingMember || iskakaoUser) && !isnaverUser) {
-	        member.setMemberId(member.getMemberId().replace("\"", ""));
-	        member.setMemberName(member.getMemberName().replace("\"", ""));
-	        member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
-	        member.setMemberEmail(member.getMemberEmail().replace("\"", ""));
-	        member.setMemberPhoneNum(member.getMemberPhoneNum().replace("\"", ""));
-	        member.setMemberSocial("naver");
-	        member.setMemberRole("사용자");
-	        memberRepository.save(member);
-	        
-	        return member;
-	    }
-	    return foundMembers.stream()
+       
+//       System.out.println(isExistingMember);
+//       System.out.println(isnaverUser);
+//       System.out.println(iskakaoUser);
+       if((isExistingMember || iskakaoUser) && !isnaverUser) {
+           member.setMemberId(member.getMemberId().replace("\"", ""));
+           member.setMemberName(member.getMemberName().replace("\"", ""));
+           member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
+           member.setMemberEmail(member.getMemberEmail().replace("\"", ""));
+           member.setMemberPhoneNum(member.getMemberPhoneNum().replace("\"", ""));
+           member.setMemberSocial("naver");
+           member.setMemberRole("사용자");
+           memberRepository.save(member);
+           
+           return member;
+       }
+       return foundMembers.stream()
                 .filter(m -> m.getMemberSocial().equals("naver"))
                 .findFirst()
                 .orElse(null);
-	}
+   }
 
 public Member findByMemberId(String memberId) {
-	
-	Optional<Member> member = memberRepository.findByMemberId(memberId);
-	return member.get();
+   
+   Optional<Member> member = memberRepository.findByMemberId(memberId);
+   return member.get();
 }
 
    

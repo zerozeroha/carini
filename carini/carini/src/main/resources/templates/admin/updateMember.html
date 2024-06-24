@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>update Member</title>
+</head>
+<body>
+	<form th:action="@{/admin/updateMember}" th:object="${SignupFormValidation}" method="post" id="memberForm" name="memberForm">
+		<div th:if="${#fields.hasErrors('memberId')}">
+            <p th:each="err : ${#fields.errors('memberId')}" th:text="${err}" class="text-danger"></p>
+        </div>
+		<div th:if="${#fields.hasErrors('memberPw')}">
+            <p th:each="err : ${#fields.errors('memberPw')}" th:text="${err}" class="text-danger"></p>
+        </div>
+		<div th:if="${#fields.hasErrors('memberName')}">
+            <p th:each="err : ${#fields.errors('memberName')}" th:text="${err}" class="text-danger"></p>
+        </div>
+		<div th:if="${#fields.hasErrors('memberNickname')}">
+            <p th:each="err : ${#fields.errors('memberNickname')}" th:text="${err}" class="text-danger"></p>
+        </div>
+		<div th:if="${#fields.hasErrors('memberEmail')}">
+            <p th:each="err : ${#fields.errors('memberEmail')}" th:text="${err}" class="text-danger"></p>
+        </div>
+		<div th:if="${#fields.hasErrors('memberPhoneNum')}">
+            <p th:each="err : ${#fields.errors('memberPhoneNum')}" th:text="${err}" class="text-danger"></p>
+        </div>
+		<table id="member_info">
+	        <tr>
+	            <td class="gangjo" th:text="#{board.write.writer}"></td>
+	            <td><input type="text" th:field="${member.memberId}"></td>
+	        </tr>
+		
+		
+		
+		
+	</form>
+</body>
+</html>
