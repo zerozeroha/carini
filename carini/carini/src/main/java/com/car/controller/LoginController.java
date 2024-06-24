@@ -135,7 +135,7 @@ public class LoginController {
 			Member.setMemberNickname(member.getMemberNickname());
 			Member.setMemberPhoneNum(member.getMemberPhoneNum());
 			Member.setMemberSocial("회원");
-			Member.setMemberRole("사용자");
+			Member.setMemberRole("ROLE_USER");
 				
 			Member save_member=memberService.insertMember(Member);
 				
@@ -152,8 +152,7 @@ public class LoginController {
 	public String loginView(@ModelAttribute("LoginFormValidation") LoginFormValidation memberm,
 			@RequestParam(value="redirectURL",defaultValue = "/home") String redirectURL,
 			Model model) {
-		System.out.println("~~~~~~~~~~~");
-		System.out.println(redirectURL);
+
 		model.addAttribute("redirectURL", redirectURL);
 
 		return "member/login.html";
@@ -161,10 +160,6 @@ public class LoginController {
 	
 	@GetMapping("/home")
 	public String goHome(HttpSession session)  {
-//		System.out.println(member.getMemberId());
-//		System.out.println(member.getMemberNickname());
-//		System.out.println("-=============");
-		// HttpSession session = request.getSession();	
 		return "homepage/home.html";
 	}
 	

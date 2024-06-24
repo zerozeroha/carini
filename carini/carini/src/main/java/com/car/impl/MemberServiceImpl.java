@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.car.dto.Member;
@@ -26,6 +28,17 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	@Override
+	public Page<Member> getMemberList(Pageable pageable, String searchType, String searchWord) {
+		if(searchType.equalsIgnoreCase("memberNickname")) {
+			return memberRepository.findByMemberNicknameContaining(searchWord, pageable);
+		} else if(searchType.equalsIgnoreCase("memberPhoneNum")) {
+			return memberRepository.findByMemberPhoneNumContaining(searchWord, pageable);
+		} else {
+			return memberRepository.findByMemberIdContaining(searchWord, pageable);
+		}
+	}
 
 	/*
 	 * 멤버 추가하기
@@ -200,12 +213,14 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.updateMemberPw(newmemberPw,memberId);
 	}
 	
+	
+	
 //	@Override
 //	@Transactional
 //	public void updateMember(Member member, String newmemberNickname, String newmemberNickname2) {
 //		memberRepository.updateMemberNickname(newmemberNickname,newmemberNickname2,member.getMemberId());
 //	}
 
-
+	
 
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Member List</title>
+</head>
+<body>
+    <h1>Member List</h1>
+    <table border="1">
+        <tr>
+            <th>memberId</th>
+            <th>memberPw</th>
+            <th>memberName</th>
+            <th>memberNickname</th>
+            <th>memberEmail</th>
+            <th>memberPhoneNum</th>
+            <th>memberDate</th>
+            <th>memberSocial</th>
+            <th>memberRole</th>
+            <th>memberSocialNickname</th>
+        </tr>
+        <tr th:each="member : ${memberList}">
+            <td><a th:href="@{admin/updateMember(memberId=${member.memberId})}"th:text="${member.memberId}"></a></td>
+            <td th:text="${member.memberPw}"></td>
+            <td th:text="${member.memberName}"></td>
+            <td th:text="${member.memberNickname}"></td>
+            <td th:text="${member.memberEmail}"></td>
+            <td th:text="${member.memberPhoneNum}"></td>
+            <td th:text="${member.memberDate}"></td>
+            <td th:text="${member.memberSocial}"></td>
+            <td th:text="${member.memberRole}"></td>
+            <td th:text="${member.memberSocialNickname}"></td>
+
+        </tr>
+    </table>
+</body>
+</html>
