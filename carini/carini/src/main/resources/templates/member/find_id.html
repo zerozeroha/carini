@@ -45,6 +45,9 @@
                     </div>
                     <input type="text" id="verificationCode" placeholder="인증번호를 입력하세요">
                     <button onclick="showPopup()">확인</button>
+					<div class="field-error" id="codeNumberErrors" style="font-size: 15px;">
+						
+					</div>
                 </div>
             </div>
         </div>
@@ -86,12 +89,22 @@
 						document.getElementById('memberPhoneNumber').disabled = true;
 						document.getElementById('code_btn').disabled = true;
 						find_main_tel.style.display = 'block';
-                    } else {
-                        displayErrors(response.errors)
-						alert(response.message);
-                    }
-                }
-            });
+                    } 
+                },
+				error: function(xhr, status, error) {
+			      var response = JSON.parse(xhr.responseText);
+			      alert(response.message);
+				  if (response.errors && Object.keys(response.errors).length > 0) {
+		              $.each(response.errors, function(field, errorMessage) {
+		                  $("#" + field + "Errors").text(errorMessage);
+		              });
+		          } else {
+		              // 오류가 없으면 빈 문자열로 초기화
+		              $("#memberNameErrors").text("");
+		              $("#memberPhoneNumberErrors").text("");
+		          }
+			  }           
+			});
 
             
         }
@@ -164,7 +177,7 @@
 			code=document.getElementById('verificationCode').value;       
 			event.preventDefault();
             $.ajax({
-                type: "GET",
+                type: "Get",
                 url: "/find_id_code_check",
                 data: { code: code },
                 success: function(response) {
@@ -174,11 +187,12 @@
 						$("#memberId").text(response.memberId);
 						var popup = document.getElementById('popup');
 						popup.classList.remove('popup_hidden');
-                    } else {
-						alert(response.message);
-                       	window.location.href=response.redirectUrl;
                     }
-                }
+                },
+				error: function(xhr, status, error) {
+			      var response = JSON.parse(xhr.responseText);
+			      alert(response.message);
+			  } 
             });
 			
             

@@ -10,7 +10,7 @@
     <title> 상세보기 - Helios by HTML5 UP</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/css/getBoard_edit.css" />
+    <link rel="stylesheet" href="/css/updateBoard.css" />
 
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
@@ -89,20 +89,16 @@
                 </tr>
 				
 				<tr>
-                   <td colspan="1" class="gangjo" th:text="#{board.write.uploadfile}"></td>
-				   <td colspan="3">
-					<div style="display: flex;">
-						<div>
-					       <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload" th:value="${board.boardFilename}" onchange="toggleDeleteLink(this)">
-						   </div>
-						   <div id="deleteLink" th:if="${board.boardFilename}" >
-					           <a href="#" th:onclick="deleteFile('[[${board.boardId}]]')">
-					               <img th:src="@{/img/delete_icon.png}" alt="삭제 이미지" style="width:18px; height: 18px; opacity: 0.7;">
-					           </a>
-					       </div>
-					   </div>
+	               <td class="gangjo" >기존파일</td>
+				   <td style="display: flex;">
+					<input type="text" th:field="${board.boardFilename}" disabled> 				   
+					<a href="#" th:onclick="deleteFile('[[${board.boardId}]]')">
+				   		<img th:src="@{/img/delete_icon.png}" alt="삭제 이미지" style="width:25px; height: 25px; opacity: 0.7;margin-top:20px;margin-left:10px;">
+				   	</a>
 				   </td>
-               </tr>
+				   <td class="gangjo" >변경파일</td>
+				   <td ><input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload" th:value="${board.boardFilename}"  th:disabled="${board.boardFilename != null}" onchange="toggleDeleteLink(this)"></td>
+           		</tr>
 
                 <tr>
                     <td class="gangjo" colspan="4" th:text="#{board.write.content}"></td>
@@ -162,35 +158,27 @@
 	<script src="/js/util.js"></script>
 	<script src="/js/main.js"></script>
 	<script>
-		function deleteFile(boardId) {
-		    if (confirm("정말로 파일을 삭제하시겠습니까?")) {
-		        fetch('/board/deleteFile/' + boardId, {
-		            method: 'POST',
-		            headers: {
-		                'Content-Type': 'application/json'
-		            }
-		        })
-		        .then(response => {
-		            if (!response.ok) {
-		                throw new Error('서버에서 오류 응답을 받았습니다. (' + response.status + ')');
-		            }
-		            return response.json();
-		        })
-		        .then(result => {
-		            if (result.message) {
-		                alert(result.message);
-		            }
-		            if (result.status === 'success') {
-		                location.reload();
-		            }
-		        })
-		        .catch(error => {
-		            console.error('파일 삭제 중 오류 발생:', error);
-		            alert('파일 삭제 중 오류가 발생하였습니다.');
-		        });
-		    }
-		}
-	</script>
+			function deleteFile(boardId) {
+			    if (confirm("정말로 파일을 삭제하시겠습니까?")) {
+			        fetch('/board/deleteFile/' + boardId, {
+			            method: 'POST',
+			            headers: {
+			                'Content-Type': 'application/json'
+			            }
+			        })
+			        .then(response => response.json())
+			        .then(result => {
+			            alert(result.message);
+			            if (result.status === 'success') {
+			                location.reload();
+			            }
+			        })
+			        .catch(error => {
+			            alert("파일 삭제 중 오류가 발생하였습니다: " + error);
+			        });
+			    }
+			}
+		</script>
 	<script>
 	function toggleDeleteLink(input) {
 	    var deleteLink = document.getElementById("deleteLink");

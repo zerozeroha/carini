@@ -51,6 +51,8 @@ import com.car.dto.Board;
 import com.car.dto.Member;
 import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
+import com.car.exception.BoardDeleteFileException;
+import com.car.exception.errorcode.ErrorCode;
 import com.car.persistence.BoardRepository;
 import com.car.service.BoardService;
 import com.car.service.MemberService;
@@ -197,18 +199,16 @@ public class BoardController {
 			return "board/insertBoard";
       }
 
-
       // 파일업로드
-
       MultipartFile uploadFile = board.getUploadFile();
       if(!uploadFile.isEmpty()) {
          String fileName = uploadFile.getOriginalFilename();
+         
          uploadFile.transferTo(new File(uploadFolder + fileName));
          board.setBoardFilename(fileName);
       }
       
       
-
       boardService.insertBoard(board);
       model.addAttribute("msg", "게시글이 작성되었습니다!");
       model.addAttribute("url", "/board/getBoardList");
@@ -264,12 +264,11 @@ public class BoardController {
          Path filePath = Paths.get(uploadFolder + fileName);
          try {
             Files.copy(uploadFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-               board.setBoardFilename(fileName);
+            board.setBoardFilename(fileName);
          } catch (IOException e) {
             e.printStackTrace();
          }         
       }
-      
       boardService.updateBoard(board);
       model.addAttribute("msg", "게시글이 수정되었습니다!");
       model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
@@ -321,15 +320,19 @@ public class BoardController {
        Map<String, String> response = new HashMap<>();
        Locale locale = localeResolver.resolveLocale(request);
        try {
+    	   
            boardService.deleteFile(boardId);
            response.put("message", messageSource.getMessage("board.filedelete.success", null, locale));
            response.put("status", "success");
            return ResponseEntity.ok(response);
        } catch (Exception e) {
+
            log.error("게시글 파일 삭제 중 오류 발생: {}", e.getMessage(), e);
            response.put("message", messageSource.getMessage("board.filedelete.failure", null, locale));
            response.put("status", "error");
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+           
+    	   //throw new BoardDeleteFileException(ErrorCode.BOARD_DELETE,null);
        }
    }
 

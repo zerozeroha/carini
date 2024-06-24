@@ -97,12 +97,21 @@
 						document.getElementById('code_btn').disabled = true;
 						find_main_tel.style.display = 'block';
 						startTimer(); // 타이머 시작
-                    } else {
-						console.log(response.errors)
-                        displayErrors(response.errors)
-						alert(response.message);
                     }
-                }
+            },
+			error: function(xhr, status, error) {
+			      var response = JSON.parse(xhr.responseText);
+			      alert(response.message);
+				  if (response.errors && Object.keys(response.errors).length > 0) {
+  		              $.each(response.errors, function(field, errorMessage) {
+  		                  $("#" + field + "Errors").text(errorMessage);
+  		              });
+  		          } else {
+  		              // 오류가 없으면 빈 문자열로 초기화
+  		              $("#memberNameErrors").text("");
+  		              $("#memberPhoneNumberErrors").text("");
+  		          }
+			  }
             });
 
             
@@ -131,7 +140,7 @@
 		code=document.getElementById('verificationCode').value;       
 		event.preventDefault();
 		$.ajax({
-            type: "GET",
+            type: "Get",
             url: "/find_pw_code_check",
             data: { code: code },
             success: function(response) {
@@ -140,11 +149,12 @@
 					alert(response.message);
 					showPasswordChangePage(); // 비밀번호 수정 페이지 보이기 함수 호출
 					
-                } else {
-					alert(response.message);
-                   	window.location.href=response.redirectUrl;
                 }
-            }
+            },
+			error: function(xhr, status, error) {
+				      var response = JSON.parse(xhr.responseText);
+				      alert(response.message);
+			} 
         });
 	   }
 	   
@@ -186,15 +196,20 @@
                 if (response.success) {
 					alert(response.message);
 					window.location.href=response.redirectUrl;
-                } else {
-					alert(response.message);
-					if (response.errors.memberPw) {
-			           $("#memberPwErrors").text(response.errors.memberPw);
-			       	} else {
-			           $("#memberPwErrors").text(""); // 오류가 없으면 빈 문자열로 초기화
-			       	}
                 }
-            }
+            },
+			error: function(xhr, status, error) {
+		      var response = JSON.parse(xhr.responseText);
+		      alert(response.message);
+			  if (response.errors && Object.keys(response.errors).length > 0) {
+	              $.each(response.errors, function(field, errorMessage) {
+	                  $("#memberPwErrors").text(errorMessage);
+	              });
+	          } else {
+	              // 오류가 없으면 빈 문자열로 초기화
+	              $("#memberPwErrors").text("");
+	          }
+		  }
         });
 	   }
 	   function startTimer() {
