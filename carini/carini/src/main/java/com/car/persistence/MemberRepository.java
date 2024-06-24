@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.car.dto.Board;
 import com.car.dto.Member;
 import java.util.List;
 
@@ -42,9 +43,8 @@ public interface MemberRepository extends JpaRepository<Member, String>{
 	@Query("UPDATE Member m SET m.memberPw = :newmemberPw WHERE m.memberId = :memberId")
 	void updateMemberPw(@Param("newmemberPw") String newmemberPw,@Param("memberId") String memberId);
 	
-//	@Modifying
-//    @Query("UPDATE Member m SET m.memberNickname = :newNickname , m.memberSocialNickname = :newNickname2 WHERE m.memberId = :memberId")
-//    void updateMemberNickname(@Param("newNickname") String newNickname, @Param("newNickname2") String newNickname2 ,@Param("memberId") String memberId);
-
+	Page<Member> findByMemberNicknameContaining(String searchWord, Pageable pageable);
+	Page<Member> findByMemberPhoneNumContaining(String searchWord, Pageable pageable);
+	Page<Member> findByMemberIdContaining(String searchWord, Pageable pageable);
 
 }

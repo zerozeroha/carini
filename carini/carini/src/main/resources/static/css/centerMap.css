@@ -1,0 +1,713 @@
+
+* {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* body */
+
+body {
+    background: white;
+    color: #5b5b5b;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;
+ }
+
+
+/* 우측 아이콘 */
+ 
+#float_icons {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    position: sticky; /* 화면에서 고정 위치에 놓습니다 */
+    top: 40%; /* 화면 높이의 50%에서 고정됩니다 */
+    right: 0px;
+    z-index: 300; /* 다른 요소 위에 표시될 수 있도록 설정합니다 */
+    float: right;   
+    margin: 15px;
+ }
+ 
+ 
+ #float_icons a {
+    margin-top: 18px; /*아이콘 사이의 간격을 5px로 설정합니다 */
+    display: block;
+    margin-right: 15px;
+}
+ 
+ #float_icons img {
+    width: 50px;
+    height: auto;
+    opacity: 85%;
+    background-color: white;
+ }
+
+ 
+
+
+ /* Header */
+
+header {
+    width: 100%;
+    position: relative;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2%;
+    cursor: default;
+    height:250px;
+ }
+
+ .header_carini{
+    color: white;
+    font-size: 6rem;
+    font-weight: 700;
+    text-shadow: 9px 9px 1px gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-text-stroke: 0.4px rgb(115, 109, 119);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+
+
+ /* 소제목 */
+
+section {   /* 소제목 영역 */
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin: 5% 14%;
+}
+
+.SubTitle {   /* 소제목 */
+    font-size: 60px;
+    font-weight: 1000;
+    color: black;
+    width: 70%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center
+ }
+
+#SubTitle_Text { /* 소제목 소개글 */
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
+
+
+
+/* 지도 뒤에 글씨 */
+
+#Map_Text {
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
+select {
+    height: 50px;
+    border: 1px solid white;
+}
+
+
+
+
+/* 지도 */
+#map {
+    width:95%;
+    height:80%;
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    margin: 2%;
+}
+
+.div_search {
+    width: 100%;
+    height: 5%;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+}
+
+
+
+
+
+
+
+ /* Nav */
+
+ nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1.5em 0 1.5em 0;
+
+    overflow: hidden;
+ }
+
+nav > ul {
+    line-height: 0px;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    height: 21px;
+    border-left: solid 1px rgba(192, 192, 192, 0.35);
+    border-right: solid 1px rgba(192, 192, 192, 0.35);
+}
+
+nav > ul:before, #nav > ul:after {
+    content: '';
+    display: block;
+    width: 300%;
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    height: 5px;
+    border-top: solid 1px rgba(192, 192, 192, 0.35);
+    border-bottom: solid 1px rgba(192, 192, 192, 0.35);
+}
+
+nav > ul:before {
+    left: 100%;
+    margin-left: 1px;
+}
+
+nav > ul:after {
+    right: 100%;
+    margin-right: 1px;
+}
+
+nav > ul > li {
+    display: inline-block;
+    margin: -9px 0.5em 0 0.5em;
+    border-radius: 0.5em;
+    padding: 0.85em;
+    border: solid 1px transparent;
+    -moz-transition: color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+    -webkit-transition: color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+    -ms-transition: color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+    transition: color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+}
+
+nav > ul > li.active {
+    border-color: rgba(192, 192, 192, 0.35);
+}
+
+nav > ul > li > a, #nav > ul > li > span {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border: 0;
+    outline: 0;
+}
+
+nav > ul > li > ul {
+    display: none;
+}
+
+
+
+    
+    
+/* Container */
+
+.container {
+
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 1200px;
+}
+
+
+/* 지도 */
+#map {
+    width:100%;
+    height:100%;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    margin: 2%;
+}
+
+div {
+    width: 100%;
+    height: 5%;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    text-align: center;
+}
+
+/* 검색창 감싸는 박스 */
+.search {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3%;
+    margin: 1%;
+    height: 80%;
+    width: 15%;
+    background-color: white;
+    border-radius: 0.5rem;
+    opacity: 90%;
+}
+
+/* 검색창 */
+.sub_search {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;    
+    background-color: white;
+    border: 3px solid whitesmoke;
+}
+
+select {
+    height: 50px;
+}
+
+
+/*Board*/
+
+.Board {
+	display: flex;
+	align-items: center;
+}
+
+.Board select {
+	margin-right: 10px;
+}
+
+.Board input[type="text"] {
+	margin-right: 10px;
+	padding: 5px;
+}
+
+.Board input[type="button"] {
+	padding: 3.5px 5px;
+	cursor: pointer;
+}
+
+.Board_text {
+	font-size: 45px;
+	font-weight: 700;
+	color: black;
+}
+
+
+
+
+
+ /* Main */
+
+        
+main {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: white;
+}
+
+
+
+/* Mypage.html에 쓰이는_My_information */
+
+section{
+    width: 70%;
+    height: 100%;
+ }
+
+/*  
+#info_info_box {
+    background-color: yellow;
+    width: 550px;
+    height: 100%;
+    margin-right: 200px;
+ } */
+
+#info_box {
+    height: 80%;
+    width: 700px;
+    border-collapse: collapse;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 0.5rem;
+ }
+
+ #info_box th, #info_box td {
+    padding: 15px;
+    text-align: center;
+ }
+
+ #info_box th {
+    background-color: black;
+    border: 2px solid whitesmoke;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: normal;
+    width: 30%;
+ }
+
+ #info_box td {
+    background-color: whitesmoke;
+    border: 3px solid white;
+    
+ }
+
+ .edit_info button{
+    background-color: #f2f2f2;
+    width: 20px;
+    height: 20px;
+ }
+
+ #info_box tr:nth-child(even) button{
+    background-color: #e9e9e9;
+    width: 20px;
+    height: 20px;
+ }
+
+ .edit_info {
+    background-color: rgb(186, 155, 186);
+    width: 180px;
+    height: 50px;
+ }
+
+ 
+
+ .edit_info img{
+    width: 15px;
+    height: 15px;
+ }
+
+
+
+
+#edit_nickname{
+ width: 20px;
+ max-width: 20px;
+ background-color: #f3f3f3;
+ top: 5px;
+ left: 28px;
+}
+
+#edit_nickname img{
+ width: 20px;
+}
+
+
+
+
+
+/* Form요소 - Input, textarea, select */
+
+input, textarea, select {
+    font-size: 15pt;
+    line-height: 1.85em;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+ }
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="submit"],
+form select,
+form textarea {
+    background: white;
+    border-radius: 0.5em;
+    border: 2px solid black;
+    margin: 0.1px;
+    padding: 0.1px;
+}
+
+form textarea {
+    min-height: 9em;
+}
+
+
+#search {
+    height: 25px;
+    width: 30px;
+}
+
+
+ 
+ /* Table */
+ 
+ table {
+    border-collapse: collapse;
+    border-top: 1px solid black; /* 테이블 상단 테두리 */
+    border-bottom: 1px solid black; /* 테이블 하단 테두리 */
+    overflow: scroll;
+    padding: 3%;
+    font-size: 15px;
+}
+
+th, td {
+    padding: 1;
+    margin: 0;
+    width: 150%;
+    text-align: center;
+    border: none; /* 안쪽 테두리 제거 */
+    border: 3px solid whitesmoke;
+}
+
+th {
+    background-color: whitesmoke;
+    color: black;
+    font-weight: bold;
+    border: 1px solid white;
+}
+
+tr {
+    height: 10%;
+    background-color: white;
+    border: 1px solid whitesmoke;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    width: 30%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 70%;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
+
+
+
+/* checkbox */
+
+.checkbox {
+    flex: 0 0 50px; /* 고정 크기 */
+    }
+
+
+
+
+
+/* Button */
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button,
+.button {
+    padding: 1px;
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 0.5em;
+    text-decoration: none;
+    padding: 0.65em 0.5em 0.65em 0.5em;
+    border: 2px solid black;
+    cursor: pointer;
+    outline: 0;
+    margin: 5px;
+    font-weight: 300;
+    -webkit-text-stroke: 0.4px black;
+    /* 버튼 화면전환 효과 (0.35초씩 늦게 껐다가 켜짐) */
+    /* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
+}
+
+    
+
+/* a */
+
+a {
+    color: inherit;
+    text-decoration: none;
+    /* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
+ }
+
+
+
+/* hover */
+
+
+/* a.hover */
+
+ a:hover {
+    /* background-color: black; */
+    color: white;
+    /* -webkit-text-stroke: 0.5px white; */
+    /* border-bottom-color: transparent; */
+    border-radius: 0.5rem;
+    background-color: none; 
+}
+
+.float_hover:hover {
+    background-color: white;
+    height: 50px;
+    margin-top: 18px;
+    height: 50px;
+    width: 50px;
+    position: sticky; /* 화면에서 고정 위치에 놓습니다 */
+    top: 40%; /* 화면 높이의 50%에서 고정됩니다 */
+    right: 0px;
+    z-index: 300; /* 다른 요소 위에 표시될 수 있도록 설정합니다 */
+    float: right;   
+    margin: 15px;
+}
+
+.carini-hover:hover {
+    color: black !important;
+    -webkit-text-stroke: 0.9px white;
+    text-shadow: 9px 9px 1px whitesmoke;
+    transition: none;
+}
+
+.side-hover:hover {
+ color: white !important;
+ background-color: black !important;
+ border-radius: 0.5rem;
+ padding: 1.5%;
+}
+
+a.Board-hover {
+    text-decoration: none;
+    color: black;
+}
+
+a.Board-hover:hover {
+    text-decoration: underline;
+}
+
+select:hover {
+    border: 2px solid rgb(170, 170, 170);
+}
+
+/* button.hover */
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover,
+.button:hover {
+    padding: 1px;
+    position: relative;
+    display: inline-block;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 0.5em;
+    text-decoration: none;
+    padding: 0.65em 0.5em 0.65em 0.5em;
+    border: 2px solid black;
+    cursor: pointer;
+    outline: 0;
+    margin: 5px;
+    font-weight: 300;
+    -webkit-text-stroke: 0.4px white;
+    }
+
+input[type="text"]:hover{
+    border: 2px solid  rgb(170, 170, 170);
+    }
+
+
+/* 탈퇴하기 button */
+
+.getout{
+    width: 3%;
+    height: 5%;
+    color: black;
+    background-color: white;
+ }
+
+.getout_button, .getout .getout_button {
+    border: none;
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 16px;
+    text-decoration: none;
+    margin-top: 300px;
+}
+
+button.getout-hover:hover {
+    color: black !important;
+}
+
+
+
+
+
+/* footer */
+
+hr {
+    position: relative;
+    display: block;
+    border: 0;
+    top: 4.5em;
+    margin-bottom: 9em;
+    height: 6px;
+    border-top: solid 1px rgba(128, 128, 128, 0.2);
+    border-bottom: solid 1px rgba(128, 128, 128, 0.2);
+}
+
+footer {
+	margin-top: 50px;
+	width: 100%;
+	height: 50px;
+	margin-bottom: 50px;
+	align-items: center;
+	text-align: center;
+	background-color: white;
+ }
+  
+

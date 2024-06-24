@@ -120,10 +120,6 @@
 					  	alert(response.message);
 					  	window.location.href = response.redirectUrl;
  
-	              },
-	              error: function(xhr, status, error) {
-					alert("문의삭제 실패하였습니다.");
-					window.location.href = response.redirectUrl;
 	              }
 	          });
 	      }
@@ -213,7 +209,8 @@
 					   }
     			},
 				error: function(xhr, status, error) {
-	                alert('문의 정보를 가져오는 중 오류가 발생했습니다.');
+					var response = JSON.parse(xhr.responseText);
+					alert(response.message);
 	            }
 	        });
 		}
@@ -235,21 +232,29 @@
                     if (response.success) {
                         alert(response.message);
                         window.location.href  = response.redirectUrl;
-                    } else {
-						if (response.errors) {
-		                    // 검증 오류 메시지 처리
-							$.each(response.errors, function(index, error) {
-		                        if (error.field === "reTitle") {
-		                            $("#reTitleError").text(error.defaultMessage);
-		                        } else if (error.field === "reContent") {
-		                            $("#reContentError").text(error.defaultMessage);
-		                        }
-		                    });
-		                } else {
-		                    alert("요청 처리 중 오류가 발생했습니다.");
-		                }
                     }
-                }
+                },
+				error: function(xhr, status, error) {
+					var response = JSON.parse(xhr.responseText);
+					alert(response.message);
+					$.each(response.errors, function(field, errorMessage) {
+                        if (field === "reTitle") {
+                            $("#reTitleError").text(errorMessage);
+							$("#reContentError").text("");
+                        } else if (field === "reContent") {
+                            $("#reContentError").text(errorMessage);
+							$("#reTitleError").text("");
+						}
+						
+                    });
+					if (response.errors && response.errors.reContent && response.errors.reTitle) {
+					    var reContent = response.errors.reContent; // reContent에 대한 오류 메시지를 가져옴
+						var reTitle = response.errors.reTitle; // reContent에 대한 오류 메시지를 가져옴
+					    // reContentError와 reTitleError에 오류 메시지 설정
+					    $("#reContentError").text(reContent);
+					    $("#reTitleError").text(reTitle);
+					}
+	            }
             });
         }
     </script>
@@ -344,7 +349,7 @@
                         <br>
                         <div class="change">
                             <a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}" style="align-items: center; -webkit-text-stroke: 0.9px black;">
-                                <button type="button" onclick="verifyPassword()" th:text="#{info.btn.edit}"></button>
+                                <button type="button" onclick="change_info()" th:text="#{info.btn.edit}"></button>
                             </a>
                             <a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}" th:href="@{/mypage/myinfo_social_edit}" style="align-items: center; -webkit-text-stroke: 0.9px black;">
                                 <button type="button" th:text="#{info.btn.edit}"></button>
@@ -431,7 +436,7 @@
 		<script>
 			function change_info() {
 			    // 비밀번호 확인을 위한 팝업 창 열기
-			    var passwordWindow = window.open('password.html', '_blank', 'width=400,height=300');
+			    var passwordWindow = window.open('password', '_blank', 'width=400,height=300');
 		}
 			</script>
     </div>
