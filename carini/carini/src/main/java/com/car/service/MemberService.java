@@ -3,6 +3,9 @@ package com.car.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.car.dto.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +17,7 @@ public interface MemberService {
 	//long getTotalRowCont(Member member);
 	//Member getMember(Member member);
 	//Page<Member> getMemberList(Pageable pageable, String searchType, String searchWord);
-
+	Page<Member> getMemberList(Pageable pageable, String searchType, String searchWord);
 	Member insertMember(Member member);
 	Member findMember(String memberId);
 	List<Member> findAllMember();
@@ -34,5 +37,6 @@ public interface MemberService {
 	Member SMSfindMemberPw(String memberId, String memberPhoneNumber,HttpSession session);
 	Member SMSfindMember(String memberName, String memberPhoneNumber, HttpSession session);
 	void updatepw(String memberId, String newPw);
+
 
 }
