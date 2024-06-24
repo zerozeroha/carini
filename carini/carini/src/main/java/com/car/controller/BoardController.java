@@ -197,7 +197,9 @@ public class BoardController {
 			return "board/insertBoard";
       }
 
+
       // 파일업로드
+
       MultipartFile uploadFile = board.getUploadFile();
       if(!uploadFile.isEmpty()) {
          String fileName = uploadFile.getOriginalFilename();
