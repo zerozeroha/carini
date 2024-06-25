@@ -267,6 +267,7 @@ public class BoardController {
             board.setBoardFilename(fileName);
          } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException("파일 저장 중 오류가 발생했습니다: " + e.getMessage(), e);
          }         
       }
       boardService.updateBoard(board);
@@ -280,9 +281,20 @@ public class BoardController {
      * 게시판 삭제
      * */
    @GetMapping("/board/deleteBoard")
-   public String deleteBoard(Board board, HttpSession session)  {
-      boardService.deleteBoard(board);
-      return "forward:/board/getBoardList";
+   public String deleteBoard(Board board, HttpSession session,Model model)  {
+	  Board findboard =  boardService.getBoardById(board.getBoardId());
+	  
+	  if(findboard ==null) {
+		  model.addAttribute("msg", "해당 게시물이 존재하지않습니다.");
+		  model.addAttribute("url", "/board/getBoardList");
+		  return "alert";
+	  }
+	  
+	  
+      boardService.deleteBoard(findboard);
+      model.addAttribute("msg", "해당 게시물을 삭제하였숩니다.");
+	  model.addAttribute("url", "/board/getBoardList");
+      return "alert";
    }
    
    /*

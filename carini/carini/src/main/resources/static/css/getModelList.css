@@ -318,6 +318,11 @@ th:nth-child(2), td:nth-child(2) {
 }
 
 
+th, tr, td { 
+       border: 8px solid white;
+   }
+
+
 
 
 #priceSlider { /* 가격 */
@@ -584,6 +589,7 @@ a {
  a:hover { 
    font-weight: bolder;
    opacity: 50%;
+
 }
 
 a.icon-hover:hover {

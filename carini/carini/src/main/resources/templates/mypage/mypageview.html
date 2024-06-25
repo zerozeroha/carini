@@ -328,7 +328,7 @@
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.pw}"></th>
-                                <td th:text="${session.user.memberPw}"></td>
+                                <td th:text="${session.hiddenuser.memberPw}"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.name}"></th>
@@ -336,11 +336,11 @@
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.email}"></th>
-                                <td th:text="${session.user.memberEmail}"></td>
+                                <td th:text="${session.hiddenuser.memberEmail}"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.phone}"></th>
-                                <td th:text="${session.user.memberPhoneNum}"></td>
+                                <td th:text="${session.hiddenuser.memberPhoneNum}"></td>
                             </tr>
                         </table>
                         <br>
