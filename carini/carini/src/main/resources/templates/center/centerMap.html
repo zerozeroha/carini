@@ -1,144 +1,105 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+    Helios by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="utf-8">
-    <title>대리점center( KakaoMap.html )</title>
-    <link rel="stylesheet" href="/css/centerMap.css">
-    <!-- <link rel="stylesheet" href="../js/carini_script.js"> -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6176b21dbade8671d06887982700f4b5"></script>
-	<script th:inline="javascript">
-		var agencies = '[[${agency}]]';
-		var agenciesArray = JSON.parse(agencies);
-	</script>
-	</head>
-<style>
-.table-container {
-     display: flex; 
-    flex-direction: row;
-    align-items: center;
-    height: 100%;
-    overflow: auto;
-}    
-</style>
+    <title> 상세보기 - Helios by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/getBoard.css" />
+
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+
+</head>
 <body>
-	
-    <header>header</header>
+    <h2>위치 표시하기</h2>
 
-        <!--javascript api키 불러오기-->
-        
+    <!-- 지도를 표시할 div 입니다 -->
+    <div id="map" style="width:100%;height:550px;"></div>
 
-        <section class="SubTitle">CENTER_MAP</section>
-    
-        <div class="div">
-            <p id="SubTitle_Text">가까운 곳에서 찾을 수 있는 오직 당신만의 대리점</p>
-        </div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6176b21dbade8671d06887982700f4b5"></script>
 
-        <div class="div"><h3>with carini</h3></div>
+    <script th:inline="javascript">
+        // 이지스퍼블리싱 좌표 ( 예시 )
+        const lat = 33.450701;
+        const lng = 126.570667;
 
-        <div style="height: 100px;"></div><!--공간 띄우기 위한 박스-->
-    
+        // 지도를 표시할 div 
+        var mapContainer = document.getElementById('map'), 
+        mapOption = { 
+            // 지도의 중심좌표
+            center: new kakao.maps.LatLng(lat, lng), 
+            // 지도의 확대 레벨
+            level: 3 
+        };
 
-        <main>
-			
+        // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-            <div style="width: 65%; height: 100%;">
-				
-                <!-- 지도를 표시-->
-                <div id="map" \></div>
-				<!--지도-->
-				<script src="/js/centerMap.js" th:inline="javascript"></script>   
-				
-            </div>
+        // 마커 생성
+        var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+        marker.setMap(map);
 
-            <div class="search"  > <!--검색창 감싸는 박스-->
-				<form th:action="@{/center/search_address}" method="Post">
-                <div class="sub_search" style="height: 5%; "> <!--검색창 박스-->
+        // 마커 클릭 이벤트
+        var iwContent = '<div style="padding:15px; background-color:black; color:white;">카카오 입니다요</div>';
+        var iwRemoveable = true;
+        var infowindow = new kakao.maps.InfoWindow({
+            content: iwContent,
+            removable: iwRemoveable
+        });
 
-                        <select name="city" id="city" style="margin: 10px;">
-                            <option value="서울특별시">서울특별시</option>
-                            <option value="부산광역시">부산광역시</option>
-                            <option value="대구광역시">대구광역시</option>
-                            <option value="인천광역시">인천광역시</option>
-                            <option value="광주광역시">광주광역시</option>
-                            <option value="대전광역시">대전광역시</option>
-                            <option value="울산광역시">울산광역시</option>
-                            <option value="세종특별자치시">세종특별자치시</option>
-                            <option value="경기도">경기도</option>
-                            <option value="강원특별자치도">강원특별자치도</option>
-                            <option value="충청북도">충청북도</option>
-                            <option value="충청남도">충청남도</option>
-                            <option value="전북특별자치도">전북특별자치도</option>
-                            <option value="전라남도">전라남도</option>
-                            <option value="경상북도">경상북도</option>
-                            <option value="경상남도">경상남도</option>
-                            <option value="제주특별자치도">제주특별자치도</option>
-                        </select>
-                    
-                        <select name="gu" id="gu" place>
-                            <option value="강남구">강남구</option>
-                            <option value="강동구">강동구</option>
-                            <option value="강북구">강북구</option>
-                            <option value="강서구">강서구</option>
-                            <option value="관악구">관악구</option>
-                            <option value="광진구">광진구</option>
-                            <option value="구로구">구로구</option>
-                            <option value="금천구">금천구</option>
-                            <option value="노원구">노원구</option>
-                            <option value="도봉구">도봉구</option>
-                            <option value="동대문구">동대문구</option>
-                            <option value="동작구">동작구</option>
-                            <option value="마포구">마포구</option>
-                            <option value="서대문구">서대문구</option>
-                            <option value="서초구">서초구</option>
-                            <option value="성동구">성동구</option>
-                            <option value="성북구">성북구</option>
-                            <option value="송파구">송파구</option>
-                            <option value="양천구">양천구</option>
-                            <option value="영등포구">영등포구</option>
-                            <option value="용산구">용산구</option>
-                            <option value="은평구">은평구</option>
-                            <option value="종로구">종로구</option>
-                            <option value="중구">중구</option>
-                            <option value="중랑구">중랑구</option>
-                        </select>
-						<input type="submit" name="검색창" id="search" style="width: 50px; height: 50px; margin-right: 20px;" value="검색">
-                    </div>
-				</form>
-				<form th:action="@{/center/search_brand}" method="post">
-	                <div class="sub_search" style="height: 5%;"> <!--검색창 박스-->
-	
-	                    <input type="text" name="search_brand" id="search" style="width: 250px; height: 50px; margin: 10px;" placeholder="브랜드를 적어주세요!">
-	                    <input type="submit" name="검색창" id="search" style="width: 50px; height: 50px; margin-right: 20px;" value="검색">
-	                
-	                </div>
-				</form>
- 
+        kakao.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);  
+        });
 
-                <div class="sub_search" style="height: 100%; width: 150%;"> <!--검색창 박스-->
-                    <div class="table-container" style="height: 100%; overflow: scroll;">
-                        <table style="width: 120%;">
-                            <thead>
-                                <tr>
-                                    <th>BRAND</th>
-                                    <th>AGENCY</th>
-                                </tr>
-                            </thead>
-							<tbody>
-					            <tr th:each="agency : ${agency}">
-					                <td><img th:src="@{/img/carBrandLogo/{carBrand}.png(carBrand=${agency.carBrand})}" style="width:100%;" th:alt="${agency.carBrand}" /></td>
-					                <td th:text="${agency.agencyName}"></td>
-					            </tr>
-					        </tbody>
-                        </table>
-                    </div>
-                </div>
-                </div>
+        // 마커 클러스터러 생성
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map,
+            averageCenter: true,
+            minLevel: 10
+        });
 
-        </main>
-		  
-        
-	
-  
-<footer> <hr> footer </footer>
+        // 서버에서 전달받은 positions 데이터를 Thymeleaf를 통해 JavaScript 변수로 변환
+        /* <![CDATA[ */
+        var positions = /*[[${positions}]]*/ [];
+        /* ]]> */
+
+        var markers = [];
+        for (let i = 0; i < positions.length; i++) {
+            var marker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(positions[i].lat, positions[i].lng)
+            });
+            markers.push(marker);
+
+            var infowindow = new kakao.maps.InfoWindow({
+                content: positions[i].title
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+        }
+
+        function makeOverListener(map, marker, infowindow) {
+            return function() {
+                infowindow.open(map, marker);
+            };
+        }
+
+        function makeOutListener(infowindow) {
+            return function() {
+                infowindow.close();
+            };
+        }
+
+        clusterer.addMarkers(markers);
+    </script>
 </body>
 </html>

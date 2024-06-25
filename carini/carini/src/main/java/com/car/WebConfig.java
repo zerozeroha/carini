@@ -20,7 +20,6 @@ public class WebConfig implements WebMvcConfigurer{
 					"/find_pw","**.jpg","/find_id_code_check","/find_pw_code_check",
 					"/css/**", "/*.ico", "/error","/js/**","/img/**","/model/**","/script/**","/update_pw",
 					"/center/centerMap","/board/**","/api/naver/oauth","/api/kakao/oauth","/center/search_brand","/center/search_address", "/admin/**"
-
 			);
 	 }
 }

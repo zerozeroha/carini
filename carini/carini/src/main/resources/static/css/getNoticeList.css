@@ -250,7 +250,6 @@ table {
    background-attachment: fixed;
    color: #fff;
    text-align: center;
-   padding: 7.5em 0 2em 0;
    cursor: default
 }
 
@@ -427,7 +426,7 @@ footer img {
 
    #header {
       background-attachment: scroll;
-      padding: 2.5em 0 0 0
+
    }
 
    #main>header {
@@ -444,7 +443,7 @@ header {
    display: flex;
    justify-content: center;
    align-items: center;
-   padding-top: 10%
+
 }
 
 .container {
