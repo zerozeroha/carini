@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<!--
+    Helios by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> 상세보기 - Helios by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/updateBoard.css" />
+
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+	<style>
+		.field-error {
+		           border-color: #dc3545;
+		           color: #dc3545;
+		       }
+	
+	</style>
+</head>
+
+<body class="no-sidebar is-preload">
+
+    <div id="page-wrapper">
+
+        <!-- Main -->
+        <div class="wrapper style1">
+            <div class="container">
+                <p class="Notice_text"><br>_Edit_Notice</p>
+            
+		<form th:action="@{/admin/updateNotice}" th:object="${NoticeUpdateFormValidation}" method="post"  enctype="multipart/form-data" id="noticeForm" name="noticeForm">
+			<input name="noticeId" type="hidden" th:value="${notice.noticeId}">
+			<div style="display: flex; gap:10px;color:red;font-weight: 600;">
+				<div th:if="${#fields.hasErrors('noticeTitle')}">
+		            <p th:each="err : ${#fields.errors('noticeTitle')}" th:text="${err}" class="text-danger"></p>
+		        </div>
+				<div th:if="${#fields.hasErrors('noticeContent')}">
+		            <p th:each="err : ${#fields.errors('noticeContent')}" th:text="${err}" class="text-danger"></p>
+		        </div>
+			</div>
+            <table id="notice_info">
+                <tr>
+                    <td class="gangjo" th:text="#{notice.write.writer}"></td>
+                    <td><input type="text" name="noticeWriter" th:value="${ session.user.memberNickname }" disabled></td>
+					<td class="gangjo" th:text="#{notice.write.date}"></td>
+					<td><input type="text" name="noticeDate" th:value="${notice.noticeDate}" disabled></td>
+                </tr>
+               
+                <tr>
+                    <td colspan="1" class="gangjo" th:text="#{notice.write.title}"></td>
+					<td colspan="3"><input type="text" th:field="*{noticeTitle}" th:errorclass="field-error">
+	
+					</td>
+                </tr>
+				
+				<tr>
+	               <td class="gangjo" >기존파일</td>
+				   <td style="display: flex;">
+					<input type="text" th:field="${notice.noticeFilename}" disabled> 				   
+					<a href="#" th:onclick="deleteFile('[[${notice.noticeId}]]')">
+				   		<img th:src="@{/img/delete_icon.png}" alt="삭제 이미지" style="width:25px; height: 25px; opacity: 0.7;margin-top:20px;margin-left:10px;">
+				   	</a>
+				   </td>
+				   <td class="gangjo" >변경파일</td>
+				   <td ><input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile" aria-label="Upload" th:value="${notice.noticeFilename}"  th:disabled="${notice.noticeFilename != null}" onchange="toggleDeleteLink(this)"></td>
+           		</tr>
+
+                <tr>
+                    <td class="gangjo" colspan="4" th:text="#{notice.write.content}"></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="padding: 20px;">
+                        <textarea th:field="*{noticeContent}" th:errorclass="field-error" rows="15"  />
+                    </td>
+                </tr>
+            </table>
+
+            <div id="button_section">
+                
+                <div th:if="${notice.noticeFilename != null}" id="uploadFile_div">
+                    <a th:href="@{/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})}" id="uploadFile" class="icon-hover">
+                        <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
+                    </a>
+                    <a th:href="@{/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})}" th:text="${notice.noticeFilename}"></a>
+
+                </div>
+
+      			<div class="change_list">
+					<div style="width: 125px;" class="footer_btn1">
+                    	<a  onclick="document.forms['noticeForm'].submit();">수정하기</a>
+					</div>
+					<div style="width:85px;" class="footer_btn2">
+						<a th:href="@{/admin/noticeList}" th:text="#{board.list}" class="btn"></a>
+					</div>
+					<div style="width:85px;" class="footer_btn2">
+						<a th:href="@{/admin/deleteNotice(noticeId=${notice.noticeId})}">삭제</a>
+					</div>
+				</div>
+    		</div>
+		</form>
+    </div>
+</div>
+
+        <!-- Footer -->
+        <div id="footer">
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+   <hr style="">
+    <footer style="opacity: 50%;">
+        <!-- Contact -->            
+    <h1 >@ carini</h1>      
+    </footer>
+
+    <!-- Scripts -->
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/jquery.scrolly.min.js"></script>
+	<script src="/js/jquery.scrollex.min.js"></script>
+	<script src="/js/browser.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/util.js"></script>
+	<script src="/js/main.js"></script>
+	<script>
+		function deleteFile(noticeId) {
+		    if (confirm("정말로 파일을 삭제하시겠습니까?")) {
+		        fetch('/admin/deleteFile/' + noticeId, {
+		            method: 'POST',
+		            headers: {
+		                'Content-Type': 'application/json'
+		            }
+		        })
+		        .then(response => response.json())
+		        .then(result => {
+		            alert(result.message);
+		            if (result.status === 'success') {
+		                location.reload();
+		            }
+		        })
+		        .catch(error => {
+		            alert("파일 삭제 중 오류가 발생하였습니다: " + error);
+		        });
+		    }
+		}
+	</script>
+	<script>
+	function toggleDeleteLink(input) {
+	    var deleteLink = document.getElementById("deleteLink");
+	    if (input.value) {
+	        deleteLink.style.display = "block";
+	    } else {
+	        deleteLink.style.display = "none";
+	    }
+	}
+
+	// Initial check in case notice.noticeFilename is present on page load
+	document.addEventListener("DOMContentLoaded", function() {
+	    var uploadFile = document.getElementById("uploadFile");
+	    toggleDeleteLink(uploadFile);
+	});
+	</script>
+
+</body>
+
+</html>

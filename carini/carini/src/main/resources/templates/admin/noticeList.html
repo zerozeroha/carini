@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/getNoticeList.css" />
+    <script src="assets/script/getNoticelist_script.js" defer></script>
+    <link rel="stylesheet" href="/css/base.css" />
+   <link rel="stylesheet" href="/css/getNoticeList.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+    <style>
+        input[type="checkbox"] {
+            -webkit-appearance: checkbox;
+            -moz-appearance: checkbox;
+            appearance: checkbox;
+        }
+    </style>
+</head>
+
+<body class="no-sidebar is-preload">
+
+    <div id="page-wrapper">
+   
+        <!-- Header -->
+        <!--<div th:replace="~{base/base :: header}"></div>-->
+
+
+        <!-- Main -->
+        <div class="wrapper style1">
+            <div class="container">
+                <div id="my_board_box">
+                    <form th:action="@{/admin/noticeList}" method="get">
+                        <input type="hidden" id="curPage" name="curPage" th:value="0">
+                        <input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
+                        <span>
+                            <span th:text="#{board.total.start}"></span>
+                            <span th:text="${pagedResult.getTotalElements()}"></span>
+                            <span th:text="#{board.total}"></span>
+                        </span>
+
+
+                        <div class="Board">
+                            <select class="form-select" id="searchType" name="searchType">
+                                <option class="select_options" value="noticeTitle" th:selected="${st=='noticeTitle'}"
+                                    th:text="#{board.search.title}"></option>
+                                <option class="select_options" value="noticeContent"
+                                    th:selected="${st =='noticeContent'}" th:text="#{board.search.content}"></option>
+                            </select>
+                            <div>
+                                <input id="text_box" name="searchWord" type="text" th:placeholder="|#{board.search.title} ">
+                            </div>
+                            <div>
+                                <input id="search_button" type="submit" name="검색" class="gradient" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                    <table border="1">
+                        <tr>
+                            <th class="center ellipsis" style="width: 10%;" th:text="#{label.id}">번호</th>
+                            <th class="center ellipsis" style="width: 30%;" th:text="#{label.title}">제목</th>
+                            <th class="center ellipsis" style="width: 20%;" th:text="#{label.date}">등록일</th>
+                            <th class="center ellipsis" style="width: 10%;" th:text="#{label.file}">파일</th>
+                            <th class="center ellipsis" style="width: 10%;" th:text="#{label.cnt}">조회수</th>
+                        </tr>
+                        <tr th:each="notice, state : ${pagedResult.getContent()}">
+                            <td class="ellipsis" style="width: 10%; text-align: center;"
+                                th:text="${notice.noticeId}"></td>
+                            <td class="ellipsis" style="width: 30%; text-align: center;"><a
+                                    class="Board-hover"
+                                    th:href="@{/admin/updateNotice(noticeId=${notice.noticeId})}"
+                                    th:text="${notice.noticeTitle}"></a></td>
+                            <td class="ellipsis" style="width: 20%; text-align: center;"
+                                th:text="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}"></td>
+                            <td class="ellipsis" style="width: 10%; text-align: center;"><img
+                                    src="/img/board_clip.png" style="height: 15px;"
+                                    th:if="${notice.noticeFilename != null && !notice.noticeFilename.isEmpty()}"></td>
+                            <td class="ellipsis" style="width: 10%; text-align: center;"
+                                th:text="${notice.noticeCnt}"></td>
+                        </tr>
+                    </table>
+                </div>
+				<a th:href="@{/admin/insertNotice}" th:text="#{admin.notice.insert}"></a>
+				
+				
+				<!-- PAGINATION -->
+                <div class="center">
+                    <ul class="col pagination justify-content-center"
+                        style="list-style-type: none; display: flex; justify-content: center; width: 130%;">
+                        <th:block th:if="${sp > ps}">
+                            <li class="page-item"><a class="Board-hover page-link"
+                                    th:href="@{/admin/noticeList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                                    th:text="#{page.prev}"></a></li>
+                        </th:block>
+						
+                        <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+                            <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+                                <a class="page-link"
+                                    th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+                                    th:href="@{/admin/noticeList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                                    th:text="${page}"></a>
+                            </li>
+                        </th:block>
+
+                        <th:block th:if="${ep lt tp}">
+                            <li class="page-item"><a class="Board-hover page-link"
+                                    th:href="@{/admin/noticeList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                                    th:text="#{page.next}"></a></li>
+                        </th:block>
+                    </ul>
+                </div><!-- pagination -->
+            </div>
+        </div>
+        <!-- Footer -->
+        <div th:replace="~{base/base :: footer}"></div>-->
+    </div>
+   
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.dropotron.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/browser.min.js"></script>
+    <script src="/js/breakpoints.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+
+</body>
+
+</html>
