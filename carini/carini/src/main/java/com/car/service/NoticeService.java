@@ -16,5 +16,9 @@ public interface NoticeService {
 	Notice getNoticebyId(Long noticeId);
 	List<Notice> noticeList();
 	
+	void insertNotice(Notice notice);
+	void updateNotice(Notice notice);
+	void deleteNoticeById(Long noticeId);
+	
 	
 }
