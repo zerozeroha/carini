@@ -1,5 +1,6 @@
 package com.car.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -114,10 +115,10 @@ public class MypageController {
 	 */
 	@GetMapping("/myinfo")
 	public ResponseEntity<Map<String, Object>> myinfo(@RequestParam("user_password") String memberPw,
-			@ModelAttribute("member") Member members, HttpServletRequest request) {
-		
+			@ModelAttribute("member") Member members, HttpServletRequest request,HttpSession session) {
 		Map<String, Object> response = new HashMap<>();
-		Member member = memberService.findByMemberId(members.getMemberId());
+		Member user = (Member) session.getAttribute("user");
+		Member member = memberService.findByMemberId(user.getMemberId());
 		Locale locale = localeResolver.resolveLocale(request);
 		
 		if (member != null && member.getMemberPw().equals(memberPw)) {
@@ -178,7 +179,8 @@ public class MypageController {
 	public String myInfoNicknameUpdate(@ModelAttribute("member") Member members,
 			@RequestParam("memberNickname") String memberNickname, Model model, HttpSession session,
 			HttpServletRequest request) {
-		Member member = memberService.findByMemberId(members.getMemberId());
+		Member user = (Member) session.getAttribute("user");
+		Member member = memberService.findByMemberId(user.getMemberId());
 		List<Member> memberList = memberService.findAllMember();
 		Locale locale = localeResolver.resolveLocale(request);
 
@@ -369,7 +371,7 @@ public class MypageController {
 
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
-    
+
 		bookMarkService.insertMember(bookmark,user);
 		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
@@ -379,12 +381,10 @@ public class MypageController {
 	
 	@GetMapping("/bookmark/{carId}")
 	public String myPagebookmarkAddGet(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
-
 		
 		Locale locale = localeResolver.resolveLocale(request);
 
 		Member user = (Member) session.getAttribute("user");
-
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
 		
@@ -506,27 +506,27 @@ public class MypageController {
 	 @PostMapping("/updateBoard")
 	   public String updateBoard(Board board, Model model,
 			   @Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation ,
-			   BindingResult bindingResult)  {
+			   BindingResult bindingResult) throws IllegalStateException, IOException  {
 	     
 		 if (bindingResult.hasErrors()) {
 
 		       return "mypage/updateMyBoard";
 		    }
-	      
-	      // 파일재업로드
+
+		 
 	      MultipartFile uploadFile = board.getUploadFile();
-	      if(uploadFile != null && !uploadFile.isEmpty()) {
+
+	      if(!uploadFile.isEmpty()) {
 	         String fileName = uploadFile.getOriginalFilename();
-	         Path filePath = Paths.get(uploadFolder + fileName);
-	         try {
-	            Files.copy(uploadFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-	               board.setBoardFilename(fileName);
-	         } catch (IOException e) {
-	            e.printStackTrace();
-	         }         
+	         
+	         uploadFile.transferTo(new File(uploadFolder + fileName));
+	         board.setBoardFilename(fileName);
+	         board.setBoardTitle(boardValidation.getBoardTitle());
+	         board.setBoardContent(boardValidation.getBoardTitle());
+
 	      }
-	      
-	      boardService.updateBoard(board);
+
+	      	boardService.updateBoard(board);
 	        model.addAttribute("msg", "게시글이 수정되었습니다!");
 	        model.addAttribute("url", "/mypage/myBoard/getBoard?boardId=" + board.getBoardId());
 	        return "alert";

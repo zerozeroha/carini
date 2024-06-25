@@ -160,7 +160,6 @@ public class ModelController {
     	
     	CarBrand carBrand = modelService.getURLbrBrand(carBrandName);
     	
-    	System.out.println(carBrand);
     	
     	model.addAttribute("car", car);
     	model.addAttribute("carBrand", carBrand);
