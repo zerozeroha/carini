@@ -5,6 +5,8 @@
 </head>
 <body>
     <h1>Member List</h1>
+	<a th:href="@{/admin/insertMember}">멤버 추가</a>
+	
     <table border="1">
         <tr>
             <th>memberId</th>
@@ -19,7 +21,7 @@
             <th>memberSocialNickname</th>
         </tr>
         <tr th:each="member : ${memberList}">
-            <td><a th:href="@{admin/updateMember(memberId=${member.memberId})}"th:text="${member.memberId}"></a></td>
+            <td><a th:href="@{/admin/updateMember(memberId=${member.memberId})}"th:text="${member.memberId}"></a></td>
             <td th:text="${member.memberPw}"></td>
             <td th:text="${member.memberName}"></td>
             <td th:text="${member.memberNickname}"></td>
@@ -29,7 +31,6 @@
             <td th:text="${member.memberSocial}"></td>
             <td th:text="${member.memberRole}"></td>
             <td th:text="${member.memberSocialNickname}"></td>
-
         </tr>
     </table>
 </body>

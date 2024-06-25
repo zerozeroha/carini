@@ -105,7 +105,7 @@ public class MypageController {
 		findmember.setMemberPhoneNum("***-****-****");
 		findmember.setMemberEmail("****@****.***");
 	    session.setAttribute("originalUrl", request.getRequestURI());
-		session.setAttribute("user", findmember);
+		session.setAttribute("hiddenuser", findmember);
 		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/mypageview.html";
 	}
@@ -146,25 +146,13 @@ public class MypageController {
 	}
 
 	@GetMapping("/myinfo_edit")
-	public String myinfo_edit(@ModelAttribute("member") Member members, HttpSession session) {
+	public String myinfo_edit(HttpSession session) {
 
-		
-		Member findmember = memberService.findMember(members.getMemberId());
-		session.setAttribute("user", findmember);
 		return "mypage/myinfo_edit.html";
 	}
 
 	@GetMapping("/myinfo_social_edit")
 	public String myinfo_social_edit(@ModelAttribute("member") Member members, HttpSession session) {
-
-		Member findMember = (Member) session.getAttribute("user");
-		if (findMember.getMemberSocial() == "naver") {
-			findMember = memberService.findByMemberId(findMember.getMemberId().replace("\"", ""));
-		} else {
-			findMember = memberService.findByMemberId(findMember.getMemberId().replace("\"", ""));
-		}
-
-		session.setAttribute("user", findMember);
 
 		return "mypage/myinfo_edit.html";
 	}
@@ -371,6 +359,7 @@ public class MypageController {
 
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
+
 		bookMarkService.insertMember(bookmark,user);
 		
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));

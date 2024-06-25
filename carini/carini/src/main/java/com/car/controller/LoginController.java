@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestAttributes;
@@ -61,16 +62,19 @@ public class LoginController {
 	}
     
     /*세션 초기화 */
-	@GetMapping("/")
+	@RequestMapping("/")
 	public String backhome(HttpServletRequest request) {
-		// 세션을 삭제
-		HttpSession session = request.getSession(false);
-		// session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
-		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
-		if (session != null) {
-			session.invalidate();
-		}
-		return "index.html";
+	    // 세션을 삭제
+	    HttpSession session = request.getSession(false);
+	    // session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
+	    // 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
+	    if (session != null) {
+	        session.invalidate();
+	        System.out.println("세션이 무효화되었습니다.");
+	    } else {
+	        System.out.println("세션이 존재하지 않습니다.");
+	    }
+	    return "index.html";
 	}
     
     /*
@@ -188,13 +192,27 @@ public class LoginController {
 			return "member/login";
 		}
 		
+		
+		
 	     // 사용자가 존재하고 비밀번호가 일치하는지 확인
 	     if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
-	    	 findmember.setMemberPw("*****");
-	    	 findmember.setMemberPhoneNum("***-****-****");
-	    	 findmember.setMemberEmail("****@****.***");
+
 	    	 // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 	    	 session.setAttribute("user", findmember);
+	    	 
+	    	 if(redirectURL.contains("/mypage/bookmark/")) {
+	    		 return "redirect:/model/getModelList";
+	    	 }
+	    	 
+	    	 if(redirectURL.contains("/board/getBoard")) {
+	    		 return "redirect:/board/getBoardList";
+	    	 }
+	    	 /* 차 상세보기 즐겨찾기 해결하는 부분
+	    	 if(redirectURL.contains("/mypage/bookmark/")) {
+	    		 return "redirect:/model/getModelList";
+	    	 }
+	    	 */
+	    	 
 	    	 return "redirect:"+redirectURL;
 	     }else{
 	    	 bindingResult.rejectValue("memberPw",null, "비밀번호가 일치하지 않습니다.");

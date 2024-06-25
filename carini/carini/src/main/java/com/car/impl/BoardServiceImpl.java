@@ -1,5 +1,6 @@
 package com.car.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -80,9 +81,8 @@ public class BoardServiceImpl implements BoardService{
 		findBoard.setBoardContent(board.getBoardContent());
 		 // 새 파일이 업로드되었을 때만 파일명 변경
         if(board.getUploadFile() != null && !board.getUploadFile().isEmpty()) {
-        	String fileName;
 			try {
-				fileName = saveFile(board.getUploadFile());
+				String fileName = saveFile(board.getUploadFile());
 				findBoard.setBoardFilename(fileName);
 			} catch (IOException e) {
 				throw new RuntimeException("파일 저장 중 오류가 발생했습니다: " + e.getMessage(), e);
@@ -93,22 +93,26 @@ public class BoardServiceImpl implements BoardService{
 	
 	private String saveFile(MultipartFile file) throws IOException {
 	    if (file == null || file.isEmpty()) {
-	        throw new IllegalArgumentException("파일이 없습니다.");
+	        throw new IOException("파일이 없습니다.");
 	    }
 
-	    Path uploadPath = Paths.get(uploadFolder);
+	    String fileName = file.getOriginalFilename();
+	    Path filePath = Paths.get(uploadFolder, fileName);
+	    File directory = new File(uploadFolder);
 
-	    // 파일 이름 충돌 방지를 위한 타임스탬프 추가
-	    String originalFilename = file.getOriginalFilename();
-	    String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-	    String newFilename = System.currentTimeMillis() + extension;
+	    if (!directory.exists()) {
+	        if (!directory.mkdirs()) {
+	            throw new IOException("디렉토리를 생성할 수 없습니다: " + uploadFolder);
+	        }
+	    }
 
-	    Path filePath = uploadPath.resolve(newFilename);
+	    // 파일 경로와 파일명을 로그로 출력
+	    System.out.println("파일 저장 경로: " + filePath.toString());
+	    System.out.println("파일명: " + fileName);
 
-	    // 파일 저장
 	    Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-	    return newFilename;
+	    return fileName;
 	}
 	
 
