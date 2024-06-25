@@ -5,6 +5,8 @@
 </head>
 <body>
     <h1>Member List</h1>
+	<a th:href="@{/admin/insertMember}">멤버 추가</a>
+	
     <table border="1">
         <tr>
             <th>memberId</th>
@@ -29,7 +31,6 @@
             <td th:text="${member.memberSocial}"></td>
             <td th:text="${member.memberRole}"></td>
             <td th:text="${member.memberSocialNickname}"></td>
-
         </tr>
     </table>
 </body>

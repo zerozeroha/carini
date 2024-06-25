@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.RequestAttributes;
@@ -61,7 +62,7 @@ public class LoginController {
 	}
     
     /*세션 초기화 */
-	@GetMapping("/")
+	@RequestMapping("/")
 	public String backhome(HttpServletRequest request) {
 		// 세션을 삭제
 		HttpSession session = request.getSession(false);
