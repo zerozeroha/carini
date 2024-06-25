@@ -1,596 +1,391 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+
 <head>
 <title> getModelList.html </title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">   
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
-	   integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
-	   crossorigin="anonymous">
-	<link rel="stylesheet" href="/css/getModelLsit.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">   
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
+      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
+      crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script th:inline="javascript" src="/js/getModelList.js"></script>
+   <link rel="stylesheet" href="/css/getModelList.css">
+
+   <style>
+      /* css에서 안 먹어서 따로 기재 */
+      table {
+         width: 60%;
+         font-size: 18px;
+         text-align: center;
+         border-collapse: collapse;
+         border-top: 1px solid black;
+         border-bottom: 1px solid black;
+         font-weight: 900;
+      }
+      tr,
+      td {
+         border-top: 1px solid black;
+         border-bottom: 1px solid black;
+      }
+
+      th {
+         background-color: black;
+         color: white;
+         font-size: 1.3rem;
+         border-top: 1px solid black;
+         border-bottom: 1px solid black;
+      }
+   </style>
+
 </head>
 
-<style>
-#priceSlider {
-    height: 10px;
-}
-#priceSlider 
-	.slider-container {
-	    width: 300px;
-	    position: relative;
-	    text-align: center;
-	}
-
-input[type="range"] {
-    width: 100%;
-    position: absolute;
-    pointer-events: none;
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    pointer-events: all;
-    position: relative;
-    z-index: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 20px;
-    width: 20px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-input[type="range"]:nth-of-type(2) {
-    z-index: 2;
-}
-
-.price-display {
-    margin-top: 60px;
-    font-size: 1.2em;
-}
-#priceSlider .noUi-connect {
-    background: rgb(204, 219, 232);
-}
-
-#priceSlider .noUi-handle {
-    height: 18px;
-    width: 18px;
-    top: -5px;
-    right: -9px; /* half the width */
-    border-radius: 9px;
-}
-
-
-#comparisonTable {
-    table-layout: fixed;
-    width: 100%;
-}
-
-#comparisonTable th, #comparisonTable td {
-    text-align: center; /* 중앙 정렬 */
-}
-
-#comparisonTable th:nth-child(1), #comparisonTable td:nth-child(1) {
-    width: 45%; /* 첫 번째 열 너비 */
-}
-
-#comparisonTable th:nth-child(2), #comparisonTable td:nth-child(2) {
-    width: 10%; /* 두 번째 열 너비 */
-}
-
-#comparisonTable th:nth-child(3), #comparisonTable td:nth-child(3) {
-    width: 45%; /* 세 번째 열 너비 */
-}
-
-/* 고정된 표의 행 높이 설정 */
-#comparisonTable tbody tr {
-    height: 50px; /* 원하는 높이로 변경 */
-}
-
-canvas[id^="car1Chart"],
-canvas[id^="car2Chart"] {
-    height: 20px;
-	align-items: center;
-	justify-content: center;
-}
-
-#carCombineRadarChartTR {
-    display: none;
-}
-
-
-#comparisonTable td {
-    text-align: center; /* Center align text and elements inside td */
-    vertical-align: middle; /* Vertically align elements to the middle */
-}
-
-#carRadarChart td canvas,
-#carCombineRadarChart {
-    display: block; /* Ensure canvas is a block element */
-    margin-left: auto; /* Center canvas horizontally */
-    margin-right: auto; /* Center canvas horizontally */
-}
-
-
-</style>
 <body>
-	<div id="page-wrapper" >
-	     <!-- Header -->
-		 <div id="header">
-	         <!-- Inner -->
-	         <div class="inner">
-	             <header>
-	                 <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-	             </header>
-	         </div>
-	         <!-- Nav -->
-	         <nav id="nav">
-	             <ul>
-	                 <li><a th:href="@{/board/getBoardList}">Board</a>
-						<ul>
-	                         <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver" >커뮤니티</a></li>
-	                         <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a></li>
-	                     </ul>	
-					</li>
-	                 <li><a th:href="@{/model/getModelList}">Model</a></li>
-	                 <li><a href="Center.html">Center</a></li>
-	                 <li>
-	                     <a>MyPage</a>
-	                     <ul>
-	                         <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver" th:text="#{side.menu1}"></a></li>
-	                         <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver" th:text="#{side.menu2}"></a></li>
-	                         <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver" th:text="#{side.menu3}"></a></li>
-	                     </ul>
-	                 </li>
-	             </ul>
-	         </nav>
-	     </div>
-		 
-<!-- Main -->
-<main>
-   <h1>_Model</h1>   
+   <header th:replace="~{base/base :: header}"></header>
+
+   <section class="SubTitle">SELECT_MODEL</section>
+
+   <div class="div">
+      <p id="SubTitle_text">간편한 비교, 편리한 선택</p>
+   </div>
+
+   <div class="div">
+      <h3>with carini</h3>
+   </div>
+
+   <div style="height: 50px;"></div> <!--간격박스-->
+
    <!-- 필터링 폼 -->
-   <form th:action="@{/model/getModelList}" method="get">
-		<div class="form-group row">
-	        <label for="filterPrice" class="col-sm-2 col-form-label">가격 범위 설정:</label>
-	        <div class="col-sm-10 filterPrice">
-	            <div id="priceSlider"></div>
-				<input type="hidden" class="form-control" id="filterMinPrice" name="filterMinPrice">
-				<input type="hidden" class="form-control" id="filterMaxPrice" name="filterMaxPrice">
-				<span style="text-align: justify;">0원 22억원</span>
-			</div>
-			
-	    </div>
-         <div class="form-group row">
-             <label for="filterSize" class="col-sm-2 col-form-label">자동차 크기:</label>
-             <div class="col-sm-10">
-                 <select class="form-select" id="filterSize" name="filterSize">
-                     <option selected>선택안함</option>
-                     <option>경형</option>
-                     <option>소형</option>
-                     <option>중형</option>
-                     <option>준중형</option>
-                     <option>대형</option>
-                     <option>준대형</option>
-                 </select>
-             </div>
-         </div>
-         <div class="form-group row">
-             <label for="filterFuel" class="col-sm-2 col-form-label">자동차 연료 타입:</label>
-             <div class="col-sm-10">
-                 <select class="form-select" id="filterFuel" name="filterFuel">
-                     <option selected>선택안함</option>
-                     <option>가솔린</option>
-                     <option>디젤</option>
-                     <option>전기</option>
-                     <option>하이브리드</option>
-                     <option>LPG</option>
-                 </select>
-             </div>
-         </div>
-         <div class="form-group row">
-             <label for="carSort" class="col-sm-2 col-form-label">정렬:</label>
-             <div class="col-sm-10">
-                 <select class="form-select" id="carSort" name="carSort">
-                     <option selected>저가순</option>
-                     <option>고가순</option>
-                     <option>이름순</option>
-                 </select>
-             </div>
-         </div>
-         <div class="form-group row">
-             <label for="carName" class="col-sm-2 col-form-label">이름:</label>
-             <div class="col-sm-10">
-                 <input name="searchWord" type="text">
-             </div>
-         </div>
-         <div class="form-group row">
-             <div class="col-sm-10">
-                 <button type="submit" class="btn">필터 적용</button>
-             </div>
-         </div>
-     </form>
-	
-	 <!-- 카드 박스 반복 -->
-	 <div class="card_box" id="first_card_box">
-	     <div class="card" style="width: 18rem; max-height: 23rem;" th:each="car : ${carList}">
-			<a href="#" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" style="cursor: pointer;" id="goToComparison">
-				<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
-			</a>
-	         <div class="card-body">
-	             <h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
-	             <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
-	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
-	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
-	             <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|"></p>
-	             <div class="card_button_box" style="margin-top: 20px; font-size: 15px;">
-	                 <a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;" class="btn">자세히 보기</a>
-	                 <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
-	                      th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
-	                      th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
-	                      style="cursor: pointer; width: 16px; height: 16px;" alt="즐겨찾기 버튼">
-	             </div>
-	         </div>
-	     </div>
-	 </div>
-	 
-	 <!--pagination-->
- 	<div>
- 		<ul class="col pagination justify-content-center">	
- 			<th:block th:if="${sp > ps}">
- 				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
- 			</th:block>
- 			
- 			<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
- 			  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
- 			    <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
- 			       th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
- 			       th:text="${page}"></a>
- 			  </li>
- 			</th:block>
- 			
- 			<th:block th:if="${ ep lt tp }">
- 				<li class="page-item"><a th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
- 			</th:block>
- 		</ul>
- 	</div>
- 
-	<!-- Comparison Section -->
-	<div id="comparisonSection" style="margin-top: 30px; display: none;">
-	    <h2>차 비교</h2>
-	    <table id="comparisonTable" class="table table-bordered">
-	        <thead>
-	            <tr>
-	                <td><span id="car1Name" style="font-weight: bold;"></span>
-						<a href="#" onclick="removeCarFromComparison(1)">
-							<img src="/img/cancel.png" alt="삭제" style="height: 16px; width: 16px; opacity: 0.5;" />
-						</a>
-					</td>
-	                <th></th>
-	                <td><span id="car2Name" style="font-weight: bold;"></span>
-						<a href="#" onclick="removeCarFromComparison(2)">
-							<img src="/img/cancel.png" alt="삭제" style="height: 16px; width: 16px; opacity: 0.5;"/>
-						</a>
-					</td>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td><img id="car1Img" class="img-fluid" alt="이미지"></td>
-	                <td>이미지</td>
-	                <td><img id="car2Img" class="img-fluid" alt="이미지"></td>
-	            </tr>
-	            <tr>
-	                <td><span id="car1Price"></span>만원</td>
-					<td>가격</td>
-	                <td><span id="car2Price"></span>만원</td>
-	            </tr>
-	            <tr>
-	                <td id="car1Size"></td>
-					<td>크기</td>
-	                <td id="car2Size"></td>
-	            </tr>
-	            <tr>
-	                <td id="car1Fuel"></td>
-					<td>연료</td>
-	                <td id="car2Fuel"></td>
-	            </tr>
-	            <tr>
-	                <td id="car1Eff"></td>
-					<td>연비</td>
-	                <td id="car2Eff"></td>
-	            </tr>
-				<tr id="carRadarChart">
-					<td text-align: center;><canvas id="car1RadarChart"></canvas></td>
-					<td>RadarChart<br />
-						<button onclick="combineRadarChart()" class="btn">combine</button>
-					</td>
-					<td><canvas id="car2RadarChart"></canvas></td>
-				</tr>
-				<tr id="carCombineRadarChartTR">
-					<td colspan="3" style="text-align: center;">
-						<canvas id="carCombineRadarChart"></canvas>
-						<button onclick="returnChart()" class="btn">return</button>
-					</td>
-				</tr>
-	        </tbody>
-	    </table>
-	</div>
-</main>
->>>>>>> ef1020465c2ba1c15adf98d63b5ea4930a27ddbb
 
-<section class="SubTitle">SELECT_MODEL</section>
+   <!-- Main -->
+   <main>
+      <form th:action="@{/model/getModelList}" method="get">
 
-<div class="div">
-    <p id="SubTitle_text">간편한 비교, 편리한 선택</p>
-</div>
+         <div class="flex-container_column">
 
-<div class="div">
-    <h3>with carini</h3>
-</div>
+            <div class="flex-container_row">
 
-<div style="height: 50px;"></div> <!--간격박스-->
+               <div class="div">
+                  <h3>- CAR THAT YOU WANT -</h3>
+               </div>
+               <div style="height: 10px;"></div> <!--간격박스-->
+               <div style="display: flex; flex-direction: row;">
+                  <input name="searchWord" placeholder=" 검색" type="text"
+                     style="width: 300px; height: 40px; padding-left: 10px;">
+                  <input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
+               </div>
 
-<!-- 필터링 폼 -->
-<form th:action="@{/model/getModelList}" method="get">
-    <!-- Main -->
-    <main>
-        <div class="flex-container_row">
-            <div class="flex-container_column">
-                <div class="div">
-                    <h3>- CAR THAT YOU WANT -</h3>
-                </div>
-                <div style="height: 15px;"></div> <!--간격박스-->
+               <div style="height: 50px;"></div> <!--간격박스-->
 
-                <table>
-                    <thead>
-                    <th>구분</th>
-                    <th>범위</th>
-                    </thead>
 
-                    <tbody>
-                    <tr>
+               <table>
+
+                  <thead>
+                     <th>구분</th>
+                     <th>범위</th>
+                  </thead>
+
+                  <tbody>
+                     <tr>
                         <td>가격범위</td>
                         <td>
-                            <div>
-                                <div id="priceSlider"></div>
-                                <input type="hidden" class="form-control" id="filterMinPrice" name="filterMinPrice">
-                                <input type="hidden" class="form-control" id="filterMaxPrice" name="filterMaxPrice">
-                                <span id="priceDisplay" style="text-align: justify;">
-                                    "filterMinPrice"원
-                                    "filterMaxPrice"원
-                                </span>
-                            </div>
-                            <script>
-                                // priceSlider 초기화
-                                var priceSlider = document.getElementById('priceSlider');
-                                noUiSlider.create(priceSlider, {
-                                    start: [0, 50000], // 시작 가격 범위
-                                    connect: true,
-                                    range: {
-                                        'min': 0,
-                                        'max': 50000
+                           <div>
+                              <div id="priceSlider"></div>
+                              <input type="hidden" class="form-control" id="filterMinPrice"
+                                 name="filterMinPrice">
+                              <input type="hidden" class="form-control" id="filterMaxPrice"
+                                 name="filterMaxPrice">
+                              <span id="priceDisplay" style="text-align: justify;">
+                                 "filterMinPrice"원
+                                 "filterMaxPrice"원</span>
+                           </div>
+                           <script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
+                              // priceSlider 초기화
+                              var priceSlider = document.getElementById('priceSlider');
+                              noUiSlider.create(priceSlider, {
+                                 start: [0, 50000], // 시작 가격 범위
+                                 connect: true,
+                                 range: {
+                                    'min': 0,
+                                    'max': 50000
+                                 }
+                              });
+
+                              // slider 값이 변경될 때마다 호출되는 함수
+                              priceSlider.noUiSlider.on('update', function (values, handle) {
+                                 var minPrice = Math.round(values[0]);
+                                 var maxPrice = Math.round(values[1]);
+
+                                 // input 태그 값 업데이트
+                                 document.getElementById('filterMinPrice').value = minPrice;
+                                 document.getElementById('filterMaxPrice').value = maxPrice;
+
+                                 // 단위 변환 함수
+                                 // Math.floor : 주어진 숫자보다 크지 않은 가장 큰 정수를 반환(=소수점 이하 자리를 버리고 정수 부분만 남김)
+                                 function formatPrice(price) {
+                                    if (price >= 10000) {
+                                       return Math.floor(price / 10000) + "억 " + (price % 10000) + "만원";
                                     }
-                                });
+                                    return price + "만원";
+                                 }
 
-                                // slider 값이 변경될 때마다 호출되는 함수
-                                priceSlider.noUiSlider.on('update', function (values, handle) {
-                                    var minPrice = Math.round(values[0]);
-                                    var maxPrice = Math.round(values[1]);
-
-                                    // input 태그 값 업데이트
-                                    document.getElementById('filterMinPrice').value = minPrice;
-                                    document.getElementById('filterMaxPrice').value = maxPrice;
-
-                                    // 단위 변환 함수
-                                    function formatPrice(price) {
-                                        if (price >= 10000) {
-                                            return Math.floor(price / 10000) + "억 " + (price % 10000) + "만원";
-                                        }
-                                        return price + "만원";
-                                    }
-
-                                    // span 태그 값 업데이트
-                                    document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
-                                });
-                            </script>
-
-                            <input type="checkbox"> 5억 이상 <!--자동차 가격이 너무 차이나서 5억 이상은 따로 처리-->
+                                 // span 태그 값 업데이트
+                                 document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
+                              });
+                           </script>
+                           <input type="checkbox"> 5억 이상
                         </td>
-                    </tr>
+                     </tr>
 
-                    <tr>
+                     <tr>
                         <td>자동차 크기</td>
                         <td>
-                            <select class="form-select" id="filterSize" name="filterSize">
-                                <option value="" selected>선택안함</option>
-                                <option>경형</option>
-                                <option>소형</option>
-                                <option>중형</option>
-                                <option>준중형</option>
-                                <option>대형</option>
-                                <option>준대형</option>
-                            </select>
+                           <select class="form-select" id="filterSize" name="filterSize">
+                              <option selected>선택안함</option>
+                              <option>경형</option>
+                              <option>소형</option>
+                              <option>중형</option>
+                              <option>준중형</option>
+                              <option>대형</option>
+                              <option>준대형</option>
+                           </select>
                         </td>
-                    </tr>
+                     </tr>
 
-                    <tr>
-                        <td>자동차 연료 타입</td>
+                     <tr>
+                        <td>자동차 연료</td>
                         <td>
-                            <select class="form-select" id="filterFuel" name="filterFuel">
-                                <option value="" selected>선택안함</option>
-                                <option>가솔린</option>
-                                <option>디젤</option>
-                                <option>전기</option>
-                                <option>하이브리드</option>
-                                <option>LPG</option>
-                            </select>
+                           <select class="form-select" id="filterFuel" name="filterFuel">
+                              <option selected>선택안함</option>
+                              <option>가솔린</option>
+                              <option>디젤</option>
+                              <option>전기</option>
+                              <option>하이브리드</option>
+                              <option>LPG</option>
+                           </select>
                         </td>
-                    </tr>
+                     </tr>
 
-                    <tr>
+                     <tr>
                         <td>정렬</td>
                         <td>
-                            <select class="form-select" id="carSort" name="carSort">
-                                <option value="low" selected>저가순</option>
-                                <option value="high">고가순</option>
-                                <option value="name">이름순</option>
-                            </select>
+                           <select class="form-select" id="carSort" name="carSort">
+                              <option selected>저가순</option>
+                              <option>고가순</option>
+                              <option>이름순</option>
+                           </select>
                         </td>
-                    </tr>
-                    </tbody>
-                </table>
+                     </tr>
 
-                <div style="height: 50px;"></div> <!--간격박스-->
 
-                <button type="submit" style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER</button>
+                  </tbody>
 
-                <div style="height: 50px;"></div> <!--간격박스-->
+               </table>
+
+               <div style="height: 50px;"></div> <!--간격박스-->
+
+               <button type="submit" style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER
+               </button>
+      </form>
+      </div>
+
+      <div style="height: 50px;"></div> <!--간격박스-->
+
+
+
+
+
+
+
+      <!--자동차LIST-->
+      <div class="flex-container_row" style="margin-left: 7%; width: 110%;">
+
+         <!-- 카드 박스 반복-->
+         <div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
+            <div class="card" style="width: 20rem; max-height: 23rem;" th:each="car : ${carList}">
+               <a href="" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" style="cursor: pointer;"
+                  id="goToComparison">
+                  <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지" style="border:0px;">
+               
+               <div class="card-body">
+                  <h5 class="card-title" style="font-size: 20px; font-weight: 900; background-color: whitesmoke;"
+                     th:text="${car.carName}"></h5>
+                  <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;"
+                     th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
+                  <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
+                  <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
+                  <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|"></p>
+                  <div class="card_button_box" style="margin-top: 20px; margin-left: 60px; font-size: 15px;">
+                     <a th:href="@{/model/getModel(carId=${car.carId})}" class="btn">자세히 보기</a>
+                     <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
+                        th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
+                        th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
+                        style="cursor: pointer; width: 16px; height: 16px;" alt="즐겨찾기 버튼">
+                  </div>
+               </div>
+               </a>
             </div>
-        </div>
-    </main>
-</form>
+         </div>
+      </div>
 
-<!-- 카드 박스 반복 -->
-<div class="flex-container_row" style="width: 150%; border: 1px solid whitesmoke;">
-    <div class="card_box" id="first_card_box" th:each="car : ${carList}">
-        <div class="card" style="width: 18rem; max-height: 23rem;">
-            <a href="#" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" style="cursor: pointer;" id="goToComparison">
-                <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
-                <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;" th:text="'가격 : ' + ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')} + '만원'"></p>
-                <p class="card-text" style="font-size: 15px; height: 10px;" th:text="'크기 : ' + ${car.carSize}"></p>
-                <p class="card-text" style="font-size: 15px; height: 10px;" th:text="'연료 : ' + ${car.carFuel}"></p>
-                <p class="card-text" style="font-size: 15px; height: 10px;" th:text="'연비 : ' + ${car.carEff}"></p>
-                <div class="card_button_box" style="margin-top: 20px; font-size: 15px;">
-                    <a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;" class="btn">자세히 보기</a>
-                    <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
-                         th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
-                         th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
-                         style="cursor: pointer; width: 16px; height: 16px;" alt="즐겨찾기 버튼">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- pagination -->
-<div>
-    <ul class="col pagination justify-content-center">
-        <th:block th:if="${pagingInfo.startPage > pagingInfo.pageSize}">
-            <li class="page-item">
-                <a th:href="@{/model/getModelList(curPage=${pagingInfo.startPage - pagingInfo.pageSize}, rowSizePerPage=${pagingInfo.rowSizePerPage}, searchType=${pagingInfo.searchType}, searchWord=${pagingInfo.searchWord})}"
-                   th:text="#{page.prev}"></a>
-            </li>
-        </th:block>
+      <script> // 카드에 이미지랑 글씨 같이 선택되게 하는 스크립트
+         document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+               card.querySelector('.card-img-top').style.backgroundColor = 'whitesmoke';
+               card.querySelector('.card-img-top').style.border = '2px solid whitesmoke';
+               card.querySelector('.card-body').style.backgroundColor = 'whitesmoke';
+               card.querySelector('.card-body').style.border = '2px solid whitesmoke';
+               card.querySelector('.card-body').style.marginBottom = '1px';
+            });
 
-        <th:block th:each="page : ${#numbers.sequence(pagingInfo.startPage, pagingInfo.endPage)}">
-            <li class="page-item" th:classappend="${(page-1) == pagingInfo.curPage ? 'active' : ''}">
-                <a th:classappend="${(page-1) == pagingInfo.curPage ? 'current' : ''}"
-                   th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${pagingInfo.rowSizePerPage}, searchType=${pagingInfo.searchType}, searchWord=${pagingInfo.searchWord})}"
-                   th:text="${page}"></a>
-            </li>
-        </th:block>
+            card.addEventListener('mouseleave', () => {
+               card.querySelector('.card-img-top').style.backgroundColor = '';
+               card.querySelector('.card-img-top').style.border = '';
+               card.querySelector('.card-body').style.backgroundColor = '';
+               card.querySelector('.card-body').style.border = '';
+               card.querySelector('.card-body').style.marginBottom = '';
+            });
+         });
+      </script>
+      <script><!--카드에 이미지랑 글씨 같이 선택되게 하는 스크립-->
+         document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+               card.querySelector('.card-img-top').style.backgroundColor = 'whitesmoke';
+               card.querySelector('.card-img-top').style.border = '2px solid whitesmoke';
+               card.querySelector('.card-body').style.backgroundColor = 'whitesmoke';
+               card.querySelector('.card-body').style.border = '2px solid whitesmoke';
+               card.querySelector('.card-body').style.marginBottom = '1px';
+            });
 
-        <th:block th:if="${pagingInfo.endPage < pagingInfo.totalPages}">
-            <li class="page-item">
-                <a th:href="@{/model/getModelList(curPage=${pagingInfo.endPage}, rowSizePerPage=${pagingInfo.rowSizePerPage}, searchType=${pagingInfo.searchType}, searchWord=${pagingInfo.searchWord})}"
-                   th:text="#{page.next}"></a>
-            </li>
-        </th:block>
-    </ul>
-</div>
+            card.addEventListener('mouseleave', () => {
+               card.querySelector('.card-img-top').style.backgroundColor = '';
+               card.querySelector('.card-img-top').style.border = '';
+               card.querySelector('.card-body').style.backgroundColor = '';
+               card.querySelector('.card-body').style.border = '';
+               card.querySelector('.card-body').style.marginBottom = '';
+            });
+         });
+      </script>
 
-<hr/>
 
-<!-- Comparison Section -->
-<div id="comparisonSection" style="margin-top: 30px; display: block;">
-    <div class="div">
-        <h3>- CAR COMPARISON -</h3>
-    </div>
-    <table>
-        <thead>
-        <tr>
-            <td>
-                <span id="car1Name" style="font-weight: bold;"></span>
-                <a href="#" onclick="removeCarFromComparison(1)">
-                    <img src="/img/cancel.png" alt="삭제" style="height: 16px; width: 16px; opacity: 0.5;"/>
-                </a>
-            </td>
-            <th></th>
-            <td>
-                <span id="car2Name" style="font-weight: bold;"></span>
-                <a href="#" onclick="removeCarFromComparison(2)">
-                    <img src="/img/cancel.png" alt="삭제" style="height: 16px; width: 16px; opacity: 0.5;"/>
-                </a>
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><img id="car1Img" class="img-fluid" alt="이미지"></td>
-            <td style="padding: 1% 1%;">이미지</td>
-            <td><img id="car2Img" class="img-fluid" alt="이미지"></td>
-        </tr>
-        <tr>
-            <td><span id="car1Price"></span>만원</td>
-            <td style="padding: 1% 1%;">가격</td>
-            <td><span id="car2Price"></span>만원</td>
-        </tr>
-        <tr>
-            <td id="car1Size"></td>
-            <td style="padding: 1% 1%;">크기</td>
-            <td id="car2Size"></td>
-        </tr>
-        <tr>
-            <td id="car1Fuel"></td>
-            <td style="padding: 1% 1%;">연료</td>
-            <td id="car2Fuel"></td>
-        </tr>
-        <tr>
-            <td id="car1Eff"></td>
-            <td style="padding: 1% 1%;">연비</td>
-            <td id="car2Eff"></td>
-        </tr>
-        <tr id="carRadarChart">
-            <td text-align: center;>
-                <canvas id="car1RadarChart"></canvas>
-            </td>
-            <td style="padding: 1% 0%;">radarchart<br/>
-                <button style="font-size: 14px;" onclick="combineRadarChart()">COMBINE</button>
-            </td>
-            <td>
-                <canvas id="car2RadarChart"></canvas>
-            </td>
-        </tr>
-        <tr id="carCombineRadarChartTR">
-            <td colspan="3" style="text-align: center;">
-                <canvas id="carCombineRadarChart"></canvas>
-                <button style="font-size: 25px; letter-spacing: 5px; font-weight: 100; margin-left: 34%;"
-                        onclick="returnChart()">RETURN
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+      <div style="height: 100px;"></div> <!--간격박스-->
 
-<!-- Scripts -->
-<script src="/js/getModelList.js"></script>
+      <!--pagination-->
+      <div>
+         <ul class="col pagination justify-content-center">
+            <th:block th:if="${sp > ps}">
+               <li class="page-item"><a
+                     th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                     th:text="#{page.prev}"></a></li>
+            </th:block>
 
-<footer>
-    <hr>
-    footer
-</footer>
+            <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+               <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+                  <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+                     th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                     th:text="${page}"></a>
+               </li>
+            </th:block>
+
+            <th:block th:if="${ep lt tp}">
+               <li class="page-item"><a
+                     th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                     th:text="#{page.next}"></a></li>
+            </th:block>
+         </ul>
+      </div>
+
+      <div style="height: 50px;"></div> <!--간격박스-->
+
+
+      <!-- CAR COMPARISON : Comparison Section -->
+      <div class="flex-container_row">
+         <div id="comparisonSection" style="margin-top: 30px; display: block;">
+            <h3>- CAR COMPARISON -</h3>
+            <div style="height: 50px;"></div> <!--간격박스-->
+
+            <table id="comparisonTable">
+               <thead>
+                  <tr>
+                     <td><span id="car1Name" style="font-weight: bold;"></span>
+                        <a onclick="removeCarFromComparison(1)">
+                           <img src="/img/cancel.png" alt="삭제"
+                              style="height: 20px; width: 20px; padding-left: 20px;" />
+                        </a>
+                     </td>
+                     <th style="padding: 0%; font-weight: 300;">VS</th>
+                     <td><span id="car2Name" style="font-weight: bold;"></span>
+                        <a onclick="removeCarFromComparison(2)">
+                           <img src="/img/cancel.png" alt="삭제"
+                              style="height: 20px; width: 20px; padding-left: 20px;" />
+                        </a>
+                     </td>
+                  </tr>
+               </thead>
+               <tbody>
+                  <!--td에 padding기본 설정값 때문에 글씨 밀려서 따로 inline 설정 -->
+                  <tr>
+                     <td><img id="car1Img" class="img-fluid" alt="이미지"></td>
+                     <td style="padding: 1%;">: 이미지 :</td>
+                     <td><img id="car2Img" class="img-fluid" alt="이미지"></td>
+                  </tr>
+                  <tr>
+                     <td><span id="car1Price"></span>만원</td>
+                     <td style="padding: 1%;">: 가격 :</td>
+                     <td><span id="car2Price"></span>만원</td>
+                  </tr>
+                  <tr>
+                     <td id="car1Size"></td>
+                     <td style="padding: 1%;">: 크기 :</td>
+                     <td id="car2Size"></td>
+                  </tr>
+                  <tr>
+                     <td id="car1Fuel"></td>
+                     <td style="padding: 1%;">: 연료 :</td>
+                     <td id="car2Fuel"></td>
+                  </tr>
+                  <tr>
+                     <td id="car1Eff"></td>
+                     <td style="padding: 1%;">: 연비 :</td>
+                     <td id="car2Eff"></td>
+                  </tr>
+                  <tr id="carRadarChart">
+                     <td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
+                     <td><br />
+                        <a th:onclick="combineRadarChart()"
+                           style="padding: 5px; font-size: 16px; text-align: center; background-color: whitesmoke;">
+                           radarchart COMBINE</a>
+                     </td>
+                     <td><canvas id="car2RadarChart"></canvas></td>
+                  </tr>
+                  <tr id="carCombineRadarChartTR">
+                     <td colspan="3" style="text-align: center;">
+                        <canvas id="carCombineRadarChart"></canvas>
+                        <div style="height: 50px;"></div> <!--간격박스-->
+                        <button th:onclick="returnChart()"
+                           style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">
+                           RETURN
+                        </button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      </div>
+   </main>
+
+   <footer th:replace="~{base/base :: footer}"></footer>
 
 </body>
+
 </html>

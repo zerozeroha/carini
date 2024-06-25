@@ -77,8 +77,7 @@ public class AdminController {
 	    curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("memberDate").descending());
 	    Page<Member> pagedResult = memberService.getMemberList(pageable, searchType, searchWord);
-	    
-	    System.out.println(pagedResult.getContent());
+
 	    
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
@@ -124,11 +123,10 @@ public class AdminController {
 		return "admin/updateMember";
 	}
 	
-	@PostMapping("updateMember")
-	public String updateMember(@RequestParam("memberId") String memberId, Member member) {
+	@PostMapping("/updateMember")
+	public String updateMember(@ModelAttribute("member") Member member) {
 		
-		
-		memberService.updateAllMember(memberId, member);
+		memberService.updateAllMember(member.getMemberId(), member);
 		
 		return "admin/updateMember";
 	}
