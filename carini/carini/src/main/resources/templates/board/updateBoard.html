@@ -125,7 +125,10 @@
                     	<a  onclick="document.forms['boardForm'].submit();">수정하기</a>
 					</div>
 					<div style="width:85px;" class="footer_btn2">
-						<a th:text="#{board.list}" class="btn"></a>
+						<a th:href="@{/board/getBoardList}" th:text="#{board.list}" class="btn"></a>
+					</div>
+					<div style="width:85px;" class="footer_btn2">
+						<a th:href="@{/board/deleteBoard(boardId=${board.boardId})}">삭제</a>
 					</div>
 					<div style="width:85px;" class="footer_btn2">
 						<a th:text="삭제"  class="btn"></a>
