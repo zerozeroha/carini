@@ -19,7 +19,7 @@
             <th>memberSocialNickname</th>
         </tr>
         <tr th:each="member : ${memberList}">
-            <td><a th:href="@{admin/updateMember(memberId=${member.memberId})}"th:text="${member.memberId}"></a></td>
+            <td><a th:href="@{/admin/updateMember(memberId=${member.memberId})}"th:text="${member.memberId}"></a></td>
             <td th:text="${member.memberPw}"></td>
             <td th:text="${member.memberName}"></td>
             <td th:text="${member.memberNickname}"></td>

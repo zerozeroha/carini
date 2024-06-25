@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.car.dto.Inquiry;
 import com.car.dto.Member;
+import com.car.exception.InquiryException;
+import com.car.exception.ValidationException;
+import com.car.exception.errorcode.ErrorCode;
 import com.car.service.InquiryService;
 import com.car.validation.BoardUpdateFormValidation;
 import com.car.validation.InquiryWriteValidation;
@@ -55,7 +58,6 @@ public class InquiryController {
 	     }
 		
 		List<Inquiry> inquirys = inquiryService.findbyIdinquiry(user);
-		System.out.println(inquirys.get(1).getReContentRq());
 		response.put("success", true);
 		response.put("inquirys", inquirys);
 		
@@ -71,9 +73,8 @@ public class InquiryController {
 		Inquiry getinquiry = inquiryService.findbyreIdinquiry(inquiry.getReId());
 
 		if(getinquiry==null) {
-			response.put("message", "게시글이 존재하지 않습니다.");
-			response.put("success", false);
-	        return ResponseEntity.ok(response);
+			
+			throw new InquiryException(ErrorCode.INQUIRY_NON_EXIST,null);
 
 		}
 		if(!getinquiry.isReCheckRq()) {
@@ -93,18 +94,26 @@ public class InquiryController {
 			@Validated @ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation,BindingResult bindingResult ,
 			HttpSession session,HttpServletRequest request,
 			Model model) {
-		Map<String, Object> response = new HashMap<>();
-		 if (bindingResult.hasErrors()) {
-			 List<ObjectError> errors = bindingResult.getAllErrors();
-			 response.put("errors", errors);
-			 return ResponseEntity.ok(response);
+		
+		
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errors = new HashMap<>();
+			// 필드별로 발생한 모든 오류 메시지를 맵에 담음
+	        bindingResult.getFieldErrors().forEach(error -> {
+	            String fieldName = error.getField();
+	            String errorMessage = error.getDefaultMessage();
+	            errors.put(fieldName, errorMessage);
+	        });
+			
+	        throw new ValidationException(errors);
 		}
-
+		Map<String, Object> response = new HashMap<>();
 		Member user = (Member) session.getAttribute("user");
 		inquiry.setMemberId(user.getMemberId());
 		inquiry.setReHero(user.getMemberNickname());
 		inquiry.setReCheckRq(false);
 		inquiryService.inquiryWrite(inquiry);
+		
 		System.out.println(session.getAttribute("originalUrl"));
 		response.put("redirectUrl", session.getAttribute("originalUrl"));
 		response.put("message", "정상적으로 작성되었습니다");
@@ -116,18 +125,9 @@ public class InquiryController {
 	 * 문의함 삭제
 	 * */
 	@PostMapping("/inquirydelete")
-	public ResponseEntity<Map<String, Object>> inquirydelete(@ModelAttribute Inquiry inquiry,HttpSession session,HttpServletRequest request) {
-		Member user = (Member) session.getAttribute("user");
-
-		
+	public ResponseEntity<Map<String, Object>> inquirydelete(@ModelAttribute Inquiry inquiry,HttpSession session,HttpServletRequest request) {	
 		
 		Map<String, Object> response = new HashMap<>();
-		if( user == null ) { 
-			response.put("message", "로그인후 이용 가능합니다.");
-			response.put("success", false);
-			response.put("redirectUrl", "/member_login");
-	        return ResponseEntity.ok(response);
-	     }
 		inquiryService.inquirydelte(inquiry);
 		response.put("message","성공적으로 삭제 되었습니다." );
 		response.put("redirectUrl", session.getAttribute("originalUrl"));

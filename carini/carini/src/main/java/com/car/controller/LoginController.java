@@ -22,6 +22,9 @@ import com.car.validation.LoginFormValidation;
 import com.car.validation.SignupFormValidation;
 import com.car.validation.Update_pwFormValidation;
 import com.car.dto.Member;
+import com.car.exception.CodeNumberException;
+import com.car.exception.ValidationException;
+import com.car.exception.errorcode.ErrorCode;
 import com.car.persistence.MemberRepository;
 import com.car.service.MemberService;
 
@@ -99,11 +102,12 @@ public class LoginController {
 			List<Member> findmemberNickname=memberService.findByMemberNickname(member.getMemberNickname());
 			Member findmemberId=memberService.findByMemberId(member.getMemberId());
 			List<Member> findmemberPhone = memberService.findByMemberPhoneNum(member.getMemberPhoneNum());
+			
 			/*
-			 * 이메일중복검사
+			 * 아이디중복검사
 			 * */
-			if(!findmemberEmail.isEmpty()) {
-				bindingResult.rejectValue("memberEmail",null, "존재하는 이메일입니다."); 
+			if(findmemberId != null && findmemberId.getMemberId().equals(member.getMemberId())) {
+				bindingResult.rejectValue("memberId", null, "존재하는 아이디입니다."); 
 				return "member/signup";
 			}
 			/*
@@ -114,10 +118,10 @@ public class LoginController {
 				return "member/signup";
 			}
 			/*
-			 * 아이디중복검사
+			 * 이메일중복검사
 			 * */
-			if(findmemberId != null && findmemberId.getMemberId().equals(member.getMemberId())) {
-				bindingResult.rejectValue("memberId", null, "존재하는 아이디입니다."); 
+			if(!findmemberEmail.isEmpty()) {
+				bindingResult.rejectValue("memberEmail",null, "존재하는 이메일입니다."); 
 				return "member/signup";
 			}
 			/*
@@ -247,11 +251,7 @@ public class LoginController {
 	            errors.put(fieldName, errorMessage);
 	        });
 			
-			response.put("message", "회원정보오류");
-			response.put("redirectUrl", "/find_idForm");
-			response.put("success", false);
-			response.put("errors",errors);
-			return ResponseEntity.ok(response);
+	        throw new ValidationException(errors);
 		}
 		
 		Member findmember = memberService.SMSfindMember(find_idFormValidation.getMemberName(),find_idFormValidation.getMemberPhoneNumber(),session);
@@ -262,11 +262,8 @@ public class LoginController {
 	            String errorMessage = error.getDefaultMessage();
 	            errors.put(fieldName, errorMessage);
 	        });
-			response.put("message", "회원정보가 일치하지 않습니다.");
-	        response.put("success", false);
-	        response.put("errors", "errors");
-	        response.put("redirect", "/find_idForm");
-	        return ResponseEntity.ok(response);
+			throw new ValidationException(errors);
+			
 		}else if(find_idFormValidation.getMemberName() !=null && findmember.getMemberName().equals(find_idFormValidation.getMemberName())){
 			if(findmember.getMemberPhoneNum().equals(find_idFormValidation.getMemberPhoneNumber())){
 				sendmessage(find_idFormValidation.getMemberPhoneNumber(),request);
@@ -277,7 +274,6 @@ public class LoginController {
 		}
 		response.put("message", "회원정보가 일치하지 않습니다.");
         response.put("success", false);
-        response.put("redirect", "/find_idForm");
         return ResponseEntity.ok(response);
 	}
 	
@@ -298,11 +294,8 @@ public class LoginController {
 	            String errorMessage = error.getDefaultMessage();
 	            errors.put(fieldName, errorMessage);
 	        });
-			
-			response.put("message", "회원정보오류");
-			response.put("success", false);
-			response.put("errors",errors);
-			return ResponseEntity.ok(response);
+	        throw new ValidationException(errors);
+	        
 		}
 		Member findmember = memberService.SMSfindMemberPw(find_pwFormValidation.getMemberId(),find_pwFormValidation.getMemberPhoneNumber(),session);
 
@@ -315,23 +308,20 @@ public class LoginController {
 	            errors.put(fieldName, errorMessage);
 	        });
 			
-			response.put("message", "회원정보가 일치하지 않습니다.");
-	        response.put("success", false);
-	        response.put("errors", "errors");
-	        response.put("redirect", "/find_pwForm");
-	        return ResponseEntity.ok(response);
+			throw new ValidationException(errors);
+			
 		}else if(find_pwFormValidation.getMemberId() !=null && findmember.getMemberId().equals(find_pwFormValidation.getMemberId())){
 			if(findmember.getMemberPhoneNum().equals(find_pwFormValidation.getMemberPhoneNumber())){
+				
 				sendmessage(find_pwFormValidation.getMemberPhoneNumber(),request);
 				response.put("success", true);
 				response.put("message", "인증번호가 요청되었습니다.");
 				return ResponseEntity.ok(response);
 			}
 		}
-
+		
 		response.put("message", "회원정보가 일치하지 않습니다.");
         response.put("success", false);
-        response.put("redirect", "/find_pwForm");
         return ResponseEntity.ok(response);
 	}
 	
@@ -353,10 +343,8 @@ public class LoginController {
     		return ResponseEntity.ok(response);
     	}
     	else {
-    		response.put("message", "인증번호가 일치하지 않습니다.");
-    		response.put("success", false);
-    		response.put("redirectUrl", "/find_idForm");
-    		return ResponseEntity.ok(response);
+    		throw new CodeNumberException(ErrorCode.CODE_NUMBER_MISMATCH,null);
+ 
     	}
     }
 	
@@ -375,10 +363,7 @@ public class LoginController {
     		return ResponseEntity.ok(response);
     	}
     	else {
-    		response.put("msg", "인증번호가 일치하지 않습니다. 다시 입력헤주세요");
-    		response.put("success", false);
-    		response.put("redirectUrl", "/find_pwForm");
-    		return ResponseEntity.ok(response);
+    		throw new CodeNumberException(ErrorCode.CODE_NUMBER_MISMATCH,null);
     	}
     }
 	@PostMapping("/update_pw")
@@ -396,14 +381,8 @@ public class LoginController {
 	            String errorMessage = error.getDefaultMessage();
 	            
 	            errors.put(fieldName, errorMessage);
-	            System.out.println(fieldName);
-	            System.out.println(errorMessage);
 	        });
-			System.out.println(errors);
-			response.put("message", "회원정보오류");
-			response.put("success", false);
-			response.put("errors",errors);
-			return ResponseEntity.ok(response);
+	        throw new ValidationException(errors);
 		}else{
     		
 			memberService.updatepw(((Member)session.getAttribute("find_pwMember")).getMemberId(),memberPw);
