@@ -318,29 +318,29 @@
                         <table id="info_box">
                             <tr style="height: 40px;">
                                 <th th:text="#{info.nickname}"></th>
-                                <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberNickname}" aria-disabled="true"></td>
+                                <td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberNickname}" aria-disabled="true"></td>
                                 <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.id}"></th>
-                                <td th:if="${session.user.memberSocial == '회원'}" th:text="${session.user.memberId}" aria-disabled="true"></td>
+                                <td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberId}" aria-disabled="true"></td>
                                 <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.pw}"></th>
-                                <td th:text="${session.hiddenuser.memberPw}"></td>
+                                <td th:text="${hiddenuser.memberPw}"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.name}"></th>
-                                <td th:text="${session.user.memberName}"></td>
+                                <td  th:text="${hiddenuser.memberName}"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.email}"></th>
-                                <td th:text="${session.hiddenuser.memberEmail}"></td>
+                                <td th:text="${hiddenuser.memberEmail}"></td>
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.phone}"></th>
-                                <td th:text="${session.hiddenuser.memberPhoneNum}"></td>
+                                <td th:text="${hiddenuser.memberPhoneNum}"></td>
                             </tr>
                         </table>
                         <br>

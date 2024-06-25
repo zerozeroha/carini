@@ -67,7 +67,7 @@
 
    <!-- Main -->
    <main>
-      <form th:action="@{/model/getModelList}" method="get">
+      <form th:action="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}" method="get">
 
          <div class="flex-container_column">
 
@@ -100,9 +100,9 @@
                            <div>
                               <div id="priceSlider"></div>
                               <input type="hidden" class="form-control" id="filterMinPrice"
-                                 name="filterMinPrice">
+                                 name="filterMinPrice" th:value="${filterMinPrice}">
                               <input type="hidden" class="form-control" id="filterMaxPrice"
-                                 name="filterMaxPrice">
+                                 name="filterMaxPrice" th:value="${filterMinPrice}">
                               <span id="priceDisplay" style="text-align: justify;">
                                  "filterMinPrice"원
                                  "filterMaxPrice"원</span>
@@ -149,38 +149,38 @@
                         <td>자동차 크기</td>
                         <td>
                            <select class="form-select" id="filterSize" name="filterSize">
-                              <option selected>선택안함</option>
-                              <option>경형</option>
-                              <option>소형</option>
-                              <option>중형</option>
-                              <option>준중형</option>
-                              <option>대형</option>
-                              <option>준대형</option>
+                              <option value="" th:selected="${fs == ''}">선택안함</option>
+                              <option value="경형" th:selected="${fs == '경형'}">경형</option>
+                              <option value="소형" th:selected="${fs == '소형'}">소형</option>
+                              <option value="중형" th:selected="${fs == '중형'}">중형</option>
+                              <option value="준중형" th:selected="${fs == '준중형'}">준중형</option>
+                              <option value="대형" th:selected="${fs == '대형'}">대형</option>
+                              <option value="준대형" th:selected="${fs == '준대형'}">준대형</option>
                            </select>
                         </td>
                      </tr>
 
                      <tr>
                         <td>자동차 연료</td>
-                        <td>
-                           <select class="form-select" id="filterFuel" name="filterFuel">
-                              <option selected>선택안함</option>
-                              <option>가솔린</option>
-                              <option>디젤</option>
-                              <option>전기</option>
-                              <option>하이브리드</option>
-                              <option>LPG</option>
-                           </select>
-                        </td>
+						<td>
+						    <select class="form-select" id="filterFuel" name="filterFuel">
+						        <option value="" th:selected="${ff == ''}">선택안함</option>
+						        <option value="가솔린" th:selected="${ff == '가솔린'}">가솔린</option>
+						        <option value="디젤" th:selected="${ff == '디젤'}">디젤</option>
+						        <option value="전기" th:selected="${ff == '전기'}">전기</option>
+						        <option value="하이브리드" th:selected="${ff == '하이브리드'}">하이브리드</option>
+						        <option value="LPG" th:selected="${ff == 'LPG'}">LPG</option>
+						    </select>
+						</td>
                      </tr>
 
                      <tr>
                         <td>정렬</td>
                         <td>
                            <select class="form-select" id="carSort" name="carSort">
-                              <option selected>저가순</option>
-                              <option>고가순</option>
-                              <option>이름순</option>
+							<option value="저가순" th:selected="${cs == '저가순'}">저가순</option>
+							<option value="고가순" th:selected="${cs == '고가순'}">고가순</option>
+							<option value="이름순" th:selected="${cs == '이름순'}">이름순</option>
                            </select>
                         </td>
                      </tr>
@@ -284,21 +284,21 @@
          <ul class="col pagination justify-content-center">
             <th:block th:if="${sp > ps}">
                <li class="page-item"><a
-                     th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                     th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
                      th:text="#{page.prev}"></a></li>
             </th:block>
 
             <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
                <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
                   <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-                     th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                     th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
                      th:text="${page}"></a>
                </li>
             </th:block>
 
             <th:block th:if="${ep lt tp}">
                <li class="page-item"><a
-                     th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                     th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
                      th:text="#{page.next}"></a></li>
             </th:block>
          </ul>

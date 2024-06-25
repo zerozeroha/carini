@@ -100,12 +100,14 @@ public class MypageController {
 	public String mypageForm(HttpSession session,Model model,HttpServletRequest request,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		Member user = (Member) session.getAttribute("user");
+
 		Member findmember = memberService.findMember(user.getMemberId());
+		findmember.setMemberPw(user.getMemberNickname());
 		findmember.setMemberPw("*****");
 		findmember.setMemberPhoneNum("***-****-****");
 		findmember.setMemberEmail("****@****.***");
 	    session.setAttribute("originalUrl", request.getRequestURI());
-		session.setAttribute("hiddenuser", findmember);
+	    model.addAttribute("hiddenuser", findmember);
 		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/mypageview.html";
 	}
@@ -146,14 +148,18 @@ public class MypageController {
 	}
 
 	@GetMapping("/myinfo_edit")
-	public String myinfo_edit(HttpSession session) {
-
+	public String myinfo_edit(HttpSession session,@ModelAttribute("member") Member member) {
+		Member user = (Member) session.getAttribute("user");
+		Member finduser = memberService.findByMemberId(user.getMemberId());
+		session.setAttribute("showuser", finduser);
 		return "mypage/myinfo_edit.html";
 	}
 
 	@GetMapping("/myinfo_social_edit")
 	public String myinfo_social_edit(@ModelAttribute("member") Member members, HttpSession session) {
-
+		Member user = (Member) session.getAttribute("user");
+		Member finduser = memberService.findByMemberId(user.getMemberId());
+		session.setAttribute("showuser", finduser);
 		return "mypage/myinfo_edit.html";
 	}
 
@@ -164,7 +170,7 @@ public class MypageController {
 	 * 닉네임 수정
 	 */
 	@PostMapping("/myinfo/updatenickname")
-	public String myInfoNicknameUpdate(@ModelAttribute("member") Member members,
+	public String myInfoNicknameUpdate(@ModelAttribute("member") Member members,BindingResult bindingResult,
 			@RequestParam("memberNickname") String memberNickname, Model model, HttpSession session,
 			HttpServletRequest request) {
 		Member user = (Member) session.getAttribute("user");
@@ -236,19 +242,18 @@ public class MypageController {
 	 * 회원정보 모두 수정
 	 */
 	@PostMapping("/myinfo/updateAll")
-	public String myInfoUpdateAll(@ModelAttribute("member") Member members, @RequestParam("memberPw") String memberPw,
-			@RequestParam("memberName") String memberName, @RequestParam("memberEmail") String memberEmail,
-			@RequestParam("memberPhoneNum") String memberPhoneNum, Model model, HttpServletRequest request) {
-
+	public String myInfoUpdateAll(@ModelAttribute Member members, Model model, HttpServletRequest request) {
 		final Pattern PASSWORD_PATTERN = Pattern.compile(passwordRegex);
 		List<Member> memberList = memberService.findAllMember();
 		Locale locale = localeResolver.resolveLocale(request);
 		Member member = memberService.findByMemberId(members.getMemberId());
+		System.out.println("============");
+		System.out.println(member);
 		if (member != null) {
-			if (!PASSWORD_PATTERN.matcher(memberPw).matches()) {
+			if (!PASSWORD_PATTERN.matcher(members.getMemberPw()).matches()) {
 
 				model.addAttribute("msg", messageSource.getMessage("info.pwcheck.failure", null, locale));
-				model.addAttribute("url", "/mypage/myinfo/" + members.getMemberId());
+				model.addAttribute("url", "/mypage/form");
 				return "alert";
 			}
 
@@ -256,18 +261,18 @@ public class MypageController {
 			for (Member memberOne : memberList) {
 
 				if (!memberOne.getMemberEmail().equals(currentMemberEmail)
-						&& memberOne.getMemberEmail().equals(memberEmail)) {
+						&& memberOne.getMemberEmail().equals(members.getMemberEmail())) {
 
 					model.addAttribute("msg", messageSource.getMessage("info.emailcheck.failure", null, locale));
-					model.addAttribute("url", "/mypage/myinfo/");
+					model.addAttribute("url", "/mypage/form");
 					return "alert";
 				}
 			}
-			member.setMemberPw(memberPw);
-			member.setMemberName(memberName);
+			member.setMemberPw(members.getMemberPw());
+			member.setMemberName(members.getMemberName());
 
-			member.setMemberEmail(memberEmail);
-			member.setMemberPhoneNum(memberPhoneNum);
+			member.setMemberEmail(members.getMemberEmail());
+			member.setMemberPhoneNum(members.getMemberPhoneNum());
 
 			memberService.updateAllMember(members.getMemberId(), member);
 
@@ -275,7 +280,9 @@ public class MypageController {
 			model.addAttribute("url", "/mypage/form");
 			return "alert";
 		} else {
-			return "redirect:/member_login";
+			model.addAttribute("msg", messageSource.getMessage("info.update.fail", null, locale));
+			model.addAttribute("url", "/mypage/form");
+			return "alert";
 		}
 	}
 

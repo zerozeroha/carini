@@ -70,8 +70,10 @@
                <div>
                   <table id="info_box">
 					<p class="Board_text">_Edit_My_Inforamtion</p>
+					
 					<form th:action="${session.user.memberSocial == '회원' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}" method="post">
-					    <tr>
+						
+						<tr>
 					        <th th:text="#{info.nickname}"></th>
 					        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}">
 					            <input type="text" name="memberNickname" th:value="${session.user.memberNickname}">
@@ -90,40 +92,39 @@
                      <form th:action="@{/mypage/myinfo/updateAll}" method="post">
                         <tr>
                            <th th:text="#{info.id}"></th>
-                           <td th:if="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberId}"></span></td>
-                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly>이메일</span></td>
+						   <input name="memberId" th:value="${session.user.memberId}" type="hidden" />
+                           <td th:if="${session.showuser.memberSocial == '회원'}" ><span  th:text="${session.showuser.memberId}"></span></td>
+                           <td th:unless="${session.showuser.memberSocial == '회원'}"><span th:text="${session.showuser.memberEmail}" readonly>이메일</span></td>
                         </tr>
 						<tr>
                            <th th:text="#{info.pw}"></th>
                            <td th:if="${session.user.memberSocial == '회원'}">
                               <div class="password-input-container" style="margin-left: 27px;">
-                                 <input type="password" name="memberPw" th:value="${session.user.memberPw}" placeholder="memberPw"/>
+                                 <input type="password"  name="memberPw" th:value="${session.showuser.memberPw}" placeholder="memberPw"/>
                                   &nbsp;<i class="fa fa-eye fa-lg"></i>
                               </div>
                            </td>
-                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPw}" readonly></span></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.showuser.memberPw}" readonly></span></td>
                         </tr>
                         <tr>
                            <th th:text="#{info.name}"></th>
-                           <td th:if="${session.user.memberSocial == '회원'}"><input type="text" name="memberName" th:value="${session.user.memberName}" placeholder="memberName" /></td>
-                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberName}" readonly></span></td>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="text" name="memberName" th:value="${session.showuser.memberName}" placeholder="memberName" /></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.showuser.memberName}" readonly></span></td>
                         </tr>
                         <tr>
                            <th th:text="#{info.email}"></th>
-                           <td th:if="${session.user.memberSocial == '회원'}"><input type="email" name="memberEmail" th:value="${session.user.memberEmail}" placeholder="memberEmail"/></td>
-                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberEmail}" readonly></span></td>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="email" name="memberEmail" th:value="${session.showuser.memberEmail}" placeholder="memberEmail"/></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.showuser.memberEmail}" readonly></span></td>
                         </tr>
                         <tr>
                            <th th:text="#{info.phone}"></th>
-                           <td th:if="${session.user.memberSocial == '회원'}"><input type="tel" name="memberPhoneNum" th:value="${session.user.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
-                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.user.memberPhoneNum}" readonly></span></td>
+                           <td th:if="${session.user.memberSocial == '회원'}"><input type="tel" name="memberPhoneNum" th:value="${session.showuser.memberPhoneNum}" placeholder="memberPhoneNum" /></td>
+                           <td th:unless="${session.user.memberSocial == '회원'}"><span th:text="${session.showuser.memberPhoneNum}" readonly></span></td>
                         </tr>
 					</table>
 					</div>
 					<div style="padding: 10%;">
 						<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}" style="padding: 10px 20px;">
-                    
-
                 </form>
                
                
