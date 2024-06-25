@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.car.Interceptor.LoginCheckInterceptor;
 
-@Configuration
+//@Configuration
 public class WebConfig implements WebMvcConfigurer{
 	
 	@Override

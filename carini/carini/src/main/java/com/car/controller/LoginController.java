@@ -62,7 +62,7 @@ public class LoginController {
 	}
     
     /*세션 초기화 */
-	@GetMapping("/")
+	@RequestMapping("/")
 	public String backhome(HttpServletRequest request) {
 	    // 세션을 삭제
 	    HttpSession session = request.getSession(false);
