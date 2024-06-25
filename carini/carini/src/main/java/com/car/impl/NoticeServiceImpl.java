@@ -71,6 +71,26 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 	}
 
+	@Override
+	public void updateNotice(Notice notice) {
+		Notice findNotice = noticeRepository.findById(notice.getNoticeId()).get();
+		
+	}
+	
+	@Override
+	public void insertNotice(Notice notice) {
+		
+		noticeRepository.save(notice);
+		
+	}
+
+	@Override
+	public void deleteNoticeById(Long noticeId) {
+		
+		noticeRepository.deleteById(noticeId);
+		
+	}
+
 
 }
 
