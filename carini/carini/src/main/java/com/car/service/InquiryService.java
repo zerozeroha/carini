@@ -2,6 +2,8 @@ package com.car.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.car.dto.Inquiry;
@@ -14,4 +16,5 @@ public interface InquiryService {
 	List<Inquiry> findbyIdinquiry(Member user);
 	void inquirydelte(Inquiry inquiry);
 	Inquiry findbyreIdinquiry(Long reId);
+	Page<Inquiry> getInquiryList(Pageable pageable, String searchType, String searchWord);
 }

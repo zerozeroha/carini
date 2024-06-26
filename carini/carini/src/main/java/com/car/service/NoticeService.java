@@ -19,6 +19,7 @@ public interface NoticeService {
 	void insertNotice(Notice notice);
 	void updateNotice(Notice notice);
 	void deleteNoticeById(Long noticeId);
+	void deleteFile(Long noticeId) throws Exception;
 	
 	
 }

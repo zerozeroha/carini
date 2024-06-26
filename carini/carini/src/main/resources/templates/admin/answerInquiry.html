@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+	<title>Helios - Helios by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/base.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body>
+	<div id="page-wrapper">
+		<div id="content">
+			<p class="Board_text">Admin_AnswerInquiry</p>
+			<article id="main">
+				<form th:action="@{/admin/answerInquiry}" method="post">
+					<table border="1">
+						<tr>
+							<td th:text="#{label.inquiry.reId}"></td>
+							<td colspan="3" th:text="${inquiry.reId}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.inquiry.reTitle}"></td>
+							<td th:text="${inquiry.reTitle}"></td>
+							<td th:text="#{label.inquiry.reTitleRq}"></td>
+							<td>
+								<input type="text" th:if="${inquiry.reTitleRq == null}" th:value="${inquiry.reTitleRq}"/>
+								<span th:text="${inquiry.reTitleRq}"></span>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{label.inquiry.reContent}"></td>
+							<td th:text="${inquiry.reContent}"></td>
+							<td th:text="#{label.inquiry.reContentRq}"></td>
+							<td>
+								<input type="text" th:if="${inquiry.reContentRq == null}" th:value="${inquiry.reContentRq}"/>
+								<span th:text="${inquiry.reContentRq}"></span>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{label.inquiry.reDate}"></td>
+							<td th:text="${inquiry.reDate}"></td>
+							<td th:text="#{label.inquiry.reDateRq}"></td>
+							<td>
+								<input th:if="${inquiry.reDateRq == null}" th:value="${date}"/>
+								<span th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></span>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{label.inquiry.memberId}"></td>
+							<td th:text="${inquiry.memberId}"></td>
+							<td th:text="#{label.inquiry.reHero}"></td>
+							<td th:text="${inquiry.reHero}"></td>
+						</tr>
+					</table>
+					<input type="submit" th:value="#{inquiry.answer}"/>
+				</form>
+			</article>
+		</div>
+	</div>
+	
+	
+</body>

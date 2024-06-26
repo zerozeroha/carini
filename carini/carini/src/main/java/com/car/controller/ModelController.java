@@ -97,9 +97,9 @@ public class ModelController {
 		System.out.println(carSort);
 
 		if(carSort.equals("저가순")){
-			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carMinPrice").ascending());
+			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carAvgPrice").ascending());
 		}else if(carSort.equals("고가순")) {
-			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carMinPrice").descending());
+			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carAvgPrice").descending());
 		}else {
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carName").ascending());
 		}

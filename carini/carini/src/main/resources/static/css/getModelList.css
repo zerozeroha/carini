@@ -225,17 +225,13 @@ select:hover {
     border: white !important;
 }
 
-#goToComparison {
-   border: 1px solid whitesmoke;
-}
 
-#goToComparison:hover {
-   border: 1px solid whitesmoke;
-}
+
 
 
 .card-img-top {
    border: 0px;
+  
 }
 
 .card-img-top:hover {
@@ -342,6 +338,7 @@ th {
     color: black;
     font-weight: bold;
     font-weight: 900;
+    border-right: 2px solid white;
 }
 
 tr {
@@ -359,8 +356,9 @@ th:nth-child(2), td:nth-child(2) {
 
 
 th, tr, td { 
-       border: 8px solid white;
+       border: 5px solid white;
    }
+
 
 
 
@@ -653,7 +651,6 @@ a {
 
  a:hover { 
    font-weight: bolder;
-   opacity: 50%;
 }
 
 a.icon-hover:hover {
@@ -699,6 +696,15 @@ button:hover,
     background: black;
     -webkit-text-stroke: 0.9px white;
     }
+
+/* combine 버튼 */
+
+#combine:hover {
+   background-color: black;
+   color: white;
+   border-radius: 0.5rem;
+}
+
 
 
 /* checkbox */
@@ -749,7 +755,4 @@ footer {
    align-items: center;
    justify-content: center;
  }
-  
-  
-
 
