@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
        }
    });
 
-    
-
     // 슬라이더 값이 변경될 때 input 요소 업데이트
     priceSlider.noUiSlider.on('update', function (values, handle) {
         var value = values[handle];
@@ -46,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-
 
 // 차 비교 =====================================================================
 var charts = {}; // 차트 인스턴스를 저장할 객체
@@ -114,7 +111,6 @@ function fetchComparisonData(carId1, carId2) {
 var carRadarLabels = ["주행", "가격", "거주성", "품질", "디자인", "연비"]
 
 function populateCarData(car, position) {
-   // 표 내용
     document.getElementById(`car${position}Img`).src = car.carImg;
     document.getElementById(`car${position}Name`).innerText = car.carName;
     document.getElementById(`car${position}Price`).innerText = new Intl.NumberFormat('ko-KR').format(Math.round(car.carAvgPrice));
@@ -324,6 +320,7 @@ function clearCarData(position) {
     
     // RadarChart 제거
     if (charts[`car${position}RadarChart`]) {
+
        charts[`car${position}RadarChart`].destroy();
     }
     document.getElementById(`car${position}RadarChart`).innerText = ''; // 캔버스 초기화

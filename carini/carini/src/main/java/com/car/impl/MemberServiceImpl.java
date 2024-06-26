@@ -212,15 +212,4 @@ public class MemberServiceImpl implements MemberService {
 	public void updatepw(String memberId, String newmemberPw) {
 		memberRepository.updateMemberPw(newmemberPw,memberId);
 	}
-	
-	
-	
-//	@Override
-//	@Transactional
-//	public void updateMember(Member member, String newmemberNickname, String newmemberNickname2) {
-//		memberRepository.updateMemberNickname(newmemberNickname,newmemberNickname2,member.getMemberId());
-//	}
-
-	
-
 }

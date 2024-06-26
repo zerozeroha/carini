@@ -105,11 +105,6 @@
     </div>
 </div>
 
-        <!-- Footer -->
-        <div id="footer">
-        </div>
-    </div>
-
 
     <!-- Footer -->
    <hr style="">
@@ -130,7 +125,7 @@
 	<script>
 		function deleteFile(noticeId) {
 		    if (confirm("정말로 파일을 삭제하시겠습니까?")) {
-		        fetch('/admin/deleteFile/' + noticeId, {
+		        fetch('/admin/notice/deleteFile/' + noticeId, {
 		            method: 'POST',
 		            headers: {
 		                'Content-Type': 'application/json'
@@ -150,20 +145,20 @@
 		}
 	</script>
 	<script>
-	function toggleDeleteLink(input) {
-	    var deleteLink = document.getElementById("deleteLink");
-	    if (input.value) {
-	        deleteLink.style.display = "block";
-	    } else {
-	        deleteLink.style.display = "none";
-	    }
-	}
-
-	// Initial check in case notice.noticeFilename is present on page load
-	document.addEventListener("DOMContentLoaded", function() {
-	    var uploadFile = document.getElementById("uploadFile");
-	    toggleDeleteLink(uploadFile);
-	});
+		function toggleDeleteLink(input) {
+		    var deleteLink = document.getElementById("deleteLink");
+		    if (input.value) {
+		        deleteLink.style.display = "block";
+		    } else {
+		        deleteLink.style.display = "none";
+		    }
+		}
+	
+		// Initial check in case notice.noticeFilename is present on page load
+		document.addEventListener("DOMContentLoaded", function() {
+		    var uploadFile = document.getElementById("uploadFile");
+		    toggleDeleteLink(uploadFile);
+		});
 	</script>
 
 </body>

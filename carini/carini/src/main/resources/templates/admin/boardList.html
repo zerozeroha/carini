@@ -18,6 +18,7 @@
 	<!-- HEADER -->
 	<!--<div th:replace="~{base/base :: header}"></div>-->
 	<!-- MAIN -->
+
 	<div id="page-wrapper">
 	<div id="content">
 		<p class="Board_text">Admin_BoardList</p>
@@ -87,8 +88,8 @@
 			</div>
 			
 			<div class="right" style="width: 130%;">
-				<input type="button" th:value="#{board.list}" th:onclick="|location.href='@{/board/getBoardList}'|">
-				<input type="button" th:value="#{board.writing}" th:onclick="|location.href='@{/board/insertBoard}'|">
+				<input type="button" th:value="#{board.list}" th:onclick="|location.href='@{/admin/boardList}'|">
+				<input type="button" th:value="#{board.writing}" th:onclick="|location.href='@{/admin/insertBoard}'|">
 			</div>
 		</article>
 	</div>
@@ -106,5 +107,6 @@
 <script src="/js/breakpoints.min.js"></script>
 <script src="/js/util.js"></script>
 <script src="/js/main.js"></script>
+
 </body>
 </html>
