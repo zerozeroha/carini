@@ -255,7 +255,9 @@ public class BoardController {
 		   BindingResult bindingResult, Model model)  {
 	   
 	   if (bindingResult.hasErrors()) {
+		   board = boardService.getBoardById(board.getBoardId());
 
+		   model.addAttribute("board", board);
 	       return "board/updateBoard";
 	    }
       
@@ -351,21 +353,3 @@ public class BoardController {
    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

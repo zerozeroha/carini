@@ -72,11 +72,13 @@ body.is-preload :before {
    -moz-animation: none !important;
    -webkit-animation: none !important;
    -ms-animation: none !important;
+   /*
    animation: none !important;
    -moz-transition: none !important;
    -webkit-transition: none !important;
    -ms-transition: none !important;
    transition: none !important
+   */
 }
 
 h1,
@@ -118,10 +120,12 @@ a {
    color: inherit;
    border-radius: .5rem;
    text-decoration: none;
+   /*
    -moz-transition: background-color .35s ease-in-out, color .35s ease-in-out, border-bottom-color .35s ease-in-out;
    -webkit-transition: background-color .35s ease-in-out, color .35s ease-in-out, border-bottom-color .35s ease-in-out;
    -ms-transition: background-color .35s ease-in-out, color .35s ease-in-out, border-bottom-color .35s ease-in-out;
    transition: background-color .35s ease-in-out, color .35s ease-in-out, border-bottom-color .35s ease-in-out
+   */
 }
 
 a:hover {
@@ -235,25 +239,7 @@ ul.icons li a:hover {
    color: #ef8376
 }
 
-form ::-webkit-input-placeholder {
-   color: #555 !important
-}
 
-form :-moz-placeholder {
-   color: #555 !important
-}
-
-form ::-moz-placeholder {
-   color: #555 !important
-}
-
-form :-ms-input-placeholder {
-   color: #555 !important
-}
-
-form ::-moz-focus-inner {
-   border: 0
-}
 
 #header {
    position: relative;
@@ -498,10 +484,10 @@ footer {
    border-radius: .5em;
    padding: .85em;
    border: solid 1px transparent;
-   -moz-transition: color .35s ease-in-out, border-color .35s ease-in-out;
+   /*-moz-transition: color .35s ease-in-out, border-color .35s ease-in-out;
    -webkit-transition: color .35s ease-in-out, border-color .35s ease-in-out;
    -ms-transition: color .35s ease-in-out, border-color .35s ease-in-out;
-   transition: color .35s ease-in-out, border-color .35s ease-in-out
+   transition: color .35s ease-in-out, border-color .35s ease-in-out*/
 }
 
 #nav>ul>li>a {
@@ -548,10 +534,11 @@ footer {
    display: block;
    border: 0;
    padding: .5em 0 .5em 0;
+   /*
    -moz-transition: color .35s ease-in-out;
    -webkit-transition: color .35s ease-in-out;
    -ms-transition: color .35s ease-in-out;
-   transition: color .35s ease-in-out
+   transition: color .35s ease-in-ou*/
 }
 
 #content>hr {
@@ -647,5 +634,5 @@ footer img {
    color: #fff !important;
    background-color: #000 !important;
    border-radius: .5rem;
-   padding: 1.5%
+
 }

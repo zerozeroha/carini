@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -46,7 +47,10 @@ import com.car.dto.Member;
 import com.car.dto.PagingInfo;
 import com.car.service.MemberService;
 import com.car.validation.BoardUpdateFormValidation;
+import com.car.validation.BoardWriteFormValidation;
 import com.car.validation.InquiryWriteValidation;
+import com.car.validation.Update_InfoFormValidation;
+import com.car.validation.Update_NicknameFormValidation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -97,7 +101,8 @@ public class MypageController {
 	 * 회원정보 수정(나의 정보)
 	 */
 	@GetMapping("/form")
-	public String mypageForm(HttpSession session,Model model,HttpServletRequest request,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
+	public String mypageForm(HttpSession session, Model model, HttpServletRequest request,
+			@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		Member user = (Member) session.getAttribute("user");
 
@@ -106,8 +111,12 @@ public class MypageController {
 		findmember.setMemberPw("*****");
 		findmember.setMemberPhoneNum("***-****-****");
 		findmember.setMemberEmail("****@****.***");
-	    session.setAttribute("originalUrl", request.getRequestURI());
-	    model.addAttribute("hiddenuser", findmember);
+		findmember.setMemberNickname(findmember.getMemberNickname());
+		findmember.setMemberSocialNickname(findmember.getMemberSocialNickname());
+		session.setAttribute("originalUrl", request.getRequestURI());
+		System.out.println(findmember);
+		model.addAttribute("hiddenuser", findmember);
+
 		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/mypageview.html";
 	}
@@ -117,12 +126,12 @@ public class MypageController {
 	 */
 	@GetMapping("/myinfo")
 	public ResponseEntity<Map<String, Object>> myinfo(@RequestParam("user_password") String memberPw,
-			@ModelAttribute("member") Member members, HttpServletRequest request,HttpSession session) {
+			@ModelAttribute("member") Member members, HttpServletRequest request, HttpSession session) {
 		Map<String, Object> response = new HashMap<>();
 		Member user = (Member) session.getAttribute("user");
 		Member member = memberService.findByMemberId(user.getMemberId());
 		Locale locale = localeResolver.resolveLocale(request);
-		
+
 		if (member != null && member.getMemberPw().equals(memberPw)) {
 			response.put("success", true);
 			response.put("message", messageSource.getMessage("info.success", null, locale));
@@ -148,15 +157,23 @@ public class MypageController {
 	}
 
 	@GetMapping("/myinfo_edit")
-	public String myinfo_edit(HttpSession session,@ModelAttribute("member") Member member) {
+	public String myinfo_edit(HttpSession session,
+			@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members, Model model) {
 		Member user = (Member) session.getAttribute("user");
 		Member finduser = memberService.findByMemberId(user.getMemberId());
+		members.setMemberEmail(finduser.getMemberEmail());
+		members.setMemberName(finduser.getMemberName());
+		members.setMemberPhoneNum(finduser.getMemberPhoneNum());
+		members.setMemberPw(finduser.getMemberPw());
+		model.addAttribute("Update_InfoFormValidation", finduser);
 		session.setAttribute("showuser", finduser);
+		System.out.println(session.getAttribute("showuser"));
 		return "mypage/myinfo_edit.html";
 	}
 
 	@GetMapping("/myinfo_social_edit")
-	public String myinfo_social_edit(@ModelAttribute("member") Member members, HttpSession session) {
+	public String myinfo_social_edit(@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members,
+			HttpSession session) {
 		Member user = (Member) session.getAttribute("user");
 		Member finduser = memberService.findByMemberId(user.getMemberId());
 		session.setAttribute("showuser", finduser);
@@ -170,7 +187,7 @@ public class MypageController {
 	 * 닉네임 수정
 	 */
 	@PostMapping("/myinfo/updatenickname")
-	public String myInfoNicknameUpdate(@ModelAttribute("member") Member members,BindingResult bindingResult,
+	public String myInfoNicknameUpdate(@ModelAttribute("member") Member members, BindingResult bindingResult,
 			@RequestParam("memberNickname") String memberNickname, Model model, HttpSession session,
 			HttpServletRequest request) {
 		Member user = (Member) session.getAttribute("user");
@@ -194,9 +211,9 @@ public class MypageController {
 		}
 
 		memberService.updateMember(member, memberNickname);
-		boardService.updateBoardWriter(member,memberNickname);
+		boardService.updateBoardWriter(member, memberNickname);
 		Member savemember = memberService.findByMemberId(members.getMemberId());
-		
+
 		session.setAttribute("user", savemember);
 		model.addAttribute("msg", messageSource.getMessage("info.Nickinput.success", null, locale));
 		model.addAttribute("url", "/mypage/form");
@@ -242,21 +259,27 @@ public class MypageController {
 	 * 회원정보 모두 수정
 	 */
 	@PostMapping("/myinfo/updateAll")
-	public String myInfoUpdateAll(@ModelAttribute Member members, Model model, HttpServletRequest request) {
-		final Pattern PASSWORD_PATTERN = Pattern.compile(passwordRegex);
+	public String myInfoUpdateAll(
+			@Validated @ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members,
+			BindingResult bindingResult, Model model, HttpSession session, HttpServletRequest request) {
+
+		if (bindingResult.hasErrors()) {
+			Map<String, String> errors = new HashMap<>();
+			// 필드별로 발생한 모든 오류 메시지를 맵에 담음
+			bindingResult.getFieldErrors().forEach(error -> {
+				String fieldName = error.getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
+			System.out.println(errors);
+			return "mypage/myinfo_edit.html";
+		}
+
+		Member user = (Member) session.getAttribute("user");
 		List<Member> memberList = memberService.findAllMember();
 		Locale locale = localeResolver.resolveLocale(request);
-		Member member = memberService.findByMemberId(members.getMemberId());
-		System.out.println("============");
-		System.out.println(member);
+		Member member = memberService.findByMemberId(user.getMemberId());
 		if (member != null) {
-			if (!PASSWORD_PATTERN.matcher(members.getMemberPw()).matches()) {
-
-				model.addAttribute("msg", messageSource.getMessage("info.pwcheck.failure", null, locale));
-				model.addAttribute("url", "/mypage/form");
-				return "alert";
-			}
-
 			String currentMemberEmail = member.getMemberEmail();
 			for (Member memberOne : memberList) {
 
@@ -274,7 +297,7 @@ public class MypageController {
 			member.setMemberEmail(members.getMemberEmail());
 			member.setMemberPhoneNum(members.getMemberPhoneNum());
 
-			memberService.updateAllMember(members.getMemberId(), member);
+			memberService.updateAllMember(user.getMemberId(), member);
 
 			model.addAttribute("msg", messageSource.getMessage("info.update.success", null, locale));
 			model.addAttribute("url", "/mypage/form");
@@ -342,7 +365,7 @@ public class MypageController {
 	@GetMapping("/bookmark")
 	public String myPagebookmarkList(Model model, HttpServletRequest request, HttpSession session) {
 		Locale locale = localeResolver.resolveLocale(request);
-		
+
 		Member user = (Member) session.getAttribute("user");
 		List<Bookmark> bookmarkCarID = bookMarkService.findAllBookmarkCar(user.getMemberId());
 
@@ -352,14 +375,14 @@ public class MypageController {
 		model.addAttribute("BookmarkCarList", bookmarkCarList);
 		return "mypage/bookmark.html";
 	}
-	
+
 	/*
 	 * 즐겨찾기 추가
 	 */
 	@PostMapping("/bookmark/{carId}")
-	public String myPagebookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
+	public String myPagebookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark,
+			HttpServletRequest request, HttpSession session) {
 
-		
 		Locale locale = localeResolver.resolveLocale(request);
 
 		Member user = (Member) session.getAttribute("user");
@@ -367,36 +390,38 @@ public class MypageController {
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
 
-		bookMarkService.insertMember(bookmark,user);
-		
+		bookMarkService.insertMember(bookmark, user);
+
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
 		model.addAttribute("url", request.getHeader("Referer"));
-	    return "alert";
+		return "alert";
 	}
-	
+
 	@GetMapping("/bookmark/{carId}")
-	public String myPagebookmarkAddGet(@PathVariable("carId") String carId, Model model, Bookmark bookmark, HttpServletRequest request, HttpSession session) {
-		
+	public String myPagebookmarkAddGet(@PathVariable("carId") String carId, Model model, Bookmark bookmark,
+			HttpServletRequest request, HttpSession session) {
+
 		Locale locale = localeResolver.resolveLocale(request);
 
 		Member user = (Member) session.getAttribute("user");
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
-		
-		bookMarkService.insertMember(bookmark,user);
-		
 
-	    return "redirect:/model/getModelList";
+		bookMarkService.insertMember(bookmark, user);
+
+		return "redirect:/model/getModelList";
 	}
+
 	/*
 	 * bookmark 삭제
 	 */
 	@PostMapping("/bookmark/delete/{carId}")
-	public String myPagebookmarkdelete(@PathVariable("carId") String carId,	Model model, HttpServletRequest request, HttpSession session) {
+	public String myPagebookmarkdelete(@PathVariable("carId") String carId, Model model, HttpServletRequest request,
+			HttpSession session) {
 
 		Locale locale = localeResolver.resolveLocale(request);
 		Member user = (Member) session.getAttribute("user");
-		
+
 		bookMarkService.findBookmarkByCarDelete(Integer.parseInt(carId), user.getMemberId());
 		model.addAttribute("msg", messageSource.getMessage("bookmark.delete", null, locale));
 		model.addAttribute("url", request.getHeader("Referer"));
@@ -455,119 +480,185 @@ public class MypageController {
 	}
 
 	/*
+	 * 게시판 작성
+	 */
+	@GetMapping("/insertMyBoard")
+	public String insertBoardForm(Board board, Member member,
+			@ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, Model model) {
+
+		LocalDate currentDate = LocalDate.now();
+
+		model.addAttribute("date", currentDate);
+
+		return "mypage/insertMyBoard";
+	}
+
+	/*
+	 * 게시판 작성
+	 */
+	@PostMapping("/insertMyBoard")
+	public String insertBoard(Board board,
+			@Validated @ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation,
+			BindingResult bindingResult, Model model)
+
+			throws IOException {
+		LocalDate currentDate = LocalDate.now();
+		model.addAttribute("date", currentDate);
+		if (bindingResult.hasErrors()) {
+			return "mypage/insertMyBoard";
+		}
+
+		// 파일업로드
+
+		MultipartFile uploadFile = board.getUploadFile();
+		if (!uploadFile.isEmpty()) {
+			String fileName = uploadFile.getOriginalFilename();
+
+			uploadFile.transferTo(new File(uploadFolder + fileName));
+			board.setBoardFilename(fileName);
+		}
+
+		boardService.insertBoard(board);
+		model.addAttribute("msg", "게시글이 작성되었습니다!");
+		model.addAttribute("url", "/mypage/myBoard");
+		return "alert";
+	}
+
+	/*
 	 * 내 게시물 상세 조회
 	 */
 	@GetMapping("/myBoard/getBoard")
-	public String myPagemyboard(Board board, Model model,HttpSession session) {
-			
+	public String myPagemyboard(Board board, Model model, HttpSession session) {
+
 		Member user = (Member) session.getAttribute("user");
-	       
-	    model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
-	      
-	    return "mypage/getMyBoard";
+
+		model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
+
+		return "mypage/getMyBoard";
 	}
+
 	/*
 	 * 내 게시물 수정하기 폼
-	 * */
-	 @GetMapping("/updateMyBoard")
-	   public String updateMyBoard(@RequestParam("boardId") Long boardId, Model model, HttpSession session,
-			   @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
-			   BindingResult bindingResult) {
-		       Member user = (Member) session.getAttribute("user");
+	 */
+	@GetMapping("/updateMyBoard")
+	public String updateMyBoard(@RequestParam("boardId") Long boardId, Model model, HttpSession session,
+			@ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
+			BindingResult bindingResult) {
+		Member user = (Member) session.getAttribute("user");
 
-		       Board board = boardService.getBoardById(boardId);
-		       if (board == null) {
-		           model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
-		           model.addAttribute("url", "/board/getBoardList");
-		           return "alert";
-		       }
-		       
-		       if (board.getMemberId().equals(user.getMemberId())) {
-		    	   boardValidation.setBoardTitle(board.getBoardTitle());
-		           boardValidation.setBoardContent(board.getBoardContent());
-		           
-		           model.addAttribute("BoardUpdateFormValidation", boardValidation);
-		           model.addAttribute("board", board);
-		           return "mypage/updateMyBoard";  // 게시글 수정 페이지
-		       }
-		       
-		       model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
-		       model.addAttribute("url", "/mypage/myBoard");
-		       return "alert";
-	   }
-	 /*
-	  * 나의 게시물 수정하기
-	  * */
-	 @PostMapping("/updateBoard")
-	   public String updateBoard(Board board, Model model,
-			   @Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation ,
-			   BindingResult bindingResult) throws IllegalStateException, IOException  {
-	     
-		 if (bindingResult.hasErrors()) {
+		Board board = boardService.getBoardById(boardId);
+		if (board == null) {
+			model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
+			model.addAttribute("url", "/mypage/myBoard");
+			return "alert";
+		}
 
-		       return "mypage/updateMyBoard";
-		    }
+		if (board.getMemberId().equals(user.getMemberId())) {
+			boardValidation.setBoardTitle(board.getBoardTitle());
+			boardValidation.setBoardContent(board.getBoardContent());
 
-		 
-	      MultipartFile uploadFile = board.getUploadFile();
+			model.addAttribute("BoardUpdateFormValidation", boardValidation);
+			model.addAttribute("board", board);
+			return "mypage/updateMyBoard"; // 게시글 수정 페이지
+		}
 
-	      if(!uploadFile.isEmpty()) {
-	         String fileName = uploadFile.getOriginalFilename();
-	         
-	         uploadFile.transferTo(new File(uploadFolder + fileName));
-	         board.setBoardFilename(fileName);
-	         board.setBoardTitle(boardValidation.getBoardTitle());
-	         board.setBoardContent(boardValidation.getBoardTitle());
+		model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
+		model.addAttribute("url", "/mypage/myBoard");
+		return "alert";
+	}
 
-	      }
+	/*
+	 * 나의 게시물 수정하기
+	 */
+	@PostMapping("/updateBoard")
+	public String updateBoard(Board board,
+			@Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
+			BindingResult bindingResult, Model model) {
 
-	      	boardService.updateBoard(board);
-	        model.addAttribute("msg", "게시글이 수정되었습니다!");
-	        model.addAttribute("url", "/mypage/myBoard/getBoard?boardId=" + board.getBoardId());
-	        return "alert";
-	   }
-	 
-	 /*
-	  * 나의게시글 삭제
-	  * */
+		if (bindingResult.hasErrors()) {
+			board = boardService.getBoardById(board.getBoardId());
+			model.addAttribute("board", board);
+			return "mypage/updateMyBoard";
+		}
+
+		// 파일재업로드
+		MultipartFile uploadFile = board.getUploadFile();
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			String fileName = uploadFile.getOriginalFilename();
+			Path filePath = Paths.get(uploadFolder + fileName);
+			try {
+				Files.copy(uploadFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+				board.setBoardFilename(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new RuntimeException("파일 저장 중 오류가 발생했습니다: " + e.getMessage(), e);
+			}
+		}
+		boardService.updateBoard(board);
+		model.addAttribute("msg", "게시글이 수정되었습니다!");
+		model.addAttribute("url", "/mypage/myBoard/getBoard?boardId=" + board.getBoardId());
+		return "alert";
+	}
+
+	/*
+	 * 나의게시글 삭제
+	 */
 	@PostMapping("/myBoard/deleteBoard")
 	public String myPagemydeleteBoard(@RequestParam("selectedBoardsData") String selectedBoards,
 			@RequestParam(name = "curPage", defaultValue = "0") int curPage,
 			@RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 			@RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
-			@RequestParam(name = "searchWord", defaultValue = "") String searchWord,HttpSession session,Model model) {
-		
+			@RequestParam(name = "searchWord", defaultValue = "") String searchWord, HttpSession session, Model model) {
+
 		Member user = (Member) session.getAttribute("user");
-        if (user == null || user.getMemberId() == null) {
-            // 사용자 정보가 없는 경우 로그인 페이지로 리다이렉트
-            return "redirect:/member_login";
-        }
+		if (user == null || user.getMemberId() == null) {
+			// 사용자 정보가 없는 경우 로그인 페이지로 리다이렉트
+			return "redirect:/member_login";
+		}
 		// ObjectMapper 객체 생성
-	    ObjectMapper objectMapper = new ObjectMapper();
-	    try {
-	        // JSON 문자열을 Board 배열로 역직렬화
-	        Board[] selectedBoardsArray = objectMapper.readValue(selectedBoards, Board[].class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			// JSON 문자열을 Board 배열로 역직렬화
+			Board[] selectedBoardsArray = objectMapper.readValue(selectedBoards, Board[].class);
 
-	        // 선택된 게시물을 순회하면서 삭제 작업 수행
-	        for (Board board : selectedBoardsArray) {
-	            boardService.deleteBoard(board);
-	          
-	        }
+			// 선택된 게시물을 순회하면서 삭제 작업 수행
+			for (Board board : selectedBoardsArray) {
+				boardService.deleteBoard(board);
 
+			}
 
-	        // 세션에서 사용자 정보 가져오기
-	        
+			// 세션에서 사용자 정보 가져오기
 
-	    } catch (JsonProcessingException e) {
-	        // JSON 처리 중 오류 발생 시 예외 처리
-	        e.printStackTrace();
-	        // 오류 페이지로 리다이렉트 또는 오류 메시지 반환 등의 작업 수행
-	    }
-	    // 삭제 작업 완료 후 게시물 목록 페이지로 이동
-	    
-	    model.addAttribute("msg", "게시글이 삭제되었습니다!");
-        model.addAttribute("url", "/mypage/myBoard?curPage=" + curPage + "&rowSizePerPage=" + rowSizePerPage + "&searchType=" + searchType + "&searchWord=" + searchWord);
-        return "alert";
+		} catch (JsonProcessingException e) {
+			// JSON 처리 중 오류 발생 시 예외 처리
+			e.printStackTrace();
+			// 오류 페이지로 리다이렉트 또는 오류 메시지 반환 등의 작업 수행
+		}
+		// 삭제 작업 완료 후 게시물 목록 페이지로 이동
+
+		model.addAttribute("msg", "게시글이 삭제되었습니다!");
+		model.addAttribute("url", "/mypage/myBoard?curPage=" + curPage + "&rowSizePerPage=" + rowSizePerPage
+				+ "&searchType=" + searchType + "&searchWord=" + searchWord);
+		return "alert";
+	}
+
+	/*
+	 * 나의 게시글 삭제
+	 */
+	@GetMapping("/myboard/getMyboard/deleteBoard")
+	public String deleteBoard(Board board, HttpSession session, Model model) {
+		Board findboard = boardService.getBoardById(board.getBoardId());
+
+		if (findboard == null) {
+			model.addAttribute("msg", "해당 게시물이 존재하지않습니다.");
+			model.addAttribute("url", "/mypage/myBoard");
+			return "alert";
+		}
+
+		boardService.deleteBoard(findboard);
+		model.addAttribute("msg", "해당 게시물을 삭제하였숩니다.");
+		model.addAttribute("url", "/mypage/myBoard");
+		return "alert";
 	}
 
 }

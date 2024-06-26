@@ -1,98 +1,53 @@
-<!DOCTYPE HTML>
+<!-- Header -->
+<div id="header" th:fragment="main_header">
+	<!-- Inner -->
+	<div class="inner">
+		<header>
+			<a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+		</header>
+	</div>
+	<!-- Nav -->
+	<nav id="nav">
+		<ul >
+			<li><a th:href="@{/board/getBoardList}">Board</a>
+				<ul style="margin-top:10px">
+					<li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver">커뮤니티</a>
+					</li>
+					<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a>
+					</li>
+				</ul>
+			</li>
+			<li><a href="Models.html">&nbsp;Model</a></li>
+			<li><a href="Center.html">&nbsp;Center</a></li>
+			<li>
+				<a>&nbsp;MyPage</a>
+				<ul style="margin-top:5px;">
+					<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
+							th:text="#{side.menu1}"></a></li>
+					<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
+							th:text="#{side.menu2}"></a></li>
+					<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
+							th:text="#{side.menu3}"></a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+</div>
+<!--여기까지 헤더-->
 
-<html xmlns:th="http://www.thymeleaf.org">
-
-
-
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<noscript>
-    <link rel="stylesheet" th:href="@{/assets/css/noscript.css}" />
-</noscript>
-<link rel="stylesheet" href="/css/base.css">
-
-</head>
+<!-- Footer -->
+<footer th:fragment="main_footer">
+	<hr>
+	<h1 style="padding-bottom: 50px;">@ carini</h1>
+</footer>
 
 
 <!--챗봇 아이콘-->
-    <div id="float_icons" th:fragment="floaticon">
-            <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
-                <img src="/img/챗봇아이콘.png" alt="챗봇">
-            </a>
-            <a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
-                <img src="/img/popup.png" alt="문의">
-            </a>
-    </div>
-
-
-<body class="no-sidebar is-preload">
-
-    <div th:fragment="header">
-
-
-        <!-- Header -->
-        <div id="header">
-            <!-- Inner -->
-            <div class="inner">
-                <header>
-                    <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-                </header>
-
-            </div>
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li><a th:href="@{/board/getBoardList}">Board</a>
-                        <ul>
-                            <li><a th:href="@{/board/getBoardList}" style="text-align: center;"
-                                    class="side-hver">커뮤니티</a>
-                            </li>
-                            <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;"
-                                    class="side-hver">공지사항</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="Models.html">&nbsp;Model</a></li>
-                    <li><a href="Center.html">&nbsp;Center</a></li>
-                    <li>
-                        <a>&nbsp;MyPage</a>
-                        <ul>
-                            <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
-                                    th:text="#{side.menu1}"></a></li>
-                            <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
-                                    th:text="#{side.menu2}"></a></li>
-                            <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
-                                    th:text="#{side.menu3}"></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <br>
-
-
-    </div>
-    <!--여기까지 헤더-->
-
-
-
-
-    <!-- Scripts -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.dropotron.min.js"></script>
-    <script src="/js/jquery.scrolly.min.js"></script>
-    <script src="/js/jquery.scrollex.min.js"></script>
-    <script src="/js/browser.min.js"></script>
-    <script src="/js/breakpoints.min.js"></script>
-    <script src="/js/util.js"></script>
-    <script src="/js/main.js"></script>
-
-
-
-    <!-- Footer -->
-    <footer th:fragment="footer">
-        <hr>
-        <h1 style="padding-bottom: 50px;">@ carini</h1>
-    </footer>
-</body>
-</html>
+<div id="float_icons" th:fragment="floaticon">
+	<a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+		<img src="/img/챗봇아이콘.png" alt="챗봇">
+	</a>
+	<a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
+		<img src="/img/popup.png" alt="문의">
+	</a>
+</div>

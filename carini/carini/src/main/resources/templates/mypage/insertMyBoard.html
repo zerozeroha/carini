@@ -10,7 +10,7 @@
    <title> 상세보기 - Helios by HTML5 UP</title>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <link rel="stylesheet" href="/css/insertBoard.css" />
+   <link rel="stylesheet" href="/css/insertMyBoard.css" />
    <link rel="stylesheet" href="/css/base.css" />
 
 
@@ -36,7 +36,7 @@
       <div class="wrapper style1">
          <div class="container">
             <p class="Board_text"><br>_Write_My_Board</p>
-            <form th:action="@{/board/insertBoard}" th:object="${BoardWriteFormValidation}" method="post"
+            <form th:action="@{/mypage/insertMyBoard}" th:object="${BoardWriteFormValidation}" method="post"
                enctype="multipart/form-data" name="boardForm" id="boardForm">
                <input name="memberId" type="hidden" th:value="${session.user.memberId}">
                <div style="display: flex; gap:10px;color:red;font-weight: 600;">
@@ -81,12 +81,23 @@
                </table>
 
                <div id="button_section">
+
+                  <div th:if="${board.boardFilename != null}" id="uploadFile_div">
+                     <a th:href="@{/board/download(boardId=${ board.boardId }, fn=${ board.boardFilename })}"
+                        id="uploadFile" class="icon-hover">
+                        <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
+                     </a>
+
+                     <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile"
+                        aria-label="Upload" />
+                  </div>
+
                   <div class="change_list" style="gap:10px">
                      <div style="width: 105px;">
                         <a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"></a>
                      </div>
                      <div style="width:85px;">
-                        <a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="btn"></a>
+                        <a th:text="#{board.list}" th:href="@{/mypage/myBoard}" class="btn"></a>
                      </div>
                   </div>
             </form>

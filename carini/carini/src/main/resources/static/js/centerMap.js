@@ -5,15 +5,15 @@ function initializeMap(agenciesArray) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var currentPosition = new kakao.maps.LatLng(position.coords.latitude + 0.0095606, position.coords.longitude + 0.0083313);
-    
+
             var mapOption = {
                 center: currentPosition, // 지도의 중심 좌표 - 현재 위치
-                level: 6 // 지도의 확대 레벨
+                level: 5 // 지도의 확대 레벨
             };
-    
+
             // 지도 생성
             map = new kakao.maps.Map(mapContainer, mapOption);
-    
+
             // positions 배열 생성
             var positions = agenciesArray.map(function(agency) {
                 return {
@@ -24,8 +24,6 @@ function initializeMap(agenciesArray) {
                     address: agency.agencyAddress
                 };
             });
-   
-
 
             // 현재 열린 모든 인포윈도우를 저장할 배열
             var openInfoWindows = [];
@@ -42,22 +40,23 @@ function initializeMap(agenciesArray) {
                     map: map,
                     position: positions[i].latlng,
                 });
-                
+
                 var contentString = `
-                	<div style="padding:10px; width:625px; height:100px;background-color:whitesmoke;margin-bottom:100px;border-radius:10px">
-                        <div style="margin-bottom:70px;">
-                        <div><span style="font-weight:700;color:blue;">대리점 : ${positions[i].title}</span></div>
-                        <div><span style="font-weight:700;color:blue;">브랜드 : ${positions[i].brand}</span></div>
-                        <div><span style="font-weight:700;color:blue;">전화번호 : ${positions[i].tel}</span></div>
-                        <div><span style="font-weight:700;color:blue;">주소 : ${positions[i].address}</span></div>
+                   <div style="padding-bottom:2%; width:350px; height:130px; background-color:white; text-align:left; 
+                   margin-bottom:160px; border-radius:0.7rem; border:1px solid gray;">
+                        <div style="margin-bottom:70px; font-size:15px;">
+                        <div><span style="font-weight:400;color:black;">대리점 : ${positions[i].title}</span></div>
+                        <div><span style="font-weight:400;color:black;">브랜드 : ${positions[i].brand}</span></div>
+                        <div><span style="font-weight:400;color:black;">전화번호 : ${positions[i].tel}</span></div>
+                        <div><span style="font-weight:400;color:black;">주소 : ${positions[i].address}</span></div>
                         </div>
                     </div>
                 `;
-                
+
                 var infowindow = new kakao.maps.InfoWindow({
                     content: contentString // 인포윈도우에 표시할 내용
                 });
-            
+
                 // 마커 클릭 이벤트를 등록하여 인포윈도우를 표시
                 (function(marker, infowindow) {
                     kakao.maps.event.addListener(marker, 'click', function() {
@@ -70,7 +69,10 @@ function initializeMap(agenciesArray) {
                     });
                 })(marker, infowindow);
             }
-    
+        }, function(error) {
+            // Geolocation 에러 핸들링
+            console.error("Geolocation error: ", error);
+            alert('현재 위치를 가져올 수 없습니다.');
         });
     } else {
         // 브라우저가 Geolocation을 지원하지 않는 경우 처리
