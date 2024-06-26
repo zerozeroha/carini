@@ -319,12 +319,14 @@
                             <tr style="height: 40px;">
                                 <th th:text="#{info.nickname}"></th>
                                 <td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberNickname}" aria-disabled="true"></td>
-                                <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberSocialNickname}" aria-disabled="true"></td>
+                                <td th:unless="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberSocialNickname}" aria-disabled="true"></td>
+
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.id}"></th>
                                 <td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberId}" aria-disabled="true"></td>
-                                <td th:unless="${session.user.memberSocial == '회원'}" th:text="${session.user.memberEmail}" aria-disabled="true"></td>
+                                <td th:unless="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberEmail}" aria-disabled="true"></td>
+
                             </tr>
                             <tr style="height: 40px;">
                                 <th th:text="#{info.pw}"></th>
