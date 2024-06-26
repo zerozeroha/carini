@@ -63,7 +63,7 @@
             <div class="container">
                 <p class="Board_text"><br>_Edit_Board</p>
             
-		<form th:action="@{/board/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"  enctype="multipart/form-data" id="boardForm" name="boardForm">
+		<form th:action="@{/admin/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"  enctype="multipart/form-data" id="boardForm" name="boardForm">
 			<input name="boardId" type="hidden" th:value="${board.boardId}">
 			<div style="display: flex; gap:10px;color:red;font-weight: 600;">
 				<div th:if="${#fields.hasErrors('boardTitle')}">
@@ -125,7 +125,7 @@
                     	<a  onclick="document.forms['boardForm'].submit();">수정하기</a>
 					</div>
 					<div style="width:85px;" class="footer_btn2">
-						<a th:href="@{/board/getBoardList}" th:text="#{board.list}" class="btn"></a>
+						<a th:href="@{/admin/boardList}" th:text="#{board.list}" class="btn"></a>
 					</div>
 					<div style="width:85px;" class="footer_btn2">
 						<a th:href="@{/admin/deleteBoard(boardId=${board.boardId})}">삭제</a>

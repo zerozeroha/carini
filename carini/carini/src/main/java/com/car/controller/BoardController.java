@@ -274,6 +274,7 @@ public class BoardController {
             throw new RuntimeException("파일 저장 중 오류가 발생했습니다: " + e.getMessage(), e);
          }         
       }
+      
       boardService.updateBoard(board);
       model.addAttribute("msg", "게시글이 수정되었습니다!");
       model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());

@@ -36,9 +36,9 @@
                         <input type="hidden" id="curPage" name="curPage" th:value="0">
                         <input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
                         <span>
-                            <span th:text="#{board.total.start}"></span>
+                            <span th:text="#{notice.total.start}"></span>
                             <span th:text="${pagedResult.getTotalElements()}"></span>
-                            <span th:text="#{board.total}"></span>
+                            <span th:text="#{notice.total}"></span>
                         </span>
 
 
@@ -113,8 +113,10 @@
                 </div><!-- pagination -->
             </div>
         </div>
+		
         <!-- Footer -->
         <div th:replace="~{base/base :: footer}"></div>-->
+		
     </div>
    
     <!-- Scripts -->

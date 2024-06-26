@@ -697,6 +697,16 @@ button:hover,
     -webkit-text-stroke: 0.9px white;
     }
 
+/* combine 버튼 */
+
+#combine:hover {
+   background-color: black;
+   color: white;
+   border-radius: 0.5rem;
+}
+
+
+
 /* checkbox */
 
 .checkbox {
@@ -745,3 +755,4 @@ footer {
    align-items: center;
    justify-content: center;
  }
+

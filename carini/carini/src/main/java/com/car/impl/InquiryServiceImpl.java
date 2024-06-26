@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.car.dto.Inquiry;
@@ -42,6 +44,27 @@ public class InquiryServiceImpl implements InquiryService{
 		Optional<Inquiry> inquiry =  inquiryRepository.findById(reId);
 		return inquiry.get();
 	}
-	
 
+	@Override
+	public Page<Inquiry> getInquiryList(Pageable pageable, String searchType, String searchWord) {
+		if(searchType.equalsIgnoreCase("reContent")) {
+			return inquiryRepository.findByReContentContaining(searchWord, pageable);
+			
+		} else if(searchType.equalsIgnoreCase("memberId")) {
+			return inquiryRepository.findByMemberIdContaining(searchWord, pageable);
+			
+		} else if(searchType.equalsIgnoreCase("reTitleRq")) {
+			return inquiryRepository.findByReTitleRqContaining(searchWord, pageable);
+			
+		} else if(searchType.equalsIgnoreCase("reContentRq")) {
+			return inquiryRepository.findByReContentRqContaining(searchWord, pageable);
+			
+		} else {
+			return inquiryRepository.findByReTitleContaining(searchWord, pageable);
+		}
+	}
+	
+	
+	
+	
 }
