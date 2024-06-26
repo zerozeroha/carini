@@ -52,10 +52,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Board;
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
 import com.car.service.BoardService;
+import com.car.service.InquiryService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
 import com.car.validation.AdminMemberValidation;
@@ -78,7 +80,9 @@ public class AdminController {
 	private MemberService memberService;
 	@Autowired
 	private NoticeService noticeService;
-	   
+	@Autowired
+	private InquiryService inquiryService;
+
 	   
 	@Autowired
 	private MessageSource messageSource;
@@ -343,7 +347,7 @@ public class AdminController {
 	    }
 	    
 	    model.addAttribute("msg", "관리자만 수정이 가능합니다!.");
-	    model.addAttribute("url", "/admin/updateBoard?boardId=" + board.getBoardId());
+	    model.addAttribute("url", "/admin/boardList");
 	    return "alert";
 	}
 	
@@ -354,7 +358,7 @@ public class AdminController {
 		   
 		   if (bindingResult.hasErrors()) {
 	
-		       return "board/updateBoard";
+		       return "admin/updateBoard";
 		    }
 	   
 	   // 파일재업로드
@@ -372,7 +376,7 @@ public class AdminController {
 	   }
 	   boardService.updateBoard(board);
 	   model.addAttribute("msg", "게시글이 수정되었습니다!");
-	   model.addAttribute("url", "/admin/updateBoard?boardId=" + board.getBoardId());
+	   model.addAttribute("url", "/admin/boardList");
 	   return "alert";
 	}
 	
@@ -383,63 +387,14 @@ public class AdminController {
 		  
 		  if(findboard ==null) {
 			  model.addAttribute("msg", "해당 게시물이 존재하지않습니다.");
-			  model.addAttribute("url", "/board/getBoardList");
+			  model.addAttribute("url", "/admin/boardList");
 			  return "alert";
 		  }
 		  
 	   boardService.deleteBoard(findboard);
 	   model.addAttribute("msg", "해당 게시물을 삭제하였숩니다.");
-		  model.addAttribute("url", "/board/getBoardList");
+		  model.addAttribute("url", "/admin/boardList");
 	   return "alert";
-	}
-	
-	// 게시판 파일 다운로드
-	@GetMapping("/board/download")
-	public ResponseEntity<Resource> handleFileDownload(HttpServletRequest req, 
-	      @RequestParam(name = "boardId") Long boardId, @RequestParam(name = "fn") String fn) throws Exception {
-		   req.setCharacterEncoding("utf-8");
-		   String fileName = req.getParameter("fn");
-	    Path filePath = Paths.get(uploadFolder + fileName).toAbsolutePath();
-	    Resource resource = null;
-	    try {
-	        resource = new UrlResource(filePath.toUri());           
-	        if (resource.exists()) {
-	            return ResponseEntity.ok()
-	                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-	                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" 
-	                          + URLEncoder.encode(resource.getFilename(), "utf-8") + "\"")
-	                    .body(resource);
-	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	        }
-	    } catch (MalformedURLException e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	    }
-	}
-	
-	/*
-	  * 파일 삭제
-	  * */
-	@PostMapping("/board/deleteFile/{boardId}")
-	@ResponseBody
-	public ResponseEntity<Map<String, String>> deleteFile(@PathVariable(name = "boardId") Long boardId, HttpServletRequest request) {
-	    Map<String, String> response = new HashMap<>();
-	    Locale locale = localeResolver.resolveLocale(request);
-	    try {
-	 	   
-	        boardService.deleteFile(boardId);
-	        response.put("message", messageSource.getMessage("board.filedelete.success", null, locale));
-	        response.put("status", "success");
-	        return ResponseEntity.ok(response);
-	    } catch (Exception e) {
-	
-	        log.error("게시글 파일 삭제 중 오류 발생: {}", e.getMessage(), e);
-	        response.put("message", messageSource.getMessage("board.filedelete.failure", null, locale));
-	        response.put("status", "error");
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	        
-	 	   //throw new BoardDeleteFileException(ErrorCode.BOARD_DELETE,null);
-	    }
 	}
 	
 	
@@ -516,13 +471,13 @@ public class AdminController {
 			
 			return "admin/updateNotice";
 		}
-		
-		model.addAttribute("msg", "관리자만 수정이 가능합니다!.");
+		System.out.println("user.getMemberRole()====>"+user.getMemberRole().toString());
+		model.addAttribute("msg", "관리자만 공지사항 수정이 가능합니다!.");
 	    model.addAttribute("url", "/admin/noticeList");
 		return "alert";
 	}
 	
-	
+	// 공지사항 수정
 	@PostMapping("/updateNotice")
 	public String updateNotice(Notice notice, @Validated @ModelAttribute("NoticeUpdateFormValidation") NoticeUpdateFormValidation noticeValidation,
 			BindingResult bindingResult, Model model) {
@@ -546,11 +501,32 @@ public class AdminController {
 		}
 		
 		noticeService.updateNotice(notice);
-		model.addAttribute("msg", "게시글이 수정되었습니다!");
+		model.addAttribute("msg", "공지사항이 수정되었습니다!");
 		model.addAttribute("url", "/admin/noticeList");
 		return "alert";
 	}
 	
+	// 공지사항 작성 폼
+	@GetMapping("insertNotice")
+	public String insertNoticeForm(Notice notice, Model model, HttpSession session) {
+		Member user = (Member) session.getAttribute("user");
+		LocalDate currentDate = LocalDate.now();
+		
+		// 관리자만 작성할 수 있도록 설정
+		if("ROLE_ADMIN".equals(user.getMemberRole().toString())) {
+			
+			model.addAttribute("NoticeUpdateFormValidation", new NoticeUpdateFormValidation());
+			model.addAttribute("date",currentDate);
+			return "admin/insertNotice";
+		}
+		
+		model.addAttribute("msg", "관리자만 공지사항 작성이 가능합니다!");
+	    model.addAttribute("url", "/admin/noticeList");
+		return "alert";
+	   
+	}
+
+	// 공지사항 작성
 	@PostMapping("/insertNotice")
 	public String insertNotice(Notice notice,@Validated @ModelAttribute("NoticeUpdateFormValidation") NoticeUpdateFormValidation noticeValidation,
 			   BindingResult bindingResult, Model model) throws IOException {
@@ -572,9 +548,174 @@ public class AdminController {
 	   
 	   noticeService.insertNotice(notice);
 	   
-	   model.addAttribute("msg", "게시글이 작성되었습니다!");
+	   model.addAttribute("msg", "공지사항이 작성되었습니다!");
 	   model.addAttribute("url", "/admin/noticeList");
 	   return "alert";
 	}
 	
+	// 공지사항 파일 다운로드
+	@GetMapping("/notice/download")
+	public ResponseEntity<Resource> handleFileDownload(HttpServletRequest req, 
+	      @RequestParam(name = "noticeId") Long noticeId, @RequestParam(name = "fn") String fn) throws Exception {
+		   req.setCharacterEncoding("utf-8");
+		   String fileName = req.getParameter("fn");
+	    Path filePath = Paths.get(uploadFolder + fileName).toAbsolutePath();
+	    Resource resource = null;
+	    try {
+	        resource = new UrlResource(filePath.toUri());           
+	        if (resource.exists()) {
+	            return ResponseEntity.ok()
+	                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+	                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" 
+	                          + URLEncoder.encode(resource.getFilename(), "utf-8") + "\"")
+	                    .body(resource);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	        }
+	    } catch (MalformedURLException e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+	
+	// 공지사항 파일 삭제
+	@PostMapping("/notice/deleteFile/{noticeId}")
+	@ResponseBody
+	public ResponseEntity<Map<String, String>> deleteFile(@PathVariable(name = "noticeId") Long noticeId, HttpServletRequest request) {
+	    Map<String, String> response = new HashMap<>();
+	    Locale locale = localeResolver.resolveLocale(request);
+	    try {
+	 	   
+	        noticeService.deleteFile(noticeId);
+	        response.put("message", messageSource.getMessage("board.filedelete.success", null, locale));
+	        response.put("status", "success");
+	        return ResponseEntity.ok(response);
+	    } catch (Exception e) {
+	
+	        log.error("게시글 파일 삭제 중 오류 발생: {}", e.getMessage(), e);
+	        response.put("message", messageSource.getMessage("board.filedelete.failure", null, locale));
+	        response.put("status", "error");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	        
+	 	   //throw new BoardDeleteFileException(ErrorCode.BOARD_DELETE,null);
+	    }
+	}
+	
+	// 공지사항 삭제
+	@GetMapping("deleteNotice")
+	public String deleteNotice(Notice notice, HttpSession session,Model model)  {
+	  Notice findNotice = noticeService.getNoticebyId(notice.getNoticeId());
+	  
+	  if(findNotice ==null) {
+		  model.addAttribute("msg", "해당 공지사항이 존재하지않습니다.");
+		  model.addAttribute("url", "/admin/noticeList");
+		  return "alert";
+	  }
+	  
+	  noticeService.deleteNoticeById(findNotice.getNoticeId());
+	  model.addAttribute("msg", "해당 공지사항을 삭제하였숩니다.");
+	  model.addAttribute("url", "/admin/noticeList");
+	  return "alert";
+	}
+	
+	/*
+    * 문의(inquiry) 관리 =======================================================================
+	* */
+	
+	// 문의함 리스트
+	@GetMapping("inquiryList")
+	public String getInquiryList(Model model, Inquiry inquiry,
+		       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
+		       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
+		       @RequestParam(name = "searchType", defaultValue = "reTitle") String searchType,
+		       @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
+			
+		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
+	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("reDate").descending());
+	    Page<Inquiry> pagedResult = inquiryService.getInquiryList(pageable, searchType, searchWord);
+	    
+	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
+	    int totalPageCount = pagedResult.getTotalPages();
+	    int pageSize       = pagingInfo.getPageSize();
+	    int startPage      = (curPage / pageSize) * pageSize + 1;
+	    int endPage        = startPage + pageSize - 1;
+	    endPage = endPage > totalPageCount ? (totalPageCount > 0 ? totalPageCount : 1) : endPage;
+	    
+	    pagingInfo.setCurPage(curPage);
+	    pagingInfo.setTotalRowCount(totalRowCount);
+	    pagingInfo.setTotalPageCount(totalPageCount);
+	    pagingInfo.setStartPage(startPage);
+	    pagingInfo.setEndPage(endPage);
+	    pagingInfo.setSearchType(searchType);
+	    pagingInfo.setSearchWord(searchWord); 
+	    pagingInfo.setRowSizePerPage(rowSizePerPage);
+
+	    model.addAttribute("pagingInfo", pagingInfo);
+	    model.addAttribute("pagedResult", pagedResult);
+	    model.addAttribute("pageable", pageable);
+		model.addAttribute("cp", curPage);
+		model.addAttribute("sp", startPage);
+		model.addAttribute("ep", endPage);
+		model.addAttribute("ps", pageSize);
+		model.addAttribute("rp", rowSizePerPage);
+		model.addAttribute("tp", totalPageCount);
+		model.addAttribute("st", searchType);
+		model.addAttribute("sw", searchWord);
+	    model.addAttribute("inquiryList", pagedResult.getContent()); // Add this line
+	    
+	    
+	    return "admin/inquiryList";
+	}
+	
+	@GetMapping("/answerInquiry")
+	public String answerInquiry(@RequestParam("reId") Long reId, Model model, HttpSession session) {
+		
+		LocalDate currentDate = LocalDate.now();
+		Inquiry findInquiry = inquiryService.findbyreIdinquiry(reId);
+		Member user = (Member) session.getAttribute("user");
+		
+		if(findInquiry != null && "ROLE_ADMIN".equals(user.getMemberRole().toString())) {
+			
+			model.addAttribute("date",currentDate);
+			model.addAttribute("inquiry",findInquiry);
+			return "admin/answerInquiry";
+			
+		} else if(findInquiry == null) {
+			
+			model.addAttribute("msg", "문의 내역이 없습니다!");
+		    model.addAttribute("url", "/admin/inquiryList");
+			return "alert";
+			
+		} else {
+			
+			model.addAttribute("msg", "관리자만 답변할 수 있습니다!");
+			model.addAttribute("url", "/admin/inquiryList");
+			return "alert";
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
