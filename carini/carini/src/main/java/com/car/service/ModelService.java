@@ -22,6 +22,7 @@ public interface ModelService {
 	void removeCarFromComparison(int position, HttpSession session);
 	List<Car> getComparisonCars(HttpSession session);
 	CarBrand getURLbrBrand(String carBrandName);
+	void updateCar(Car car);
 	
 	
 }

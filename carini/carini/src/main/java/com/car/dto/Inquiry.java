@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -51,6 +52,11 @@ public class Inquiry {
     @Column(name = "re_date_rq", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date reDateRq;
+    
+    @PreUpdate
+    public void preUpdate() {
+        this.reDateRq = new Date();
+    }
 
 
 }
