@@ -12,6 +12,10 @@
 /* body */
 
 body {
+
+    background: white;
+    color: #5b5b5b;
+    font-family: 'Source Sans Pro', sans-serif;
    height: 100%;
    width: 100%;
     background: white;
@@ -64,6 +68,12 @@ header {
     height:250px;
  }
 
+
+
+ /* 소제목 */
+
+section {   /* 소제목 영역 */
+
 /* 박스적용 css */
 
  .div {
@@ -89,6 +99,9 @@ header {
     margin: 5% 16%;
 }
 
+.SubTitle {   /* 소제목 */
+    font-size: 60px;
+
 /* 소제목 : SELECT_MODEL */
 .SubTitle {   
     font-size: 70px;
@@ -99,6 +112,7 @@ header {
     display: flex;
     flex-direction: column;
  }
+
 
  /* 소제목밑에글씨 */
  #SubTitle_text {
@@ -126,14 +140,40 @@ section{
     height: 100%;
 }
 
+
     
 /* Container */
 
 .container {
+    margin: auto;
     justify-content: center;
     align-items: center;
     width: 1200px;
 }
+
+
+
+/* Main */
+
+        
+main {
+    width: 100%;
+    margin: 1%;
+    padding: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: white;
+}
+
+
+section{
+    width: 70%;
+    height: 100%;
+}
+
+
 
 /* 세로박스 */
 .flex-container_column {
@@ -439,6 +479,7 @@ form {
 
 
 
+
 /* Form요소 - Input, textarea, select */
 
 input, textarea, select {
@@ -464,8 +505,6 @@ form textarea {
 }
 
 
-
-
 form textarea {
     min-height: 9em;
 }
@@ -475,8 +514,39 @@ form textarea {
     width: 30px;
 }
 
+ /* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid black; /* 테이블 상단 테두리 */
+    border-bottom: 1px solid black; /* 테이블 하단 테두리 */
+}
 
- 
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: none; /* 안쪽 테두리 제거 */
+}
+
+th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+tr {
+    background-color: #f2f2f2;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+  }
 
 .ellipsis {
     overflow: hidden;
@@ -527,7 +597,6 @@ form textarea {
 
 
 
-
 /* Button */
 
 input[type="button"],
@@ -564,8 +633,7 @@ a {
     color: black;
     text-decoration: none;
     cursor: pointer;
-   
-    
+
     /* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
     -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
     -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
@@ -574,13 +642,10 @@ a {
 
 
 
-
-
 /* hover */
 *:hover {
    cursor: pointer;
 }
-
 
 /* a.hover */
 
@@ -593,10 +658,31 @@ a.icon-hover:hover {
 }
 
 .float_hover:hover {
- background-color: white;
+ background-color: whitesmoke !important;
 }
 
+.carini-hover:hover {
+    color: black !important;
+    -webkit-text-stroke: 0.9px white;
+    text-shadow: 9px 9px 1px whitesmoke;
+    transition: none;
+}
 
+.side-hover:hover {
+ color: white !important;
+ background-color: black !important;
+ border-radius: 0.5rem;
+ padding: 1.5%;
+}
+
+a.Board-hover {
+    text-decoration: none;
+    color: black;
+}
+
+a.Board-hover:hover {
+    text-decoration: underline;
+}
 
 
 /* button.hover */
@@ -606,11 +692,10 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-    background: black;
     color: white;
-    -webkit-text-stroke: 0.3px white;
+    background: black;
+    -webkit-text-stroke: 0.9px white;
     }
-    
 
 /* combine 버튼 */
 
@@ -621,7 +706,6 @@ button:hover,
 }
 
 
-
 /* combine 버튼 */
 
 #combine:hover {
@@ -629,8 +713,6 @@ button:hover,
    color: white;
    border-radius: 0.5rem;
 }
-
-
 
 /* checkbox */
 
