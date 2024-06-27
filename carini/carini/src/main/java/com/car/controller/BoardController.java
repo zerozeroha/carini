@@ -225,14 +225,16 @@ public class BoardController {
                                  @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
                                  BindingResult bindingResult, HttpSession session) {
        Member user = (Member) session.getAttribute("user");
-       log.info("boardId={}",boardId);
        Board board = boardService.getBoardById(boardId);
+      
        if (board == null) {
+    	   System.out.println("===================");
+           System.out.println(boardId);
            model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
            model.addAttribute("url", "/board/getBoardList");
            return "alert";
        }
-       
+
        if (board.getMemberId().equals(user.getMemberId())) {
            boardValidation.setBoardTitle(board.getBoardTitle());
            boardValidation.setBoardContent(board.getBoardContent());

@@ -401,7 +401,9 @@ public class MypageController {
 			HttpServletRequest request, HttpSession session) {
 
 		Locale locale = localeResolver.resolveLocale(request);
-
+		if(((Member) session.getAttribute("user") == null)) {
+			
+		}
 		Member user = (Member) session.getAttribute("user");
 		bookmark.setCarId(Integer.parseInt(carId));
 		bookmark.setMemberId(user.getMemberId());
