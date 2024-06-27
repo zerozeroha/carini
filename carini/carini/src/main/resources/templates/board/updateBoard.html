@@ -42,18 +42,6 @@
 
       <div class="flex-container_column">
 
-         <!--이거 필요한 부분인지?
-               <input name="boardId" type="hidden" th:value="${board.boardId}">
-                  <div style="display: flex; gap:10px;color:red;font-weight: 600;">
-                     <div th:if="${#fields.hasErrors('boardTitle')}">
-                           <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
-                       </div>
-                     <div th:if="${#fields.hasErrors('boardContent')}">
-                           <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
-                       </div>
-                  </div>
-         <여기까지! 필요함?-->
-
          <form th:action="@{/board/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"
             enctype="multipart/form-data" id="boardForm" name="boardForm">
          <input name="boardId" type="hidden" th:value="${board.boardId}">
@@ -71,7 +59,7 @@
                   <td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default;"
                         th:value="${ session.user.memberNickname }" disabled></td>
                   <td style="width: 15%;" th:text="#{board.write.date}"></td>
-                  <td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default;" th:value="${board.boardDate}"
+                  <td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default;" th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}"
                         disabled></td>
                </tr>
 

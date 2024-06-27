@@ -21,47 +21,61 @@
 					<table border="1">
 						<tr>
 							<td th:text="#{label.inquiry.reId}"></td>
-							<td colspan="3" th:text="${inquiry.reId}"></td>
+							<td colspan="3">
+								<input type="hidden" name="reId" th:value="${inquiry.reId}"/>
+								<span th:text="${inquiry.reId}"></span>
+							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.reTitle}"></td>
-							<td th:text="${inquiry.reTitle}"></td>
+							<td>
+								<input type="hidden" name="reTitle" th:value="${inquiry.reTitle}"/>
+								<span th:text="${inquiry.reTitle}"></span>
+							</td>
 							<td th:text="#{label.inquiry.reTitleRq}"></td>
 							<td>
-								<input type="text" th:if="${inquiry.reTitleRq == null}" th:value="${inquiry.reTitleRq}"/>
-								<span th:text="${inquiry.reTitleRq}"></span>
+								<input type="text" name="reTitleRq" th:value="${inquiry.reTitleRq}"/>
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.reContent}"></td>
-							<td th:text="${inquiry.reContent}"></td>
+							<td>
+								<input type="hidden" name="reContent" th:value="${inquiry.reContent}"/>
+								<span th:text="${inquiry.reContent}"></span>
+							</td>
 							<td th:text="#{label.inquiry.reContentRq}"></td>
 							<td>
-								<input type="text" th:if="${inquiry.reContentRq == null}" th:value="${inquiry.reContentRq}"/>
-								<span th:text="${inquiry.reContentRq}"></span>
+								<input type="text" name="reContentRq" th:value="${inquiry.reContentRq}"/>
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.reDate}"></td>
-							<td th:text="${inquiry.reDate}"></td>
+							<td>
+								<input type="hidden" name="reDate" th:value="${inquiry.reDate}"/>
+								<span th:text="${#dates.format(inquiry.reDate, 'yyyy-MM-dd hh:mm')}"></span>
+							</td>
 							<td th:text="#{label.inquiry.reDateRq}"></td>
 							<td>
 								<input th:if="${inquiry.reDateRq == null}" th:value="${date}"/>
-								<span th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></span>
+								<span th:if="${inquiry.reDateRq != null}" th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></span>
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.memberId}"></td>
-							<td th:text="${inquiry.memberId}"></td>
+							<td>
+								<input type="hidden" name="memberId" th:value="${inquiry.memberId}"/>
+								<span th:text="${inquiry.memberId}"></span>
+							</td>
 							<td th:text="#{label.inquiry.reHero}"></td>
-							<td th:text="${inquiry.reHero}"></td>
+							<td><input type="text" name="reHero" th:value="${inquiry.reHero}" readonly/></td>
 						</tr>
 					</table>
 					<input type="submit" th:value="#{inquiry.answer}"/>
+					<input type="button" th:value="#{inquiry.delete}" th:onclick="|location.href='@{/admin/deleteInquiry(reId=${inquiry.reId})}'|">
+					<input type="button" th:value="#{inquiry.list}" th:onclick="|location.href='@{/admin/inquiryList}'|">
 				</form>
 			</article>
 		</div>
 	</div>
-	
 	
 </body>
