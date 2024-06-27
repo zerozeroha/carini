@@ -1,5 +1,6 @@
 package com.car.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,7 +65,18 @@ public class InquiryServiceImpl implements InquiryService{
 		}
 	}
 	
+	@Override
+	public void answerInquiry(Inquiry inquiry) {
+		
+		inquiry.setReDateRq(new Date());
+		inquiryRepository.save(inquiry);
+		
+	}
 	
-	
-	
+	@Override
+	public void deleteInquiryById(Long reId) {
+		
+		inquiryRepository.deleteById(reId);
+		
+	}
 }

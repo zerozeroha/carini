@@ -135,7 +135,7 @@ select {
 #map {
     width:95%;
     height:80%;
-    background-color: red;
+    background-color: green;
     border: 1px solid black;
     border-radius: 0.5rem;
     margin: 2%;
@@ -244,6 +244,32 @@ nav > ul > li > ul {
 }
 
 
+/* 세로박스 */
+.flex-container_column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 85%;
+    height: 90%;
+    background-color: red; 
+    border: 2px solid white;
+}
+
+/* 가로박스 */
+.flex-container_row { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 85%;
+    height: 90%;
+    flex-wrap: wrap;
+    background-color: yellow;
+}
+
+
 /* 지도 */
 #map {
     width:100%;
@@ -253,8 +279,13 @@ nav > ul > li > ul {
     margin: 2%;
 }
 
+#map_box { /* 지도 박스 */
+   width: 100%; 
+   height: 100%;
+}
+
 div {
-    width: 100%;
+    width: auto;
     height: 5%;
     display: flex; 
     flex-direction: column;
@@ -276,7 +307,6 @@ div {
     width: 15%;
     background-color: white;
     border-radius: 0.5rem;
-    opacity: 90%;
 }
 
 /* 검색창 */
@@ -285,7 +315,7 @@ div {
     flex-direction: row;
     align-items: center;    
     background-color: white;
-    border: 3px solid whitesmoke;
+    
 }
 
 select {
@@ -296,28 +326,28 @@ select {
 /*Board*/
 
 .Board {
-	display: flex;
-	align-items: center;
+   display: flex;
+   align-items: center;
 }
 
 .Board select {
-	margin-right: 10px;
+   margin-right: 10px;
 }
 
 .Board input[type="text"] {
-	margin-right: 10px;
-	padding: 5px;
+   margin-right: 10px;
+   padding: 5px;
 }
 
 .Board input[type="button"] {
-	padding: 3.5px 5px;
-	cursor: pointer;
+   padding: 3.5px 5px;
+   cursor: pointer;
 }
 
 .Board_text {
-	font-size: 45px;
-	font-weight: 700;
-	color: black;
+   font-size: 45px;
+   font-weight: 700;
+   color: black;
 }
 
 
@@ -334,7 +364,7 @@ main {
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    background-color: white;
+    /* background-color: blue; */
 }
 
 
@@ -468,36 +498,37 @@ form textarea {
 
  
  /* Table */
- 
+
+
  table {
     border-collapse: collapse;
     border-top: 1px solid black; /* 테이블 상단 테두리 */
     border-bottom: 1px solid black; /* 테이블 하단 테두리 */
-    overflow: scroll;
-    padding: 3%;
+    /* overflow: scroll; */
+    padding: 1%;
     font-size: 15px;
+    text-align: center
 }
 
 th, td {
-    padding: 1;
+    padding: 0% 1%;
     margin: 0;
-    width: 150%;
     text-align: center;
     border: none; /* 안쪽 테두리 제거 */
-    border: 3px solid whitesmoke;
+    border-bottom: 1px solid black;
 }
 
 th {
-    background-color: whitesmoke;
-    color: black;
-    font-weight: bold;
-    border: 1px solid white;
+    background-color: black;
+    color: white;
+    font-weight: lighter;
+    font-size: 20px;
+    border-right: 3px solid white;
 }
 
 tr {
     height: 10%;
     background-color: white;
-    border: 1px solid whitesmoke;
 }
 
 th:nth-child(1), td:nth-child(1) {
@@ -514,9 +545,57 @@ th:nth-child(2), td:nth-child(2) {
     white-space: nowrap;
 }
 
+
+
+
+
+
+
+
+
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed; /* 테이블 레이아웃을 고정으로 설정 */
+
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+thead th {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+tbody img {
+    max-width: 120px;
+    height: auto;
+}
+
+
+
+
+
+
+
+
+
 .center {
     text-align: center;
 }
+
 
 
 
@@ -637,7 +716,6 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-    padding: 1px;
     position: relative;
     display: inline-block;
     background-color: black;
@@ -645,18 +723,16 @@ button:hover,
     text-align: center;
     border-radius: 0.5em;
     text-decoration: none;
-    padding: 0.65em 0.5em 0.65em 0.5em;
     border: 2px solid black;
     cursor: pointer;
     outline: 0;
-    margin: 5px;
     font-weight: 300;
     -webkit-text-stroke: 0.4px white;
-    }
+}
 
 input[type="text"]:hover{
-    border: 2px solid  rgb(170, 170, 170);
-    }
+    border: 2px solid  lightgray;
+}
 
 
 /* 탈퇴하기 button */
@@ -701,13 +777,13 @@ hr {
 }
 
 footer {
-	margin-top: 50px;
-	width: 100%;
-	height: 50px;
-	margin-bottom: 50px;
-	align-items: center;
-	text-align: center;
-	background-color: white;
+   margin-top: 50px;
+   width: 100%;
+   height: 50px;
+   margin-bottom: 50px;
+   align-items: center;
+   text-align: center;
+   background-color: white;
  }
   
 
