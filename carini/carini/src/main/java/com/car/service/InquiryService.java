@@ -17,4 +17,6 @@ public interface InquiryService {
 	void inquirydelte(Inquiry inquiry);
 	Inquiry findbyreIdinquiry(Long reId);
 	Page<Inquiry> getInquiryList(Pageable pageable, String searchType, String searchWord);
+	void answerInquiry(Inquiry inquiry);
+	void deleteInquiryById(Long reId);
 }

@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.car.dto.Board;
 import com.car.dto.Car;
 import com.car.dto.CarBrand;
 import com.car.persistence.CarBrandRepository;
@@ -140,6 +142,35 @@ public class ModelServiceImpl implements ModelService{
     	
 		return carBrand.get();
 	}
+    
+    @Override
+    @Transactional
+    public void updateCar(Car car) {
+        Optional<Car> optionalCar = carRepository.findById(car.getCarId());
+        
+        if (optionalCar.isPresent()) {
+            Car findCar = optionalCar.get();
+
+            findCar.setCarName(car.getCarName());
+            findCar.setCarMinPrice(car.getCarMinPrice());
+            findCar.setCarMaxPrice(car.getCarMaxPrice());
+            findCar.setCarAvgPrice(car.getCarAvgPrice());
+            findCar.setCarSize(car.getCarSize());
+            findCar.setCarFuel(car.getCarFuel());
+            findCar.setCarImg(car.getCarImg());
+            findCar.setCarScPer(car.getCarScPer());
+            findCar.setCarScPrice(car.getCarScPrice());
+            findCar.setCarScGeoju(car.getCarScGeoju());
+            findCar.setCarScQuality(car.getCarScQuality());
+            findCar.setCarScDesign(car.getCarScDesign());
+            findCar.setCarScEff(car.getCarScEff());
+            findCar.setCarScAvg(car.getCarScAvg());
+            
+            carRepository.save(findCar);
+        } else {
+            throw new IllegalArgumentException("No car found with ID: " + car.getCarId());
+        }
+    }
 
 
 }

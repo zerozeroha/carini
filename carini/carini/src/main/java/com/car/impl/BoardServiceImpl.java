@@ -140,7 +140,13 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public Board getBoardById(Long boardId) {
-		return boardRepository.findById(boardId).orElseThrow(() -> new RuntimeException("Board not found"));
+		
+		Optional<Board> board=boardRepository.findById(boardId);
+		if(board.isPresent()) {
+			return board.get();
+		}else {
+			return null;		
+		}
 	}
 
 	

@@ -225,14 +225,16 @@ public class BoardController {
                                  @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
                                  BindingResult bindingResult, HttpSession session) {
        Member user = (Member) session.getAttribute("user");
-       
        Board board = boardService.getBoardById(boardId);
+      
        if (board == null) {
+    	   System.out.println("===================");
+           System.out.println(boardId);
            model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
            model.addAttribute("url", "/board/getBoardList");
            return "alert";
        }
-       
+
        if (board.getMemberId().equals(user.getMemberId())) {
            boardValidation.setBoardTitle(board.getBoardTitle());
            boardValidation.setBoardContent(board.getBoardContent());
@@ -251,7 +253,7 @@ public class BoardController {
     * 게시판 수정 하기
     * */
    @PostMapping("/board/updateBoard")
-   public String updateBoard(Board board,@Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation ,
+   public String updateBoard(@ModelAttribute("board") Board board, @Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation ,
 		   BindingResult bindingResult, Model model)  {
 	   
 	   if (bindingResult.hasErrors()) {
