@@ -44,15 +44,15 @@
 
          <form th:action="@{/board/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"
             enctype="multipart/form-data" id="boardForm" name="boardForm">
-			<input name="boardId" type="hidden" th:value="${board.boardId}">
-			<div style="display: flex; gap:10px;color:red;font-weight: 600;">
-			   <div th:if="${#fields.hasErrors('boardTitle')}">
-			         <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
-			     </div>
-			   <div th:if="${#fields.hasErrors('boardContent')}">
-			         <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
-			     </div>
-			</div>
+         <input name="boardId" type="hidden" th:value="${board.boardId}">
+         <div style="display: flex; gap:10px;color:red;font-weight: 600;">
+            <div th:if="${#fields.hasErrors('boardTitle')}">
+                  <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
+              </div>
+            <div th:if="${#fields.hasErrors('boardContent')}">
+                  <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
+              </div>
+         </div>
             <table>
                <tr>
                   <td style="width: 15%;" th:text="#{board.write.writer}"></td>

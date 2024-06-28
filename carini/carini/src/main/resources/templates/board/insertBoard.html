@@ -7,111 +7,105 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>insertBoard</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/css/insertBoard.css" />
-	<link rel="stylesheet" href="/css/base.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-
-
-</head>
-
+   <title>insertBoard</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="stylesheet" href="/css/insertBoard.css" />
+   <link rel="stylesheet" href="/css/base.css" />
+   <noscript>
+      <link rel="stylesheet" href="assets/css/noscript.css" />
+   </noscript>
 <body>
 
-	<header th:replace="~{base/base :: header}"></header>
+   <header th:replace="~{base/base :: header}"></header>
 
 
-	<!--SubTitle-->
+   <!--SubTitle-->
 
-	<section class="SubTitle">WRITE_MY_BOARD</section>
+   <section class="SubTitle">WRITE_MY_BOARD</section>
 
-	<div style="height: 20px;"></div> <!--공간 띄우기 위한 박스-->
+   <div style="height: 20px;"></div> <!--공간 띄우기 위한 박스-->
 
-	<main>
+   <main>
 
-		<!--main 안에 있는 큰 박스-->
+      <!--main 안에 있는 큰 박스-->
 
-		<div class="flex-container_column">
+      <div class="flex-container_column">
 
-			<form th:action="@{/board/insertBoard}" th:object="${BoardWriteFormValidation}" method="post"
-				enctype="multipart/form-data" name="boardForm" id="boardForm">
-				<input name="memberId" type="hidden" th:value="${session.user.memberId}">
-				<div style="display: flex; gap:10px;color:red;font-weight: 600;">
-					<div th:if="${#fields.hasErrors('boardTitle')}">
-						<p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
-					</div>
-					<div th:if="${#fields.hasErrors('boardContent')}">
-						<p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger">
-						</p>
-					</div>
-				</div>
+         <form th:action="@{/board/insertBoard}" th:object="${BoardWriteFormValidation}" method="post"
+            enctype="multipart/form-data" name="boardForm" id="boardForm">
+            <input name="memberId" type="hidden" th:value="${session.user.memberId}">
+            <div style="display: flex; gap:10px;color:red;font-weight: 600;">
+               <div th:if="${#fields.hasErrors('boardTitle')}">
+                  <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
+               </div>
+               <div th:if="${#fields.hasErrors('boardContent')}">
+                  <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger">
+                  </p>
+               </div>
+            </div>
+            <table>
+               <tr>
+                  <td th:text="#{board.write.writer}"></td>
+                  <td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }"
+                        id="boardWriter" readonly></td>
+                  <td th:text="#{board.write.date}"></td>
+                  <td><input type="text" name="boardDate" th:value="${date}" disabled></td>
+               </tr>
+               <tr>
+                  <td colspan="1" th:text="#{board.write.title}"></td>
+                  <td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error"
+                        style="cursor: text;" required></td>
+               </tr>
+               <tr>
+                  <td colspan="1" th:text="#{ board.write.uploadfile }"></td>
+                  <td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile"
+                        aria-label="Upload"></td>
+               </tr>
 
-				<table>
-					<tr>
-						<td th:text="#{board.write.writer}"></td>
-						<td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }"
-								id="boardWriter" readonly></td>
-						<td th:text="#{board.write.date}"></td>
-						<td><input type="text" name="boardDate" th:value="${date}" disabled></td>
-					</tr> 
-					<tr>
-						<td colspan="1" th:text="#{board.write.title}"></td>
-						<td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error"
-								style="cursor: text;" required></td>
-					</tr>
-
-					<tr>
-						<td colspan="1" th:text="#{ board.write.uploadfile }"></td>
-						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile"
-								aria-label="Upload"></td>
-					</tr>
-
-					<tr>
-						<td colspan="4" th:text="#{board.write.content}"></td>
-					</tr>
-					<tr>
-						<td colspan="4" style="padding: 20px;">
-							<textarea th:field="*{boardContent}" th:errorclass="field-error" rows="15"
-								required></textarea>
-						</td>
-					</tr>
-				</table>
+               <tr>
+                  <td colspan="4" th:text="#{board.write.content}"></td>
+               </tr>
+               <tr>
+                  <td colspan="4" style="padding: 20px;">
+                     <textarea th:field="*{boardContent}" th:errorclass="field-error" rows="15"
+                        required></textarea>
+                  </td>
+               </tr>
+            </table>
 
 
-				<div class="flex-container_row" style="height: 10%;">
+            <div class="flex-container_row" style="height: 10%;">
 
-					<div style="width: 90%;"></div><!--간격박스-->
+               <div style="width: 90%;"></div><!--간격박스-->
 
-					<div style="width: 10%;">
-						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"
-							style="padding-right: 2%;"></a>
-						<a th:text="#{board.list}" th:href="@{/board/getBoardList}"></a>
-					</div>
+               <div style="width: 10%;">
+                  <a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"
+                     style="padding-right: 2%;"></a>
+                  <a th:text="#{board.list}" th:href="@{/board/getBoardList}"></a>
+               </div>
 
-				</div>
+            </div>
 
-			</form>
+         </form>
 
-		</div>
+      </div>
 
-	</main>
+   </main>
 
 
 
-	<div th:replace="~{base/base :: footer}"></div>
+   <div th:replace="~{base/base :: footer}"></div>
 
-	<!-- Scripts -->
-	<script th:src="@{/assets/js/jquery.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.dropotron.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
-	<script th:src="@{/assets/js/browser.min.js}"></script>
-	<script th:src="@{/assets/js/breakpoints.min.js}"></script>
-	<script th:src="@{/assets/js/util.js}"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
+   <!-- Scripts -->
+   <script th:src="@{/assets/js/jquery.min.js}"></script>
+   <script th:src="@{/assets/js/jquery.dropotron.min.js}"></script>
+   <script th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
+   <script th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
+   <script th:src="@{/assets/js/browser.min.js}"></script>
+   <script th:src="@{/assets/js/breakpoints.min.js}"></script>
+   <script th:src="@{/assets/js/util.js}"></script>
+   <script th:src="@{/assets/js/main.js}"></script>
 
 
 

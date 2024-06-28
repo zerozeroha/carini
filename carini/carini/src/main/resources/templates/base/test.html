@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Spring Framework</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">   
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" 
-        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" 
-        crossorigin="anonymous"> 
-	<link rel="stylesheet" href="/css/base.css"/>
-	<link rel="stylesheet" href="/css/main1.css"/>
-</head>
-<body>
-    <div th:replace="~{base/base :: header}"></div>
-	
-	<main>
-	    <h2>Body Content</h2>
-	    <p>This is the main content of the page.</p>
-	
-	</main>
-	
-    <div th:replace="~{base/base :: footer}"></div>
-	
-	<div th:replace="~{base/base :: script}"></div>
-	
-
-
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"
+    />
+    <title>
+      Kakao Talk Channel Create Chat Button Demo - Kakao JavaScript SDK
+    </title>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="kakao-talk-channel-chat-button"></div>
+    <script type="text/javascript">
+      // 사용할 앱의 JavaScript 키를 설정해 주세요.
+      Kakao.init('c3b53c89daa1561baf09ede6602e74ce');
+      // 채널 1:1 채팅 버튼을 생성합니다.
+      Kakao.Channel.createChatButton({
+        container: '#kakao-talk-channel-chat-button',
+        channelPublicId: '_YGxcxcG',
+        title: 'consult',
+        size: 'small',
+        color: 'yellow',
+        shape: 'pc',
+        supportMultipleDensities: true,
+      });
+    </script>
+  </body>
 </html>

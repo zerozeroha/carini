@@ -93,6 +93,11 @@ public class BookMarkServiceImpl implements BookMarkService{
 		Optional<Car> car=carRepository.findById(carId);
 		return car.get();
 	}
+	
+	@Override
+	public int countBookmarkById(String memberId) {
+		return bookMarkRepository.getBookmarkCount(memberId);
+	}
 
 
 }

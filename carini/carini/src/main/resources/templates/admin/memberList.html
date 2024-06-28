@@ -9,16 +9,20 @@
 	
     <table border="1">
         <tr>
-            <th>memberId</th>
-            <th>memberPw</th>
-            <th>memberName</th>
-            <th>memberNickname</th>
-            <th>memberEmail</th>
-            <th>memberPhoneNum</th>
-            <th>memberDate</th>
-            <th>memberSocial</th>
-            <th>memberRole</th>
-            <th>memberSocialNickname</th>
+            <th th:text="#{member.memberId}"></th>
+            <th th:text="#{member.memberPw}"></th>
+            <th th:text="#{member.memberName}"></th>
+            <th th:text="#{member.memberNickname}"></th>
+            <th th:text="#{member.memberEmail}"></th>
+            <th th:text="#{member.memberPhoneNum}"></th>
+            <th th:text="#{member.memberDate}"></th>
+            <th th:text="#{member.memberSocial}"></th>
+            <th th:text="#{member.memberRole}"></th>
+            <th th:text="#{member.memberSocialNickname}"></th>
+            <th th:text="#{member.boardCount}"></th>
+            <th th:text="#{member.bookmarkCount}"></th>
+            <th th:text="#{member.inquiryCount}"></th>
+
         </tr>
         <tr th:each="member : ${memberList}">
             <td><a th:href="@{/admin/updateMember(memberId=${member.memberId})}"th:text="${member.memberId}"></a></td>
@@ -31,6 +35,15 @@
             <td th:text="${member.memberSocial}"></td>
             <td th:text="${member.memberRole}"></td>
             <td th:text="${member.memberSocialNickname}"></td>
+			<td>
+				<a th:href="@{/admin/boardList(searchType='boardWriter', searchWord=${member.memberNickname})}" 
+				th:text="${memberCountMap[member.memberId].get(0)}"></a>
+			</td>
+			<td><a th:href="@{/admin/bookmarkList(memberId=${member.memberId})}" th:text="${memberCountMap[member.memberId].get(1)}"></a></td>
+			<td>
+				<a th:href="@{/admin/inquiryList(searchType='memberId', searchWord=${member.memberId})}" 
+				th:text="${memberCountMap[member.memberId].get(2)}"></a>
+			</td>
         </tr>
     </table>
 </body>
