@@ -67,16 +67,19 @@ public class InquiryServiceImpl implements InquiryService{
 	
 	@Override
 	public void answerInquiry(Inquiry inquiry) {
-		
 		inquiry.setReDateRq(new Date());
 		inquiryRepository.save(inquiry);
-		
+	}
+
+	@Override
+	public void deleteInquiryById(Long reId) {
+		inquiryRepository.deleteById(reId);
 	}
 	
 	@Override
-	public void deleteInquiryById(Long reId) {
-		
-		inquiryRepository.deleteById(reId);
-		
+	public int countInquiryById(String memberId) {
+		return inquiryRepository.getBookmarkCount(memberId);
 	}
+	
+	
 }

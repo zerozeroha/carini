@@ -86,15 +86,18 @@ public class ModelController {
 	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
 	       HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		Member user = (Member) session.getAttribute("user");
+		Member user = null;
+		
+		 // 세션이 null이 아니면 사용자 정보를 가져옴
+		if (session != null) {
+	        user = (Member) session.getAttribute("user");
+	    }
+
 
 		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 		
 		Pageable pageable;
-		System.out.println(filterSize);
-		System.out.println(filterFuel);
-		System.out.println(carSort);
 
 		if(carSort.equals("저가순")){
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carAvgPrice").ascending());

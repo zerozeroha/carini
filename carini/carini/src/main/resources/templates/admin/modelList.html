@@ -172,6 +172,7 @@
 					<div style="height: 50px;"></div><!--간격박스-->
 					<button type="submit"
 						style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER</button>
+					
 				</div>
 		</form>
 
@@ -201,6 +202,7 @@
 				</div>
 			</div>
 		</div>
+		
 
 		<script><!--카드에 이미지랑 글씨 같이 선택되게 하는 스크립-->
 			document.querySelectorAll('.card').forEach(card => {
@@ -249,7 +251,9 @@
 				</th:block>
 			</ul>
 		</div><!--pagination end-->
-
+		<div style="height: 100px;"></div> <!--간격박스-->
+		<a th:href="@{/admin/insertCar}" th:text="#{model.insert}"
+			style="font-size: 25px; letter-spacing: 5px; font-weight: 100;"></a>
 		</div>
 
 	</main>

@@ -119,6 +119,7 @@ function createBarChart(car) {
     });
 } // createBarChart end
 
+
 function toggleBookmark(carId, isBookmarked) {
     let form = document.createElement('form');
     form.method = 'POST';
@@ -126,5 +127,6 @@ function toggleBookmark(carId, isBookmarked) {
     document.body.appendChild(form);
     form.submit();
 }
+
 
 
