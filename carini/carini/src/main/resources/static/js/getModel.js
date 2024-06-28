@@ -119,4 +119,12 @@ function createBarChart(car) {
     });
 } // createBarChart end
 
+function toggleBookmark(carId, isBookmarked) {
+    let form = document.createElement('form');
+    form.method = 'POST';
+    form.action = isBookmarked ? '/model/bookmark/delete/' + carId : '/model/bookmark/' + carId;
+    document.body.appendChild(form);
+    form.submit();
+}
+
 

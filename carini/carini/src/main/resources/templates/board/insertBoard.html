@@ -19,7 +19,6 @@
 
    <header th:replace="~{base/base :: header}"></header>
 
-
    <!--SubTitle-->
 
    <section class="SubTitle">WRITE_MY_BOARD</section>
@@ -58,7 +57,6 @@
                   <td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error"
                         style="cursor: text;" required></td>
                </tr>
-
 
                <tr>
                   <td colspan="1" th:text="#{ board.write.uploadfile }"></td>
