@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,11 +49,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Board;
+import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.Inquiry;
 import com.car.dto.Member;
@@ -131,7 +135,16 @@ public class AdminController {
 	    curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("memberDate").descending());
 	    Page<Member> pagedResult = memberService.getMemberList(pageable, searchType, searchWord);
-
+	    List<Member> memberList = pagedResult.getContent();
+	    Map<String, List<Integer>> memberCountMap = new HashMap<>();
+	    
+	    for (Member member1 : memberList) {
+	        int boardCount = boardService.countBoardById(member1.getMemberId());
+	        int bookmarkCount = bookmarkService.countBookmarkById(member1.getMemberId());
+	        int inquiryCount = inquiryService.countInquiryById(member1.getMemberId());
+	        List<Integer> counts = Arrays.asList(boardCount, bookmarkCount, inquiryCount);
+	        memberCountMap.put(member1.getMemberId(), counts);
+	    }
 	    
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
@@ -161,9 +174,23 @@ public class AdminController {
 	    model.addAttribute("tp", totalPageCount);
 	    model.addAttribute("st", searchType);
 	    model.addAttribute("sw", searchWord);
-	    model.addAttribute("memberList", pagedResult.getContent()); // Add this line
+	    model.addAttribute("memberList", pagedResult.getContent());
+	    model.addAttribute("memberCountMap", memberCountMap);
 	
 	    return "admin/memberList";
+	}
+	
+	@GetMapping("/bookmarkList")
+	public String myPagebookmarkList(@RequestParam("memberId") String memberId, Model model, HttpServletRequest request, HttpSession session) {
+		Locale locale = localeResolver.resolveLocale(request);
+
+		List<Bookmark> bookmarkCarID = bookmarkService.findAllBookmarkCar(memberId);
+
+		List<Car> bookmarkCarList = bookmarkService.findAllCar(bookmarkCarID);
+		
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("BookmarkCarList", bookmarkCarList);
+		return "admin/bookmarkList";
 	}
 	
 	@InitBinder
@@ -276,10 +303,22 @@ public class AdminController {
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
 	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 	       @RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
-	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
+	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
+	       @RequestParam(name = "boardSort", defaultValue = "번호순") String boardSort) {
 	   
 	    curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
-	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
+	    Pageable pageable;
+	    
+	    if(boardSort.equals("번호순")){
+			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").ascending());
+		}else if(boardSort.equals("조회순")) {
+			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardCnt").descending());
+		}else if(boardSort.equals("오래된순")){
+			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardDate").ascending());
+		}else {
+			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardDate").descending());
+		}
+	    
 	    Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
 	    List<Notice> noticeList = noticeService.noticeList();
 	    
@@ -321,6 +360,7 @@ public class AdminController {
 	    model.addAttribute("tp", totalPageCount);
 	    model.addAttribute("st", searchType);
 	    model.addAttribute("sw", searchWord);
+	    model.addAttribute("bs", boardSort);
 	    model.addAttribute("boardList", pagedResult.getContent()); // Add this line
 	    model.addAttribute("noticeList", noticeList);
 	
@@ -501,7 +541,7 @@ public class AdminController {
 	}
 	
 	// 공지사항 작성 폼
-	@GetMapping("insertNotice")
+	@GetMapping("/insertNotice")
 	public String insertNoticeForm(Notice notice, Model model) {
 		LocalDate currentDate = LocalDate.now();
 		
@@ -778,7 +818,7 @@ public class AdminController {
 	
 	@GetMapping("/updateCar")
 	public String updateCarForm(@RequestParam("carId") int carId, Model model) {
-		
+
 		Car car = modelService.getCarbyId(carId);
 		if(car != null) {
 			model.addAttribute("car", car);
@@ -804,6 +844,25 @@ public class AdminController {
 			return "alert";
 		} 
 
+	}
+	
+	@GetMapping("insertCar")
+	public String insertCarForm(Car car, Model model) {
+		
+		model.addAttribute("car", car);
+		
+		return "admin/insertCar";
+
+	   
+	}
+	
+	@PostMapping("/insertCar")
+	public String insertCar(@ModelAttribute("car") Car car, Model model) {
+		
+		modelService.insertCar(car);
+		
+		return "redirect:/admin/modelList";
+		
 	}
 	
 	

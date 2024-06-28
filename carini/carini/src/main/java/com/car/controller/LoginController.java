@@ -40,7 +40,6 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 
 @Controller
-@SessionAttributes("user")
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
