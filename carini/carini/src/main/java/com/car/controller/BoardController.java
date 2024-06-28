@@ -69,7 +69,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@SessionAttributes({"user", "pagingInfo"})
 public class BoardController {
 
    @Autowired

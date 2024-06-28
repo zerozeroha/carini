@@ -81,7 +81,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes({"user", "pagingInfo"})
 public class AdminController {
 	
 	@Autowired

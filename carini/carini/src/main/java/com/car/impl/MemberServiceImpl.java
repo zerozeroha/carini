@@ -89,6 +89,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findByMemberId(String id) {
 		System.out.println("sadadsa");
+		System.out.println(id);
 		Optional<Member> findeMember = memberRepository.findByMemberId(id);
 		System.out.println(findeMember.isPresent());
 		if(!findeMember.isPresent()) {
@@ -121,7 +122,8 @@ public class MemberServiceImpl implements MemberService {
 	 * */
 	@Override
 	public void deleteMember(Member member) {
-		
+		System.out.println("============");
+		System.out.println(member);
 		memberRepository.delete(member);
 		
 	}
