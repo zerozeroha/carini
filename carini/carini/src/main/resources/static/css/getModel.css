@@ -171,7 +171,25 @@ fieldset {
     text-align: center;
     margin: 1%;
 }
+.fieldset_img {
+    position: relative;
+    width: 700px;
+    height: 400px;
+}
 
+.flipped-image {
+    width: 100%;
+    height:100%;
+}
+
+#bookmark_img {
+    position: absolute;
+    top: 10px;
+    left: 10px; /* 오른쪽 상단 구석에 두기 위해 설정 */
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
 /* fieldset 제목부분 */
 legend { 
     font-size: 15px;

@@ -40,7 +40,6 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 
 @Controller
-@SessionAttributes("user")
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
@@ -69,7 +68,7 @@ public class LoginController {
 	}
 
 	/* 세션 초기화 */
-	@RequestMapping("/logout2")
+	@RequestMapping("/user_logout")
 	public String backhome(HttpServletRequest request,HttpServletResponse response) {
 		// 세션을 삭제
 		HttpSession session = request.getSession(false);
@@ -93,7 +92,6 @@ public class LoginController {
 	public String firstHome() {
 		return "homepage/first_home";
 	}
-
 	/*
 	 * 회원가입 view
 	 */
@@ -221,7 +219,7 @@ public class LoginController {
 				return "redirect:/board/getBoardList";
 			}
 			
-			if (redirectURL.contains("/model/getmodel/")) {
+			if (redirectURL.contains("/model/bookmark/")) {
 				int carId = Integer.parseInt(redirectURL.substring(redirectURL.lastIndexOf("/") + 1));
 	            System.out.println(carId);
 				return "redirect:/model/getModel?carId=" + carId;
@@ -236,7 +234,6 @@ public class LoginController {
 
 	/*
 	 * 로그아웃
-	 */
 	@PostMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		// 세션을 삭제
@@ -248,7 +245,7 @@ public class LoginController {
 		}
 		return "redirect:/";
 	}
-
+*/
 	/*
 	 * 아이디 찾기 폼
 	 */

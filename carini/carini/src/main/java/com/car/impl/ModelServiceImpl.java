@@ -171,6 +171,10 @@ public class ModelServiceImpl implements ModelService{
             throw new IllegalArgumentException("No car found with ID: " + car.getCarId());
         }
     }
-
+    
+    @Override
+    public void insertCar(Car car) {
+    	carRepository.save(car);
+    }
 
 }

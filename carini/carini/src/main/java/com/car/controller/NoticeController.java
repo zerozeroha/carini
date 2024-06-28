@@ -36,7 +36,6 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-@SessionAttributes({"user", "pagingInfo"})
 public class NoticeController {
 	
 	@Autowired

@@ -27,5 +27,6 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long>{
 	@Query("UPDATE Inquiry i SET i.reTitleRq = :reTitleRq, i.reContentRq = :reContentRq WHERE i.reId = :reId")
 	void answerInquiry(@Param("reTitleRq") String reTitleRq, @Param("reContentRq") String reContentRq, @Param("reId") Long reId);
 	
-	
+	@Query("SELECT COUNT(*) FROM Inquiry i WHERE i.memberId = :memberId")
+	int getBookmarkCount(@Param("memberId") String memberId);
 }

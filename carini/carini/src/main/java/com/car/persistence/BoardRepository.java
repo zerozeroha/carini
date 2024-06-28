@@ -43,6 +43,10 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	@Query("UPDATE Board b SET b.boardWriter = :newNickname WHERE b.memberId = :memberId")
 	void updateBoardWriter(@Param("newNickname") String newNickname,@Param("memberId") String memberId);
 	
+	@Query("SELECT COUNT(*) FROM Board b WHERE b.memberId = :memberId")
+	int getBoardCount(@Param("memberId") String memberId);
+	
+	
 	
 
 }

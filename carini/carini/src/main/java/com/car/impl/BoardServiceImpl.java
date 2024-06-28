@@ -179,7 +179,10 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
-	
+	@Override
+	public int countBoardById(String memberId) {
+		return boardRepository.getBoardCount(memberId);
+	}
 
 	
 	

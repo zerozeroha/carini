@@ -19,4 +19,5 @@ public interface InquiryService {
 	Page<Inquiry> getInquiryList(Pageable pageable, String searchType, String searchWord);
 	void answerInquiry(Inquiry inquiry);
 	void deleteInquiryById(Long reId);
+	int countInquiryById(String memberId);
 }

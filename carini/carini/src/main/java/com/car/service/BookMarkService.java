@@ -21,5 +21,7 @@ public interface BookMarkService {
 
 	Car selectCar(int carId);
 
+	int countBookmarkById(String memberId);
+
 	
 }

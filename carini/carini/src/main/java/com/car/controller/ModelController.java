@@ -46,9 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-
 @RequestMapping("/model")
-@SessionAttributes({"user", "pagingInfo"})
 public class ModelController {
 	
 	@Autowired
@@ -88,15 +86,18 @@ public class ModelController {
 	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
 	       HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		Member user = (Member) session.getAttribute("user");
+		Member user = null;
+		
+		 // 세션이 null이 아니면 사용자 정보를 가져옴
+		if (session != null) {
+	        user = (Member) session.getAttribute("user");
+	    }
+
 
 		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 		
 		Pageable pageable;
-		System.out.println(filterSize);
-		System.out.println(filterFuel);
-		System.out.println(carSort);
 
 		if(carSort.equals("저가순")){
 			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carAvgPrice").ascending());
@@ -161,15 +162,21 @@ public class ModelController {
 	}
 	
     @GetMapping("/getModel")
-    public String getCar(@RequestParam("carId") int carId, Model model) {
-    	
+    public String getCar(@RequestParam("carId") int carId, Model model, HttpServletRequest request) {
+    	HttpSession session = request.getSession(false);
+		Member user = (Member) session.getAttribute("user");
     	Car car = modelService.getCarbyId(carId);
     	
     	String[] carName = car.getCarName().strip().split(" ");
     	String carBrandName = carName[0];
     	
     	CarBrand carBrand = modelService.getURLbrBrand(carBrandName);
-    	car.setBookmarked(true);
+    	
+    	boolean isBookmarked = false;
+    	if (user != null) {
+    		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car.getCarId());
+    	}
+    	car.setBookmarked(isBookmarked);
     	System.out.println(car);
     	model.addAttribute("car", car);
     	model.addAttribute("carBrand", carBrand);
@@ -207,10 +214,10 @@ public class ModelController {
     /**
      * bookmark 추가(겟모델)
      * */
-	@PostMapping("/getmodel/bookmark/{carId}")
-	public String myPagebookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark,
+	@PostMapping("/bookmark/{carId}")
+	public String modelbookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark,
 			HttpServletRequest request, HttpSession session) {
-
+		
 		Locale locale = localeResolver.resolveLocale(request);
 
 		Member user = (Member) session.getAttribute("user");
@@ -230,8 +237,8 @@ public class ModelController {
 	/*
 	 * bookmark 삭제(겟모델)
 	 */
-	@PostMapping("/getmodel/bookmark/delete/{carId}")
-	public String myPagebookmarkdelete(@PathVariable("carId") String carId, Model model, HttpServletRequest request,
+	@PostMapping("/bookmark/delete/{carId}")
+	public String modelbookmarkdelete(@PathVariable("carId") String carId, Model model, HttpServletRequest request,
 			HttpSession session) {
 
 		Locale locale = localeResolver.resolveLocale(request);

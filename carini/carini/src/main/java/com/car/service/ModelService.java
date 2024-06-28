@@ -23,6 +23,7 @@ public interface ModelService {
 	List<Car> getComparisonCars(HttpSession session);
 	CarBrand getURLbrBrand(String carBrandName);
 	void updateCar(Car car);
+	void insertCar(Car car);
 	
 	
 }

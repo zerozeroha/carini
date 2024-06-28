@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>Left Sidebar - Helios by HTML5 UP</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <link rel="stylesheet" href="/css/favorite.css" />
+      <noscript><link rel="stylesheet" th:href="@{/assets/css/noscript.css}" /></noscript>
+   </head>
+<div id="Favorites_box">
+	<p th:text="|${memberId}님의 즐겨찾기 목록|">_Favorites</p>
+	<!-- 카드 박스 반복 -->
+	<div class="card_box" id="first_card_box">
+		<div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${BookmarkCarList}">
+			<form th:action="@{/mypage/bookmark/delete/{carId}(carId=${car.carId})}" method="post">
+				<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
+				<div class="card-body">
+					<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
+					<p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;"
+						th:text="|가격(최소) : ${car.carMinPrice}|"></p>
+					<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
+					<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
+					<p class="card-text" style="font-size: 15px;height: 10px;" th:text="| 연비 : ${car.carEff}|"></p>
+					<div class="card_button_box" style="margin-top:20px; font-size: 15px;">
+						<a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;"
+							class="btn btn-primary" th:text="#{detail}"></a>
+						<button class="delete_button" type='submit' value='Delete'>
+							<img th:src="@{/img/delete_icon.png}" value="Delete" alt="삭제" >
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
