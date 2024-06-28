@@ -94,6 +94,7 @@ public class ModelController {
 	        user = (Member) session.getAttribute("user");
 	    }
 
+
 		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 		
