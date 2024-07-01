@@ -2,6 +2,7 @@ package com.car.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.car.dto.Board;
 import com.car.dto.Bookmark;
@@ -22,6 +23,8 @@ public interface BookMarkService {
 	Car selectCar(int carId);
 
 	int countBookmarkById(String memberId);
+
+	Set<Integer> getBookmarkedCarIdsByMember(String memberId);
 
 	
 }

@@ -42,11 +42,15 @@
 				</fieldset>
 
 				<!-- 오른쪽 박스 : 자동차 사진 -->
-				<fieldset style="width: 700px; height: 400px;">
+				<fieldset class="fieldset_img" style="width: 700px; height: 400px;">
 
 					<legend th:text="${car.carName}"></legend>
 					<img class="flipped-image" th:src="@{${car.carImg}}" style="width: 850px; height: 400px;"
 						alt="좌우반전 자동차사진">
+					<img id="bookmark_img"
+						th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
+						th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
+						th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'" alt="즐겨찾기 버튼">
 
 				</fieldset>
 
@@ -118,15 +122,14 @@
 
 				<!-- 중간 박스 : 뭐넣을지 몰라박스 -->
 				<fieldset style="width: 390px; height: 400px; background-color: whitesmoke;">
-					<legend>&nbsp;</legend>
+					<legend> &nbsp;</legend>
 				</fieldset>
-
 				<!-- 오른쪽 박스 : 대리점 -> 링크:홈페이지 -->
 				<fieldset style="width: 390px; height: 400px;">
 					<legend> AGENCY</legend>
 					<a th:href="@{/center/centerMap(carBrand=${carBrand.carBrandName})}" style="margin-right: 10%;">
 						<img th:src="@{/img/agency.png}" alt="대리점"
-							style="height:150px; width:150px; padding-left:20%;margin-left:100px">
+							style="height:60%; width:70%; padding-left:10%;margin-left:45%;">
 					</a>
 				</fieldset>
 
@@ -163,4 +166,5 @@
 <script src="/js/breakpoints.min.js"></script>
 <script src="/js/util.js"></script>
 <script src="/js/main.js"></script>
+
 </html>

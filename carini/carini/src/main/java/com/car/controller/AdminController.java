@@ -81,7 +81,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes({"user", "pagingInfo"})
 public class AdminController {
 	
 	@Autowired
@@ -103,7 +102,6 @@ public class AdminController {
 	@Autowired
 	private LocaleResolver localeResolver;
 
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	public PagingInfo pagingInfo = new PagingInfo();
 	
@@ -759,23 +757,16 @@ public class AdminController {
 	       @RequestParam(name = "filterFuel", defaultValue = "선택안함") String filterFuel,
 	       @RequestParam(name = "carSort", defaultValue = "저가순") String carSort,
 	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
+	       @RequestParam(name = "exCar", defaultValue = "false") Boolean exCar,
 	       HttpSession session) {
 
 		Member user = (Member) session.getAttribute("user");
 		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 		
-		Pageable pageable;
-
-		if(carSort.equals("저가순")){
-			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carAvgPrice").ascending());
-		}else if(carSort.equals("고가순")) {
-			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carAvgPrice").descending());
-		}else {
-			pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("carName").ascending());
-		}
+		Pageable pageable = PageRequest.of(curPage, rowSizePerPage);
 	    
-	    Page<Car> pagedResult = modelService.filterCars(pageable, filterMinPrice, filterMaxPrice, filterSize, filterFuel, searchWord);
+	    Page<Car> pagedResult = modelService.filterCars(pageable, filterMinPrice, filterMaxPrice, filterSize, filterFuel, searchWord, carSort, exCar);
 
 	    int totalRowCount  = (int)pagedResult.getNumberOfElements();
 	    int totalPageCount = pagedResult.getTotalPages();
@@ -795,6 +786,7 @@ public class AdminController {
 	    pagingInfo.setCarFuel(filterFuel);
 	    pagingInfo.setSearchWord(searchWord);
 	    pagingInfo.setRowSizePerPage(rowSizePerPage);
+	    pagingInfo.setExCar(exCar);
 	    
 	    model.addAttribute("pagingInfo", pagingInfo);
 	    model.addAttribute("pagedResult", pagedResult);
@@ -820,8 +812,11 @@ public class AdminController {
 	public String updateCarForm(@RequestParam("carId") int carId, Model model) {
 
 		Car car = modelService.getCarbyId(carId);
+		
 		if(car != null) {
+			String carBrand = car.getCarName().strip().split(" ")[0];
 			model.addAttribute("car", car);
+			model.addAttribute("carBrand", carBrand);
 			return "admin/updateCar";
 		} else {
 			model.addAttribute("msg", "차 데이터가 없습니다!");
@@ -860,6 +855,15 @@ public class AdminController {
 	public String insertCar(@ModelAttribute("car") Car car, Model model) {
 		
 		modelService.insertCar(car);
+		
+		return "redirect:/admin/modelList";
+		
+	}
+	
+	@GetMapping("/deleteCar")
+	public String deleteCar(@RequestParam("carId") int carId) {
+		
+		modelService.deleteCar(carId);
 		
 		return "redirect:/admin/modelList";
 		
