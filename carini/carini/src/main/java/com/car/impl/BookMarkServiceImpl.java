@@ -3,18 +3,18 @@ package com.car.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.car.dto.Board;
 import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.Member;
-import com.car.persistence.CarRepository;
 import com.car.persistence.BoardRepository;
 import com.car.persistence.BookMarkRepository;
+import com.car.persistence.CarRepository;
 import com.car.service.BookMarkService;
 
 import jakarta.transaction.Transactional;
@@ -99,5 +99,12 @@ public class BookMarkServiceImpl implements BookMarkService{
 		return bookMarkRepository.getBookmarkCount(memberId);
 	}
 
-
+	@Override
+    public Set<Integer> getBookmarkedCarIdsByMember(String memberId) {
+        List<Bookmark> bookmarks = bookMarkRepository.findBookmarkByMemberId(memberId);
+        return bookmarks.stream()
+                .map(Bookmark::getCarId)
+                .collect(Collectors.toSet());
+    }
+	
 }

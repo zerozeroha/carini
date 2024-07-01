@@ -16,7 +16,12 @@ import com.car.dto.Car;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer>, JpaSpecificationExecutor<Car> {
-
+	
+	@Query("SELECT c, COUNT(b.carId) AS bookmarkCount " +
+           "FROM Car c LEFT JOIN Bookmark b ON c.carId = b.carId " +
+           "GROUP BY c.carId " +
+           "ORDER BY bookmarkCount DESC")
+    List<Object[]> findAllCarsWithBookmarkCount(Pageable pageable);
 
 }
 

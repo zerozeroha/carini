@@ -26,6 +26,7 @@ public class PagingInfo {
 	private Long carMaxPrice;          // (필터링) 자동차 최고가
 	private String carSize;            // (필터링) 자동차 크기
 	private String carFuel;            // (필터링) 자동차 연료
+	private Boolean exCar;             // (필터링) 5억 이상
 	
 	
 	//page계산

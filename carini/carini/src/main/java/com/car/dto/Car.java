@@ -50,6 +50,9 @@ public class Car {
 	@Transient
 	private boolean isBookmarked;
 	
+	@Transient
+    private long bookmarkCount;
+	
 	@PrePersist
     @PreUpdate
     private void calculateCarAvgPrice() {
@@ -57,4 +60,5 @@ public class Car {
 			this.carAvgPrice = (carMinPrice + carMaxPrice) / 2.0;
 		}
     }
+
 }

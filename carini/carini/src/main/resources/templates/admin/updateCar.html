@@ -93,10 +93,15 @@
                         <td th:text="#{label.car.score.avg}"></td>
                         <td><input type="text" name="carScAvg" th:value="${car.carScAvg}" /></td>
                     </tr>
+                    <tr>
+                        <td th:text="#{label.car.brand}"></td>
+                        <td><a th:href="@{/center/centerMap(carBrand=${carBrand})}" th:text="${carBrand}"></a></td>
+                    </tr>
                 </table>
-                <button type="submit" th:text="#{label.car.update}"></button>
+                <input type="submit" th:value="#{label.car.update}"></input>
+				<a th:href="@{/admin/deleteCar(carId=${car.carId})}" th:text="#{label.car.delete}"></a>
+	            <a th:href="@{/admin/modelList}" th:text="#{label.car.list}"></a>
             </form>
-            <a th:href="@{/admin/modelList}" th:text="#{label.car.list}"></a>
         </div>
     </div>
 

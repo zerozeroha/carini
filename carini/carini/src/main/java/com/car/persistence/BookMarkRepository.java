@@ -29,4 +29,5 @@ public interface BookMarkRepository extends JpaRepository<Bookmark, Integer>{
 	@Query("SELECT COUNT(*) FROM Bookmark b WHERE b.memberId = :memberId")
 	int getBookmarkCount(@Param("memberId") String memberId);
 	
+	long countByCarId(int carId);
 }
