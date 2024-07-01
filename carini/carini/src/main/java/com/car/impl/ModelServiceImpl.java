@@ -1,26 +1,37 @@
 package com.car.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.car.controller.AdminController;
 import com.car.dto.Board;
+import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.CarBrand;
+import com.car.persistence.BookMarkRepository;
 import com.car.persistence.CarBrandRepository;
 import com.car.persistence.CarRepository;
 import com.car.service.ModelService;
 
 import jakarta.persistence.criteria.Predicate;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ModelServiceImpl implements ModelService{
 	
@@ -28,6 +39,8 @@ public class ModelServiceImpl implements ModelService{
 	private CarRepository carRepository;
 	@Autowired
 	private CarBrandRepository carBrandRepository;
+	@Autowired
+	private BookMarkRepository bookmarkRepository;
 	
 
 	@Override
@@ -52,15 +65,48 @@ public class ModelServiceImpl implements ModelService{
 	}
 	
 	@Override
-	public Page<Car> filterCars(Pageable pageable, Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel, String searchWord) {
+	public Page<Car> filterCars(Pageable pageable, Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel, String searchWord, String carSort, Boolean exCar) {
 		
-		// 주어진 조건에 따른 Specification 생성
-
-        Specification<Car> spec = createSpecification(filterMinPrice, filterMaxPrice, filterSize, filterFuel, searchWord);
-        return carRepository.findAll(spec, pageable);
-    }
+	    // Specification 생성
+	    Specification<Car> spec = createSpecification(filterMinPrice, filterMaxPrice, filterSize, filterFuel, searchWord, exCar);
+	    
+	    Sort sort;
+	    if ("즐겨찾기순".equals(carSort)) {
+	        sort = Sort.unsorted(); // 정렬은 나중에 수동으로 처리
+	    } if ("고가순".equals(carSort)) {
+	        sort = Sort.by(Sort.Direction.DESC, "carAvgPrice");
+	    } else if ("이름순".equals(carSort)) {
+	        sort = Sort.by(Sort.Direction.ASC, "carName");
+	    } else {
+	        // 기본값 "저가순"
+	        sort = Sort.by(Sort.Direction.ASC, "carAvgPrice");
+	    }
+	    
+	    Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+	    
+	    Page<Car> result = carRepository.findAll(spec, sortedPageable);
+	    
+	    if ("즐겨찾기순".equals(carSort)) {
+	        // 즐겨찾기순 정렬을 위한 특별 처리
+	    	List<Car> cars = new ArrayList<>(result.getContent()); // Make a modifiable copy
+	        List<Object[]> bookmarkCounts = carRepository.findAllCarsWithBookmarkCount(Pageable.unpaged());
+	        
+	        Map<Integer, Long> bookmarkCountMap = bookmarkCounts.stream()
+	            .collect(Collectors.toMap(
+	                obj -> ((Car)obj[0]).getCarId(),
+	                obj -> (Long)obj[1]
+	            ));
+	        
+	        cars.forEach(car -> car.setBookmarkCount(bookmarkCountMap.getOrDefault(car.getCarId(), 0L)));
+	        cars.sort((c1, c2) -> Long.compare(c2.getBookmarkCount(), c1.getBookmarkCount()));
+	        
+	        return new PageImpl<>(cars, pageable, result.getTotalElements());
+	    }
+	    
+	    return result;
+	}
 	
-	private Specification<Car> createSpecification(Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel, String searchWord) {
+	private Specification<Car> createSpecification(Long filterMinPrice, Long filterMaxPrice, String filterSize, String filterFuel, String searchWord, Boolean exCar) {
 		// root: 조회할 엔티티의 루트를 나타내며, 엔티티의 속성에 접근할 수 있음.
 		// query: 쿼리 객체로, 쿼리 자체를 나타냄. select, where 등의 조건을 설정할 수 있음.
 		// criteriaBuilder: Predicate(조건)를 생성하는 데 사용되는 빌더 객체.
@@ -69,23 +115,26 @@ public class ModelServiceImpl implements ModelService{
 		
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
-            if (filterMinPrice != null) {
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("carAvgPrice"), filterMinPrice));
+            
+            if (exCar != null && exCar) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("carAvgPrice"), 50000L));
+            } else {
+                if (filterMinPrice != null) {
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("carAvgPrice"), filterMinPrice));
+                }
+                if (filterMaxPrice != null) {
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("carAvgPrice"), filterMaxPrice));
+                }
             }
-
-            if (filterMaxPrice != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("carAvgPrice"), filterMaxPrice));
-            }
-
-            if (!filterFuel.equals("선택안함")) {
+            if (filterFuel != null && !"선택안함".equals(filterFuel)) {
                 predicates.add(criteriaBuilder.like(root.get("carFuel"), "%" + filterFuel + "%"));
             }
 
-            if (!filterSize.equals("선택안함")) {
+            if (filterSize != null && !"선택안함".equals(filterSize)) {
                 predicates.add(criteriaBuilder.like(root.get("carSize"), "%" + filterSize + "%"));
             }
             
-            if (searchWord != null) {
+            if (searchWord != null && !searchWord.isEmpty()) {
             	predicates.add(criteriaBuilder.like(root.get("carName"), "%" + searchWord + "%"));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
@@ -176,5 +225,24 @@ public class ModelServiceImpl implements ModelService{
     public void insertCar(Car car) {
     	carRepository.save(car);
     }
+    
+    @Override
+    public void deleteCar(int carId) {
+    	Optional<Car> findcar = carRepository.findById(carId);
+    	
+    	if(findcar.isPresent()) {
+    		carRepository.deleteById(carId);
+    	}
+    }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
