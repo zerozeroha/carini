@@ -810,7 +810,6 @@ public class AdminController {
 	
 	@GetMapping("/updateCar")
 	public String updateCarForm(@RequestParam("carId") int carId, Model model) {
-
 		Car car = modelService.getCarbyId(carId);
 		
 		if(car != null) {
@@ -868,7 +867,6 @@ public class AdminController {
 		return "redirect:/admin/modelList";
 		
 	}
-	
 	
 }
 

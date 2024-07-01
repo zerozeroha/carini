@@ -4,17 +4,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Member;
 import com.car.persistence.MemberRepository;
+import com.car.service.BoardService;
+import com.car.service.BookMarkService;
 import com.car.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
@@ -24,10 +30,13 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 	
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public Page<Member> getMemberList(Pageable pageable, String searchType, String searchWord) {
@@ -88,10 +97,7 @@ public class MemberServiceImpl implements MemberService {
 	 * */
 	@Override
 	public Member findByMemberId(String id) {
-		System.out.println("sadadsa");
-		System.out.println(id);
 		Optional<Member> findeMember = memberRepository.findByMemberId(id);
-		System.out.println(findeMember.isPresent());
 		if(!findeMember.isPresent()) {
 			return null;
 		}
@@ -213,5 +219,17 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public void updatepw(String memberId, String newmemberPw) {
 		memberRepository.updateMemberPw(newmemberPw,memberId);
+	}
+	
+	/*
+	 * 비밀번호 암호화 체크
+	 * */
+	public boolean passwordCheck(Member findmember, String memberPw) {
+		boolean passwordCheck = passwordEncoder.matches(memberPw, findmember.getMemberPw());
+		
+		if(passwordCheck) {
+			return passwordCheck;
+		}
+		return false;
 	}
 }

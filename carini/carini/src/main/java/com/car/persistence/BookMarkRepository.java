@@ -30,7 +30,4 @@ public interface BookMarkRepository extends JpaRepository<Bookmark, Integer>{
 	int getBookmarkCount(@Param("memberId") String memberId);
 	
 	long countByCarId(int carId);
-	
-	
-	
 }
