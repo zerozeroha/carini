@@ -1,23 +1,9 @@
 * {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	margin: 0;
 	padding: 0;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	letter-spacing: 2px;
 	cursor: default;
-<<<<<<< HEAD
-=======
-   margin: 0;
-   padding: 0;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   letter-spacing: 2px;
-   cursor: default;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
@@ -27,27 +13,12 @@
 /* body */
 
 body {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	background: white;
 	color: #5b5b5b;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	letter-spacing: 2px;
 	margin: 0;
 	padding: 0;
-<<<<<<< HEAD
-=======
-   background: white;
-   color: #5b5b5b;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   letter-spacing: 2px;
-   margin: 0;
-   padding: 0;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
@@ -55,33 +26,15 @@ body {
 
 /* 소제목 영역 */
 section {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	height: 50px;
 	width: 100%;
 	text-align: center;
 	align-items: center;
 	margin: 5% 16%;
-<<<<<<< HEAD
-=======
-   height: 50px;
-   width: 100%;
-   text-align: center;
-   align-items: center;
-   margin: 5% 16%;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 /* 소제목 */
 .SubTitle {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	font-size: 60px;
 	font-weight: 1000;
 	color: black;
@@ -90,29 +43,12 @@ section {
 	display: flex;
 	flex-direction: column;
 	letter-spacing: 6px;
-<<<<<<< HEAD
-=======
-   font-size: 60px;
-   font-weight: 1000;
-   color: black;
-   width: 70%;
-   height: 10%;
-   display: flex;
-   flex-direction: column;
-   letter-spacing: 6px;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
 }
 
 
 /* 소제목 소개글 */
 #SubTitle_Text {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	display: inline;
 	align-items: center;
 	justify-content: center;
@@ -120,18 +56,6 @@ section {
 	text-align: center;
 	font-size: 30px;
 	color: black;
-<<<<<<< HEAD
-=======
-   display: inline;
-   align-items: center;
-   justify-content: center;
-   font-weight: 900;
-   text-align: center;
-   font-size: 30px;
-   color: black;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
@@ -139,52 +63,23 @@ section {
 /* Main */
 
 main {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	height: 1000px;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
-<<<<<<< HEAD
-=======
-   height: 1000px;
-   width: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: row;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
 /* form */
 
 form {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	width: 100%;
-<<<<<<< HEAD
-=======
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
-   width: 100%;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
@@ -204,56 +99,24 @@ form {
 /* Container */
 
 .container {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	margin: auto;
 	justify-content: center;
 	align-items: center;
 	width: 1200px;
-<<<<<<< HEAD
-=======
-   margin: auto;
-   justify-content: center;
-   align-items: center;
-   width: 1200px;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 /* 세로박스 */
 .flex-container_column {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 95%;
 	height: 95%;
-<<<<<<< HEAD
-=======
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   width: 95%;
-   height: 95%;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 /* 가로박스 */
 .flex-container_row {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -266,31 +129,10 @@ form {
 .flex-container>div {
 	background-color: white;
 	text-align: center;
-<<<<<<< HEAD
-=======
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: center;
-   
-   width: 100%;
-   height: 90%;
-}
-
-.flex-container>div {
-   background-color: white;
-   text-align: center;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 /* 각 라인들을 감싸는 박스 */
 .flex-container {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -302,22 +144,6 @@ form {
 .flex-container>div {
 	background-color: white;
 	text-align: center;
-<<<<<<< HEAD
-=======
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 100%;
-   height: 100%;
-   background-color: white;
-}
-
-.flex-container>div {
-   background-color: white;
-   text-align: center;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
@@ -330,10 +156,6 @@ form {
 /* Table */
 
 table {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	width: 100%;
 	height: 70%;
 	border-collapse: collapse;
@@ -348,33 +170,10 @@ th {
 	background-color: black;
 	color: white;
 	font-weight: bold;
-<<<<<<< HEAD
-=======
-   width: 100%;
-   height: 70%;
-   border-collapse: collapse;
-   font-size: larger;
-   font-weight: 700;
-}
-
-th {
-   padding: 1%;
-   text-align: center;
-   border-bottom: 3px solid white;
-   background-color: black;
-   color: white;
-   font-weight: bold;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
 tr {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	background-color: white;
 }
 
@@ -383,50 +182,19 @@ td {
 	color: black;
 	padding: 1%;
 	text-align: center;
-<<<<<<< HEAD
-	border-bottom: 3px solid whitesmoke;
-	border-top: 3px solid whitesmoke;
-=======
-   background-color: white;
-}
-
-td {
-   background-color: white;
-   color: black;
-   padding: 1%;
-   text-align: center;
-   border-bottom: 3px solid whitesmoke;
-   border-top: 3px solid whitesmoke;
->>>>>>> upstream/main
-=======
 	border-bottom: 3px solid black;
 	border-top: 3px solid black;
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 /* 수정하기 버튼 */
 
 #edit_save_td {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	width: 15%;
 	height: 10%;
-=======
-   width: 15%;
-   height: 10%;
->>>>>>> upstream/main
-=======
-	width: 15%;
-	height: 10%;
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
 button {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	background-color: white;
 	color: black;
 	font-size: 20px;
@@ -447,52 +215,15 @@ button:hover {
 	font-weight: bolder;
 	border-radius: 0.5rem;
 	cursor: pointer;
-<<<<<<< HEAD
-=======
-   background-color: white;
-   color: black;
-   font-size: 20px;
-   padding: 5% 10%;
-   border: 1px solid black;
-   font-weight: bolder;
-   border-radius: 0.5rem;
-   cursor: pointer;
-}
-
-button:hover {
-   background-color: black;
-   color: white;
-   font-weight: 800;
-   font-size: 20px;
-   padding: 5% 10%;
-   border: 1px solid black;
-   font-weight: bolder;
-   border-radius: 0.5rem;
-   cursor: pointer;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
 /* a */
 
 a {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	color: inherit;
 	text-decoration: none;
 	cursor: pointer;
-=======
-   color: inherit;
-   text-decoration: none;
-   cursor: pointer;
->>>>>>> upstream/main
-=======
-	color: inherit;
-	text-decoration: none;
-	cursor: pointer;
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
 }
 
@@ -500,51 +231,23 @@ a {
 /* a.hover */
 
 a:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	-webkit-text-stroke: 0.5px black;
 	cursor: pointer;
-=======
-   -webkit-text-stroke: 0.5px black;
-   cursor: pointer;
->>>>>>> upstream/main
-=======
-	-webkit-text-stroke: 0.5px black;
-	cursor: pointer;
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
 }
 
 
 /* 각 종 hover들 */
 a.icon-hover:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	background-color: white;
 }
 
 .float_hover:hover {
 	background-color: whitesmoke !important;
-<<<<<<< HEAD
-=======
-   background-color: white;
-}
-
-.float_hover:hover {
-   background-color: whitesmoke !important;
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 
 .side-hover:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	color: white !important;
 	background-color: black !important;
 	border-radius: 0.5rem;
@@ -562,36 +265,10 @@ a.Board-hover:hover {
 
 select:hover {
 	border: 2px solid rgb(170, 170, 170);
-<<<<<<< HEAD
-=======
-   color: white !important;
-   background-color: black !important;
-   border-radius: 0.5rem;
-   padding: 1.5%;
-}
-
-a.Board-hover {
-   text-decoration: none;
-   color: black;
-}
-
-a.Board-hover:hover {
-   text-decoration: underline;
-}
-
-select:hover {
-   border: 2px solid rgb(170, 170, 170);
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
 
 /* 자세히 보기 */
 .btn:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 	color: black;
 	text-shadow: 1px 1px 1px 1px white;
 
@@ -728,146 +405,4 @@ select:hover {
 
 button.getout-hover:hover {
 	color: black !important;
-<<<<<<< HEAD
-=======
-   color: black;
-   text-shadow: 1px 1px 1px 1px white;
-   
 }
-
-
-.information_box {
-    width: 130%;
-    height: 100%
- }
-
-
-
-
-#Favorites_box {
-   
-   height: 90%;
-   width: 75%;
-   display: flex;
-   flex-direction: column;
-   margin-top: 50px
-}
-
-#Favorites_box>P {
-   float: left;
-   flex-direction: row;
-   font-size: 45px;
-   font-weight: 700;
-   color: #000
-}
-
-.card {
-   margin: 10px;
-   padding: 1%;
-
-   text-align: center;
-   height: 350px;
-   background-color: #fff
-}
-
-.card-text {
-   padding: 8% 1%;
-}
-
-.card_box {
-   height: 800px;
-   display: flex;
-   flex-wrap: wrap;
-   flex: 1;
-   overflow: scroll;
-   overflow-x: hidden
-}
-
-.card-title {
-   font-weight: 700;
-   background-color: whitesmoke;
-   height: 15px;
-   padding-bottom: 10px;
-}
-
-.card:hover {
-   background-color: #f5f5f5;
-   border-radius: 30px;
-   box-shadow: inset 0 1px 0 0 rgba(192, 192, 192, .35)
-}
-
-.card_button_box {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   bottom: 0;
-   font-weight: 700
-}
-
-.delete_button {
-   background-color: whitesmoke;
-   display: flex;
-   width: 30px;
-   height: 30px;
-   border: 0px;
-   align-items: center;
-   justify-content: center;
-   margin-left: 12px;;
-   padding: 0
-}
-
-.delete_button:hover {
-   background-color: whitesmoke;
-   display: flex;
-   width: 32px;
-   height: 32px;
-   border: 0px;
-   align-items: center;
-   justify-content: center;
-   margin-left: 10px;
-   padding: 0;
-   cursor: pointer;
-}
-
-.delete_button img {
-   width: 20px;
-   cursor:pointer
-}
-
-#first_card_box {
-   width: 100%
-}
-
-.card-img-top {
-   width: 280px
-}
-
-/* 탈퇴하기 button */
-
-.getout {
-   width: 3%;
-   height: 5%;
-   color: black;
-   background-color: white;
-}
-
-.getout_button,
-.getout .getout_button {
-   border: none;
-   color: black;
-   text-align: center;
-   font-size: 14px;
-   cursor: pointer;
-   border-radius: 16px;
-   text-decoration: none;
-   margin-top: 300px;
-}
-
-button.getout-hover:hover {
-   color: black !important;
->>>>>>> upstream/main
-}
-
-=======
-}
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac

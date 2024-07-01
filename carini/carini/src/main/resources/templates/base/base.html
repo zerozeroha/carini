@@ -53,54 +53,6 @@
 </div>
 
 
-<body class="no-sidebar is-preload">
-
-	<div th:fragment="header">
-
-
-		<!-- Header -->
-		<div id="header">
-			<!-- Inner -->
-			<div class="inner">
-				<header>
-					<a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-				</header>
-
-			</div>
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li><a th:href="@{/board/getBoardList}">Board</a>
-						<ul>
-							<li><a th:href="@{/board/getBoardList}" style="text-align: center;"
-									class="side-hver">커뮤니티</a>
-							</li>
-							<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;"
-									class="side-hver">공지사항</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="Models.html">&nbsp;Model</a></li>
-					<li><a href="Center.html">&nbsp;Center</a></li>
-					<li>
-						<a>&nbsp;MyPage</a>
-						<ul>
-							<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
-									th:text="#{side.menu1}"></a></li>
-							<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
-									th:text="#{side.menu2}"></a></li>
-							<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
-									th:text="#{side.menu3}"></a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<br>
-
-
-	</div>
-	<!--여기까지 헤더-->
 
 
 
@@ -118,10 +70,7 @@
 
 
 	<!-- Footer -->
-	<footer th:fragment="footer">
-		<hr>
-		<h1 style="padding-bottom: 50px;">@ carini</h1>
-	</footer>
+
 </body>
 
 </html>

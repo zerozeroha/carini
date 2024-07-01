@@ -97,7 +97,8 @@
 					</tr>
 					<tr style="text-align: center;" th:each="board, state : ${pagedResult.getContent()}">
 						<td style="width: 10%; text-align: center;" th:text="${board.boardId}"></td>
-						<td style="width: 30%; text-align: center;"><a class="Board-hover"
+						<td style="width: 30%; text-align: center;">
+							<a class="Board-hover"
 								th:href="@{/board/getBoard(boardId=${board.boardId})}"
 								th:text="${board.boardTitle}"></a></td>
 						<td style="width: 20%; text-align: center;" th:text="${board.boardWriter}"></td>

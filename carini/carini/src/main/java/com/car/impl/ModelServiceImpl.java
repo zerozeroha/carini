@@ -133,10 +133,6 @@ public class ModelServiceImpl implements ModelService{
     }
     
     @Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
    public CarBrand getURLbrBrand(String carBrandName) {
        Optional<CarBrand> carBrand =  carBrandRepository.findById(carBrandName);
       
@@ -146,20 +142,6 @@ public class ModelServiceImpl implements ModelService{
        
       return carBrand.get();
    }
-<<<<<<< HEAD
-
-=======
-	public CarBrand getURLbrBrand(String carBrandName) {
-    	Optional<CarBrand> carBrand =  carBrandRepository.findById(carBrandName);
-		
-    	if(!carBrand.isPresent()) {
-    		return null;
-    	}
-    	
-		return carBrand.get();
-	}
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
     
     @Override
     @Transactional
@@ -194,9 +176,5 @@ public class ModelServiceImpl implements ModelService{
     public void insertCar(Car car) {
        carRepository.save(car);
     }
-<<<<<<< HEAD
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
 }

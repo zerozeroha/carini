@@ -67,10 +67,6 @@ public class LoginController {
       return "redirect:/homepage/first_home";
    }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
    /* 세션 초기화 */
    @RequestMapping("/user_logout")
    public String backhome(HttpServletRequest request,HttpServletResponse response) {
@@ -88,36 +84,10 @@ public class LoginController {
       response.setHeader("Cache-Control", "no-store");
       response.setHeader("Pragma", "no-cache");
       response.setDateHeader("Expires", 0);
-<<<<<<< HEAD
-=======
-	/* 세션 초기화 */
-	@RequestMapping("/user_logout")
-	public String backhome(HttpServletRequest request,HttpServletResponse response) {
-		// 세션을 삭제
-		HttpSession session = request.getSession(false);
-		// session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
-		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
-		if (session != null) {
-			session.invalidate();
-			System.out.println("세션이 무효화되었습니다.");
-		} else {
-			System.out.println("세션이 존재하지 않습니다.");
-		}
-		// 캐시 제어 헤더 추가
-		response.setHeader("Cache-Control", "no-store");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader("Expires", 0);
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
       return "redirect:/homepage/first_home";
    }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
    @RequestMapping("/homepage/first_home")
    public String firstHome() {
       return "homepage/first_home";
@@ -129,22 +99,6 @@ public class LoginController {
    public String joinView(@ModelAttribute("SignupFormValidation") SignupFormValidation member) {
       return "member/signup.html";
    }
-<<<<<<< HEAD
-=======
-	@RequestMapping("/homepage/first_home")
-	public String firstHome() {
-		return "homepage/first_home";
-	}
-	/*
-	 * 회원가입 view
-	 */
-	@GetMapping("/signup")
-	public String joinView(@ModelAttribute("SignupFormValidation") SignupFormValidation member) {
-		return "member/signup.html";
-	}
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
    @GetMapping("/test")
    public String getTestPage(Model model) {
@@ -254,10 +208,6 @@ public class LoginController {
       // 사용자가 존재하고 비밀번호가 일치하는지 확인
       if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
          // 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
          session.setAttribute("user", findmember);
          
@@ -274,27 +224,6 @@ public class LoginController {
                System.out.println(carId);
             return "redirect:/model/getModel?carId=" + carId;
          }
-<<<<<<< HEAD
-=======
-			// 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
-			session.setAttribute("user", findmember);
-			
-			if (redirectURL.contains("/mypage/bookmark/")) {
-				return "redirect:/model/getModelList";
-			}
-			
-			if (redirectURL.contains("/board/getBoard")) {
-				return "redirect:/board/getBoardList";
-			}
-			
-			if (redirectURL.contains("/model/bookmark/")) {
-				int carId = Integer.parseInt(redirectURL.substring(redirectURL.lastIndexOf("/") + 1));
-	            System.out.println(carId);
-				return "redirect:/model/getModel?carId=" + carId;
-			}
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
          return "redirect:" + redirectURL;
       } else {
@@ -303,10 +232,6 @@ public class LoginController {
       }
    }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
    /*
     * 로그아웃
    @PostMapping("/logout")
@@ -328,32 +253,6 @@ public class LoginController {
    public String find_idForm(@ModelAttribute("Find_idFormValidation") Find_idFormValidation find_idFormValidation) {
       return "member/find_id";
    }
-<<<<<<< HEAD
-=======
-	/*
-	 * 로그아웃
-	@PostMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		// 세션을 삭제
-		HttpSession session = request.getSession(false);
-		// session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
-		// 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
-		if (session != null) {
-			session.invalidate();
-		}
-		return "redirect:/";
-	}
-*/
-	/*
-	 * 아이디 찾기 폼
-	 */
-	@GetMapping("/find_idForm")
-	public String find_idForm(@ModelAttribute("Find_idFormValidation") Find_idFormValidation find_idFormValidation) {
-		return "member/find_id";
-	}
->>>>>>> upstream/main
-=======
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 
    /*
     * 비밀번호 찾기 폼

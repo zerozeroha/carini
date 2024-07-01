@@ -19,21 +19,8 @@ public interface BookMarkService {
 
    void insertMember(Bookmark bookmark, Member user);
 
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-   Car selectCar(int carId);
-
-   
-=======
-	int countBookmarkById(String memberId);
-
-	
->>>>>>> upstream/main
-=======
    Car selectCar(int carId);
 
    int countBookmarkById(String memberId);
 
->>>>>>> c2c34a4ff92ef5883d1d4688cf5e3b0e1a81b0ac
 }
