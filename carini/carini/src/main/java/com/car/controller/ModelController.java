@@ -1,42 +1,31 @@
 package com.car.controller;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import org.springframework.context.MessageSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.LocaleResolver;
 
-
-import com.car.dto.Board;
 import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.CarBrand;
 import com.car.dto.Member;
-import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
-import com.car.persistence.BookMarkRepository;
-import com.car.persistence.CarRepository;
 import com.car.service.BookMarkService;
 import com.car.service.MemberService;
 import com.car.service.ModelService;
@@ -57,8 +46,6 @@ public class ModelController {
 	@Autowired
 	private BookMarkService bookMarkService;
 	
-	@Autowired
-	private BookMarkRepository bookMarkRepository;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
