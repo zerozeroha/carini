@@ -29,5 +29,5 @@ public interface BookMarkService {
 	List<Car> getBookmarkTop10Cars();
 	
 	void deleteMember(Member findmember);
-	
+
 }
