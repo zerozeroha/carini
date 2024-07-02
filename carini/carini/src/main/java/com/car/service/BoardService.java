@@ -25,6 +25,7 @@ public interface BoardService {
 	Board selectBoard(Long boardId);
 	void updateBoardWriter(Member member, String memberNickname);
 	int countBoardById(String memberId);
+	void deleteMember(Member findmember);
 		
 
 }

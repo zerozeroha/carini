@@ -57,6 +57,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.car.service.BoardService;
 import com.car.service.BookMarkService;
+import com.car.service.CommentService;
+import com.car.service.InquiryService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -75,13 +77,14 @@ public class MypageController {
 	public PagingInfo pagingInfo = new PagingInfo();
 	
 	private final BookMarkService bookMarkService;
-	
 	private final MemberService memberService;
-	
 	private final BoardService boardService;
-
-	private final MessageSource messageSource;
+	private final InquiryService InquiryService;
+	private final CommentService commentService;
 	
+	
+	private final MessageSource messageSource;
+
 	private final LocaleResolver localeResolver;
 
 
@@ -330,11 +333,16 @@ public class MypageController {
 	public String myInfoDeletePwCheck( Model model,
 			HttpServletRequest request,HttpSession session) {
 		Member member=(Member) session.getAttribute("user");
+
 		System.out.println(member.getMemberId());
 		Member findmember = memberService.findByMemberId(member.getMemberId());
 		Locale locale = localeResolver.resolveLocale(request);
+
+		bookMarkService.deleteMember(findmember);
+		boardService.deleteMember(findmember);
+		InquiryService.deleteMember(findmember);
+		commentService.deleteMember(findmember);
 		memberService.deleteMember(findmember);
-		
 		model.addAttribute("msg", messageSource.getMessage("info.exit.success", null, locale));
 		model.addAttribute("url", "/user_logout");
 		return "alert";

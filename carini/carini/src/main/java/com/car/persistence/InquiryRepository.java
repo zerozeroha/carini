@@ -29,4 +29,6 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long>{
 	
 	@Query("SELECT COUNT(*) FROM Inquiry i WHERE i.memberId = :memberId")
 	int getBookmarkCount(@Param("memberId") String memberId);
+
+	void deleteByMemberId(String memberId);
 }

@@ -1,119 +1,107 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/signup.css">
-	
-	<script src="/src/main/resources/static/script/available.js" defer></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>signup.html</title>
+   <link rel="stylesheet" href="/css/signup.css">
+
+   <script src="/src/main/resources/static/script/available.js" defer></script>
 </head>
 <script>
-    import TextField from '@mui/material/TextField';
+   import TextField from '@mui/material/TextField';
 </script>
 <style>
-	.field-error {
-	           border-color: #dc3545;
-	           color: #dc3545;
-	       }
-
+   .field-error {
+      border-color: #dc3545;
+      color: #dc3545;
+   }
 </style>
+
 <body>
-    <form action="/signup" method="post" th:object="${SignupFormValidation}">
-        <header>
 
-            <a th:href="@{/}" style=" text-shadow: 4px 4px black;letter-spacing:10px">
-                &nbsp;CARINI&nbsp;
-            </a>  
+   <a th:href="@{/homepage/first_home}" class="SubTitle">CARINI</a>
 
-            <p class="header-1">
-                <br>CARINI SEMPRE CON VUESTRO
-            </p>
+   <!-- Main -->
+   <main>
 
-        </header>
-        <br>
+      <div class="flex-container_row" style="width: 100%; height: 90%; margin-right: 10%;">
 
-        <nav>
-            
-        </nav>
+         <form action="/signup" method="post" th:object="${SignupFormValidation}">
 
-        <section>
-                <div>
-                     <div style="height: 20%; " >
-                        
-                     </div>
+            <div class="flex-container_column" style="width: 60%;  height: 650px;">
 
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/RkrWjuCYHVM" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    </div>
+               <div class="video-container">
 
-                    <div style="float: left; padding-left: 10px;">
-                        <h1 class="flipped-text">ADVERTISEMENT</h1>
-                    </div>
+                  <iframe src="https://www.youtube.com/embed/RkrWjuCYHVM?autoplay=1&loop=1&playlist=RkrWjuCYHVM&controls=0"
+                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
+               </div>
 
-                </div>
-     
-        </section>
+               <div style="float: left; padding-left: 10px;">
+                  <h1 class="flipped-text">ADVERTISEMENT</h1>
+               </div>
 
-        
-        <aside>
-            
-            <div class="signupbox">
-                <fieldset>
-                    <legend> &nbsp;&nbsp;signup&nbsp;&nbsp;</legend>
-                    <br>
-                    <h3> _WELCOME_</h3>
-            <br>  
-								
-	            <input type="text" id="id_input" th:field="*{memberId}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="아이디를 입력해주세요" size="25" minlength="5" maxlength="15">
-			<br>
-				<div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
-					아이디 오류
-				</div>
-			<br>
-                <input type="password" th:field="*{memberPw}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요."  size="25" minlength="8" maxlength="16">
-			<br>
-				<div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
-					비밀번호 오류
-				</div>
-			<br>
-                <input type="text" th:field="*{memberName}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="이름을 입력해주세요"  size="25">
-			<br>
-				<div class="field-error" th:errors="*{memberName}" style="font-size: 15px;">
-					이름 오류
-				</div>
-			<br>
-                <input type="text" th:field="*{memberNickname}"  class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="닉네임"  size="25">
-			<br>
-				<div class="field-error" th:errors="*{memberNickname}" style="font-size: 15px;">
-					닉네임 오류
-				</div>
-            <br>
-                 <input type="email" th:field="*{memberEmail}" class="btn btn-outline-secondary" th:errorclass="field-error" placeholder="이메일 입력해 주세요"  size="25">
-			<br>
-				 <div class="field-error" th:errors="*{memberEmail}" style="font-size: 15px;">
-				 	이메일 오류
-				 </div>
-            <br>
-                <input type="tel" th:field="*{memberPhoneNum}" class="btn btn-outline-secondary"  placeholder="전화번호를 입력해 주세요" size="25">
-			<br>	
-				<div class="field-error" th:errors="*{memberPhoneNum}" style="font-size: 15px;">
-					전화번호 오류
-				</div>
-        	<br>
-                  <input id="login" type="submit" name="submit" class="btn btn-light" value="가입하기" style="text-align: center;" size="25">
-            <br><br>
-      
-    </fieldset>       
-    	</div>     
-    <br><br><br>
-    </div>
-    </div>
-        </aside>
-        <footer>
-            
-        </footer>
-    </body>
-    </form>
+            </div>
+
+
+            <div class="flex-container_column" style="width: 40%;  height: 700px; float: left;">
+
+               <fieldset>
+                  <legend>sign_up</legend>
+
+
+                  <input type="text" id="id_input" th:field="*{memberId}" th:errorclass="field-error"
+                     placeholder="아이디" minlength="5" maxlength="15">
+                  <br>
+                  <div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
+                     아이디 오류
+                  </div>
+                  <br>
+                  <input type="password" th:field="*{memberPw}" th:errorclass="field-error"
+                     placeholder="비밀번호" minlength="8" maxlength="16">
+                  <P>"8~16자의 영문대/소문자,숫자,특수문자를 입력해주세요"</P>
+               
+                  <div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
+                     비밀번호 오류
+                  </div>
+                  <br>
+                  <input type="text" th:field="*{memberName}" th:errorclass="field-error"
+                     placeholder="이름">
+                  <br>
+                  <div class="field-error" th:errors="*{memberName}" style="font-size: 15px;">
+                     이름 오류
+                  </div>
+                  <br>
+                  <input type="text" th:field="*{memberNickname}" th:errorclass="field-error" placeholder="닉네임">
+                  <br>
+                  <div class="field-error" th:errors="*{memberNickname}" style="font-size: 15px;">
+                     닉네임 오류
+                  </div>
+                  <br>
+                  <input type="email" th:field="*{memberEmail}" th:errorclass="field-error"
+                     placeholder="이메일">
+                  <br>
+                  <div class="field-error" th:errors="*{memberEmail}" style="font-size: 15px;">
+                     이메일 오류
+                  </div>
+                  <br>
+                  <input type="tel" th:field="*{memberPhoneNum}" placeholder="전화번호" size="25">
+                  <br>
+                  <div class="field-error" th:errors="*{memberPhoneNum}" style="font-size: 15px;">
+                     전화번호 오류
+                  </div>
+                  <br>
+                  <input id="login" type="submit" name="submit" value="signup" style="text-align: center;">
+               </fieldset>
+            </div>
+         </form>
+
+      </div>
+
+   </main>
+
+
+</body>
 
 </html>
