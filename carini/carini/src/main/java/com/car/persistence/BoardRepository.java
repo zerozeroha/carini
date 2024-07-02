@@ -45,6 +45,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	
 	@Query("SELECT COUNT(*) FROM Board b WHERE b.memberId = :memberId")
 	int getBoardCount(@Param("memberId") String memberId);
+
+	void deleteByMemberId(String memberId);
 	
 	
 	

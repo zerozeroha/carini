@@ -5,695 +5,98 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="/css/mypage.css" />
-<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="/css/base/base.css">
+<link rel="stylesheet" href="/css/base/inquiry.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/mypage.js"></script>
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
-<style>
-	#float_icons {
-		position: sticky;
-		top: 40%;
-		right: 0;
-		z-index: 3000;
-		float: right
-	}
 
-	#float_icons a {
-		margin-top: 18px;
-		display: block;
-		margin-right: 15px
-	}
-
-	#float_icons img {
-		width: 50px;
-		opacity: 85%
-	}
-
-	#popup {
-		width: 300px;
-		height: 200px;
-		position: fixed;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-		z-index: 1000;
-		padding: 20px;
-		text-align: center
-	}
-
-	.popup_hidden {
-		display: none
-	}
-
-	.popup {
-		display: block
-	}
-
-	#qna_header {
-		font-size: 25px
-	}
-
-	.popup-overlay {
-		display: none;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, .5);
-		z-index: 999
-	}
-
-	.popup-overlay.active {
-		display: block
-	}
-
-	.close-popup {
-		width: 10px;
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		background: 0 0;
-		border: none;
-		font-size: 20px;
-		cursor: pointer
-	}
-
-	#popup {
-		width: 500px;
-		max-width: 500px;
-		height: 600px;
-		font-weight: 700
-	}
-
-	.qna_container {
-		background-color: #f8f8f8;
-		height: 85%;
-		margin: 20px 0 40px 0;
-		overflow-y: scroll
-	}
-
-	.qna_div {
-		border: 1px solid #000;
-		padding: 10px;
-		margin-bottom: 5px
-	}
-
-	.qna_header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 10px
-	}
-
-	.qna_title {
-		white-space: nowrap;
-		max-width: 150px;
-		overflow: hidden;
-		text-overflow: ellipsis
-	}
-
-	#q_date {
-		margin-left: 5px
-	}
-
-	.qna_content {
-		flex-grow: 1;
-		white-space: nowrap;
-		padding: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: flex;
-		align-items: center
-	}
-
-	.qna_result {
-		width: 100px;
-		border: 3px solid red;
-		color: red;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-left: 18px
-	}
-
-	.qna_content div {
-		max-width: 100%;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		list-style: none;
-		font-size: 18px
-	}
-
-	.delete_qna {
-		border: none;
-		background-color: #f7f7f7;
-		width: 30px;
-		height: 30px;
-		text-align: center;
-		font-weight: 700;
-		font-size: 12px
-	}
-
-	.qna_wrapper {
-		display: flex;
-		text-overflow: ellipsis
-	}
-
-	.qna_button {
-		position: absolute;
-		white-space: nowrap;
-		padding: 0;
-		width: 100px;
-		bottom: 20px;
-		left: 40%
-	}
-
-	#button_list {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		text-align: center
-	}
-
-	#list_button {
-		position: static;
-		margin: 15px;
-		margin: 0 auto
-	}
-
-	#insertpopup {
-		position: fixed;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		width: 500px;
-		height: 600px;
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-		z-index: 1000;
-		padding: 20px;
-		text-align: center
-	}
-
-	#edit_qna,
-	#write_qna {
-		width: 100%;
-		height: 75%;
-		padding: 7px
-	}
-
-	#write_qna_title {
-		margin-top: 20px;
-		width: 100%
-	}
-
-	#write_qna,
-	#write_qna_title {
-		border: 3px solid #000;
-		font-size: 20px
-	}
-
-	#getpopup {
-		position: fixed;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		width: 500px;
-		height: 600px;
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-		z-index: 1000;
-		padding: 20px;
-		text-align: center
-	}
-
-	#editpopup,
-	#getpopup,
-	#insertpopup,
-	#popup {
-		border-radius: 10px
-	}
-
-	.popup_hidden {
-		display: none;
-		position: fixed;
-		left: 50%;
-		top: 10%;
-		transform: translate(-50%, -50%);
-		width: 300px;
-		height: 200px;
-		background-color: white;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		z-index: 1000;
-		padding: 20px;
-		text-align: center;
-	}
-
-	.popup {
-		display: block;
-	}
-
-	.popup-overlay {
-		display: none;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-		z-index: 999;
-	}
-
-	.popup-overlay.active {
-		display: block;
-	}
-
-	#close-popup {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		background: none;
-		border: none;
-		font-size: 20px;
-		cursor: pointer;
-	}
-
-
-	.popup_hidden {
-		display: none;
-		position: fixed;
-		left: 50%;
-		top: 10%;
-		transform: translate(-50%, -50%);
-		width: 300px;
-		height: 200px;
-		background-color: white;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		z-index: 1000;
-		padding: 20px;
-		text-align: center;
-	}
-
-	.popup {
-		display: block;
-	}
-
-	.popup-overlay {
-		display: none;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-		z-index: 999;
-	}
-
-	.popup-overlay.active {
-		display: block;
-	}
-
-	#close-popup {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		background: none;
-		border: none;
-		font-size: 20px;
-		cursor: pointer;
-	}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-	var temp = 0; // 세션에서 temp 값 가져오기
-	console.log(temp);
-	function pop() {
-		$.ajax({
-			type: "GET",
-			url: "/inquiry/inquiryList",
-			success: function (response) {
-				if (!response.success) {
-					alert(response.message);
-					window.location.href = response.redirectUrl;
-				} else {
-					var inquiries = response.inquirys;
-					var qnaUl = $('#qna_ul');
-					qnaUl.empty(); // 기존 내용 삭제
-
-					for (var i = 0; i < inquiries.length; i++) {
-						var inquiry = inquiries[i];
-
-						// 클로저를 이용한 클릭 이벤트 핸들러 설정
-						(function (inquiry) {
-							var qnaDiv = $('<div>').addClass('qna_div').click(function () {
-								viewdetail(inquiry.reId);
-							});
-
-							var qnaHeader = $('<div>').addClass('qna_header');
-							var qnaTitle = $('<div>').addClass('qna_title').append($('<span>').text(inquiry.reTitle)).css("width", "150px").css("text-align", "left");
-							var qnaDate = $('<div>').addClass('qna_title').attr('id', 'q_date').append($('<span>').text(new Date(inquiry.reDate).toLocaleDateString()));
-							var deleteButton = $('<button>').addClass('delete_qna').text('x').click(function (event) {
-								event.stopPropagation(); // 클릭 이벤트 전파 방지
-								deleteInquiry(inquiry.reId);
-							});
-
-							qnaHeader.append(qnaTitle, qnaDate, deleteButton).css("display", "flex").css("justify-content", "space-between");
-
-							var qnaWrapper = $('<div>').attr('id', 'qna_wrapper');
-							var qnaContent = $('<div>').addClass('qna_content').append(
-								$('<div>').attr('id', 'click_qna').text(inquiry.reContent),
-								$('<span>').addClass('qna_result').text(inquiry.reCheckRq ? '답변 완료' : '답변 대기 중').css('color', inquiry.reCheckRq ? 'green' : 'red').css('border', inquiry.reCheckRq ? '3px solid green' : '3px solid red').css("width", "150px")
-							).css("display", "flex").css("justify-content", "space-between");
-
-
-							qnaWrapper.append(qnaContent);
-							qnaDiv.append(qnaHeader, qnaWrapper);
-							qnaUl.append(qnaDiv);
-						})(inquiry); // IIFE로 inquiry를 전달
-					}
-				}
-			}
-		});
-
-		// 팝업 띄우는 로직
-		if (temp == 0) {
-			temp = 1;
-			var popup = document.getElementById('popup');
-			var overlay = document.getElementById('popup-overlay');
-			popup.classList.add('popup');
-			popup.classList.remove('popup_hidden');
-			overlay.classList.add('active');
-		}
-	}
-
-	// 삭제 기능 함수
-	function deleteInquiry(reId) {
-		$.ajax({
-			type: "POST",
-			url: "/inquiry/inquirydelete",
-			data: {reId: reId},
-			success: function (response) {
-				alert(response.message);
-				window.location.href = response.redirectUrl;
-
-			}
-		});
-	}
-
-	//팝업창 닫기 기능
-	function closePopup() {
-		temp = 0;
-		var popup = document.getElementById('popup');
-		var insertpop = document.getElementById('insertpopup');
-		var getpopup = document.getElementById('getpopup');
-		var editpopup = document.getElementById('editpopup');
-		var overlay = document.getElementById('popup-overlay');
-
-		popup.classList.add('popup_hidden');
-		popup.classList.remove('popup');
-		overlay.classList.remove('active');
-
-		insertpop.classList.add('popup_hidden');
-		insertpop.classList.remove('popup');
-		overlay.classList.remove('active');
-
-		getpopup.classList.add('popup_hidden');
-		getpopup.classList.remove('popup');
-		overlay.classList.remove('active');
-	}
-
-
-	function to_insert_popup() {
-		if (temp == 1) {
-			var popup = document.getElementById('popup');
-			var insertpop = document.getElementById('insertpopup');
-			var overlay = document.getElementById('popup-overlay');
-			popup.classList.add('popup_hidden');
-			popup.classList.remove('popup');
-			popup.classList.remove('overlay');
-			insertpop.classList.add('popup');
-			insertpop.classList.remove('popup_hidden');
-			insertpop.classList.remove('overlay');
-		}
-	}
-
-	function to_popup() {
-		if (temp == 1)
-			var getpopup = document.getElementById('getpopup')
-		var popup = document.getElementById('popup')
-		getpopup.classList.add('popup_hidden');
-		getpopup.classList.remove('popup');
-		popup.classList.add('popup');
-		popup.classList.remove('popup_hidden');
-
-	}
-
-	function viewdetail(reId) {
-		console.log(reId)
-		$.ajax({
-			type: "GET",
-			data: {reId: reId},
-			url: "/inquiry/getinquiry",
-			success: function (response) {
-				if (!response.success) {
-					alert(response.message);
-					pop();
-				} else {
-
-					var inquiry = response.inquiry;
-
-					var popup = document.getElementById('popup');
-					var getpopup = document.getElementById('getpopup');
-					var overlay = document.getElementById('popup-overlay');
-					popup.classList.add('popup_hidden');
-					popup.classList.remove('popup');
-					getpopup.classList.add('popup');
-					getpopup.classList.remove('popup_hidden');
-					console.log(inquiry.reDateRq);
-					console.log(inquiry.reCheckRq);
-					// 사용자 문의 정보 출력
-					$('#detailsreTitle').text(inquiry.reTitle); // 사용자 문의 제목
-					$('#q_content').text(inquiry.reContent);// 사용자 문의 내용
-					$('#detailsreDate').text(new Date(inquiry.reDate).toLocaleDateString()); // 사용자 문의 날짜   
-					// 관리자 답변 정보 출력
-					$('#detailsreTitleRq').text(inquiry.reTitleRq) // 관리자 문의 제목
-					$('#a_content').text(inquiry.reContentRq).css('border', inquiry.reCheckRq ? '3px solid green' : '3px solid red');// 관리자 문의 내용
-
-					var reDateRqText = inquiry.reDateRq ? new Date(inquiry.reDateRq).toLocaleDateString() : '';
-					$('#detailsreDateRq').text(reDateRqText).css("height", "35px"); // 관리자 문의 날짜
-					$('.a_section').css('border', inquiry.reCheckRq ? '3px solid green' : '3px solid red');
-				}
-			},
-			error: function (xhr, status, error) {
-				var response = JSON.parse(xhr.responseText);
-				alert(response.message);
-			}
-		});
-	}
-
-	function verifyPassword(event) {
-		event.preventDefault();
-		var reTitle = $("input[name='reTitle']").val();
-		var reContent = $("#write_qna").val();
-		$.ajax({
-			type: "Post",
-			url: "/inquiry/inquirywrite",
-			data: {
-				reTitle: reTitle,
-				reContent: reContent
-			},
-
-			success: function (response) {
-				// 오류 메시지 초기화
-				$("#reTitleError").text("");
-				$("#reContentError").text("");
-				if (response.success) {
-					alert(response.message);
-					window.location.href = response.redirectUrl;
-				}
-			},
-			error: function (xhr, status, error) {
-				var response = JSON.parse(xhr.responseText);
-				alert(response.message);
-				$.each(response.errors, function (field, errorMessage) {
-					if (field === "reTitle") {
-						$("#reTitleError").text(errorMessage);
-						$("#reContentError").text("");
-					} else if (field === "reContent") {
-						$("#reContentError").text(errorMessage);
-						$("#reTitleError").text("");
-					}
-
-				});
-				if (response.errors && response.errors.reContent && response.errors.reTitle) {
-					var reContent = response.errors.reContent; // reContent에 대한 오류 메시지를 가져옴
-					var reTitle = response.errors.reTitle; // reContent에 대한 오류 메시지를 가져옴
-					// reContentError와 reTitleError에 오류 메시지 설정
-					$("#reContentError").text(reContent);
-					$("#reTitleError").text(reTitle);
-				}
-			}
-		});
-	}
-</script>
 
 <body>
-	<!-- Popup and Overlay -->
-	<!-- 문의 리스트 -->
-	<div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
+	<header th:replace="~{base/base :: header}"></header>
 
-	<div id="popup" class="popup_hidden" style="width:500px;height: 600px;"> <!-- 평상시에 안보이게 -->
-		<button id="close-popup" class="close-popup" onclick="closePopup()">X</button>
-		<div id="qna_header">문의 내역</div>
-		<div class="qna_container">
-			<div id="qna_ul">
+	<!--SubTitle-->
 
-			</div>
-		</div>
-		<button onclick="to_insert_popup()" class="qna_button">문의하기</button>
-	</div>
-	<!-- 문의 글 작성하기 -->
-	<div id="insertpopup" class="popup_hidden" th:object="${InquiryWriteValidation}">
-		<button id="close-popup" class="close-popup" onclick="closePopup()">x</button>
-		<div id="qna_header">문의하기</div>
-		<form onsubmit="verifyPassword(event)" th:object="${InquiryWriteValidation}">
-			<input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
-			<div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
-				<!-- 제목 오류 메시지 표시 영역 -->
+	<section class="SubTitle">MY_INFORMATION</section>
+
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
+	<!-- Main -->
+	<main>
+
+		<div id="Favorites_box" style="background-color: white;">
+
+			<div class="div">
+				<div id="kakao-talk-channel-chat-button"></div>
+				<h3>- WE ARE KEEPING YOUR INFORMATION SAFE -</h3>
 			</div>
 
-			<textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요"
-				style="width:100%;height: 250px; resize: none; "></textarea>
-			<div class="field-error" id="reContentError" style="font-size: 15px; color: red;">
-				<!-- 내용 오류 메시지 표시 영역 -->
-			</div>
-			<button type="submit" class="qna_button">제출하기</button>
-		</form>
-	</div>
-
-	<!-- 나의 문의 상세보기 팝업 -->
-	<div id="getpopup" class="popup_hidden">
-		<button id="close-popup" class="close-popup" onclick="closePopup()">x</button>
-
-		<div id="qna_header">상세보기</div>
-
-		<!-- 여기부터 문의 글 영역 -->
-		<div id="qna_section">
-			<span class="q_section">
-				<span id="detailsreDate" class="title-date"></span>
-				<span id="detailsreTitle">문의합니다</span>
-			</span>
-			<p id="q_content" class="q_section"></p>
-
-			<span class="a_section">
-				<span class="title-date" id="detailsreDateRq"></span>
-				<span id="detailsreTitleRq"></span>
-			</span>
-			<p id="a_content" class="a_section"></p>
-		</div>
-	
-		<!-- 문의 글 영역 여기까지 -->
-		<div id="button_list">
-			<button onclick="to_popup()" class="qna_button" id="list_button">목록</button>
-		</div>
-	</div>
-	
-	<!-- ============================================= -->
-		<header th:replace="~{base/base :: header}"></header>
-
-		<!--SubTitle-->
-
-		<section class="SubTitle">MY_INFORMATION</section>
-
-		<!--챗봇 아이콘-->
-		<div id="float_icons" th:fragment="floaticon">
-			<a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
-				<img src="/img/챗봇아이콘.png" alt="챗봇">
-			</a>
-			<a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
-				<img src="/img/popup.png" alt="문의">
-			</a>
-		</div>
-		<!-- Main -->
-		<main>
-
-			<div id="Favorites_box" style="background-color: white;">
-
-				<div class="div">
-					<div id="kakao-talk-channel-chat-button"></div>
-					<h3>- WE ARE KEEPING YOUR INFORMATION SAFE -</h3>
-				</div>
 
 
+			<!--main 안에 있는 큰 박스-->
+			<div class="flex-container_column">
 
-				<!--main 안에 있는 큰 박스-->
-				<div class="flex-container_column">
-
-					<div style="width: 60%; height: 100%;">
+				<div style="width: 60%; height: 100%;">
 
 
-						<table>
-							<tr>
-								<th th:text="#{info.nickname}"></th>
-								<td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberNickname}"
-									aria-disabled="true"></td>
-								<td th:unless="${session.user.memberSocial == '회원'}"
-									th:text="${hiddenuser.memberSocialNickname}" aria-disabled="true"></td>
-							</tr>
+					<table>
+						<tr>
+							<th th:text="#{info.nickname}"></th>
+							<td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberNickname}"
+								aria-disabled="true"></td>
+							<td th:unless="${session.user.memberSocial == '회원'}"
+								th:text="${hiddenuser.memberSocialNickname}" aria-disabled="true"></td>
+						</tr>
 
-							<tr>
-								<th th:text="#{info.id}"></th>
-								<td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberId}"
-									aria-disabled="true"></td>
-								<td th:unless="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberEmail}"
-									aria-disabled="true"></td>
-							</tr>
+						<tr>
+							<th th:text="#{info.id}"></th>
+							<td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberId}"
+								aria-disabled="true"></td>
+							<td th:unless="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberEmail}"
+								aria-disabled="true"></td>
+						</tr>
 
-							<tr>
-								<th th:text="#{info.pw}"></th>
-								<td th:text="${hiddenuser.memberPw}"></td>
-							</tr>
+						<tr>
+							<th th:text="#{info.pw}"></th>
+							<td th:text="${hiddenuser.memberPw}"></td>
+						</tr>
 
-							<tr>
-								<th th:text="#{info.name}"></th>
-								<td th:text="${hiddenuser.memberName}"></td>
-							</tr>
+						<tr>
+							<th th:text="#{info.name}"></th>
+							<td th:text="${hiddenuser.memberName}"></td>
+						</tr>
 
-							<tr>
-								<th th:text="#{info.email}"></th>
-								<td th:text="${hiddenuser.memberEmail}"></td>
-							</tr>
+						<tr>
+							<th th:text="#{info.email}"></th>
+							<td th:text="${hiddenuser.memberEmail}"></td>
+						</tr>
 
-							<tr>
-								<th th:text="#{info.phone}"></th>
-								<td th:text="${hiddenuser.memberPhoneNum}"></td>
-							</tr>
+						<tr>
+							<th th:text="#{info.phone}"></th>
+							<td th:text="${hiddenuser.memberPhoneNum}"></td>
+						</tr>
 
-						</table>
-						<br>
+					</table>
+					<br>
 
-						<div class="flex-container_row" style="height: 10%;">
-							<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}">
-								<button type="button" onclick="change_info()" th:text="#{info.btn.edit}"></button>
-							</a>
-							<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}"
-								th:href="@{/mypage/myinfo_social_edit}">
-								<button type="button" th:text="#{info.btn.edit}"></button>
-							</a>
+					<div class="flex-container_row" style="height: 10%;">
+						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}">
+							<button type="button" onclick="change_info()" th:text="#{info.btn.edit}"></button>
+						</a>
+						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}"
+							th:href="@{/mypage/myinfo_social_edit}">
+							<button type="button" th:text="#{info.btn.edit}"></button>
+						</a>
 
-						</div>
 					</div>
 				</div>
-
 			</div>
 
-	</div>
+		</div>
+
+		</div>
 
 	</main>
 
@@ -701,9 +104,12 @@
 
    <!-- Footer -->
 
-   <footer th:replace="~{base/base :: footer}"></footer>
-
-
+	<footer th:replace="~{base/base :: footer}"></footer>
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
 
 </body>
 

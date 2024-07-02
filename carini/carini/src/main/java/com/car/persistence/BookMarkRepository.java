@@ -29,8 +29,10 @@ public interface BookMarkRepository extends JpaRepository<Bookmark, Integer>{
 	
 	@Query("SELECT COUNT(*) FROM Bookmark b WHERE b.memberId = :memberId")
 	int getBookmarkCount(@Param("memberId") String memberId);
-	
+
 	long countByCarId(int carId);
+
+	void deleteByMemberId(String memberId);
 	@Query("SELECT b.carId FROM Bookmark b GROUP BY b.carId ORDER BY COUNT(b.carId) DESC")
 	List<Integer> findTop10CarIdsWithCount();
 

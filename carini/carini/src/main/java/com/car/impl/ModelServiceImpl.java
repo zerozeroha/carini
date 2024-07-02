@@ -17,9 +17,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.car.controller.AdminController;
-import com.car.dto.Board;
-import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.CarBrand;
 import com.car.persistence.BookMarkRepository;
@@ -234,5 +231,4 @@ public class ModelServiceImpl implements ModelService{
     		carRepository.deleteById(carId);
     	}
     }
-
 }
