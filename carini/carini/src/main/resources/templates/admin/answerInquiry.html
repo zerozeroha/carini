@@ -1,81 +1,131 @@
-<!DOCTYPE HTML>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<title>Helios - Helios by HTML5 UP</title>
-	<meta charset="utf-8" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Answer Inquiry</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/css/base.css" />
-	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<link rel="stylesheet" href="/css/admin.css">
+	<script src="assets/js/carini_script.js" defer></script>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+
 </head>
+<style>
+	td:nth-child(1), th:nth-child(1) { width: 20%; } /* 2:3:2:3 비율로 설정 */
+	td:nth-child(2), th:nth-child(2) { width: 30%; }
+	td:nth-child(3), th:nth-child(3) { width: 20%; }
+	td:nth-child(4), th:nth-child(4) { width: 30%; }
+
+</style>
+
 <body>
-	<div id="page-wrapper">
-		<div id="content">
-			<p class="Board_text">Admin_AnswerInquiry</p>
-			<article id="main">
-				<form th:action="@{/admin/answerInquiry}" method="post">
-					<table border="1">
+	<!--Header-->
+	<header> header </header>
+
+	<!--SubTitle-->
+	<div class="container">
+		<section class="SubTitle">ADMIN</section>
+	</div>
+
+	<div class="div">
+		<p id="SubTitle_Text">Answer Inquiry</p>
+	</div>
+
+	<div class="div">
+		<h3>with inquiry</h3>
+	</div>
+
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+
+	<!--Main-->
+	<main>
+		<!--main 안에 있는 큰 박스-->
+		<form id="answerInquiryForm" th:action="@{/admin/answerInquiry}" method="post" >
+			<div class="flex-container_column">
+				<article id="main">
+					<table border="1" style="width: 1000px;">
 						<tr>
 							<td th:text="#{label.inquiry.reId}"></td>
 							<td colspan="3">
-								<input type="hidden" name="reId" th:value="${inquiry.reId}"/>
+								<input type="hidden" name="reId" th:value="${inquiry.reId}" />
 								<span th:text="${inquiry.reId}"></span>
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.reTitle}"></td>
 							<td>
-								<input type="hidden" name="reTitle" th:value="${inquiry.reTitle}"/>
+								<input type="hidden" name="reTitle" th:value="${inquiry.reTitle}" />
 								<span th:text="${inquiry.reTitle}"></span>
 							</td>
 							<td th:text="#{label.inquiry.reTitleRq}"></td>
 							<td>
-								<input type="text" name="reTitleRq" th:value="${inquiry.reTitleRq}"/>
+								<input type="text" name="reTitleRq" th:value="${inquiry.reTitleRq}" style="width: 100%;" />
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.reContent}"></td>
 							<td>
-								<input type="hidden" name="reContent" th:value="${inquiry.reContent}"/>
-								<span th:text="${inquiry.reContent}"></span>
+								<input type="hidden" name="reContent" th:value="${inquiry.reContent}" />
+								<textarea th:text="${inquiry.reContent}" cols="30" rows="10"></textarea>
 							</td>
 							<td th:text="#{label.inquiry.reContentRq}"></td>
 							<td>
-								<input type="text" name="reContentRq" th:value="${inquiry.reContentRq}"/>
+								<textarea name="reContentRq" id="reContentRq" cols="30" rows="10" 
+								th:value="${inquiry.reContentRq}" th:placeholder="${inquiry.reContentRq}"></textarea>
+
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.reDate}"></td>
 							<td>
-								<input type="hidden" name="reDate" th:value="${inquiry.reDate}"/>
-								<span th:text="${#dates.format(inquiry.reDate, 'yyyy-MM-dd hh:mm')}"></span>
+								<input type="hidden" name="reDate" th:value="${inquiry.reDate}" />
+								<span th:text="${#dates.format(inquiry.reDate, 'yyyy-MM-dd hh:mm')}" ></span>
 							</td>
 							<td th:text="#{label.inquiry.reDateRq}"></td>
 							<td>
-								<input th:if="${inquiry.reDateRq == null}" th:value="${date}"/>
-								<span th:if="${inquiry.reDateRq != null}" th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></span>
+								<input th:if="${inquiry.reDateRq == null}" th:value="${date}" style="width: 100%;" />
+								<span th:if="${inquiry.reDateRq != null}"
+									th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}" ></span>
 							</td>
 						</tr>
 						<tr>
 							<td th:text="#{label.inquiry.memberId}"></td>
 							<td>
-								<input type="hidden" name="memberId" th:value="${inquiry.memberId}"/>
+								<input type="hidden" name="memberId" th:value="${inquiry.memberId}" />
 								<span th:text="${inquiry.memberId}"></span>
 							</td>
 							<td th:text="#{label.inquiry.reHero}"></td>
-							<td><input type="text" name="reHero" th:value="${inquiry.reHero}" readonly/></td>
+							<td><input type="text" name="reHero" th:value="${inquiry.reHero}" readonly style="width: 100%;"/></td>
 						</tr>
 					</table>
-					<input type="submit" th:value="#{inquiry.answer}"/>
-					<input type="button" th:value="#{inquiry.delete}" th:onclick="|location.href='@{/admin/deleteInquiry(reId=${inquiry.reId})}'|">
-					<input type="button" th:value="#{inquiry.list}" th:onclick="|location.href='@{/admin/inquiryList}'|">
-				</form>
-			</article>
-		</div>
-	</div>
-	
+				</article>
+				<div class="flex-container_row">
+					<button type="submit" th:text="#{inquiry.answer}" style="margin-right: 20px;"></button>
+				    <a th:href="@{/admin/deleteInquiry(reId=${inquiry.reId})}" th:text="#{inquiry.delete}" onclick="return confirm('정말로 삭제하시겠습니까?');" style="margin-right: 20px;"></a>
+				    <a th:href="@{/admin/inquiryList}" th:text="#{inquiry.list}"></a>
+				</div>
+			</div>
+		</form>
+	</main>
+
+
+
+	<!--Footer-->
+	<footer>
+		<hr>
+		@ carini
+	</footer>
+
+
 </body>
+<script>
+    function confirmDelete() {
+        if (confirm("정말로 문의를 삭제하시겠습니까?")) {
+            document.querySelector('form').submit(); // 폼 제출
+        }
+    }
+</script>
+</html>
