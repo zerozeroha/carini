@@ -24,7 +24,7 @@ public class ExControllerAdvice {
 	@ExceptionHandler
 	public ResponseEntity<ErrorResult> ValidationException(ValidationException ex){
 		
-		ErrorResult errorResult = new ErrorResult(ex.getErrors(),"정보가 일치하지 않습니다.");
+		ErrorResult errorResult = new ErrorResult(ex.getErrors(),"조건이 일치하지 않습니다.");
 		
 		return new ResponseEntity<ErrorResult>(errorResult,HttpStatus.BAD_REQUEST); 
 	}

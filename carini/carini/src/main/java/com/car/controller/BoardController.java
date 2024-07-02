@@ -55,29 +55,30 @@ import com.car.exception.BoardDeleteFileException;
 import com.car.exception.errorcode.ErrorCode;
 import com.car.persistence.BoardRepository;
 import com.car.service.BoardService;
+import com.car.service.CommentService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
 import com.car.validation.BoardUpdateFormValidation;
 
 import com.car.validation.BoardWriteFormValidation;
+import com.car.validation.CommentWriteValidation;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
-
-   @Autowired
-   private BoardService boardService;
-   @Autowired
-   private MemberService memberService;
-   @Autowired
-   private NoticeService noticeService;
-   
+	
+   private final BoardService boardService;
+   private final MemberService memberService;
+   private final NoticeService noticeService;
+   private final CommentService commentService;
    
    @Autowired
    private MessageSource messageSource;
@@ -163,9 +164,10 @@ public class BoardController {
      * 게시판 상세보기
      * */
    @GetMapping("/board/getBoard")
-   public String getBoard(Board board, Model model, HttpSession session) {
+   public String getBoard(Board board, Model model, HttpSession session,@ModelAttribute("CommentWriteValidation") CommentWriteValidation commentWriteValidation) {
       Member user = (Member) session.getAttribute("user");
-       
+      
+      model.addAttribute("comments", commentService.findComment(board.getBoardId()));
       model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
       
       return "board/getBoard";

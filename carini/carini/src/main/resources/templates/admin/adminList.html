@@ -1,16 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>adminList</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin List</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/admin.css">
+	<script src="assets/js/carini_script.js" defer></script>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+
 </head>
+
 <body>
-	<a th:href="@{/admin/memberList}" th:text="#{admin.menu.member}"></a><br />
-	<a th:href="@{/admin/boardList}" th:text="#{admin.menu.board}"></a><br />
-	<a th:href="@{/admin/noticeList}" th:text="#{admin.menu.notice}"></a><br />
-	<a th:href="@{/admin/inquiryList}" th:text="#{admin.menu.inquiry}"></a><br />
-	<a th:href="@{/admin/modelList}" th:text="#{admin.menu.model}"></a><br />
-	<a th:href="@{/admin/centerList}" th:text="#{admin.menu.center}"></a>
+	<!--Header-->
+	<header> header </header>
+
+	<!--SubTitle-->
+	<div class="container">
+	    <section class="SubTitle" th:text="#{admin}">ADMIN</section>
+	</div>
+
+	<div class="div">
+		<p id="SubTitle_Text">관리자 페이지</p>
+	</div>
+
+	<div class="div">
+		<h3>with carini</h3>
+	</div>
+
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+
+	<!--Main-->
+	<main>
+		<!--main 안에 있는 큰 박스-->
+		<div class="flex-container_column">
+			<a th:href="@{/admin/memberList}" th:text="#{admin.menu.member}"></a><br />
+			<a th:href="@{/admin/boardList}" th:text="#{admin.menu.board}"></a><br />
+			<a th:href="@{/admin/noticeList}" th:text="#{admin.menu.notice}"></a><br />
+			<a th:href="@{/admin/inquiryList}" th:text="#{admin.menu.inquiry}"></a><br />
+			<a th:href="@{/admin/modelList}" th:text="#{admin.menu.model}"></a><br />
+			<a th:href="@{/admin/centerList}" th:text="#{admin.menu.center}"></a>
+		</div>
+	</main>
+
+
+
+	<!--Footer-->
+	<footer>
+		<hr>
+		@ carini
+	</footer>
+
+
+
+
 </body>
+
 </html>
-
-

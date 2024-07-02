@@ -3,35 +3,36 @@ package com.car.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-import jakarta.servlet.http.Cookie;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.context.request.RequestAttributes;
 
 import com.car.validation.Find_idFormValidation;
 import com.car.validation.Find_pwFormValidation;
 import com.car.validation.LoginFormValidation;
 import com.car.validation.SignupFormValidation;
 import com.car.validation.Update_pwFormValidation;
+import com.car.dto.Car;
 import com.car.dto.Member;
 import com.car.exception.CodeNumberException;
 import com.car.exception.ValidationException;
 import com.car.exception.errorcode.ErrorCode;
-import com.car.persistence.MemberRepository;
+import com.car.service.BookMarkService;
 import com.car.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +40,9 @@ import org.springframework.validation.annotation.Validated;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
 
 	@Value("${pw-role.password-rejex}")
@@ -53,10 +56,14 @@ public class LoginController {
 
 	@Value("${coolsms.api.form_number}")
 	private String FROM_NUMBER;
-
+	
 	@Autowired
-	private MemberService memberService;
+	private BookMarkService bookmarkService;
+	
+	private final MemberService memberService;
 
+	private final PasswordEncoder passwordEncoder;
+	
 	@ModelAttribute("member")
 	public Member setMember() {
 		return new Member(); // 기본 Member 객체를 세션에 저장
@@ -89,7 +96,12 @@ public class LoginController {
 	}
 
 	@RequestMapping("/homepage/first_home")
-	public String firstHome() {
+	public String firstHome(Model model) {
+		
+		// 즐겨찾기 Top10 캐로셀
+		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
+		model.addAttribute("top10Cars", top10Cars);
+		
 		return "homepage/first_home";
 	}
 	/*
@@ -110,7 +122,7 @@ public class LoginController {
 	 */
 	@PostMapping("/signup")
 	public String join_result(@Validated @ModelAttribute("SignupFormValidation") SignupFormValidation member,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model){
 
 		if (bindingResult.hasErrors()) {
 			return "member/signup";
@@ -149,13 +161,16 @@ public class LoginController {
 			bindingResult.rejectValue("memberPhoneNum", null, "존재하는 전화번호입니다");
 			return "member/signup";
 		}
+		String EncoderPw = passwordEncoder.encode(member.getMemberPw());
+		
 		Member Member = new Member();
 		Member.setMemberEmail(member.getMemberEmail());
 		Member.setMemberId(member.getMemberId());
-		Member.setMemberPw(member.getMemberPw());
+		Member.setMemberPw(EncoderPw);
 		Member.setMemberName(member.getMemberName());
 		Member.setMemberNickname(member.getMemberNickname());
 		Member.setMemberPhoneNum(member.getMemberPhoneNum());
+		Member.setMemberSocialNickname("");
 		Member.setMemberSocial("회원");
 		Member.setMemberRole("ROLE_USER");
 
@@ -179,7 +194,12 @@ public class LoginController {
 	}
 
 	@GetMapping("/home")
-	public String goHome(HttpSession session) {
+	public String goHome(HttpSession session, Model model) {
+		
+		// 즐겨찾기 Top10 캐로셀
+		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
+		model.addAttribute("top10Cars", top10Cars);
+		
 		return "homepage/home.html";
 	}
 
@@ -200,13 +220,18 @@ public class LoginController {
 		}
 
 		Member findmember = memberService.findMember(memberId);
-
+		
+		
 		if (findmember == null) {
 			bindingResult.rejectValue("memberId", null, "존재하지 않는 아이디입니다.");
 			return "member/login";
 		}
+		
+		
+		boolean passwordCheck = memberService.passwordCheck(findmember,memberPw);
+
 		// 사용자가 존재하고 비밀번호가 일치하는지 확인
-		if (findmember != null && findmember.getMemberPw().equals(memberPw)) {
+		if (findmember != null && passwordCheck) {
 
 			// 로그인 성공 시 세션에 멤버정보 저장하고 홈페이지로 이동
 			session.setAttribute("user", findmember);
@@ -433,6 +458,10 @@ public class LoginController {
 			return ResponseEntity.ok(response);
 		}
 	}
+	
+/*
+ * ====================================================================================
+ * */	
 
 	/*
 	 * 인증번호 메세지 뿌리기
@@ -447,5 +476,4 @@ public class LoginController {
 
 		return response;
 	}
-
 }

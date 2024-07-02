@@ -37,6 +37,7 @@ public interface MemberService {
 	Member SMSfindMemberPw(String memberId, String memberPhoneNumber,HttpSession session);
 	Member SMSfindMember(String memberName, String memberPhoneNumber, HttpSession session);
 	void updatepw(String memberId, String newPw);
+	boolean passwordCheck(Member member, String memberPw);
 
 
 }

@@ -17,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.car.dto.Member;
@@ -26,302 +29,336 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
 @Service
 public class SocialService {
-   
-   @Autowired
-   private MemberRepository memberRepository;
-   
-   public String getKakaoAccessToken(String code,String clientId,String redirectUri) {
-        String access_Token = "";
-        String refresh_Token = "";
-        String reqURL = "https://kauth.kakao.com/oauth/token";
 
+	@Autowired
+	private MemberRepository memberRepository;
+
+	public String getKakaoAccessToken(String code, String clientId, String redirectUri) {
+		String access_Token = "";
+		String refresh_Token = "";
+		String reqURL = "https://kauth.kakao.com/oauth/token";
+
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+
+			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+			sb.append("&client_id=" + clientId); // TODO REST_API_KEY 입력
+			sb.append("&redirect_uri=" + redirectUri); // TODO 인가코드 받은 redirect_uri 입력
+			sb.append("&code=" + code);
+			bw.write(sb.toString());
+			bw.flush();
+
+			// 결과 코드가 200이라면 성공
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+
+			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println("response body : " + result);
+
+			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+			@SuppressWarnings("deprecation")
+			JsonParser parser = new JsonParser();
+			@SuppressWarnings("deprecation")
+			JsonElement element = parser.parse(result);
+
+			access_Token = element.getAsJsonObject().get("access_token").getAsString();
+			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+
+			br.close();
+			bw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return access_Token;
+	}
+
+	public HashMap<String, Object> getKakaoUserInfo(String access_Token) {
+
+		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+		HashMap<String, Object> userInfo = new HashMap<>();
+		String reqURL = "https://kapi.kakao.com/v2/user/me";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+
+			// 요청에 필요한 Header에 포함될 내용
+			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String line = "";
+			String result = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println("response body : " + result);
+
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+
+			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+
+			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+			System.out.println(nickname);
+			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+
+			userInfo.put("nickname", nickname);
+			userInfo.put("email", email);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return userInfo;
+	}
+
+	public void kakaoLogout(String accessToken) {
+
+		String reqURL = "https://kapi.kakao.com/v2/user/logout";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Authorization", "Bearer" + accessToken);
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode = " + responseCode);
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String result = "";
+			String line = "";
+
+			while ((line = br.readLine()) != null) {
+				result = result + line;
+			}
+			System.out.println(result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public Member kakaoSignUp(Member member) {
+		List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
+		boolean isExistingMember = !foundMembers.isEmpty();
+		// stream().anyMatch 메서드는 Java 스트림 API의 일부로, 스트림 내의 요소 중 특정 조건을 만족하는 요소가 하나라도
+		// 있는지 여부를 확인하는데 사용
+		// anyMatch는 조건에 맞는 요소를 찾으면 즉시 true를 반환, 조건에 맞는 요소가 하나도 없으면 false를 반환
+		boolean isNaverUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("naver"));
+
+		boolean iskakaoUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("kakao"));
+		boolean isgoogleUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("google"));
+		
+		if ((!iskakaoUser || (isExistingMember || isNaverUser || isgoogleUser)) && !iskakaoUser) {
+			SecureRandom random = new SecureRandom();
+			String id = new BigInteger(130, random).toString(32);
+			member.setMemberId(id);
+			member.setMemberEmail(member.getMemberEmail());
+			member.setMemberName(member.getMemberNickname());
+			member.setMemberNickname(member.getMemberNickname());
+			member.setMemberSocial("kakao");
+			member.setMemberRole("사용자");
+			memberRepository.save(member);
+
+			return member;
+		}
+
+		return foundMembers.stream().filter(m -> m.getMemberSocial().equals("kakao")).findFirst().orElse(null);
+	}
+
+	// 네이버===============================================================================================
+
+	// 인가 코드를 이용해 토큰 발급받기
+	public String getNaverAccessToken(String code, String state, String client_id, String client_secret) {
+
+		// 네이버에 요청 보내기
+		WebClient webclient = WebClient.builder().baseUrl("https://nid.naver.com")
+				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
+
+		String response = webclient.post()
+				.uri(uriBuilder -> uriBuilder.path("oauth2.0/token").queryParam("grant_type", "authorization_code")
+						.queryParam("client_id", client_id).queryParam("client_secret", client_secret)
+						.queryParam("code", code).queryParam("state", state).build())
+				.retrieve().bodyToMono(String.class).block();
+
+		// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+		@SuppressWarnings("deprecation")
+		JsonParser parser = new JsonParser();
+		@SuppressWarnings("deprecation")
+		JsonObject object = parser.parse(response).getAsJsonObject();
+
+		return object.get("access_token").toString();
+	}
+
+	// 토큰으로 사용자 정보 가져오기
+	public HashMap<String, Object> getNaverUserInfo(String accessToken) {
+
+		HashMap<String, Object> userInfo = new HashMap<>();
+
+		// 사용자 정보 요청하기
+		WebClient webClient = WebClient.builder().baseUrl("https://openapi.naver.com")
+				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
+
+		String response = webClient.get().uri(uriBuilder -> uriBuilder.path("v1/nid/me").build())
+				.header("Authorization", "Bearer " + accessToken).retrieve().bodyToMono(String.class).block();
+
+		System.out.println("response : " + response);
+
+		// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+		@SuppressWarnings("deprecation")
+		JsonParser parser = new JsonParser();
+		@SuppressWarnings("deprecation")
+		JsonObject object = parser.parse(response).getAsJsonObject();
+
+		JsonObject res = object.get("response").getAsJsonObject();
+
+		if (res != null) {
+
+			String id = res.get("id").toString();
+			String name = res.get("name").toString();
+			String nickname = res.get("nickname").toString();
+			String email = res.get("email").toString();
+			String mobile = res.get("mobile").toString();
+
+			System.out.println("id: " + id);
+			System.out.println("name: " + name);
+			System.out.println("nickname: " + nickname);
+			System.out.println("email: " + email);
+			System.out.println("mobile: " + mobile);
+
+			userInfo.put("id", id);
+			userInfo.put("name", name);
+			userInfo.put("nickname", nickname);
+			userInfo.put("email", email);
+			userInfo.put("mobile", mobile);
+
+		} // if end
+
+		return userInfo;
+	}
+
+	public Member naverSignUp(Member member) {
+		List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
+		boolean isExistingMember = !foundMembers.isEmpty();
+		boolean iskakaoUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("kakao"));
+		boolean isnaverUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("naver"));
+		boolean isgoogleUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("google"));
+		
+		if ((!isnaverUser || (isExistingMember || iskakaoUser || isgoogleUser)) && !isnaverUser) {
+			member.setMemberId(member.getMemberId().replace("\"", ""));
+			member.setMemberName(member.getMemberName().replace("\"", ""));
+			member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
+			member.setMemberEmail(member.getMemberEmail().replace("\"", ""));
+			member.setMemberPhoneNum(member.getMemberPhoneNum().replace("\"", ""));
+			member.setMemberSocial("naver");
+			member.setMemberRole("사용자");
+			memberRepository.save(member);
+
+			return member;
+		}
+		return foundMembers.stream().filter(m -> m.getMemberSocial().equals("naver")).findFirst().orElse(null);
+	}
+
+	public Member findByMemberId(String memberId) {
+
+		Optional<Member> member = memberRepository.findByMemberId(memberId);
+		return member.get();
+	}
+
+	// 구글===============================================================================================
+    // 구글 액세스 토큰 가져오기
+    public String getGoogleAccessToken(String code,String googleClientId,String googleClientSecret,String googleRedirectUri) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        // 요청 바디 설정
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap();
+        requestBody.add("client_id", googleClientId);
+        requestBody.add("client_secret", googleClientSecret);
+        requestBody.add("code", code);
+        requestBody.add("grant_type", "authorization_code");
+        requestBody.add("redirect_uri", googleRedirectUri);
+
+        // POST 요청 보내기
         try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HashMap<String, Object> response = restTemplate.postForObject("https://oauth2.googleapis.com/token", requestBody, HashMap.class);
 
-            //POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-
-            //POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
-            sb.append("grant_type=authorization_code");
-            sb.append("&client_id=" + clientId); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri="+ redirectUri); // TODO 인가코드 받은 redirect_uri 입력
-            sb.append("&code=" + code);
-            bw.write(sb.toString());
-            bw.flush();
-
-            //결과 코드가 200이라면 성공
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-
-            //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line = "";
-            String result = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
+            if (response != null) {
+                return (String) response.get("access_token");
             }
-            System.out.println("response body : " + result);
-         
-          //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-            @SuppressWarnings("deprecation")
-            JsonParser parser = new JsonParser();
-            @SuppressWarnings("deprecation")
-            JsonElement element = parser.parse(result);
-
-            access_Token = element.getAsJsonObject().get("access_token").getAsString();
-            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-         
-         br.close();
-         bw.close();
-      }catch (Exception e) {
-         e.printStackTrace();
-      }
-        return access_Token;
-   }
-
-   public HashMap<String, Object> getKakaoUserInfo (String access_Token) {
-        
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-        HashMap<String, Object> userInfo = new HashMap<>();
-        String reqURL = "https://kapi.kakao.com/v2/user/me";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            
-            //    요청에 필요한 Header에 포함될 내용
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-            
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-            
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            
-            String line = "";
-            String result = "";
-            
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println("response body : " + result);
-            
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-            
-            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-            
-            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            System.out.println(nickname);
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
-            
-            userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
+        return null;
+    }
+
+    // 구글 사용자 정보 가져오기
+    public HashMap<String, Object> getGoogleUserInfo(String accessToken) {
+        RestTemplate restTemplate = new RestTemplate();
+        String userInfoUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + accessToken;
+
+        HashMap<String, Object> userInfo = restTemplate.getForObject(userInfoUrl, HashMap.class);
         return userInfo;
     }
 
-   public void kakaoLogout(String accessToken) {
-      
-      String reqURL = "https://kapi.kakao.com/v2/user/logout";
-      try {
-         URL url = new URL(reqURL);
-         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-         conn.setRequestMethod("POST");
-         conn.setRequestProperty("Authorization","Bearer"+accessToken);
-         int responseCode = conn.getResponseCode();
-         System.out.println("responseCode = " + responseCode);
-      
-         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-         
-         String result = "";
-         String line = "";
-         
-         while((line = br.readLine()) != null) {
-            result = result+line;
-         }
-         System.out.println(result);
+	public Member googleSignUp(Member member) {
+		List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
+		boolean isExistingMember = !foundMembers.isEmpty();
+		boolean isNaverUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("naver"));
 
-         
-      }catch (Exception e) {
-         e.printStackTrace();
-      }
-      
-   }
-   
-   public Member kakaoSignUp(Member member) {
-       List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail());
-       boolean isExistingMember = !foundMembers.isEmpty();
-       // stream().anyMatch 메서드는 Java 스트림 API의 일부로, 스트림 내의 요소 중 특정 조건을 만족하는 요소가 하나라도 있는지 여부를 확인하는데 사용
-       //anyMatch는 조건에 맞는 요소를 찾으면 즉시 true를 반환, 조건에 맞는 요소가 하나도 없으면 false를 반환
-       boolean isNaverUser = isExistingMember && foundMembers.stream()
-                                   .anyMatch(m -> m.getMemberSocial().equals("naver"));
-       
-       
-       boolean iskakaoUser = isExistingMember && foundMembers.stream()
-                .anyMatch(m -> m.getMemberSocial().equals("kakao"));
-//       
-//       System.out.println(isExistingMember);
-//       System.out.println(isNaverUser);
-//       System.out.println(iskakaoUser);
-       
-       if((isExistingMember || isNaverUser) && !iskakaoUser) {
-           SecureRandom random = new SecureRandom();
-           String id = new BigInteger(130, random).toString(32);
-           member.setMemberId(id);
-           member.setMemberEmail(member.getMemberEmail());
-           member.setMemberName(member.getMemberNickname());
-           member.setMemberNickname(member.getMemberNickname());
-           member.setMemberSocial("kakao");
-           member.setMemberRole("사용자");
-           memberRepository.save(member);
+		boolean iskakaoUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("kakao"));
+		boolean isgoogleUser = isExistingMember
+				&& foundMembers.stream().anyMatch(m -> m.getMemberSocial().equals("google"));
+		
+		System.out.println("isExistingMember : "+isExistingMember);
+		System.out.println("isNaverUser : "+isNaverUser);
+		System.out.println("iskakaoUser : "+iskakaoUser);
+		System.out.println("isgoogleUser : "+isgoogleUser);
+		if ((!isgoogleUser || (isExistingMember || isNaverUser || iskakaoUser) ) && !isgoogleUser) {
+			SecureRandom random = new SecureRandom();
+			member.setMemberId(member.getMemberId());
+			member.setMemberEmail(member.getMemberEmail());
+			member.setMemberName(member.getMemberName());
+			member.setMemberNickname(member.getMemberNickname());
+			member.setMemberSocial("google");
+			member.setMemberRole("사용자");
+			memberRepository.save(member);
 
-           return member;
-       }
-       
-
-       
-       return foundMembers.stream()
-                .filter(m -> m.getMemberSocial().equals("kakao"))
-                .findFirst()
-                .orElse(null);
-   }
-   
-   // 네이버===============================================================================================
-   
-   
-   // 인가 코드를 이용해 토큰 발급받기
-   public String getNaverAccessToken(String code, String state, String client_id, String client_secret) {
-      
-      // 네이버에 요청 보내기
-        WebClient webclient = WebClient.builder()
-         .baseUrl("https://nid.naver.com")
-         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-         .build();
-
-     
-      String response = webclient.post()
-            .uri(uriBuilder -> uriBuilder
-              .path("oauth2.0/token")
-              .queryParam("grant_type", "authorization_code")
-              .queryParam("client_id", client_id)
-              .queryParam("client_secret", client_secret)
-              .queryParam("code", code)
-              .queryParam("state", state)
-              .build())
-            .retrieve().bodyToMono(String.class).block();
-      
-      //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-      @SuppressWarnings("deprecation")
-      JsonParser parser = new JsonParser();
-      @SuppressWarnings("deprecation")
-      JsonObject object = parser.parse(response).getAsJsonObject();
-
-       return object.get("access_token").toString();
-   }
-   
-   
-   // 토큰으로 사용자 정보 가져오기
-   public HashMap<String, Object> getNaverUserInfo(String accessToken) {
-      
-      HashMap<String, Object> userInfo = new HashMap<>();
-      
-       // 사용자 정보 요청하기
-       WebClient webClient = WebClient.builder()
-           .baseUrl("https://openapi.naver.com")
-           .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-           .build();
-       
-       String response = webClient.get()
-           .uri(uriBuilder -> uriBuilder
-               .path("v1/nid/me")
-               .build())
-           .header("Authorization", "Bearer " + accessToken)
-           .retrieve()
-           .bodyToMono(String.class)
-           .block();
-       
-       System.out.println("response : " + response);
-       
-       //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-       @SuppressWarnings("deprecation")
-       JsonParser parser = new JsonParser();
-       @SuppressWarnings("deprecation")
-       JsonObject object = parser.parse(response).getAsJsonObject();
-
-       JsonObject res = object.get("response").getAsJsonObject();
-
-       if (res != null) {
-          
-          String id = res.get("id").toString();
-          String name = res.get("name").toString();
-          String nickname = res.get("nickname").toString();
-          String email = res.get("email").toString();
-          String mobile = res.get("mobile").toString();
-          
-          System.out.println("id: "+id);
-          System.out.println("name: "+ name);
-          System.out.println("nickname: "+ nickname);
-          System.out.println("email: "+ email);
-          System.out.println("mobile: "+ mobile);
-          
-          userInfo.put("id", id);
-          userInfo.put("name", name);
-          userInfo.put("nickname", nickname);
-          userInfo.put("email", email);
-          userInfo.put("mobile", mobile);
-          
-       } // if end
-       
-       return userInfo;
-   }
-   
-   public Member naverSignUp(Member member) {
-       List<Member> foundMembers = memberRepository.findByMemberEmail(member.getMemberEmail().replace("\"", ""));
-       boolean isExistingMember = !foundMembers.isEmpty();
-       boolean iskakaoUser = isExistingMember && foundMembers.stream()
-                                   .anyMatch(m -> m.getMemberSocial().equals("kakao"));
-       boolean isnaverUser = isExistingMember && foundMembers.stream()
-                .anyMatch(m -> m.getMemberSocial().equals("naver"));
-       
-//       System.out.println(isExistingMember);
-//       System.out.println(isnaverUser);
-//       System.out.println(iskakaoUser);
-       if((isExistingMember || iskakaoUser) && !isnaverUser) {
-           member.setMemberId(member.getMemberId().replace("\"", ""));
-           member.setMemberName(member.getMemberName().replace("\"", ""));
-           member.setMemberNickname(member.getMemberNickname().replace("\"", ""));
-           member.setMemberEmail(member.getMemberEmail().replace("\"", ""));
-           member.setMemberPhoneNum(member.getMemberPhoneNum().replace("\"", ""));
-           member.setMemberSocial("naver");
-           member.setMemberRole("사용자");
-           memberRepository.save(member);
-           
-           return member;
-       }
-       return foundMembers.stream()
-                .filter(m -> m.getMemberSocial().equals("naver"))
-                .findFirst()
-                .orElse(null);
-   }
-
-public Member findByMemberId(String memberId) {
-   
-   Optional<Member> member = memberRepository.findByMemberId(memberId);
-   return member.get();
-}
-
-   
+			return member;
+		}
+		
+		return foundMembers.stream().filter(m -> m.getMemberSocial().equals("google")).findFirst().orElse(null);
+	}
 }

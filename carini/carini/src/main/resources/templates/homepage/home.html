@@ -138,87 +138,20 @@
                <!-- Carousel -->
                <section class="carousel">
                   <div class="reel">
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="images/car_img/그랜저.png" alt="그랜저이미지" /></a>
-                        <header>
-                           <h3><a href="#">Pulvinar sagittis congue</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="images/car_img/캐딜락.png" alt="캐딜락이미지" /></a>
-                        <header>
-                           <h3><a href="#">Fermentum sagittis proin</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="images/car_img/타르가.png" alt="타르가이미지" /></a>
-                        <header>
-                           <h3><a href="#">Sed quis rhoncus placerat</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="images/car_img/s클.png" alt="s클래스이미지" /></a>
-                        <header>
-                           <h3><a href="#">Ultrices urna sit lobortis</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="images/car_img/토레스.png" alt="토레스이미지" /></a>
-                        <header>
-                           <h3><a href="#">Varius magnis sollicitudin</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="" alt="" /></a>
-                        <header>
-                           <h3><a href="#">Pulvinar sagittis congue</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="" alt="" /></a>
-                        <header>
-                           <h3><a href="#">Fermentum sagittis proin</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="" alt="" /></a>
-                        <header>
-                           <h3><a href="#">Sed quis rhoncus placerat</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="" alt="" /></a>
-                        <header>
-                           <h3><a href="#">Ultrices urna sit lobortis</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
-                     <article>
-                        <a href="#" class="image featured"><img src="" alt="" /></a>
-                        <header>
-                           <h3><a href="#">Varius magnis sollicitudin</a></h3>
-                        </header>
-                        <p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                     </article>
-   
+					<!--자동차LIST-->
+					<article th:each="car, state : ${top10Cars}">
+						<h4 th:text="|Top${state.count}|"></h4>
+						<a th:href="@{/model/getModel(carId=${car.carId})}" class="image featured">
+							<img th:src="@{${car.carImg}}"alt="이미지">
+						</a>
+						<header>
+							<h3 class="card-title" th:text="${car.carName}"></h3>
+						</header>
+						<p class="card-text" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"> </p>
+						<p class="card-text" th:text="|크기 : ${car.carSize}|"></p>
+						<p class="card-text" th:text="|연료 : ${car.carFuel}|"></p>
+						<p class="card-text" th:text="|연비 : ${car.carEff}|"></p>
+					</article>
                   </div>
                </section>
 

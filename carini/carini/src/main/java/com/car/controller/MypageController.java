@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,10 +60,12 @@ import com.car.service.BookMarkService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/mypage")
 public class MypageController {
 
@@ -70,18 +73,19 @@ public class MypageController {
 	private String passwordRegex;
 
 	public PagingInfo pagingInfo = new PagingInfo();
-	@Autowired
-	private BookMarkService bookMarkService;
-	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private BoardService boardService;
+	
+	private final BookMarkService bookMarkService;
+	
+	private final MemberService memberService;
+	
+	private final BoardService boardService;
 
-	@Autowired
-	private MessageSource messageSource;
-	@Autowired
-	private LocaleResolver localeResolver;
+	private final MessageSource messageSource;
+	
+	private final LocaleResolver localeResolver;
 
+
+	
 	@ModelAttribute("member")
 	public Member setMember() {
 		return new Member(); // 기본 Member 객체를 세션에 저장
@@ -134,12 +138,14 @@ public class MypageController {
 		Member user = (Member) session.getAttribute("user");
 		Member member = memberService.findByMemberId(user.getMemberId());
 		Locale locale = localeResolver.resolveLocale(request);
-
-		if (member != null && member.getMemberPw().equals(memberPw)) {
+		
+		boolean passwordCheck = memberService.passwordCheck(member,memberPw);
+		
+		if (member != null && passwordCheck) {
 			response.put("success", true);
 			response.put("message", messageSource.getMessage("info.success", null, locale));
 			response.put("redirectUrl",
-					member.getMemberSocial().equals("kakao") || member.getMemberSocial().equals("naver")
+					member.getMemberSocial().equals("kakao") || member.getMemberSocial().equals("naver") || member.getMemberSocial().equals("google")
 							? "/mypage/myinfo_social_edit"
 							: "/mypage/myinfo_edit");
 		} else {
@@ -193,30 +199,35 @@ public class MypageController {
 	public String myInfoNicknameUpdate(@ModelAttribute("member") Member members, BindingResult bindingResult,
 			@RequestParam("memberNickname") String memberNickname, Model model, HttpSession session,
 			HttpServletRequest request) {
-		Member user = (Member) session.getAttribute("user");
-		Member member = memberService.findByMemberId(user.getMemberId());
-		List<Member> memberList = memberService.findAllMember();
-		Locale locale = localeResolver.resolveLocale(request);
 
+		Member user = (Member) session.getAttribute("user");
+		System.out.println(memberNickname);
+		Member member = memberService.findByMemberId(user.getMemberId());
+		
+		List<Member> memberList = memberService.findAllMember();
+		
+		Locale locale = localeResolver.resolveLocale(request);
+		
 		for (Member memberOne : memberList) {
-			if (memberNickname == null) {
+			if (memberNickname.equals("")) {
 				model.addAttribute("msg", messageSource.getMessage("info.Nickinput", null, locale));
 				model.addAttribute("url", "/mypage/myinfo_edit");
 				return "alert";
 			}
+			System.out.println("memberNickname3"+memberNickname);
 			if (member != null && (memberOne.getMemberNickname().equals(memberNickname)
-					|| memberOne.getMemberSocialNickname() == memberNickname)) {
+					|| memberOne.getMemberSocialNickname().equals(memberNickname) )) {
 				model.addAttribute("msg", messageSource.getMessage("info.Nickinput.failure", null, locale));
 				model.addAttribute("url", "/mypage/myinfo_edit");
 				return "alert";
 
 			}
 		}
-
+		
 		memberService.updateMember(member, memberNickname);
 		boardService.updateBoardWriter(member, memberNickname);
 		Member savemember = memberService.findByMemberId(members.getMemberId());
-
+		
 		session.setAttribute("user", savemember);
 		model.addAttribute("msg", messageSource.getMessage("info.Nickinput.success", null, locale));
 		model.addAttribute("url", "/mypage/form");
