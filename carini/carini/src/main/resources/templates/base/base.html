@@ -38,19 +38,19 @@
 
 <!-- Footer -->
 <footer th:fragment="main_footer">
-	<hr>
-	<h1 style="padding-bottom: 50px;">@ carini</h1>
+   <hr>
+   <h1 style="padding-bottom: 50px;">@ carini</h1>
 </footer>
 
 
 <!--챗봇 아이콘-->
 <div id="float_icons" th:fragment="floaticon">
-	<a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
-		<img src="/img/챗봇아이콘.png" alt="챗봇">
-	</a>
-	<a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
-		<img src="/img/popup.png" alt="문의">
-	</a>
+   <a class="icon-hover" href="http://pf.kakao.com/_tAMDG" id="chatbot_icon">
+      <img src="/img/챗봇아이콘.png" alt="챗봇">
+   </a>
+   <a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
+      <img src="/img/popup.png" alt="문의">
+   </a>
 </div>
 
 <!-- Popup and Overlay -->
@@ -58,61 +58,61 @@
 <div id="popup-overlay" class="popup-overlay" onclick="closePopup()" th:fragment="inquiry_overlayhtml"></div>
 
 <div id="popup" class="popup_hidden" style="width:500px;height: 600px;" th:fragment="inquiry_Listhtml">
-	<!-- 평상시에 안보이게 -->
-	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
-	<div id="qna_header">문의 내역</div>
-	<div class="qna_container">
-		<div id="qna_ul">
+   <!-- 평상시에 안보이게 -->
+   <button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
+   <div id="qna_header">문의 내역</div>
+   <div class="qna_container">
+      <div id="qna_ul">
 
-		</div>
-	</div>
-	<div style="margin-top:10px;">
-		<button onclick="to_insert_popup()" class="qna_button">문의하기</button>
-	</div>
+      </div>
+   </div>
+   <div style="margin-top:10px;">
+      <button onclick="to_insert_popup()" class="qna_button">문의하기</button>
+   </div>
 </div>
 <!-- 문의 글 작성하기 -->
 <div id="insertpopup" class="popup_hidden" th:object="${InquiryWriteValidation}" th:fragment="inquiry_writehtml">
-	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
-	<div id="qna_header">문의하기</div>
-	<form onsubmit="verifyPassword(event)" th:object="${InquiryWriteValidation}">
-		<input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
-		<div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
-			<!-- 제목 오류 메시지 표시 영역 -->
-		</div>
+   <button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
+   <div id="qna_header">문의하기</div>
+   <form onsubmit="verifyPassword(event)" th:object="${InquiryWriteValidation}">
+      <input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
+      <div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
+         <!-- 제목 오류 메시지 표시 영역 -->
+      </div>
 
-		<textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요"
-			style="width:100%;height: 280px; resize: none;border-radius: 10px"></textarea>
-		<div class="field-error" id="reContentError" style="font-size: 15px; color: red;">
-			<!-- 내용 오류 메시지 표시 영역 -->
-		</div>
-		<button type="submit" class="qna_button">제출하기</button>
-	</form>
+      <textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요"
+         style="width:100%;height: 280px; resize: none;border-radius: 10px"></textarea>
+      <div class="field-error" id="reContentError" style="font-size: 15px; color: red;">
+         <!-- 내용 오류 메시지 표시 영역 -->
+      </div>
+      <button type="submit" class="qna_button">제출하기</button>
+   </form>
 </div>
 
 <!-- 나의 문의 상세보기 팝업 -->
 <div id="getpopup" class="popup_hidden" th:fragment="inquiry_detailhtml">
-	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
+   <button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
 
-	<div id="qna_header">상세보기</div>
+   <div id="qna_header">상세보기</div>
 
-	<!-- 여기부터 문의 글 영역 -->
-	<div id="qna_section" style="margin-top: 10px;">
-		<span class="q_section">
-			<span id="detailsreDate" class="title-date"></span>
-			<span id="detailsreTitle">문의합니다</span>
-		</span>
-		<p id="q_content" class="q_section"></p>
+   <!-- 여기부터 문의 글 영역 -->
+   <div id="qna_section" style="margin-top: 10px;">
+      <span class="q_section">
+         <span id="detailsreDate" class="title-date"></span>
+         <span id="detailsreTitle">문의합니다</span>
+      </span>
+      <p id="q_content" class="q_section"></p>
 
-		<h3 style="text-align: left;margin-top:15px;font-size: 20px;">관리자</h3>
-		<span class="a_section">
-			<span class="title-date" id="detailsreDateRq"></span>
-			<span id="detailsreTitleRq"></span>
-		</span>
-		<p id="a_content" class="a_section"></p>
-	</div>
+      <h3 style="text-align: left;margin-top:15px;font-size: 20px;">관리자</h3>
+      <span class="a_section">
+         <span class="title-date" id="detailsreDateRq"></span>
+         <span id="detailsreTitleRq"></span>
+      </span>
+      <p id="a_content" class="a_section"></p>
+   </div>
 
-	<!-- 문의 글 영역 여기까지 -->
-	<div id="button_list">
-		<button onclick="to_popup()" class="qna_button" id="list_button">목록</button>
-	</div>
+   <!-- 문의 글 영역 여기까지 -->
+   <div id="button_list">
+      <button onclick="to_popup()" class="qna_button" id="list_button">목록</button>
+   </div>
 </div>
