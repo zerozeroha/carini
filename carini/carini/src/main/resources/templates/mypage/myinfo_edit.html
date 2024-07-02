@@ -6,234 +6,25 @@
 <link rel="stylesheet" href="/css/mypage_edit.css" />
 <link rel="stylesheet" href="css/base.css">
 <noscript>
-<<<<<<< HEAD
-	<link rel="stylesheet" href="assets/css/noscript.css" />
-=======
+
    <link rel="stylesheet" href="assets/css/noscript.css" />
->>>>>>> 1c2d6f4672194766a892c97e4452015079daac7d
 </noscript>
 
 
 <body>
 
-<<<<<<< HEAD
-	<div th:replace="~{base/base :: main_header}"></div>
 
-	<!--SubTitle-->
-=======
    <div th:replace="~{base/base :: main_header}"></div>
 
    <!--SubTitle-->
 
    <section class="SubTitle">EDIT_MY_INFORMATION</section>
->>>>>>> 1c2d6f4672194766a892c97e4452015079daac7d
 
 	<section class="SubTitle">EDIT_MY_INFORMATION</section>
 	<!-- Main -->
 	<main>
 
-<<<<<<< HEAD
-		<div id="Favorites_box">
 
-			<div class="div">
-				<h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
-			</div>
-
-			<!--main 안에 있는 큰 박스-->
-			<div class="flex-container_column">
-
-				<div style="width: 60%; height: 100%;">
-
-
-					<table>
-						<form
-							th:action="${session.user.memberSocial == '회원' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}"
-							method="post">
-							<tr>
-								<th th:text="#{info.nickname}"></th>
-								<td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}" style="padding: 1%;">
-									<div class="flex-container_row" style="height: 30%;">
-										<input type="text" name="memberNickname"
-											th:value="${session.showuser.memberNickname}">
-										<button type='submit' class="pencil-button" id="editNickname">
-											<img th:src="@{/img/edit_icon.png}" alt="edit icon"
-												style="height: 50%; width: 50%; cursor: pointer;">
-										</button>
-									</div>
-								</td>
-
-								<td th:unless="${session.user.memberSocial == '회원'}">
-									<input type="text" name="memberSocialNickname"
-										th:value="${session.showuser.memberSocialNickname}">
-									<button class="pencil-button" id="editNickname" type='submit' style="width: 50%">
-										<img th:src="@{/img/edit_icon.png}" alt="edit icon"
-											style="height: 15px; width: 15px;">
-									</button>
-								</td>
-
-							</tr>
-						</form>
-
-						<form th:action="@{/mypage/myinfo/updateAll}" method="post"
-							th:object="${Update_InfoFormValidation}">
-							<tr>
-								<th th:text="#{info.id}"></th>
-
-								<input type="hidden" name="memberId" th:value="${session.user.memberId}" />
-
-								<td th:if="${session.showuser.memberSocial == '회원'}">
-									<span th:text="${session.showuser.memberId}"></span>
-								</td>
-
-								<td th:unless="${session.showuser.memberSocial == '회원'}">
-									<span th:text="${session.showuser.memberEmail}" readonly>이메일</span>
-								</td>
-
-							<tr>
-
-								<th th:text="#{info.pw}"></th>
-
-								<td th:if="${session.user.memberSocial == '회원'}">
-
-									<div class="password-input-container">
-										<input type="text" name="memberPw"
-											th:field="${Update_InfoFormValidation.memberPw}"
-											th:value="${session.showuser.memberPw}" placeholder="memberPw" />
-									</div>
-
-									<div th:if="${#fields.hasErrors('memberPw')}" style="height:15px">
-										<span style="color: red; font-size: small;height: 5px;"
-											th:errors="*{memberPw}"></span>
-									</div>
-
-								</td>
-
-								<td th:unless="${session.user.memberSocial == '회원'}">
-
-									<span th:text="${session.showuser.memberPw}" readonly></span>
-
-									<div th:if="${#fields.hasErrors('memberPw')}" style="height:15px">
-										<span style="color: red; font-size: small;height: 5px;"
-											th:errors="*{memberPw}"></span>
-									</div>
-
-								</td>
-
-							</tr>
-
-							<tr>
-
-								<th th:text="#{info.name}"></th>
-
-								<td th:if="${session.user.memberSocial == '회원'}">
-
-									<div>
-										<input type="text" name="memberName"
-											th:field="${Update_InfoFormValidation.memberName}"
-											th:value="${session.showuser.memberName}" placeholder="memberName" />
-									</div>
-
-								</td>
-
-								<td th:unless="${session.user.memberSocial == '회원'}">
-									<span th:text="${session.showuser.memberName}" readonly></span>
-								</td>
-
-							</tr>
-
-							<tr>
-
-								<th th:text="#{info.email}"></th>
-
-								<td th:if="${session.user.memberSocial == '회원'}">
-
-									<div>
-										<input type="email" name="memberEmail"
-											th:field="${Update_InfoFormValidation.memberEmail}"
-											th:value="${session.showuser.memberEmail}" placeholder="memberEmail" />
-									</div>
-
-									<div th:if="${#fields.hasErrors('memberEmail')}" style="height:15px">
-										<span style="color: red; font-size: small;height: 5px;"
-											th:errors="*{memberEmail}"></span>
-									</div>
-
-								</td>
-
-								<td th:unless="${session.user.memberSocial == '회원'}">
-
-									<span th:text="${session.showuser.memberEmail}" readonly></span>
-
-									<div th:if="${#fields.hasErrors('memberEmail')}">
-										<span style="color: red;" th:errors="*{memberEmail}"></span>
-									</div>
-
-								</td>
-
-							</tr>
-
-							<tr>
-
-								<th th:text="#{info.phone}"></th>
-
-								<td th:if="${session.user.memberSocial == '회원'}">
-									<div>
-										<input type="tel" name="memberPhoneNum"
-											th:field="${Update_InfoFormValidation.memberPhoneNum}"
-											placeholder="memberPhoneNum" />
-									</div>
-
-									<div th:if="${#fields.hasErrors('memberPhoneNum')}" style="height:15px">
-										<span style="color: red; font-size: small;height: 5px;"
-											th:errors="*{memberPhoneNum}"></span>
-									</div>
-
-								</td>
-
-								<td th:unless="${session.user.memberSocial == '회원'}">
-
-									<span th:text="${session.showuser.memberPhoneNum}" readonly></span>
-
-									<div th:if="${#fields.hasErrors('memberPhoneNum')}">
-										<span style="color: red; font-size: small;height: 5px;"
-											th:errors="*{memberPhoneNum}"></span>
-									</div>
-
-								</td>
-
-							</tr>
-
-					</table>
-
-					<div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
-
-					<!--사용자만 쓰는 수정하기 버튼-->
-
-
-					<div class="flex-container_row" style="height: 3%;" th:if="${session.user.memberSocial == '회원'}">
-						<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}">
-					</div>
-					</form>
-					<!--탈퇴하기 버튼-->
-					<div class="flex-container_row" style="height: 10%;">
-						<form th:action="@{/mypage/myinfo/delete}" method="post" onsubmit="return confirmUnsubscribe()">
-							<button id="member_quit" type="submit" th:text="#{info.btn.unsubscribe}" style></button>
-						</form>
-					</div>
-
-	</main>
-	<script>
-		function confirmUnsubscribe() {
-			return confirm("정말로 탈퇴하시겠습니까?");
-		}
-	</script>
-
-
-
-	<!-- Footer -->
-
-	<div th:replace="~{base/base :: main_footer}"></div>
-=======
    <!-- Main -->
    <main>
 
@@ -434,7 +225,6 @@
    <!-- Footer -->
 
    <div th:replace="~{base/base :: main_footer}"></div>
->>>>>>> 1c2d6f4672194766a892c97e4452015079daac7d
 
 
 
