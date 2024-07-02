@@ -45,7 +45,6 @@ public class ModelController {
 	private ModelService modelService;
 	@Autowired
 	private BookMarkService bookMarkService;
-	
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired

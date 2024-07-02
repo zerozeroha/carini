@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>login.html</title>
    <link rel="stylesheet" href="/css/login.css">
 </head>
 <script>
@@ -19,103 +20,85 @@
 
 <body>
 
-   <form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
-      method="post">
-      <header>
+   <a th:href="@{/homepage/first_home}" class="SubTitle">CARINI</a>
 
-         <a th:href="@{/}" class="header_carini carini-hover">CARINI</a>
+   <!-- Main -->
+   <main>
 
-         <p class="header-1">
-            <br>CARINI SEMPRE CON VUESTRO
-         </p>
+      <div class="flex-container_row" style="width: 100%; height: 90%; margin-right: 10%;">
 
-      </header>
-      <br>
 
-      <nav>
+         <form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
+            method="post">
 
-      </nav>
+            <div class="flex-container_column" style="width: 60%;  height: 650px;">
 
-      <section>
-         <div>
-            <div style="height: 20%; ">
+               <div class="video-container">
 
-            </div>
-
-            <div class="video-container">
-               <iframe src="https://www.youtube.com/embed/RkrWjuCYHVM?autoplay=1&loop=1&playlist=RkrWjuCYHVM"
-                  allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-
-            <div style="float: left; padding-left: 10px;">
-               <h1 class="flipped-text">ADVERTISEMENT</h1>
-            </div>
-
-         </div>
-
-      </section>
-
-      <aside>
-
-         <div class="loginbox">
-            <fieldset>
-               <legend> &nbsp;&nbsp;login&nbsp;&nbsp;</legend>
-               <br>
-               <h3> _WELCOME_</h3>
-               <br><br>
-               <input type="text" th:field="*{memberId}" class="btn btn-outline-secondary"
-                  th:errorclass="field-error" placeholder="ID" size="25">
-               <br>
-               <div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
-                  아이디 오류
+                  <iframe src="https://www.youtube.com/embed/RkrWjuCYHVM?autoplay=1&loop=1&playlist=RkrWjuCYHVM&controls=0"
+                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
                </div>
-               <br>
-               <input type="password" th:field="*{memberPw}" class="btn btn-outline-secondary"
-                  th:errorclass="field-error" placeholder="PASSWORD" size="25">
-               <br>
-               <div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
-                  비물번호 오류
+
+               <div style="float: left; padding-left: 10px;">
+                  <h1 class="flipped-text">ADVERTISEMENT</h1>
                </div>
-               <br>
-               <input id="login" type="submit" name="submit" class="btn btn-light" value="LOGIN" size="25"
-                  style="text-align: center;">
-               <br><br><br>
+
+            </div>
 
 
-               <a th:href="@{/find_idForm}"
-                  style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-                  아이디찾기
-               </a> /
-               <a th:href="@{/find_pwForm}"
-                  style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-                  비밀번호찾기
-               </a> /
-               <a href="/signup"
-                  style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-                  회원가입
-               </a>
-               <br><br>
+            <div class="flex-container_column" style="width: 40%;  height: 700px; float: left;">
 
-               <a href="/api/naver/oauth">
-                  <img src="/img/naver.png" class="img-1" id="login">
-               </a>
-               <br>
-               <a href="/oauth/kakao">
-                  <img src="/img/kakaotalk.png" class="img-1" id="login">
-               </a>
-               <br>
-               <a href="/oauth/google">
-                  <img src="/img/kakaotalk.png" class="img-1" id="login">
-               </a>
-               <br><br>
+               <fieldset>
+                  <legend> login</legend>
 
 
-            </fieldset>
-         </div>
-         <br><br><br>
+                  <input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
 
-      </aside>
-   </form>
+
+
+                  <div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
+                     아이디 오류
+                  </div>
+
+                  <input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
+                     size="25">
+
+                  <div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
+                     비물번호 오류
+                  </div>
+
+
+
+                  <input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
+
+
+                  <div class="flex-container_row" style="height: 10%;">
+                     <a th:href="@{/find_idForm}">
+                        아이디찾기 </a> /
+                     <a th:href="@{/find_pwForm}">비밀번호찾기</a>/
+                     <a href="/signup"> 회원가입</a>
+                  </div>
+
+
+                  <a href="/api/naver/oauth">
+                     <img src="/img/naver.png" class="img_login">
+                  </a>
+
+                  <a href="/oauth/kakao">
+                     <img src="/img/kakaotalk.png" class="img_login">
+                  </a>
+
+                  <a href="/oauth/kakao">
+                     <img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
+                  </a>
+
+               </fieldset>
+            </div>
+         </form>
+
+      </div>
+
+   </main>
 </body>
 
 </html>

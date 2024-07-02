@@ -126,6 +126,3 @@ function toggleBookmark(carId, isBookmarked) {
     document.body.appendChild(form);
     form.submit();
 }
-
-
-

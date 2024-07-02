@@ -108,6 +108,12 @@ public class BookMarkServiceImpl implements BookMarkService{
                 .map(Bookmark::getCarId)
                 .collect(Collectors.toSet());
     }
+	@Override
+	@Transactional
+	public void deleteMember(Member findmember) {
+		
+		bookMarkRepository.deleteByMemberId(findmember.getMemberId());
+	}
 	
 	@Override
 	public List<Car> getBookmarkTop10Cars() {
@@ -124,6 +130,7 @@ public class BookMarkServiceImpl implements BookMarkService{
 		
 		return top10Cars;
 	}
+
 	
 	
 	

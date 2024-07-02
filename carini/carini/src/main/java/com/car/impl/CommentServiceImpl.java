@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.car.dto.Board;
 import com.car.dto.Comment;
+import com.car.dto.Member;
 import com.car.persistence.CommentRepository;
 import com.car.service.CommentService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -56,4 +58,11 @@ public class CommentServiceImpl implements CommentService{
 		
 	}
 
+	@Override
+	@Transactional
+	public void deleteMember(Member findmember) {
+		
+		commentRepository.deleteByUserId(findmember.getMemberId());
+		
+	}
 }

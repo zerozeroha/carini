@@ -20,4 +20,5 @@ public interface InquiryService {
 	void answerInquiry(Inquiry inquiry);
 	void deleteInquiryById(Long reId);
 	int countInquiryById(String memberId);
+	void deleteMember(Member findmember);
 }
