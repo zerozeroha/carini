@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>update Member</title>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Answer Inquiry</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/admin.css">
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="assets/js/carini_script.js" defer></script>
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
 <style>
 .field-error {
@@ -14,6 +20,12 @@
 
 </style>
 <body>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
+	
+	<!--Main-->
 	<h1>Insert Member</h1>
 	<form th:action="@{/admin/insertMember}" th:object="${AdminMemberValidation}" method="post">
 		<table id="member_info">
@@ -98,6 +110,24 @@
 		<button type="submit" class="btn btn-primary">Insert Member</button>
 	</form>
 	<a th:href="@{/admin/memberList}">목록으로 돌아가기</a>
+	
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+
+	<!-- Inquiry -->
+	<!--
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
+	-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
+
 </body>
 </html>
 

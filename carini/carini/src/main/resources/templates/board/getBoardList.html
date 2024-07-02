@@ -9,12 +9,14 @@
 <html>
 
 <head>
-   <title>Helios - Helios by HTML5 UP</title>
+   <title>getBoardList</title>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
    <link rel="stylesheet" href="/css/boardList.css" />
    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-   <link rel="stylesheet" href="/css/base.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="/css/base/base.css">
+   <link rel="stylesheet" href="/css/base/inquiry.css">
 </head>
 <style>
    th {
@@ -23,9 +25,11 @@
 </style>
 
 <body>
-
-   <div th:replace="~{base/base :: header}"></div>
-
+	<!--Header-->
+    <header th:replace="~{base/base :: main_header}"></header>
+    <!--챗봇 아이콘-->
+    <div th:replace="~{base/base :: floaticon}"></div>
+	
    <!--SubTitle-->
 
    <section class="SubTitle">BOARD</section>
@@ -148,17 +152,21 @@
    </main>
 
    <!-- Footer -->
-   <div th:replace="~{base/base :: footer}"></div>
+   <footer th:replace="~{base/base :: main_footer}"></footer>
 
-<!-- Scripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.dropotron.min.js"></script>
-<script src="/js/jquery.scrolly.min.js"></script>
-<script src="/js/jquery.scrollex.min.js"></script>
-<script src="/js/browser.min.js"></script>
-<script src="/js/breakpoints.min.js"></script>
-<script src="/js/util.js"></script>
-<script src="/js/main.js"></script>
+   <!-- Inquiry -->
+   <!--
+   <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+   <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+   <div th:replace="~{base/base :: inquiry_writehtml}"></div>
+   <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+   <script src="/js/Inquiry/inquiry.js"></script>
+   -->
+
+   <!-- Scripts -->
+   <script src="/js/jquery.dropotron.min.js"></script>
+   <script src="/js/breakpoints.min.js"></script>
+   <script src="/js/main.js"></script>
 </body>
 
 </html>
