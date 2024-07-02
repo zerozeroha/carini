@@ -3,6 +3,8 @@ package com.car.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,16 +20,20 @@ import com.car.validation.Find_pwFormValidation;
 import com.car.validation.LoginFormValidation;
 import com.car.validation.SignupFormValidation;
 import com.car.validation.Update_pwFormValidation;
+import com.car.dto.Car;
 import com.car.dto.Member;
 import com.car.exception.CodeNumberException;
 import com.car.exception.ValidationException;
 import com.car.exception.errorcode.ErrorCode;
+import com.car.service.BookMarkService;
 import com.car.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +41,7 @@ import org.springframework.validation.annotation.Validated;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
@@ -51,6 +58,9 @@ public class LoginController {
 	@Value("${coolsms.api.form_number}")
 	private String FROM_NUMBER;
 
+	@Autowired
+	private BookMarkService bookmarkService;
+	
 	private final MemberService memberService;
 
 	private final PasswordEncoder passwordEncoder;
@@ -87,7 +97,12 @@ public class LoginController {
 	}
 
 	@RequestMapping("/homepage/first_home")
-	public String firstHome() {
+	public String firstHome(Model model) {
+		
+		// 즐겨찾기 Top10 캐로셀
+		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
+		model.addAttribute("top10Cars", top10Cars);
+		
 		return "homepage/first_home";
 	}
 	/*
@@ -180,7 +195,12 @@ public class LoginController {
 	}
 
 	@GetMapping("/home")
-	public String goHome(HttpSession session) {
+	public String goHome(HttpSession session, Model model) {
+		
+		// 즐겨찾기 Top10 캐로셀
+		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
+		model.addAttribute("top10Cars", top10Cars);
+		
 		return "homepage/home.html";
 	}
 
