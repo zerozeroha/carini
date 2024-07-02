@@ -18,7 +18,9 @@ import com.car.persistence.CarRepository;
 import com.car.service.BookMarkService;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class BookMarkServiceImpl implements BookMarkService{
 
@@ -106,5 +108,29 @@ public class BookMarkServiceImpl implements BookMarkService{
                 .map(Bookmark::getCarId)
                 .collect(Collectors.toSet());
     }
+	@Override
+	@Transactional
+	public void deleteMember(Member findmember) {
+		
+		bookMarkRepository.deleteByMemberId(findmember.getMemberId());
+	}
+	
+	@Override
+	public List<Car> getBookmarkTop10Cars() {
+		
+		List<Integer> carIds = bookMarkRepository.findTop10CarIdsWithCount();
+		List<Car> top10Cars = new ArrayList<Car>();
+		for(int carId:carIds) {
+			Optional<Car> car = carRepository.findById(carId);
+			if(car.isPresent()) {
+				Car findcar = car.get();
+				top10Cars.add(findcar);
+			}// if end
+		}// for end
+		
+		return top10Cars;
+	}
+	
+	
 	
 }

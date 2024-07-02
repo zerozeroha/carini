@@ -184,6 +184,13 @@ public class BoardServiceImpl implements BoardService{
 		return boardRepository.getBoardCount(memberId);
 	}
 
+	@Override
+	@Transactional
+	public void deleteMember(Member findmember) {
+		boardRepository.deleteByMemberId(findmember.getMemberId());
+		
+	}
+
 	
 	
 }

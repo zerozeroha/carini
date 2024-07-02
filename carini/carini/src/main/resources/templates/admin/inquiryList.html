@@ -67,7 +67,7 @@
 								<p th:if="${inquiry.reTitleRq != null && inquiry.reContentRq != null}">O</p>
 								<p th:if="${inquiry.reTitleRq == null && inquiry.reContentRq == null}">X</p>
 							</td>
-							<td class="ellipsis" style="width: 10%; text-align: center;" th:if="${inquiry.reDateRq != null}" th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></p>
+							<td class="ellipsis" style="width: 10%; text-align: center;" th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></p>
 							</td>
 							<td class="ellipsis" style="width: 10%; text-align: center;" th:if="${inquiry.reHero != null}" th:text="${inquiry.reHero}">
 							</td>
