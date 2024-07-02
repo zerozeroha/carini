@@ -2,54 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <title> getModelList.html </title>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script th:inline="javascript" src="/js/getModelList.js"></script>
-   <link rel="stylesheet" href="/css/getModelList.css">
+	<title> getModelList.html </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script th:inline="javascript" src="/js/getModelList.js"></script>
+	<link rel="stylesheet" href="/css/getModelList.css">
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-   <style>
-      /* css에서 안 먹어서 따로 기재 */
-      table {
-         width: 60%;
-         font-size: 18px;
-         text-align: center;
-         border-collapse: collapse;
-         border-top: 1px solid black;
-         border-bottom: 1px solid black;
-         font-weight: 900;
-      }
+	<style>
+		/* css에서 안 먹어서 따로 기재 */
+		table {
+			width: 60%;
+			font-size: 18px;
+			text-align: center;
+			border-collapse: collapse;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			font-weight: 900;
+		}
 
-      tr,
-      td {
-         border-top: 1px solid black;
-         border-bottom: 1px solid black;
-      }
+		tr,
+		td {
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
 
-      th {
-         background-color: black;
-         color: white;
-         font-size: 1.3rem;
-         border-top: 1px solid black;
-         border-bottom: 1px solid black;
-      }
-   </style>
+		th {
+			background-color: black;
+			color: white;
+			font-size: 1.3rem;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			border-right: 3px solid white;
+		}
+	</style>
+
 
 
 </head>
 
 <body>
-	<header th:replace="~{base/base :: header}"></header>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<section class="SubTitle">SELECT_MODEL</section>
 
@@ -78,9 +87,10 @@
 						<h3>- CAR THAT YOU WANT -</h3>
 					</div>
 					<div style="height: 10px;"></div> <!--간격박스-->
+					
 					<div style="display: flex; flex-direction: row;">
-						<input name="searchWord" placeholder=" 검색" type="text"
-							style="width: 300px; height: 40px; padding-left: 10px;" th:value="${sw}">
+						<input name="searchWord" placeholder=" 자동차 검색" type="text"
+							style="width: 300px; height: 40px; padding-left: 10px; cursor: text;" th:value="${sw}">
 						<input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
 					</div>
 
@@ -106,7 +116,7 @@
 											"filterMinPrice"원
 											"filterMaxPrice"원</span>
 									</div>
-									<input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}">5억 이상
+									<input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억 이상
 									<script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
 										// priceSlider 초기화
 										var priceSlider = document.getElementById('priceSlider');
@@ -366,9 +376,7 @@
 						<tr id="carRadarChart">
 							<td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
 							<td><br />
-								<a th:onclick="combineRadarChart()"
-									style="padding: 5px; font-size: 16px; text-align: center; margin-left: -40px; border: 2px solid black; border-radius:0.5rem ;"
-									id="combine">
+								<a th:onclick="combineRadarChart()" id="combine">
 									COMBINE</a>
 							</td>
 							<td><canvas id="car2RadarChart"></canvas></td>
@@ -377,8 +385,7 @@
 							<td colspan="3" style="text-align: center;">
 								<canvas id="carCombineRadarChart"></canvas>
 								<div style="height: 50px;"></div> <!--간격박스-->
-								<a th:onclick="returnChart()"
-									style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">
+								<a th:onclick="returnChart()" class="return">
 									RETURN
 								</a>
 							</td>
@@ -391,22 +398,21 @@
 
 	</main>
 
-	<footer th:replace="~{base/base :: footer}"></footer>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+
+	<!-- Inquiry 
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 
 </body>
-<script>
-   let ss = '[[${exCar}]]'
-   console.log(ss);
-   console.log(typeof (ss));
-</script>
-<!-- 메뉴바 Scripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.dropotron.min.js"></script>
-<script src="/js/jquery.scrolly.min.js"></script>
-<script src="/js/jquery.scrollex.min.js"></script>
-<script src="/js/browser.min.js"></script>
-<script src="/js/breakpoints.min.js"></script>
-<script src="/js/util.js"></script>
-<script src="/js/main.js"></script>
 
 </html>
