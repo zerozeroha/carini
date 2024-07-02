@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Admin List</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
-
 </head>
 
 <body>
 	<!--Header-->
-	<header> header </header>
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<!--SubTitle-->
 	<div class="container">
-	    <section class="SubTitle" th:text="#{admin}">ADMIN</section>
+		<section class="SubTitle" th:text="#{admin}">ADMIN</section>
 	</div>
 
 	<div class="div">
@@ -46,12 +50,22 @@
 	</main>
 
 
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<!--Footer-->
-	<footer>
-		<hr>
-		@ carini
-	</footer>
+	<!-- Inquiry -->
+	<!--
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
+	-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 
 
 

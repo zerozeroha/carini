@@ -5,17 +5,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/getModel.css">
-	<link rel="stylesheet" href="/css/base.css">
-	<title>자동차상세보기(getModel.html)</title>
+	<title>자동차상세보기: getModel.html</title>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<!-- 차트 -->
 	<script src="/js/getModel.js"></script>
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
 
-	<!-- Header -->
+	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
+
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<section class="SubTitle">MODEL_DETAILED</section>
 
@@ -138,9 +143,20 @@
 		</div> <!-- main 안에 있는 큰 박스 닫음 -->
 
 	</main>
-	<!-- footer -->
+	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
+	<!-- Inquiry 
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 	<script th:inline="javascript">
 		// Car data passed from the server
 		/*<![CDATA[*/
@@ -154,17 +170,6 @@
 			createBarChart(car);
 		};
 	</script>
-
 </body>
-
-<!-- 메뉴바 Scripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.dropotron.min.js"></script>
-<script src="/js/jquery.scrolly.min.js"></script>
-<script src="/js/jquery.scrollex.min.js"></script>
-<script src="/js/browser.min.js"></script>
-<script src="/js/breakpoints.min.js"></script>
-<script src="/js/util.js"></script>
-<script src="/js/main.js"></script>
 
 </html>

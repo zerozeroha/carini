@@ -11,7 +11,8 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/getBoard.css" />
-	<link rel="stylesheet" href="/css/base.css" />
+	<link rel="stylesheet" href="/css/base/base.css" />
+	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="/js/Board/getBoard.js"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -28,8 +29,10 @@
 </style>
 
 <body>
-
-	<header th:replace="~{base/base :: header}"></header>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<!--SubTitle-->
 
@@ -134,29 +137,24 @@
 			<button onclick="addComment()">Submit</button>
 		</div>
 	</div>
-	<!-- Footer -->
-	<div id="footer">
-	</div>
-	</div>
 
 
 	<!-- Footer -->
-	<hr style="">
-	<footer style="opacity: 50%;">
-		<!-- Contact -->
-		<h1>@ carini</h1>
-	</footer>
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+
+	<!-- Inquiry -->
+	<!--
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
+	-->
 
 	<!-- Scripts -->
-	<script src="/js/jquery.min.js"></script>
 	<script src="/js/jquery.dropotron.min.js"></script>
-	<script src="/js/jquery.scrolly.min.js"></script>
-	<script src="/js/jquery.scrollex.min.js"></script>
-	<script src="/js/browser.min.js"></script>
 	<script src="/js/breakpoints.min.js"></script>
-	<script src="/js/util.js"></script>
 	<script src="/js/main.js"></script>
-
 </body>
 
 </html>

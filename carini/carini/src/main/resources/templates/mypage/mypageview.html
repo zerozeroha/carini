@@ -15,14 +15,13 @@
 
 
 <body>
-	<header th:replace="~{base/base :: header}"></header>
 
-	<!--SubTitle-->
-
-	<section class="SubTitle">MY_INFORMATION</section>
-
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
 	<!--챗봇 아이콘-->
 	<div th:replace="~{base/base :: floaticon}"></div>
+
+	<section class="SubTitle">MY_INFORMATION</section>
 	<!-- Main -->
 	<main>
 
@@ -102,15 +101,20 @@
 
 	</div>
 
-   <!-- Footer -->
+	 <!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<footer th:replace="~{base/base :: footer}"></footer>
+	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
 	<script src="/js/Inquiry/inquiry.js"></script>
 
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 </body>
 
 </html>
