@@ -670,7 +670,6 @@ button:hover,
 	letter-spacing: 5px;
 	font-weight: 100;
 	border: 2px solid black;
-
 	padding: 1% 2%;
 }
 
@@ -679,6 +678,8 @@ button:hover,
 	color: white;
 	font-weight: 100 !important;
 }
+
+
 
 /* checkbox */
 

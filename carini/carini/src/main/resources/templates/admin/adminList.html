@@ -21,11 +21,11 @@
 
 	<!--SubTitle-->
 	<div class="container">
-		<section class="SubTitle" th:text="#{admin}">ADMIN</section>
+		<section class="SubTitle">ADMIN</section>
 	</div>
 
 	<div class="div">
-		<p id="SubTitle_Text">관리자 페이지</p>
+		<p id="SubTitle_Text" th:text="#{admin}"></p>
 	</div>
 
 	<div class="div">
@@ -43,7 +43,6 @@
 			<a th:href="@{/admin/noticeList}" th:text="#{admin.menu.notice}"></a><br />
 			<a th:href="@{/admin/inquiryList}" th:text="#{admin.menu.inquiry}"></a><br />
 			<a th:href="@{/admin/modelList}" th:text="#{admin.menu.model}"></a><br />
-			<a th:href="@{/admin/centerList}" th:text="#{admin.menu.center}"></a>
 		</div>
 	</main>
 

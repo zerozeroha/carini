@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Bookmark;
@@ -32,24 +33,21 @@ import com.car.service.ModelService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/model")
+@RequiredArgsConstructor
 public class ModelController {
 	
-	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private ModelService modelService;
-	@Autowired
-	private BookMarkService bookMarkService;
-	@Autowired
-	private MessageSource messageSource;
-	@Autowired
-	private LocaleResolver localeResolver;
-	
+	private final MemberService memberService;
+	private final ModelService modelService;
+	private final BookMarkService bookMarkService;
+	private final MessageSource messageSource;
+	private final LocaleResolver localeResolver;
+
 	public PagingInfo pagingInfo = new PagingInfo();
 	
 	@ModelAttribute("member")

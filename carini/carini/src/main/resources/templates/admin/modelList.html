@@ -259,8 +259,9 @@
 			</ul>
 		</div><!--pagination end-->
 		<div style="height: 100px;"></div> <!--간격박스-->
-		<a th:href="@{/admin/insertCar}" th:text="#{model.insert}"
-			style="font-size: 25px; letter-spacing: 5px; font-weight: 100;"></a>
+		<div class="flex-container_row">
+			<a th:href="@{/admin/insertCar}" th:text="#{model.insert}"></a>
+			<a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
 		</div>
 
 	</main>
