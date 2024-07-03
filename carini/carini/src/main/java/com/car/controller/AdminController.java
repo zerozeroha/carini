@@ -713,34 +713,37 @@ public class AdminController {
    // 답변 등록 및 수정
    @PostMapping("/answerInquiry")
    public String answerInquiry(@ModelAttribute("inquiry") Inquiry inquiry, Model model) {
-		inquiry.setReCheckRq(true);
-		inquiryService.answerInquiry(inquiry);
-		System.out.println("4444444444");
-		System.out.println(inquiry);
-		model.addAttribute("msg", "문의번호 "+ inquiry.getReId() +"번 답변완료!");
-		model.addAttribute("url", "/admin/inquiryList");
-		return "alert";
-		
-	}
-	
-	// 문의 삭제
-	@GetMapping("/deleteInquiry")
-	public String deleteInquiryForm(@RequestParam("reId") Long reId, Model model) {
-		
-		Inquiry findInquiry = inquiryService.findbyreIdinquiry(reId);
-		
-		if(findInquiry != null) {
-			inquiryService.deleteInquiryById(reId);
-			model.addAttribute("msg", "삭제완료!");
-			model.addAttribute("url", "/admin/inquiryList");
-			return "alert";
-		} else {
-			model.addAttribute("msg", "문의 내역이 없습니다!");
-		    model.addAttribute("url", "/admin/inquiryList");
-			return "alert";
-		} 
-		
-	}
+
+      inquiry.setReCheckRq(true);
+      inquiryService.answerInquiry(inquiry);
+      System.out.println("4444444444");
+      System.out.println(inquiry);
+      model.addAttribute("msg", "문의번호 "+ inquiry.getReId() +"번 답변완료!");
+      model.addAttribute("url", "/admin/inquiryList");
+      return "alert";
+      
+   }
+   
+   // 문의 삭제
+   @GetMapping("/deleteInquiry")
+   public String deleteInquiryForm(@RequestParam("reId") Long reId, Model model) {
+      
+      Inquiry findInquiry = inquiryService.findbyreIdinquiry(reId);
+      
+      if(findInquiry != null) {
+         inquiryService.deleteInquiryById(reId);
+         model.addAttribute("msg", "삭제완료!");
+         model.addAttribute("url", "/admin/inquiryList");
+         return "alert";
+      } else {
+         model.addAttribute("msg", "문의 내역이 없습니다!");
+          model.addAttribute("url", "/admin/inquiryList");
+         return "alert";
+      } 
+      
+   }
+   
+   
    /*
     * 모델(Model) 관리 =======================================================================
    * */
@@ -845,26 +848,26 @@ public class AdminController {
       
       return "admin/insertCar";
 
-	   
-	}
-	
-	@PostMapping("/insertCar")
-	public String insertCar(@ModelAttribute("car") Car car, Model model) {
-		
-		modelService.insertCar(car);
-		
-		return "redirect:/admin/modelList";
-		
-	}
-	
-	@GetMapping("/deleteCar")
-	public String deleteCar(@RequestParam("carId") int carId) {
-		
-		modelService.deleteCar(carId);
-		
-		return "redirect:/admin/modelList";
-		
-	}
+      
+   }
+   
+   @PostMapping("/insertCar")
+   public String insertCar(@ModelAttribute("car") Car car, Model model) {
+      
+      modelService.insertCar(car);
+      
+      return "redirect:/admin/modelList";
+      
+   }
+   
+   @GetMapping("/deleteCar")
+   public String deleteCar(@RequestParam("carId") int carId) {
+      
+      modelService.deleteCar(carId);
+      
+      return "redirect:/admin/modelList";
+      
+   }
 
 }
 

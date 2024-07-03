@@ -231,5 +231,4 @@ public class ModelServiceImpl implements ModelService{
     		carRepository.deleteById(carId);
     	}
     }
-
 }
