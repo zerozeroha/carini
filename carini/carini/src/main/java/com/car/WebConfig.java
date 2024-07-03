@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.car.Interceptor.AdminCheckInterceptor;
 import com.car.Interceptor.LoginCheckInterceptor;
 
 @Configuration
@@ -22,5 +23,8 @@ public class WebConfig implements WebMvcConfigurer{
 					"/center/centerMap","/board/getBoardList","/api/naver/oauth","/oauth/kakao","/center/search_brand","/center/search_address", 
 					"/admin/**","/logout2","/homepage/first_home","/api/naver/callback","/api/kakao/callback","/login","/oauth/google","/api/google/callback"
 			);
+		registry.addInterceptor(new AdminCheckInterceptor())
+		.order(2)
+		.addPathPatterns("/admin/adminList");
 	 }
 }
