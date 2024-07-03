@@ -1,122 +1,130 @@
-<!DOCTYPE HTML>
-<!--
-    Helios by HTML5 UP
-    html5up.net | @ajlkn
-    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <title> 상세보기 - Helios by HTML5 UP</title>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <link rel="stylesheet" href="/css/insertBoard.css" />
-   <link rel="stylesheet" href="/css/base.css" />
-   <noscript>
-      <link rel="stylesheet" href="assets/css/noscript.css" />
-   </noscript>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Answer Inquiry</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/admin.css">
+	<link rel="stylesheet" href="/css/insertBoard.css" />
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="assets/js/carini_script.js" defer></script>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 </head>
 
 <body class="no-sidebar is-preload">
-<!--flotidcon-->
-   <div th:replace="~{base/base :: floaticon}"></div>
-   
-   <div id="page-wrapper">
-      
-      <!--header-->
-      <div th:replace="~{base/base :: header}"></div>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
+	
+	<!--Main-->
+	<div id="page-wrapper">
 
-      <!-- Main -->
-      <div class="wrapper style1">
-         <div class="container">
-            <p class="Board_text"><br>_Write_Notice</p>
-            <form th:action="@{/admin/insertNotice}" th:object="${NoticeUpdateFormValidation}" method="post"
-               enctype="multipart/form-data" name="noticeForm" id="noticeForm">
-               <input name="memberId" type="hidden" th:value="${session.user.memberId}">
-               <div style="display: flex; gap:10px;color:red;font-weight: 600;">
-                  <div th:if="${#fields.hasErrors('noticeTitle')}">
-                     <p th:each="err : ${#fields.errors('noticeTitle')}" th:text="${err}" class="text-danger"></p>
-                  </div>
-                  <div th:if="${#fields.hasErrors('noticeContent')}">
-                     <p th:each="err : ${#fields.errors('noticeContent')}" th:text="${err}" class="text-danger">
-                     </p>
-                  </div>
-               </div>
-               <table id="board_info">
-                  <tr>
-                     <td class="gangjo" th:text="#{notice.write.writer}"></td>
-                     <td><input type="text" name="noticeWriter" th:value="${ session.user.memberNickname }"
-                           id="noticeWriter" readonly></td>
-                     <td class="gangjo" th:text="#{notice.write.date}"></td>
+		<!--header-->
+		<div th:replace="~{base/base :: header}"></div>
 
-                     <td><input type="text" name="noticeDate" th:value="${date}" disabled></td>
-                  </tr>
-                  <tr>
-                     <td colspan="1" class="gangjo" th:text="#{notice.write.title}"></td>
-                     <td colspan="3"><input type="text" th:field="*{noticeTitle}" th:errorclass="field-error"
-                           required></td>
-                  </tr>
+		<!-- Main -->
+		<div class="wrapper style1">
+			<div class="container">
+				<p class="Board_text"><br>_Write_Notice</p>
+				<form th:action="@{/admin/insertNotice}" th:object="${NoticeUpdateFormValidation}" method="post"
+					enctype="multipart/form-data" name="noticeForm" id="noticeForm">
+					<input name="memberId" type="hidden" th:value="${session.user.memberId}">
+					<div style="display: flex; gap:10px;color:red;font-weight: 600;">
+						<div th:if="${#fields.hasErrors('noticeTitle')}">
+							<p th:each="err : ${#fields.errors('noticeTitle')}" th:text="${err}" class="text-danger">
+							</p>
+						</div>
+						<div th:if="${#fields.hasErrors('noticeContent')}">
+							<p th:each="err : ${#fields.errors('noticeContent')}" th:text="${err}" class="text-danger">
+							</p>
+						</div>
+					</div>
+					<table id="board_info">
+						<tr>
+							<td class="gangjo" th:text="#{notice.write.writer}"></td>
+							<td><input type="text" name="noticeWriter" th:value="${ session.user.memberNickname }"
+									id="noticeWriter" readonly></td>
+							<td class="gangjo" th:text="#{notice.write.date}"></td>
 
-                  <tr>
-                     <td colspan="1" class="gangjo" th:text="#{ notice.write.uploadfile }"></td>
-                     <td colspan="3"><input type="file" name="uploadFile" id="uploadFile"
-                           aria-describedby="uploadFile" aria-label="Upload"></td>
-                  </tr>
+							<td><input type="text" name="noticeDate" th:value="${date}" disabled></td>
+						</tr>
+						<tr>
+							<td colspan="1" class="gangjo" th:text="#{notice.write.title}"></td>
+							<td colspan="3"><input type="text" th:field="*{noticeTitle}" th:errorclass="field-error"
+									required></td>
+						</tr>
 
-                  <tr>
-                     <td class="gangjo" colspan="4" th:text="#{notice.write.content}"></td>
-                  </tr>
-                  <tr>
-                     <td colspan="4" style="padding: 20px;">
-                        <textarea th:field="*{noticeContent}" th:errorclass="field-error" rows="15"
-                           required></textarea>
-                     </td>
-                  </tr>
-               </table>
+						<tr>
+							<td colspan="1" class="gangjo" th:text="#{ notice.write.uploadfile }"></td>
+							<td colspan="3"><input type="file" name="uploadFile" id="uploadFile"
+									aria-describedby="uploadFile" aria-label="Upload"></td>
+						</tr>
 
-               <div id="button_section">
+						<tr>
+							<td class="gangjo" colspan="4" th:text="#{notice.write.content}"></td>
+						</tr>
+						<tr>
+							<td colspan="4" style="padding: 20px;">
+								<textarea th:field="*{noticeContent}" th:errorclass="field-error" rows="15"
+									required></textarea>
+							</td>
+						</tr>
+					</table>
 
-                  <div th:if="${notice.noticeFilename != null}" id="uploadFile_div">
-                     <a th:href="@{/admin/download(noticeId=${ notice.noticeId }, fn=${ notice.noticeFilename })}"
-                        id="uploadFile" class="icon-hover">
-                        <img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
-                     </a>
+					<div id="button_section">
 
-                     <input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile"
-                        aria-label="Upload" />
-                  </div>
+						<div th:if="${notice.noticeFilename != null}" id="uploadFile_div">
+							<a th:href="@{/admin/download(noticeId=${ notice.noticeId }, fn=${ notice.noticeFilename })}"
+								id="uploadFile" class="icon-hover">
+								<img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
+							</a>
 
-                  <div class="change_list" style="gap:10px">
-                     <div style="width: 105px;">
-                        <a th:text="#{board.writing}" onclick="document.forms['noticeForm'].submit();"></a>
-                     </div>
-                     <div style="width:85px;">
-                        <a th:text="#{board.list}" th:href="@{/admin/noticeList}" class="btn"></a>
+							<input type="file" name="uploadFile" id="uploadFile" aria-describedby="uploadFile"
+								aria-label="Upload" />
+						</div>
 
-                     </div>
-                  </div>
-            </form>
+						<div class="change_list" style="gap:10px">
+							<div style="width: 105px;">
+								<a th:text="#{board.writing}" onclick="document.forms['noticeForm'].submit();"></a>
+							</div>
+							<div style="width:85px;">
+								<a th:text="#{board.list}" th:href="@{/admin/noticeList}" class="btn"></a>
 
-         </div>
+							</div>
+						</div>
+				</form>
 
-      </div>
-   </div>
+			</div>
+
+		</div>
+	</div>
 
 
-   </div>
+	</div>
 
-   <!--footer-->
-   <div th:replace="~{base/base :: footer}"></div>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-   <!-- Scripts -->
-   <script th:src="@{/assets/js/jquery.min.js}"></script>
-   <script th:src="@{/assets/js/jquery.dropotron.min.js}"></script>
-   <script th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
-   <script th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
-   <script th:src="@{/assets/js/browser.min.js}"></script>
-   <script th:src="@{/assets/js/breakpoints.min.js}"></script>
-   <script th:src="@{/assets/js/util.js}"></script>
-   <script th:src="@{/assets/js/main.js}"></script>
+	<!-- Inquiry -->
+	<!--
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
+	-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 
 </body>
 
