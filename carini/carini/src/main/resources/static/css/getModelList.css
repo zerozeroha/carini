@@ -141,9 +141,16 @@ section {
 .card {
 	display: flex;
 	flex-direction: row;
-	margin: 5px;
-	/* 카드 박스 간격 조정 */
+	margin: 4px;
 	border: white !important;
+	cursor: pointer;
+}
+
+.card:hover {
+	display: flex;
+	flex-direction: row;
+	margin: 4px;
+	border: whitesmoke !important;
 	cursor: pointer;
 }
 
@@ -155,11 +162,6 @@ section {
 
 }
 
-.card-img-top:hover {
-	border: 0px;
-}
-
-
 
 .card-title,
 .card-text {
@@ -167,9 +169,14 @@ section {
 	text-decoration: none !important;
 	padding: 2%;
 	text-align: center;
-		cursor: pointer;
+	cursor: pointer;
 
 }
+
+.form-select {
+	cursor: pointer;
+}
+
 
 card-title:hover {
 	background-color: white;
@@ -213,8 +220,7 @@ a {
 }
 
 .card-body:hover {
-	background-color: white;
-
+	background-color: whitesmoke;
 }
 
 
@@ -339,7 +345,7 @@ td {
 #comparisonTable {
 	border-collapse: collapse;
 	table-layout: fixed;
-	margin: 0% 10%;
+	margin: 0% 5%;
 	width: 80%;
 }
 
@@ -436,8 +442,7 @@ form {
 /* Form요소 - Input, textarea, select */
 
 input,
-textarea,
-select {
+textarea {
 	font-size: 15pt;
 	line-height: 1.85em;
 	font-family: 'Source Sans Pro', sans-serif;
@@ -510,16 +515,31 @@ form textarea {
 #filterFuel,
 #carSort {
 	width: 400px;
+	cursor: pointer;
+
 }
 
 #filterSize:hover,
 #filterFuel:hover,
 #carSort:hover {
 	width: 400px;
-	border: 2px solid gray;
+	border: 1px solid gray;
+	cursor: pointer;
+
 }
 
+.form-control {
+	cursor: pointer;
+}
 
+#priceDisplay,
+#priceSlider {
+	cursor: pointer;
+}
+
+option {
+	cursor: pointer;
+}
 
 
 
@@ -623,6 +643,27 @@ button:hover,
 
 
 
+/* 자세히 보기 */
+.detail:hover {
+	color: black;
+	font-weight: bold;
+}
+
+
+/* 줄겨찾기 */
+.favorite {
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+}
+
+.favorite:hover {
+	width: 18px;
+	height: 18px;
+}
+
+
+
 /* return 버튼 */
 .return {
 	font-size: 25px;
@@ -643,7 +684,7 @@ button:hover,
 
 .checkbox {
 	flex: 0 0 50px;
-	/* 고정 크기 */
+	cursor: pointer;
 }
 
 
