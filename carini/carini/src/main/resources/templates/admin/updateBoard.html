@@ -26,8 +26,6 @@
 <body class="no-sidebar is-preload">
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<!-- Main -->
 	<div class="wrapper style1">
@@ -87,19 +85,18 @@
 					</tr>
 				</table>
 
-				<div id="button_section">
-
-					<div th:if="${board.boardFilename != null}" id="uploadFile_div">
+				<div id="button_section" class="flex-container_row">
+					<div th:if="${board.boardFilename != null}" id="uploadFile_div"style="width: 100%;" >
 						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}"
 							id="uploadFile" class="icon-hover">
-							<img th:src="@{/img/download_icon.png}" alt="다운로드이미지">
+							<img th:src="@{/img/download_icon.png}" alt="다운로드이미지" style="width: 16px; height: 16px;">
 						</a>
 						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}"
 							th:text="${board.boardFilename}"></a>
 
 					</div>
 
-					<div class="change_list">
+					<div class="change_list flex-container_row">
 						<div style="width: 125px;" class="footer_btn1">
 							<a onclick="document.forms['boardForm'].submit();">수정하기</a>
 						</div>

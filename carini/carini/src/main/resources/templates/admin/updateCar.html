@@ -8,103 +8,105 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
 	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 </head>
+
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
 
-    <!--main-->
-    <div>
-        <div>
-            <form th:action="@{/admin/updateCar}" method="post" name="updateCarForm" id="updateCarForm">
-                <table>
-                    <tr>
-                        <th>항목</th>
-                        <th>내용</th>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.id}"></td>
-                        <td><input type="text" name="carId" th:value="${car.carId}" readonly/></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.name}"></td>
-                        <td><input type="text" name="carName" th:value="${car.carName}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.min.price}"></td>
-                        <td><input type="text" name="carMinPrice" th:value="${car.carMinPrice}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.max.price}"></td>
-                        <td><input type="text" name="carMaxPrice" th:value="${car.carMaxPrice}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.avg.price}"></td>
-                        <td><input type="text" name="carAvgPrice" th:value="${car.carAvgPrice}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.size}"></td>
-                        <td><input type="text" name="carSize" th:value="${car.carSize}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.fuel}"></td>
-                        <td><input type="text" name="carFuel" th:value="${car.carFuel}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.eff}"></td>
-                        <td><input type="text" name="carEff" th:value="${car.carEff}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.img}"></td>
-                        <td><input type="text" name="carImg" th:value="${car.carImg}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.per}"></td>
-                        <td><input type="text" name="carScPer" th:value="${car.carScPer}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.price}"></td>
-                        <td><input type="text" name="carScPrice" th:value="${car.carScPrice}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.geoju}"></td>
-                        <td><input type="text" name="carScGeoju" th:value="${car.carScGeoju}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.quality}"></td>
-                        <td><input type="text" name="carScQuality" th:value="${car.carScQuality}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.design}"></td>
-                        <td><input type="text" name="carScDesign" th:value="${car.carScDesign}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.eff}"></td>
-                        <td><input type="text" name="carScEff" th:value="${car.carScEff}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.score.avg}"></td>
-                        <td><input type="text" name="carScAvg" th:value="${car.carScAvg}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{label.car.brand}"></td>
-                        <td><a th:href="@{/center/centerMap(carBrand=${carBrand})}" th:text="${carBrand}"></a></td>
-                    </tr>
-                </table>
-                <input type="submit" th:value="#{label.car.update}"></input>
-            <a th:href="@{/admin/deleteCar(carId=${car.carId})}" th:text="#{label.car.delete}"></a>
-               <a th:href="@{/admin/modelList}" th:text="#{label.car.list}"></a>
-            </form>
-        </div>
-    </div>
+	<!--main-->
+	<main>
+		<div class="flex-container_column">
+			<form th:action="@{/admin/updateCar}" method="post" name="updateCarForm" id="updateCarForm">
+				<div class="flex-container_column">
+					<table style="width: 1000px;">
+						<tr>
+							<th>항목</th>
+							<th>내용</th>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.id}"></td>
+							<td><input type="text" name="carId" th:value="${car.carId}" readonly /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.name}"></td>
+							<td><input type="text" name="carName" th:value="${car.carName}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.min.price}"></td>
+							<td><input type="text" name="carMinPrice" th:value="${car.carMinPrice}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.max.price}"></td>
+							<td><input type="text" name="carMaxPrice" th:value="${car.carMaxPrice}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.avg.price}"></td>
+							<td><input type="text" name="carAvgPrice" th:value="${car.carAvgPrice}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.size}"></td>
+							<td><input type="text" name="carSize" th:value="${car.carSize}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.fuel}"></td>
+							<td><input type="text" name="carFuel" th:value="${car.carFuel}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.eff}"></td>
+							<td><input type="text" name="carEff" th:value="${car.carEff}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.img}"></td>
+							<td><input type="text" name="carImg" th:value="${car.carImg}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.per}"></td>
+							<td><input type="text" name="carScPer" th:value="${car.carScPer}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.price}"></td>
+							<td><input type="text" name="carScPrice" th:value="${car.carScPrice}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.geoju}"></td>
+							<td><input type="text" name="carScGeoju" th:value="${car.carScGeoju}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.quality}"></td>
+							<td><input type="text" name="carScQuality" th:value="${car.carScQuality}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.design}"></td>
+							<td><input type="text" name="carScDesign" th:value="${car.carScDesign}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.eff}"></td>
+							<td><input type="text" name="carScEff" th:value="${car.carScEff}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.score.avg}"></td>
+							<td><input type="text" name="carScAvg" th:value="${car.carScAvg}" /></td>
+						</tr>
+						<tr>
+							<td th:text="#{label.car.brand}"></td>
+							<td><a th:href="@{/center/centerMap(carBrand=${carBrand})}" th:text="${carBrand}"></a></td>
+						</tr>
+					</table>
+				</div>
+				<div class="flex-container_row">
+					<input type="submit" th:value="#{label.car.update}"></input>
+					<a th:href="@{/admin/deleteCar(carId=${car.carId})}" th:text="#{label.car.delete}"></a>
+					<a th:href="@{/admin/modelList}" th:text="#{label.car.list}"></a>
+				</div>
+			</form>
+		</div>
+	</main>
 
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
@@ -123,4 +125,5 @@
 	<script src="/js/breakpoints.min.js"></script>
 	<script src="/js/main.js"></script>
 </body>
+
 </html>

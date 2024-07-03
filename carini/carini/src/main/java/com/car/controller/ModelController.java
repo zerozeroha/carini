@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.car.dto.Bookmark;
@@ -26,30 +27,29 @@ import com.car.dto.Car;
 import com.car.dto.CarBrand;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
+import com.car.service.BoardService;
 import com.car.service.BookMarkService;
+import com.car.service.CommentService;
 import com.car.service.MemberService;
 import com.car.service.ModelService;
+import com.car.service.NoticeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/model")
+@RequiredArgsConstructor
 public class ModelController {
 	
-	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private ModelService modelService;
-	@Autowired
-	private BookMarkService bookMarkService;
-	@Autowired
-	private MessageSource messageSource;
-	@Autowired
-	private LocaleResolver localeResolver;
-	
+	private final MemberService memberService;
+	private final ModelService modelService;
+	private final BookMarkService bookMarkService;
+	private final MessageSource messageSource;
+	private final LocaleResolver localeResolver;
 	public PagingInfo pagingInfo = new PagingInfo();
 	
 	@ModelAttribute("member")
@@ -74,8 +74,8 @@ public class ModelController {
 	       @RequestParam(name = "exCar", defaultValue = "false") Boolean exCar,
 	       HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		Member user = null;
-		if (session != null) {
+		Member user= null;
+		if(session != null ) {
 			user = (Member) session.getAttribute("user");
 		}
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative

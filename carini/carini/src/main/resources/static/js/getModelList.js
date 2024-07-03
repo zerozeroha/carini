@@ -66,6 +66,7 @@ function selectCarForComparison(carId) {
     }
 
     selectedCarIds.push(carId);
+    	console.log(carId);
     localStorage.setItem('selectedCarIds', JSON.stringify(selectedCarIds));
     
     if (selectedCarIds.length === 2) {

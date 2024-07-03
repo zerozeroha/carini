@@ -20,7 +20,8 @@
    <link rel="stylesheet" href="/css/base/base.css">
    <link rel="stylesheet" href="/css/base/inquiry.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
    <style>
       /* css에서 안 먹어서 따로 기재 */
       table {
@@ -87,7 +88,7 @@
                   <h3>- CAR THAT YOU WANT -</h3>
                </div>
                <div style="height: 10px;"></div> <!--간격박스-->
-               
+
                <div style="display: flex; flex-direction: row;">
                   <input name="searchWord" placeholder=" 자동차 검색" type="text"
                      style="width: 300px; height: 40px; padding-left: 10px; cursor: text;" th:value="${sw}">
@@ -116,7 +117,8 @@
                                  "filterMinPrice"원
                                  "filterMaxPrice"원</span>
                            </div>
-                           <input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억 이상
+                           <input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억
+                           이상
                            <script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
                               // priceSlider 초기화
                               var priceSlider = document.getElementById('priceSlider');
@@ -229,21 +231,21 @@
 
       </form>
 
+
+
       <div style="height: 50px;"></div> <!--간격박스-->
 
       <!--자동차LIST-->
-      <div class="flex-container_row" style="margin-left: 7%; width: 110%; 	  cursor: pointer;">
-
+      <div class="flex-container_row" style="margin-left: 7%; width: 110%; cursor: pointer;">
 
          <!-- 카드 박스 반복-->
-         <div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
+         <div style="display:flex; flex-wrap:wrap; width:100%;">
             <div class="card" style="width: 20rem; max-height: 22rem; flex-direction: row;"
                th:each="car : ${carList}">
                <a href="" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" id="goToComparison"
                   th:if="${car != null}">
                   <div class="card-body" style="width: 100%;">
                      <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지" style="border:0px;">
-
                      <h5 class="card-title"
                         style="font-size: 20px; font-weight: 900; background-color: whitesmoke;"
                         th:text="${car.carName}"></h5>
@@ -256,16 +258,17 @@
                      <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|">
                      </p>
                      <div class="card_button_box" style=" margin-left: 30%; font-size: 15px; margin-top:3%;">
-                        <a th:href="@{/model/getModel(carId=${car.carId})}"> 자세히 보기 </a>
+                        <a th:href="@{/model/getModel(carId=${car.carId})}" class="detail"> 자세히 보기 </a>
                         <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
                            th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
                            th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
-                           style="cursor: pointer; width: 16px; height: 16px;" alt="즐겨찾기 버튼">
+                           class="favorite" alt="즐겨찾기 버튼">
                      </div>
                   </div>
                </a>
             </div>
          </div>
+
       </div>
 
 
@@ -299,21 +302,23 @@
       <div>
          <ul class="col pagination justify-content-center">
             <th:block th:if="${sp > ps}">
-               <li class="page-item"><a th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
+               <li class="page-item"><a
+                     th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
                        ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}"
                      th:text="#{page.prev}"></a></li>
             </th:block>
 
             <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
                <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-                  <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}" th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw}
-                       ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}"
-                     th:text="${page}"></a>
+                  <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+                     th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw}
+                       ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}" th:text="${page}"></a>
                </li>
             </th:block>
 
             <th:block th:if="${ep lt tp}">
-               <li class="page-item"><a th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
+               <li class="page-item"><a
+                     th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
                        ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}"
                      th:text="#{page.next}"></a></li>
             </th:block>
@@ -376,8 +381,8 @@
                   <tr id="carRadarChart">
                      <td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
                      <td><br />
-                        <a th:onclick="combineRadarChart()" id="combine" >
-         COMBINE</a>
+                        <a th:onclick="combineRadarChart()" id="combine">
+                           COMBINE</a>
                      </td>
                      <td><canvas id="car2RadarChart"></canvas></td>
                   </tr>
@@ -400,7 +405,8 @@
 
    <!-- Footer -->
    <footer th:replace="~{base/base :: main_footer}"></footer>
-
+	<div id="kakao-talk-channel-chat-button"></div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
    <!-- Inquiry 
    <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
    <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
