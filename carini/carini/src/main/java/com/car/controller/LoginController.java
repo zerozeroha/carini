@@ -71,7 +71,7 @@ public class LoginController {
 
 	@RequestMapping("/")
 	public String first_home() {
-		return "redirect:/homepage/first_home";
+		return "redirect:/user_logout";
 	}
 
 	/* 세션 초기화 */

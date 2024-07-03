@@ -234,6 +234,7 @@
       <!--자동차LIST-->
       <div class="flex-container_row" style="margin-left: 7%; width: 110%; 	  cursor: pointer;">
 
+
          <!-- 카드 박스 반복-->
          <div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
             <div class="card" style="width: 20rem; max-height: 22rem; flex-direction: row;"
@@ -340,6 +341,7 @@
                      <td><span id="car2Name" style="font-weight: bold;"></span>
                         <a onclick="removeCarFromComparison(2)">
                            <img src="/img/cancel.png" alt="삭제" class="cancel" />
+
                         </a>
                      </td>
                   </tr>
@@ -375,7 +377,7 @@
                      <td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
                      <td><br />
                         <a th:onclick="combineRadarChart()" id="combine" >
-                           COMBINE</a>
+         COMBINE</a>
                      </td>
                      <td><canvas id="car2RadarChart"></canvas></td>
                   </tr>
