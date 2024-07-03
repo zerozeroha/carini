@@ -2,110 +2,112 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <title th:text="'상세보기 - Helios by HTML5 UP'">getNotice</title>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <link rel="stylesheet" th:href="@{/css/getNotice.css}" />
-   <link rel="stylesheet" href="/css/base.css" />
+	<title th:text="'상세보기 - Helios by HTML5 UP'">getNotice</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" th:href="@{/css/getNotice.css}" />
+	<link rel="stylesheet" href="/css/base.css" />
 
 
-   <noscript>
-      <link rel="stylesheet" th:href="@{/assets/css/noscript.css}" />
-   </noscript>
+	<noscript>
+		<link rel="stylesheet" th:href="@{/assets/css/noscript.css}" />
+	</noscript>
 
-   <style>
+	<style>
 
-   </style>
+	</style>
 </head>
-body>
 
-<header th:replace="~{base/base :: main_header}"></header>
+<body>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
-<!--SubTitle-->
+	<!--SubTitle-->
 
-<section class="SubTitle">NOTICE_DETAILED</section>
+	<section class="SubTitle">NOTICE_DETAILED</section>
 
-<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
+	<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
 
-<!-- Main -->
-<main>
+	<!-- Main -->
+	<main>
 
-   <!--main 안에 있는 큰 박스-->
-   <div class="flex-container_column">
+		<!--main 안에 있는 큰 박스-->
+		<div class="flex-container_column">
 
-      <form th:action="@{/board/getBoard}" method="get" enctype="multipart/form-data">
+			<form th:action="@{/board/getBoard}" method="get" enctype="multipart/form-data">
 
-         <table>
-            <tr>
-               <td>글번호</td>
-               <td><input type="text" name="noticeId" th:value="${notice.noticeId}" disabled /></td>
-               <td>조회수</td>
-               <td><input type="text" name="noticeCnt" th:value="${notice.noticeCnt}" disabled /></td>
-            </tr>
+				<table>
+					<tr>
+						<td>글번호</td>
+						<td><input type="text" name="noticeId" th:value="${notice.noticeId}" disabled /></td>
+						<td>조회수</td>
+						<td><input type="text" name="noticeCnt" th:value="${notice.noticeCnt}" disabled /></td>
+					</tr>
 
-            <tr>
-               <td>제목</td>
-               <td><input type="text" name="noticeTitle" th:value="${notice.noticeTitle}" disabled /></td>
-               <td>등록일</td>
-               <td><input type="text" name="noticeDate"
-                     th:value="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}" disabled /></td>
-            </tr>
+					<tr>
+						<td>제목</td>
+						<td><input type="text" name="noticeTitle" th:value="${notice.noticeTitle}" disabled /></td>
+						<td>등록일</td>
+						<td><input type="text" name="noticeDate"
+								th:value="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}" disabled /></td>
+					</tr>
 
-            <tr>
-               <td colspan="4" style="padding: 1.5% 0%;">내용</td>
-            </tr>
-            <tr>
-               <td colspan="4" style="padding: 20px;">
-                  <textarea name="noticeContent" rows="15" th:text="${notice.noticeContent}" disabled></textarea>
-               </td>
-            </tr>
-         </table>
+					<tr>
+						<td colspan="4" style="padding: 1.5% 0%;">내용</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="padding: 20px;">
+							<textarea name="noticeContent" rows="15" th:text="${notice.noticeContent}"
+								disabled></textarea>
+						</td>
+					</tr>
+				</table>
 
-         <div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
-
-
-         <div class="flex-container_row">
-
-            <div th:if="${notice.noticeFilename != null}" style="width: 50%;">
-               <a th:href="@/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})">
-                  <img style="height: 20px; background-color: white; margin-right:7px;"
-                     th:src="@{ /img/download_icon.png }" alt="다운로드이미지">
-               </a>
-               <a th:href="@{/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})}"
-                  th:text="${notice.noticeFilename}"></a>
-
-            </div>
-            <div style="width: 90%;"></div>
-            <div style="width: 10%;">
-               <a th:href="@{/notice/getNoticeList}" style="padding:1% 2%; cursor: pointer;">목록</a>
-            </div>
-
-         </div>
+				<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
 
 
-      </form>
-   </div>
+				<div class="flex-container_row">
 
-</main>
+					<div th:if="${notice.noticeFilename != null}" style="width: 50%;">
+						<a th:href="@/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})">
+							<img style="height: 20px; background-color: white; margin-right:7px;"
+								th:src="@{ /img/download_icon.png }" alt="다운로드이미지">
+						</a>
+						<a th:href="@{/notice/download(noticeId=${notice.noticeId}, fn=${notice.noticeFilename})}"
+							th:text="${notice.noticeFilename}"></a>
+
+					</div>
+					<div style="width: 90%;"></div>
+					<div style="width: 10%;">
+						<a th:href="@{/notice/getNoticeList}" style="padding:1% 2%; cursor: pointer;">목록</a>
+					</div>
+
+				</div>
 
 
+			</form>
+		</div>
 
-<!-- Footer -->
-<hr>
-<footer>
-   <!-- Contact -->
-   <h1>@ carini</h1>
-</footer>
+	</main>
 
-<!-- Scripts -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.dropotron.min.js"></script>
-<script src="/js/jquery.scrolly.min.js"></script>
-<script src="/js/jquery.scrollex.min.js"></script>
-<script src="/js/browser.min.js"></script>
-<script src="/js/breakpoints.min.js"></script>
-<script src="/js/util.js"></script>
-<script src="/js/main.js"></script>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+
+	<!-- Inquiry -->
+	<!--
+<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+<script src="/js/Inquiry/inquiry.js"></script>
+-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 
 </body>
 
