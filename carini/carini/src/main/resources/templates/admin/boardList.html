@@ -59,7 +59,7 @@
 							<input name="searchWord" type="text"
 								th:placeholder="|#{board.search.title} / #{board.search.writer}">
 						</div>
-						<select class="form-select" id="carSort" name="carSort">
+						<select class="form-select" id="boardSort" name="boardSort">
 							<option value="번호순" th:selected="${bs == '번호순'}">번호순</option>
 							<option value="조회순" th:selected="${bs == '조회순'}">조회순</option>
 							<option value="오래된순" th:selected="${bs == '오래된순'}">오래된순</option>
@@ -131,7 +131,7 @@
 				</div>
 
 				<div class="right" style="width: 130%;">
-					<input type="button" th:value="#{board.list}" th:onclick="|location.href='@{/admin/boardList}'|">
+					<input type="button" th:value="#{admin.adminList}" th:onclick="|location.href='@{/admin/adminList}'|">
 					<input type="button" th:value="#{board.writing}"
 						th:onclick="|location.href='@{/admin/insertBoard}'|">
 				</div>

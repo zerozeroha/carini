@@ -8,7 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
 	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -18,65 +17,82 @@
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
 
+	<!--SubTitle-->
+	<div class="container">
+		<section class="SubTitle">ADMIN</section>
+	</div>
+
+	<div class="div">
+		<p id="SubTitle_Text" th:text="#{admin.member.updateMember}"></p>
+	</div>
+
+	<div class="div">
+		<h3>with member</h3>
+	</div>
+
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+
+	<!--Main-->
 	<main>
-		<h1>Update Member</h1>
-		<form th:action="@{/admin/updateMember}" th:object="${member}" method="post">
-			<table id="member_info">
-				<tr>
-					<td th:text="#{member.memberId}"></td>
-					<td><input type="text" name="memberId" th:field="*{memberId}"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberPw}"></td>
-					<td><input type="text" name="memberPw" th:field="*{memberPw}"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberName}"></td>
-					<td><input type="text" name="memberName" th:field="*{memberName}"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberNickname}"></td>
-					<td><input type="text" name="memberNickname" th:field="*{memberNickname}"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberEmail}"></td>
-					<td><input type="text" name="memberEmail" th:field="*{memberEmail}"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberPhoneNum}"></td>
-					<td><input type="text" name="memberPhoneNum" th:field="*{memberPhoneNum}"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberDate}"></td>
-					<td><input type="text" th:field="*{memberDate}" class="form-control" readonly
-							placeholder="yyyy-MM-dd HH:mm:ss"></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberSocial}"></td>
-					<td><input type="text" name="memberSocial" th:field="*{memberSocial}" readonly></td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberRole}"></td>
-					<td>
-						<select id="memberRole" name="memberRole" th:field="*{memberRole}">
-							<option th:value="ROLE_USER">ROLE_USER</option>
-							<option th:value="ROLE_ADMIN">ROLE_ADMIN</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td th:text="#{member.memberSocialNickname}"></td>
-					<td><input type="text" name="memberSocialNickname" th:field="*{memberSocialNickname}"></td>
-				</tr>
-
-
-
-				<button type="submit" class="btn btn-primary">Update Member</button>
-				<a th:href="@{/admin/deleteMember(memberId=${member.memberId})}">Delete Member</a>
-		</form>
+		<div class="flex-container_column">
+			<form th:action="@{/admin/updateMember}" th:object="${member}" method="post">
+				<div class="flex-container_row">
+					<table id="member_info" style="width: 1300px;">
+						<tr>
+							<td th:text="#{member.memberId}"></td>
+							<td><input type="text" name="memberId" th:field="*{memberId}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberPw}"></td>
+							<td><input type="text" name="memberPw" th:field="*{memberPw}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberName}"></td>
+							<td><input type="text" name="memberName" th:field="*{memberName}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberNickname}"></td>
+							<td><input type="text" name="memberNickname" th:field="*{memberNickname}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberEmail}"></td>
+							<td><input type="text" name="memberEmail" th:field="*{memberEmail}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberPhoneNum}"></td>
+							<td><input type="text" name="memberPhoneNum" th:field="*{memberPhoneNum}"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberDate}"></td>
+							<td><input type="text" th:field="*{memberDate}" class="form-control" readonly
+									placeholder="yyyy-MM-dd HH:mm:ss"></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberSocial}"></td>
+							<td><input type="text" name="memberSocial" th:field="*{memberSocial}" readonly></td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberRole}"></td>
+							<td>
+								<select id="memberRole" name="memberRole" th:field="*{memberRole}">
+									<option th:value="ROLE_USER">ROLE_USER</option>
+									<option th:value="ROLE_ADMIN">ROLE_ADMIN</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="#{member.memberSocialNickname}"></td>
+							<td><input type="text" name="memberSocialNickname" th:field="*{memberSocialNickname}"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="flex-container_row">
+					<button type="submit" class="btn btn-primary">Update Member</button>
+					<a th:href="@{/admin/deleteMember(memberId=${member.memberId})}">Delete Member</a>
+				</div>
+			</form>
+		</div>
 	</main>
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
