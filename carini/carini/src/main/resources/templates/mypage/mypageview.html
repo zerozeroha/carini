@@ -12,6 +12,16 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+<style>
+	th {
+		padding-top: 4%;
+		text-align: center;
+		border-bottom: 3px solid white;
+		background-color: black;
+		color: white;
+		font-weight: bold;
+	}
+</style>
 
 
 <body>
@@ -32,6 +42,7 @@
 				<h3>- WE ARE KEEPING YOUR INFORMATION SAFE -</h3>
 			</div>
 
+			<div style="height: 5%;"></div> <!-- 간격박스 -->
 
 
 			<!--main 안에 있는 큰 박스-->
@@ -102,7 +113,7 @@
 	</div>
 
 	 <!-- Footer -->
-	<footer th:replace="~{base/base :: main_footer}"></footer>
+<footer th:replace="~{base/base :: main_footer}"></footer>
 
 	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
