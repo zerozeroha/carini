@@ -139,7 +139,13 @@ public class ModelController {
     @GetMapping("/getModel")
     public String getCar(@RequestParam("carId") int carId, Model model, HttpServletRequest request) {
     	HttpSession session = request.getSession(false);
-		Member user = (Member) session.getAttribute("user");
+		
+    	Member user =null;
+		
+		if(session != null) {
+			user = (Member) session.getAttribute("user");
+		} 
+
     	Car car = modelService.getCarbyId(carId);
     	
     	String[] carName = car.getCarName().strip().split(" ");
@@ -150,9 +156,9 @@ public class ModelController {
     	boolean isBookmarked = false;
     	if (user != null) {
     		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car.getCarId());
+    		car.setBookmarked(isBookmarked);
     	}
-    	car.setBookmarked(isBookmarked);
-    	System.out.println(car);
+    	
     	model.addAttribute("car", car);
     	model.addAttribute("carBrand", carBrand);
     	
