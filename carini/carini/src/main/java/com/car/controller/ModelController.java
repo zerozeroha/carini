@@ -75,19 +75,26 @@ public class ModelController {
 	       HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		Member user = null;
-		
+		if (session != null) {
+			user = (Member) session.getAttribute("user");
+		}
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 		
 		Pageable pageable = PageRequest.of(curPage, rowSizePerPage);
 	    
 	    Page<Car> pagedResult = modelService.filterCars(pageable, filterMinPrice, filterMaxPrice, filterSize, filterFuel, searchWord, carSort, exCar);
 	    
-	    // 세션이 null이 아니면 사용자 정보를 가져옴
-	    if (user != null) {
-	    	Set<Integer> bookmarkedCarIds = bookMarkService.getBookmarkedCarIdsByMember(user.getMemberId());
-	    	pagedResult.getContent().forEach(car -> car.setBookmarked(bookmarkedCarIds.contains(car.getCarId())));
+	    // 즐겨찾기 추가
+	    for (Car car1 : pagedResult) {
+	    	boolean isBookmarked = false;
+	    	if (user != null) {
+	    		isBookmarked = bookMarkService.isBookmarkedByMember(user.getMemberId(), car1.getCarId());
+	    	}
+	        car1.setBookmarked(isBookmarked);
 	    }
+	    
 	    log.info("exCar = {}", exCar);
+	    
 	    if(exCar) {
 	    	filterMinPrice = 50000L;
 	    	filterMaxPrice = 10000000L;
