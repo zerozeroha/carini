@@ -7,177 +7,173 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <title> updateBoard </title>
-   <meta charset="utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <link rel="stylesheet" href="/css/updateBoard.css" />
-   <link rel="stylesheet" href="/css/base.css" />
+	<title> updateBoard </title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/updateBoard.css" />
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 
-
-   <noscript>
-      <link rel="stylesheet" href="assets/css/noscript.css" />
-   </noscript>
-
-   <style>
-      .field-error {
-         border-color: #dc3545;
-         color: #dc3545;
-      }
-   </style>
+	<style>
+		.field-error {
+			border-color: #dc3545;
+			color: #dc3545;
+		}
+	</style>
 </head>
 
 <body>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
-   <header th:replace="~{base/base :: header}"></header>
+	<!--SubTitle-->
 
-   <!--SubTitle-->
+	<section class="SubTitle">EDIT_MY_BOARD</section>
 
-   <section class="SubTitle">EDIT_MY_BOARD</section>
-
-   <div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
+	<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
 
 
-   <!-- Main -->
-   <main>
+	<!-- Main -->
+	<main>
 
-      <div class="flex-container_column">
+		<div class="flex-container_column">
 
-         <form th:action="@{/board/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"
-            enctype="multipart/form-data" id="boardForm" name="boardForm">
-         <input name="boardId" type="hidden" th:value="${board.boardId}">
-         <div style="display: flex; gap:10px;color:red;font-weight: 600;">
-            <div th:if="${#fields.hasErrors('boardTitle')}">
-                  <p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
-              </div>
-            <div th:if="${#fields.hasErrors('boardContent')}">
-                  <p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
-              </div>
-         </div>
-            <table>
-               <tr>
-                  <td style="width: 15%;" th:text="#{board.write.writer}"></td>
-                  <td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default;"
-                        th:value="${ session.user.memberNickname }" disabled></td>
-                  <td style="width: 15%;" th:text="#{board.write.date}"></td>
-                  <td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default;" th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}"
-                        disabled></td>
-               </tr>
+			<form th:action="@{/board/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"
+				enctype="multipart/form-data" id="boardForm" name="boardForm">
+				<input name="boardId" type="hidden" th:value="${board.boardId}">
+				<div style="display: flex; gap:10px;color:red;font-weight: 600;">
+					<div th:if="${#fields.hasErrors('boardTitle')}">
+						<p th:each="err : ${#fields.errors('boardTitle')}" th:text="${err}" class="text-danger"></p>
+					</div>
+					<div th:if="${#fields.hasErrors('boardContent')}">
+						<p th:each="err : ${#fields.errors('boardContent')}" th:text="${err}" class="text-danger"></p>
+					</div>
+				</div>
+				<table>
+					<tr>
+						<td style="width: 15%;" th:text="#{board.write.writer}"></td>
+						<td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default;"
+								th:value="${ session.user.memberNickname }" disabled></td>
+						<td style="width: 15%;" th:text="#{board.write.date}"></td>
+						<td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default;"
+								th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
+					</tr>
 
-               <tr>
-                  <td colspan="1" th:text="#{board.write.title}"></td>
-                  <td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error"
-                        style="cursor:text;">
-                  </td>
-               </tr>
+					<tr>
+						<td colspan="1" th:text="#{board.write.title}"></td>
+						<td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error"
+								style="cursor:text;">
+						</td>
+					</tr>
 
-               <tr>
-                  <td>기존파일</td>
-                  <td style="display: flex;">
-                     <input type="text" th:field="${board.boardFilename}" style="margin-top: 4%;" disabled>
-                     <a href="#" th:onclick="deleteFile('[[${board.boardId}]]')">
-                        <img th:src="@{/img/delete_icon.png}" alt="삭제"
-                           style="width:25px; height: 25px; margin-top:25px; margin-left: 10px; cursor: pointer;"></a>
-                  </td>
-                  <td>변경파일</td>
-                  <td><input type="file" name="uploadFile" aria-describedby="uploadFile" aria-label="Upload"
-                        th:value="${board.boardFilename}" th:disabled="${board.boardFilename != null}"
-                        onchange="toggleDeleteLink(this)"></td>
-               </tr>
+					<tr>
+						<td>기존파일</td>
+						<td style="display: flex;">
+							<input type="text" th:field="${board.boardFilename}" style="margin-top: 4%;" disabled>
+							<a href="#" th:onclick="deleteFile('[[${board.boardId}]]')">
+								<img th:src="@{/img/delete_icon.png}" alt="삭제"
+									style="width:25px; height: 25px; margin-top:25px; margin-left: 10px; cursor: pointer;"></a>
+						</td>
+						<td>변경파일</td>
+						<td><input type="file" name="uploadFile" aria-describedby="uploadFile" aria-label="Upload"
+								th:value="${board.boardFilename}" th:disabled="${board.boardFilename != null}"
+								onchange="toggleDeleteLink(this)"></td>
+					</tr>
 
-               <tr>
-                  <td colspan="4" th:text="#{board.write.content}"></td>
-               </tr>
+					<tr>
+						<td colspan="4" th:text="#{board.write.content}"></td>
+					</tr>
 
-               <tr>
-                  <td colspan="4" style="padding: 20px;">
-                     <textarea th:field="*{boardContent}" th:errorclass="field-error" rows="15" />
-                  </td>
-               </tr>
-            </table>
+					<tr>
+						<td colspan="4" style="padding: 20px;">
+							<textarea th:field="*{boardContent}" th:errorclass="field-error" rows="15" />
+						</td>
+					</tr>
+				</table>
 
-            <div class="flex-container_row">
+				<div class="flex-container_row">
 
-               <!-- 이 부분 필요한지?
+					<!-- 이 부분 필요한지?
                <div th:if="${ board.boardFilename != null }" style="width: 50%;">
                   <a th:href="@{/board/download(boardId=${board.boardId}, fn=${ board.boardFilename })}"
                      th:text="${ board.boardFilename }"></a>
                </div>여기까지-->
 
-               <div style="width: 88%;"></div>
+					<div style="width: 88%;"></div>
 
-               <div style="width: 12%;">
-                  <a th:href="@{/board/deleteBoard(boardId=${board.boardId})}">삭제</a>
-                  <a th:text="#{board.update}" onclick="document.forms['boardForm'].submit();"></a>
-                  <a th:text="#{board.list}" th:href="@{/board/getBoardList}"></a>
-               </div>
-            </div>
+					<div style="width: 12%;">
+						<a th:href="@{/board/deleteBoard(boardId=${board.boardId})}">삭제</a>
+						<a th:text="#{board.update}" onclick="document.forms['boardForm'].submit();"></a>
+						<a th:text="#{board.list}" th:href="@{/board/getBoardList}"></a>
+					</div>
+				</div>
 
-         </form>
+			</form>
 
-      </div>
+		</div>
 
-   </main>
+	</main>
 
-   <!-- Footer -->
-   <div id="footer">
-   </div>
-   </div>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
 
+	<!-- Inquiry -->
+	<!--
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
+	-->
 
-   <!-- Footer -->
-   <hr style="">
-   <footer style="opacity: 50%;">
-      <!-- Contact -->
-      <h1>@ carini</h1>
-   </footer>
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
+	<script>
+		function deleteFile(boardId) {
+			if (confirm("정말로 파일을 삭제하시겠습니까?")) {
+				fetch('/board/deleteFile/' + boardId, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then(response => response.json())
+					.then(result => {
+						alert(result.message);
+						if (result.status === 'success') {
+							location.reload();
+						}
+					})
+					.catch(error => {
+						alert("파일 삭제 중 오류가 발생하였습니다: " + error);
+					});
+			}
+		}
+	</script>
+	<script>
+		function toggleDeleteLink(input) {
+			var deleteLink = document.getElementById("deleteLink");
+			if (input.value) {
+				deleteLink.style.display = "block";
+			} else {
+				deleteLink.style.display = "none";
+			}
+		}
 
-   <!-- Scripts -->
-   <script src="/js/jquery.min.js"></script>
-   <script src="/js/jquery.dropotron.min.js"></script>
-   <script src="/js/jquery.scrolly.min.js"></script>
-   <script src="/js/jquery.scrollex.min.js"></script>
-   <script src="/js/browser.min.js"></script>
-   <script src="/js/breakpoints.min.js"></script>
-   <script src="/js/util.js"></script>
-   <script src="/js/main.js"></script>
-   <script>
-      function deleteFile(boardId) {
-         if (confirm("정말로 파일을 삭제하시겠습니까?")) {
-            fetch('/board/deleteFile/' + boardId, {
-               method: 'POST',
-               headers: {
-                  'Content-Type': 'application/json'
-               }
-            })
-               .then(response => response.json())
-               .then(result => {
-                  alert(result.message);
-                  if (result.status === 'success') {
-                     location.reload();
-                  }
-               })
-               .catch(error => {
-                  alert("파일 삭제 중 오류가 발생하였습니다: " + error);
-               });
-         }
-      }
-   </script>
-   <script>
-      function toggleDeleteLink(input) {
-         var deleteLink = document.getElementById("deleteLink");
-         if (input.value) {
-            deleteLink.style.display = "block";
-         } else {
-            deleteLink.style.display = "none";
-         }
-      }
-
-      // Initial check in case board.boardFilename is present on page load
-      document.addEventListener("DOMContentLoaded", function () {
-         var uploadFile = document.getElementById("uploadFile");
-         toggleDeleteLink(uploadFile);
-      });
-   </script>
+		// Initial check in case board.boardFilename is present on page load
+		document.addEventListener("DOMContentLoaded", function () {
+			var uploadFile = document.getElementById("uploadFile");
+			toggleDeleteLink(uploadFile);
+		});
+	</script>
 
 </body>
 

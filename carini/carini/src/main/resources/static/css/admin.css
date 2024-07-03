@@ -278,7 +278,7 @@ input[type="text"]:hover{
 
 /* a */
 
-a {
+main>a {
 	font: inherit;
     font-weight: bold; /* 글씨체를 두껍게 설정 */
     text-decoration: none; /* 밑줄 제거 */
@@ -290,7 +290,7 @@ a {
 
 /* a.hover */
 
- a:hover {
+ main>a:hover {
     background-color: black;
     color: white;
     font: inherit;

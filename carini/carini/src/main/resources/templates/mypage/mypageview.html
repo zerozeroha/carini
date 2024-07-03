@@ -12,17 +12,26 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+<style>
+	th {
+		padding-top: 4%;
+		text-align: center;
+		border-bottom: 3px solid white;
+		background-color: black;
+		color: white;
+		font-weight: bold;
+	}
+</style>
 
 
 <body>
-	<header th:replace="~{base/base :: header}"></header>
 
-	<!--SubTitle-->
-
-	<section class="SubTitle">MY_INFORMATION</section>
-
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
 	<!--챗봇 아이콘-->
 	<div th:replace="~{base/base :: floaticon}"></div>
+
+	<section class="SubTitle">MY_INFORMATION</section>
 	<!-- Main -->
 	<main>
 
@@ -33,6 +42,7 @@
 				<h3>- WE ARE KEEPING YOUR INFORMATION SAFE -</h3>
 			</div>
 
+			<div style="height: 5%;"></div> <!-- 간격박스 -->
 
 
 			<!--main 안에 있는 큰 박스-->
@@ -102,15 +112,20 @@
 
 	</div>
 
-   <!-- Footer -->
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<footer th:replace="~{base/base :: footer}"></footer>
+	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
 	<script src="/js/Inquiry/inquiry.js"></script>
 
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 </body>
 
 </html>
