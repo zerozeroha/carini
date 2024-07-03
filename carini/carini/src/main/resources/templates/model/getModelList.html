@@ -50,6 +50,7 @@
    </style>
 
 
+
 </head>
 
 <body>
@@ -231,7 +232,8 @@
       <div style="height: 50px;"></div> <!--간격박스-->
 
       <!--자동차LIST-->
-      <div class="flex-container_row" style="margin-left: 7%; width: 110%;">
+      <div class="flex-container_row" style="margin-left: 7%; width: 110%; 	  cursor: pointer;">
+
 
          <!-- 카드 박스 반복-->
          <div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
@@ -332,15 +334,14 @@
                   <tr>
                      <td><span id="car1Name" style="font-weight: bold;"></span>
                         <a onclick="removeCarFromComparison(1)">
-                           <img src="/img/cancel.png" alt="삭제"
-                              style="height: 20px; width: 20px; padding-left: 20px;" />
+                           <img src="/img/cancel.png" alt="삭제" class="cancel" />
                         </a>
                      </td>
-                     <th style="padding: 0%; font-weight: 300;">VS</th>
+                     <th style="padding-top: 2%; font-weight: 300;">VS</th>
                      <td><span id="car2Name" style="font-weight: bold;"></span>
                         <a onclick="removeCarFromComparison(2)">
-                           <img src="/img/cancel.png" alt="삭제"
-                              style="height: 20px; width: 20px; padding-left: 20px;" />
+                           <img src="/img/cancel.png" alt="삭제" class="cancel" />
+
                         </a>
                      </td>
                   </tr>
@@ -375,8 +376,8 @@
                   <tr id="carRadarChart">
                      <td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
                      <td><br />
-                        <a th:onclick="combineRadarChart()" id="combine">
-                           COMBINE</a>
+                        <a th:onclick="combineRadarChart()" id="combine" >
+         				COMBINE</a>
                      </td>
                      <td><canvas id="car2RadarChart"></canvas></td>
                   </tr>
