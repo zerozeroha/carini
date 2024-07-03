@@ -2,416 +2,421 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <title> getModelList.html </title>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script th:inline="javascript" src="/js/getModelList.js"></script>
-   <link rel="stylesheet" href="/css/getModelList.css">
-   <link rel="stylesheet" href="/css/base/base.css">
-   <link rel="stylesheet" href="/css/base/inquiry.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<title> getModelList.html </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script th:inline="javascript" src="/js/getModelList.js"></script>
+	<link rel="stylesheet" href="/css/getModelList.css">
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-   <style>
-      /* css에서 안 먹어서 따로 기재 */
-      table {
-         width: 60%;
-         font-size: 18px;
-         text-align: center;
-         border-collapse: collapse;
-         border-top: 1px solid black;
-         border-bottom: 1px solid black;
-         font-weight: 900;
-      }
+	<style>
+		/* css에서 안 먹어서 따로 기재 */
+		table {
+			width: 60%;
+			font-size: 18px;
+			text-align: center;
+			border-collapse: collapse;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			font-weight: 900;
+		}
 
-      tr,
-      td {
-         border-top: 1px solid black;
-         border-bottom: 1px solid black;
-      }
+		tr,
+		td {
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
 
-      th {
-         background-color: black;
-         color: white;
-         font-size: 1.3rem;
-         border-top: 1px solid black;
-         border-bottom: 1px solid black;
-         border-right: 3px solid white;
-      }
-   </style>
+		th {
+			background-color: black;
+			color: white;
+			font-size: 1.3rem;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			border-right: 3px solid white;
+		}
+	</style>
+
 
 
 
 </head>
 
 <body>
-   <!--Header-->
-   <header th:replace="~{base/base :: main_header}"></header>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
 
-   <!--챗봇 아이콘-->
-   <div th:replace="~{base/base :: floaticon}"></div>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
-   <section class="SubTitle">SELECT_MODEL</section>
+	<section class="SubTitle">SELECT_MODEL</section>
 
-   <div class="div">
-      <p id="SubTitle_text">간편한 비교, 편리한 선택</p>
-   </div>
+	<div class="div">
+		<p id="SubTitle_text">간편한 비교, 편리한 선택</p>
+	</div>
 
-   <div class="div">
-      <h3>with carini</h3>
-   </div>
+	<div class="div">
+		<h3>with carini</h3>
+	</div>
 
-   <div style="height: 50px;"></div> <!--간격박스-->
+	<div style="height: 50px;"></div> <!--간격박스-->
 
-   <!-- 필터링 폼 -->
+	<!-- 필터링 폼 -->
 
-   <!-- Main -->
-   <main>
-      <form
-         th:action="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
-         method="get">
-         <div class="flex-container_column">
+	<!-- Main -->
+	<main>
+		<form
+			th:action="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
+			method="get">
+			<div class="flex-container_column">
 
-            <div class="flex-container_row">
+				<div class="flex-container_row">
 
-               <div class="div">
-                  <h3>- CAR THAT YOU WANT -</h3>
-               </div>
-               <div style="height: 10px;"></div> <!--간격박스-->
-               
-               <div style="display: flex; flex-direction: row;">
-                  <input name="searchWord" placeholder=" 자동차 검색" type="text"
-                     style="width: 300px; height: 40px; padding-left: 10px; cursor: text;" th:value="${sw}">
-                  <input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
-               </div>
+					<div class="div">
+						<h3>- CAR THAT YOU WANT -</h3>
+					</div>
+					<div style="height: 10px;"></div> <!--간격박스-->
 
-               <div style="height: 50px;"></div> <!--간격박스-->
+					<div style="display: flex; flex-direction: row;">
+						<input name="searchWord" placeholder=" 자동차 검색" type="text"
+							style="width: 300px; height: 40px; padding-left: 10px; cursor: text;" th:value="${sw}">
+						<input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
+					</div>
 
-               <table>
-                  <thead>
-                     <th>구분</th>
-                     <th>범위</th>
-                  </thead>
+					<div style="height: 50px;"></div> <!--간격박스-->
 
-                  <tbody>
-                     <tr>
-                        <td>가격범위</td>
-                        <td>
-                           <div>
-                              <div id="priceSlider"></div>
-                              <input type="hidden" class="form-control" id="filterMinPrice"
-                                 name="filterMinPrice" th:value="${filterMinPrice}">
-                              <input type="hidden" class="form-control" id="filterMaxPrice"
-                                 name="filterMaxPrice" th:value="${filterMaxPrice}">
-                              <span id="priceDisplay" style="text-align: justify;">
-                                 "filterMinPrice"원
-                                 "filterMaxPrice"원</span>
-                           </div>
-                           <input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억 이상
-                           <script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
-                              // priceSlider 초기화
-                              var priceSlider = document.getElementById('priceSlider');
-                              noUiSlider.create(priceSlider, {
-                                 start: [0, 50000], // 시작 가격 범위
-                                 connect: true,
-                                 range: {
-                                    'min': 0,
-                                    'max': 50000
-                                 }
-                              });
+					<table>
+						<thead>
+							<th>구분</th>
+							<th>범위</th>
+						</thead>
 
-                              // slider 값이 변경될 때마다 호출되는 함수
-                              priceSlider.noUiSlider.on('update', function (values, handle) {
-                                 var minPrice = Math.round(values[0]);
-                                 var maxPrice = Math.round(values[1]);
+						<tbody>
+							<tr>
+								<td>가격범위</td>
+								<td>
+									<div>
+										<div id="priceSlider"></div>
+										<input type="hidden" class="form-control" id="filterMinPrice"
+											name="filterMinPrice" th:value="${filterMinPrice}">
+										<input type="hidden" class="form-control" id="filterMaxPrice"
+											name="filterMaxPrice" th:value="${filterMaxPrice}">
+										<span id="priceDisplay" style="text-align: justify;">
+											"filterMinPrice"원
+											"filterMaxPrice"원</span>
+									</div>
+									<input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억
+									이상
+									<script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
+										// priceSlider 초기화
+										var priceSlider = document.getElementById('priceSlider');
+										noUiSlider.create(priceSlider, {
+											start: [0, 50000], // 시작 가격 범위
+											connect: true,
+											range: {
+												'min': 0,
+												'max': 50000
+											}
+										});
 
-                                 // input 태그 값 업데이트
-                                 document.getElementById('filterMinPrice').value = minPrice;
-                                 document.getElementById('filterMaxPrice').value = maxPrice;
+										// slider 값이 변경될 때마다 호출되는 함수
+										priceSlider.noUiSlider.on('update', function (values, handle) {
+											var minPrice = Math.round(values[0]);
+											var maxPrice = Math.round(values[1]);
 
-                                 // 단위 변환 함수
-                                 // Math.floor : 주어진 숫자보다 크지 않은 가장 큰 정수를 반환(=소수점 이하 자리를 버리고 정수 부분만 남김)
-                                 function formatPrice(price) {
-                                    if (price >= 10000) {
-                                       return Math.floor(price / 10000) + "억 " + (price % 10000) + "만원";
-                                    }
-                                    return price + "만원";
-                                 }
+											// input 태그 값 업데이트
+											document.getElementById('filterMinPrice').value = minPrice;
+											document.getElementById('filterMaxPrice').value = maxPrice;
 
-                                 // span 태그 값 업데이트
-                                 document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
+											// 단위 변환 함수
+											// Math.floor : 주어진 숫자보다 크지 않은 가장 큰 정수를 반환(=소수점 이하 자리를 버리고 정수 부분만 남김)
+											function formatPrice(price) {
+												if (price >= 10000) {
+													return Math.floor(price / 10000) + "억 " + (price % 10000) + "만원";
+												}
+												return price + "만원";
+											}
 
-                                 // exCar 체크박스 상태 변경 시 priceSlider 비활성화/활성화
-                                 var exCarCheckbox = document.getElementById('exCar');
-                                 exCarCheckbox.addEventListener('change', function () {
-                                    if (this.checked) {
-                                       priceSlider.setAttribute('disabled', true);
-                                       priceSlider.style.opacity = 0.4;
-                                    } else {
-                                       priceSlider.removeAttribute('disabled');
-                                       priceSlider.style.opacity = 1;
-                                    }
-                                 });
+											// span 태그 값 업데이트
+											document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
 
-                                 // 페이지 로드 시 체크박스 상태에 따라 priceSlider 초기 상태 설정
-                                 if (exCarCheckbox.checked) {
-                                    priceSlider.setAttribute('disabled', true);
-                                    priceSlider.style.opacity = 0.4;
-                                 } else {
-                                    priceSlider.removeAttribute('disabled');
-                                    priceSlider.style.opacity = 1;
-                                 }
+											// exCar 체크박스 상태 변경 시 priceSlider 비활성화/활성화
+											var exCarCheckbox = document.getElementById('exCar');
+											exCarCheckbox.addEventListener('change', function () {
+												if (this.checked) {
+													priceSlider.setAttribute('disabled', true);
+													priceSlider.style.opacity = 0.4;
+												} else {
+													priceSlider.removeAttribute('disabled');
+													priceSlider.style.opacity = 1;
+												}
+											});
 
-                              });
-                           </script>
+											// 페이지 로드 시 체크박스 상태에 따라 priceSlider 초기 상태 설정
+											if (exCarCheckbox.checked) {
+												priceSlider.setAttribute('disabled', true);
+												priceSlider.style.opacity = 0.4;
+											} else {
+												priceSlider.removeAttribute('disabled');
+												priceSlider.style.opacity = 1;
+											}
 
-                        </td>
-                     </tr>
+										});
+									</script>
 
-                     <tr>
-                        <td>자동차 크기</td>
-                        <td>
-                           <select class="form-select" id="filterSize" name="filterSize">
-                              <option value="" th:selected="${fs == ''}">선택안함</option>
-                              <option value="경형" th:selected="${fs == '경형'}">경형</option>
-                              <option value="소형" th:selected="${fs == '소형'}">소형</option>
-                              <option value="중형" th:selected="${fs == '중형'}">중형</option>
-                              <option value="준중형" th:selected="${fs == '준중형'}">준중형</option>
-                              <option value="대형" th:selected="${fs == '대형'}">대형</option>
-                              <option value="준대형" th:selected="${fs == '준대형'}">준대형</option>
-                           </select>
-                        </td>
-                     </tr>
+								</td>
+							</tr>
 
-                     <tr>
-                        <td>자동차 연료</td>
-                        <td>
-                           <select class="form-select" id="filterFuel" name="filterFuel">
-                              <option value="" th:selected="${ff == ''}">선택안함</option>
-                              <option value="가솔린" th:selected="${ff == '가솔린'}">가솔린</option>
-                              <option value="디젤" th:selected="${ff == '디젤'}">디젤</option>
-                              <option value="전기" th:selected="${ff == '전기'}">전기</option>
-                              <option value="하이브리드" th:selected="${ff == '하이브리드'}">하이브리드</option>
-                              <option value="LPG" th:selected="${ff == 'LPG'}">LPG</option>
-                           </select>
-                        </td>
-                     </tr>
+							<tr>
+								<td>자동차 크기</td>
+								<td>
+									<select class="form-select" id="filterSize" name="filterSize">
+										<option value="" th:selected="${fs == ''}">선택안함</option>
+										<option value="경형" th:selected="${fs == '경형'}">경형</option>
+										<option value="소형" th:selected="${fs == '소형'}">소형</option>
+										<option value="중형" th:selected="${fs == '중형'}">중형</option>
+										<option value="준중형" th:selected="${fs == '준중형'}">준중형</option>
+										<option value="대형" th:selected="${fs == '대형'}">대형</option>
+										<option value="준대형" th:selected="${fs == '준대형'}">준대형</option>
+									</select>
+								</td>
+							</tr>
 
-                     <tr>
-                        <td>정렬</td>
-                        <td>
-                           <select class="form-select" id="carSort" name="carSort">
-                              <option value="저가순" th:selected="${cs == '저가순'}">저가순</option>
-                              <option value="고가순" th:selected="${cs == '고가순'}">고가순</option>
-                              <option value="이름순" th:selected="${cs == '이름순'}">이름순</option>
-                              <option value="즐겨찾기순" th:selected="${cs == '즐겨찾기순'}">즐겨찾기순</option>
-                           </select>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
+							<tr>
+								<td>자동차 연료</td>
+								<td>
+									<select class="form-select" id="filterFuel" name="filterFuel">
+										<option value="" th:selected="${ff == ''}">선택안함</option>
+										<option value="가솔린" th:selected="${ff == '가솔린'}">가솔린</option>
+										<option value="디젤" th:selected="${ff == '디젤'}">디젤</option>
+										<option value="전기" th:selected="${ff == '전기'}">전기</option>
+										<option value="하이브리드" th:selected="${ff == '하이브리드'}">하이브리드</option>
+										<option value="LPG" th:selected="${ff == 'LPG'}">LPG</option>
+									</select>
+								</td>
+							</tr>
 
-               <div style="height: 50px;"></div> <!--간격박스-->
+							<tr>
+								<td>정렬</td>
+								<td>
+									<select class="form-select" id="carSort" name="carSort">
+										<option value="저가순" th:selected="${cs == '저가순'}">저가순</option>
+										<option value="고가순" th:selected="${cs == '고가순'}">고가순</option>
+										<option value="이름순" th:selected="${cs == '이름순'}">이름순</option>
+										<option value="즐겨찾기순" th:selected="${cs == '즐겨찾기순'}">즐겨찾기순</option>
+									</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 
-               <button type="submit"
-                  style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER</button>
+					<div style="height: 50px;"></div> <!--간격박스-->
 
-            </div>
+					<button type="submit"
+						style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER</button>
 
-      </form>
+				</div>
 
-      <div style="height: 50px;"></div> <!--간격박스-->
-
-      <!--자동차LIST-->
-      <div class="flex-container_row" style="margin-left: 7%; width: 110%; 	  cursor: pointer;">
-
-
-         <!-- 카드 박스 반복-->
-         <div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
-            <div class="card" style="width: 20rem; max-height: 22rem; flex-direction: row;"
-               th:each="car : ${carList}">
-               <a href="" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" id="goToComparison"
-                  th:if="${car != null}">
-                  <div class="card-body" style="width: 100%;">
-                     <img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지" style="border:0px;">
-
-                     <h5 class="card-title"
-                        style="font-size: 20px; font-weight: 900; background-color: whitesmoke;"
-                        th:text="${car.carName}"></h5>
-                     <p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;"
-                        th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"> </p>
-                     <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|">
-                     </p>
-                     <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|">
-                     </p>
-                     <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|">
-                     </p>
-                     <div class="card_button_box" style=" margin-left: 30%; font-size: 15px; margin-top:3%;">
-                        <a th:href="@{/model/getModel(carId=${car.carId})}"> 자세히 보기 </a>
-                        <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
-                           th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
-                           th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
-                           style="cursor: pointer; width: 16px; height: 16px;" alt="즐겨찾기 버튼">
-                     </div>
-                  </div>
-               </a>
-            </div>
-         </div>
-      </div>
+		</form>
 
 
 
+		<div style="height: 50px;"></div> <!--간격박스-->
+
+		<!--자동차LIST-->
+		<div class="flex-container_row" style="margin-left: 7%; width: 110%; cursor: pointer;">
+
+			<!-- 카드 박스 반복-->
+			<div style="display:flex; flex-wrap:wrap; width:100%;">
+				<div class="card" style="width: 20rem; max-height: 22rem; flex-direction: row;"
+					th:each="car : ${carList}">
+					<a href="" th:onclick="'selectCarForComparison(' + ${car.carId} + ')'" id="goToComparison"
+						th:if="${car != null}">
+						<div class="card-body" style="width: 100%;">
+							<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지" style="border:0px;">
+							<h5 class="card-title"
+								style="font-size: 20px; font-weight: 900; background-color: whitesmoke;"
+								th:text="${car.carName}"></h5>
+							<p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;"
+								th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"> </p>
+							<p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|">
+							</p>
+							<p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|">
+							</p>
+							<p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|">
+							</p>
+							<div class="card_button_box" style=" margin-left: 30%; font-size: 15px; margin-top:3%;">
+								<a th:href="@{/model/getModel(carId=${car.carId})}" class="detail"> 자세히 보기 </a>
+								<img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
+									th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"
+									th:onclick="'toggleBookmark(' + ${car.carId} + ',' + ${car.isBookmarked} + ')'"
+									class="favorite" alt="즐겨찾기 버튼">
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+		</div>
 
 
-      <script><!--카드에 이미지랑 글씨 같이 선택되게 하는 스크립-->
-         document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-               card.querySelector('.card-img-top').style.backgroundColor = 'whitesmoke';
-               card.querySelector('.card-img-top').style.border = '2px solid whitesmoke';
-               card.querySelector('.card-body').style.backgroundColor = 'whitesmoke';
-               card.querySelector('.card-body').style.border = '2px solid whitesmoke';
-               card.querySelector('.card-body').style.marginBottom = '1px';
-            });
-
-            card.addEventListener('mouseleave', () => {
-               card.querySelector('.card-img-top').style.backgroundColor = '';
-               card.querySelector('.card-img-top').style.border = '';
-               card.querySelector('.card-body').style.backgroundColor = '';
-               card.querySelector('.card-body').style.border = '';
-               card.querySelector('.card-body').style.marginBottom = '';
-            });
-         });
-      </script>
 
 
-      <div style="height: 100px;"></div> <!--간격박스-->
 
-      <!--pagination-->
-      <div>
-         <ul class="col pagination justify-content-center">
-            <th:block th:if="${sp > ps}">
-               <li class="page-item"><a th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
+		<script><!--카드에 이미지랑 글씨 같이 선택되게 하는 스크립-->
+			document.querySelectorAll('.card').forEach(card => {
+				card.addEventListener('mouseenter', () => {
+					card.querySelector('.card-img-top').style.backgroundColor = 'whitesmoke';
+					card.querySelector('.card-img-top').style.border = '2px solid whitesmoke';
+					card.querySelector('.card-body').style.backgroundColor = 'whitesmoke';
+					card.querySelector('.card-body').style.border = '2px solid whitesmoke';
+					card.querySelector('.card-body').style.marginBottom = '1px';
+				});
+
+				card.addEventListener('mouseleave', () => {
+					card.querySelector('.card-img-top').style.backgroundColor = '';
+					card.querySelector('.card-img-top').style.border = '';
+					card.querySelector('.card-body').style.backgroundColor = '';
+					card.querySelector('.card-body').style.border = '';
+					card.querySelector('.card-body').style.marginBottom = '';
+				});
+			});
+		</script>
+
+
+		<div style="height: 100px;"></div> <!--간격박스-->
+
+		<!--pagination-->
+		<div>
+			<ul class="col pagination justify-content-center">
+				<th:block th:if="${sp > ps}">
+					<li class="page-item"><a
+							th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
                        ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}"
-                     th:text="#{page.prev}"></a></li>
-            </th:block>
+							th:text="#{page.prev}"></a></li>
+				</th:block>
 
-            <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-               <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-                  <a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}" th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw}
+				<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+					<li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+						<a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+							th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw}
+                       ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}" th:text="${page}"></a>
+					</li>
+				</th:block>
+
+				<th:block th:if="${ep lt tp}">
+					<li class="page-item"><a
+							th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
                        ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}"
-                     th:text="${page}"></a>
-               </li>
-            </th:block>
+							th:text="#{page.next}"></a></li>
+				</th:block>
+			</ul>
+		</div>
 
-            <th:block th:if="${ep lt tp}">
-               <li class="page-item"><a th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw}
-                       ,filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs},exCar=${exCar})}"
-                     th:text="#{page.next}"></a></li>
-            </th:block>
-         </ul>
-      </div>
-
-      <div style="height: 50px;"></div> <!--간격박스-->
+		<div style="height: 50px;"></div> <!--간격박스-->
 
 
-      <!-- CAR COMPARISON : Comparison Section -->
-      <div class="flex-container_row">
-         <div id="comparisonSection" style="margin-top: 30px; display: block;">
-            <h3>- CAR COMPARISON -</h3>
-            <div style="height: 50px;"></div> <!--간격박스-->
+		<!-- CAR COMPARISON : Comparison Section -->
+		<div class="flex-container_row">
+			<div id="comparisonSection" style="margin-top: 30px; display: block;">
+				<h3>- CAR COMPARISON -</h3>
+				<div style="height: 50px;"></div> <!--간격박스-->
 
-            <table id="comparisonTable">
-               <thead>
-                  <tr>
-                     <td><span id="car1Name" style="font-weight: bold;"></span>
-                        <a onclick="removeCarFromComparison(1)">
-                           <img src="/img/cancel.png" alt="삭제" class="cancel" />
-                        </a>
-                     </td>
-                     <th style="padding-top: 2%; font-weight: 300;">VS</th>
-                     <td><span id="car2Name" style="font-weight: bold;"></span>
-                        <a onclick="removeCarFromComparison(2)">
-                           <img src="/img/cancel.png" alt="삭제" class="cancel" />
+				<table id="comparisonTable">
+					<thead>
+						<tr>
+							<td><span id="car1Name" style="font-weight: bold;"></span>
+								<a onclick="removeCarFromComparison(1)">
+									<img src="/img/cancel.png" alt="삭제" class="cancel" />
+								</a>
+							</td>
+							<th style="padding-top: 2%; font-weight: 300;">VS</th>
+							<td><span id="car2Name" style="font-weight: bold;"></span>
+								<a onclick="removeCarFromComparison(2)">
+									<img src="/img/cancel.png" alt="삭제" class="cancel" />
 
-                        </a>
-                     </td>
-                  </tr>
-               </thead>
-               <tbody>
-                  <!--td에 padding기본 설정값 때문에 글씨 밀려서 따로 inline 설정 -->
-                  <tr>
-                     <td><img id="car1Img" class="img-fluid" alt="이미지"></td>
-                     <td style="padding: 1%;">: 이미지 :</td>
-                     <td><img id="car2Img" class="img-fluid" alt="이미지"></td>
-                  </tr>
-                  <tr>
-                     <td><span id="car1Price"></span>만원</td>
-                     <td style="padding: 1%;">: 가격 :</td>
-                     <td><span id="car2Price"></span>만원</td>
-                  </tr>
-                  <tr>
-                     <td id="car1Size"></td>
-                     <td style="padding: 1%;">: 크기 :</td>
-                     <td id="car2Size"></td>
-                  </tr>
-                  <tr>
-                     <td id="car1Fuel"></td>
-                     <td style="padding: 1%;">: 연료 :</td>
-                     <td id="car2Fuel"></td>
-                  </tr>
-                  <tr>
-                     <td id="car1Eff"></td>
-                     <td style="padding: 1%;">: 연비 :</td>
-                     <td id="car2Eff"></td>
-                  </tr>
-                  <tr id="carRadarChart">
-                     <td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
-                     <td><br />
-                        <a th:onclick="combineRadarChart()" id="combine" >
-         				        COMBINE</a>
-                     </td>
-                     <td><canvas id="car2RadarChart"></canvas></td>
-                  </tr>
-                  <tr id="carCombineRadarChartTR">
-                     <td colspan="3" style="text-align: center;">
-                        <canvas id="carCombineRadarChart"></canvas>
-                        <div style="height: 50px;"></div> <!--간격박스-->
-                        <a th:onclick="returnChart()" class="return">
-                           RETURN
-                        </a>
-                     </td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-      </div>
-      </div>
+								</a>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<!--td에 padding기본 설정값 때문에 글씨 밀려서 따로 inline 설정 -->
+						<tr>
+							<td><img id="car1Img" class="img-fluid" alt="이미지"></td>
+							<td style="padding: 1%;">: 이미지 :</td>
+							<td><img id="car2Img" class="img-fluid" alt="이미지"></td>
+						</tr>
+						<tr>
+							<td><span id="car1Price"></span>만원</td>
+							<td style="padding: 1%;">: 가격 :</td>
+							<td><span id="car2Price"></span>만원</td>
+						</tr>
+						<tr>
+							<td id="car1Size"></td>
+							<td style="padding: 1%;">: 크기 :</td>
+							<td id="car2Size"></td>
+						</tr>
+						<tr>
+							<td id="car1Fuel"></td>
+							<td style="padding: 1%;">: 연료 :</td>
+							<td id="car2Fuel"></td>
+						</tr>
+						<tr>
+							<td id="car1Eff"></td>
+							<td style="padding: 1%;">: 연비 :</td>
+							<td id="car2Eff"></td>
+						</tr>
+						<tr id="carRadarChart">
+							<td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
+							<td><br />
+								<a th:onclick="combineRadarChart()" id="combine">
+									COMBINE</a>
+							</td>
+							<td><canvas id="car2RadarChart"></canvas></td>
+						</tr>
+						<tr id="carCombineRadarChartTR">
+							<td colspan="3" style="text-align: center;">
+								<canvas id="carCombineRadarChart"></canvas>
+								<div style="height: 50px;"></div> <!--간격박스-->
+								<a th:onclick="returnChart()" class="return">
+									RETURN
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
 
-   </main>
+	</main>
 
-   <!-- Footer -->
-   <footer th:replace="~{base/base :: main_footer}"></footer>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-   <!-- Inquiry 
+	<!-- Inquiry 
    <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
    <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
    <div th:replace="~{base/base :: inquiry_writehtml}"></div>
    <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
    <script src="/js/Inquiry/inquiry.js"></script>-->
 
-   <!-- Scripts -->
-   <script src="/js/jquery.dropotron.min.js"></script>
-   <script src="/js/breakpoints.min.js"></script>
-   <script src="/js/main.js"></script>
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 
 </body>
 
