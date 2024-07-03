@@ -25,8 +25,6 @@
 <body class="no-sidebar is-preload">
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<div id="page-wrapper">
 		<!-- Main -->
@@ -83,7 +81,10 @@
 						</tr>
 					</table>
 				</div>
-				<a th:href="@{/admin/insertNotice}" th:text="#{admin.notice.insert}"></a>
+				<div class="flex-container_row">
+					<a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
+					<a th:href="@{/admin/insertNotice}" th:text="#{admin.notice.insert}"></a>
+				</div>
 
 
 				<!-- PAGINATION -->
