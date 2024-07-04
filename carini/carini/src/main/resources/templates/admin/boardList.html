@@ -8,150 +8,129 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
    <link rel="stylesheet" href="/css/admin.css">
    <link rel="stylesheet" href="/css/base/base.css">
-   <link rel="stylesheet" href="/css/base/inquiry.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="assets/js/carini_script.js" defer></script>
    <noscript>
       <link rel="stylesheet" href="assets/css/noscript.css" />
    </noscript>
-  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+      crossorigin="anonymous"></script>
 </head>
 
 <body>
    <!--Header-->
    <header th:replace="~{base/base :: main_header}"></header>
 
-      <!--SubTitle-->
-      <div class="SubtitleContainer">
-         <section class="SubTitle" th:text="#{admin}"></section>
-      </div>
-
-      <div class="div">
-         <p id="SubTitle_Text">BoardList</p>
-      </div>
-
-      <div class="div">
-         <h3>with board</h3>
-      </div>
-      
-      <div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+   <!--SubTitle-->
+   <div class="SubtitleContainer">
+      <section class="SubTitle" th:text="#{admin}"></section>
+   </div>
+   <div class="div">
+      <p id="SubTitle_Text">BoardList</p>
+   </div>
+   <div class="div">
+      <h3>with board</h3>
+   </div>
+   <div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+   
    <!--Main-->
    <main>
-      <div class="flex-container_column">
-         <article id="main">
-            <form th:action="@{/admin/boardList}" method="get">
-               <input type="hidden" id="curPage" name="curPage" th:value="0">
-               <input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
-               <span> <span th:text="#{board.total.start}"></span> <span
-                     th:text="${pagedResult.getTotalElements()}"></span> <span
-                     th:text="#{board.total}"></span></span>
-
-               <!-- <span class="container";> -->
-               <div class="Board">
-                  <select class="form-select" id="searchType" name="searchType">
-                     <option class="select_options" value="boardTitle" th:selected="${st=='boardTitle'}"
-                        th:text="#{board.search.title}"></option>
-                     <option class="select_options" value="boardWriter" th:selected="${st =='boardWriter'}"
-                        th:text="#{board.search.writer}"></option>
-                     <option class="select_options" value="boardContent" th:selected="${st =='boardContent'}"
-                        th:text="#{board.search.content}"></option>
-                  </select>
-                  <div>
-                     <input name="searchWord" type="text"
-                        th:placeholder="|#{board.search.title} / #{board.search.writer}">
-                  </div>
-                  <select class="form-select" id="boardSort" name="boardSort">
-                     <option value="번호순" th:selected="${bs == '번호순'}">번호순</option>
-                     <option value="조회순" th:selected="${bs == '조회순'}">조회순</option>
-                     <option value="오래된순" th:selected="${bs == '오래된순'}">오래된순</option>
-                     <option value="최신순" th:selected="${bs == '최신순'}">최신순</option>
-                  </select>
-                  <div>
-                     <input type="submit" name="검색" class="gradient" value="Search">
-                  </div>
+      <div class="flex-container_column" style="width: 70%;">
+         <form th:action="@{/admin/boardList}" method="get" style="width: 100%;">
+            <input type="hidden" id="curPage" name="curPage" th:value="0">
+            <input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
+            <span style="width: 40%;">
+               <span th:text="#{board.total.start}"></span>
+               <span th:text="${pagedResult.getTotalElements()}"></span>
+               <span th:text="#{board.total}"></span>
+            </span>
+            <div class="flex-container_row" style="width: 100%;">
+               <select class="form-select" id="searchType" name="searchType" style="height:100%; width: 15%;">
+                  <option class="select_options" value="boardTitle" th:selected="${st=='boardTitle'}"
+                     th:text="#{board.search.title}"></option>
+                  <option class="select_options" value="boardWriter" th:selected="${st =='boardWriter'}"
+                     th:text="#{board.search.writer}"></option>
+                  <option class="select_options" value="boardContent" th:selected="${st =='boardContent'}"
+                     th:text="#{board.search.content}"></option>
+               </select>
+               <div style="width: 60%;">
+                  <input name="searchWord" type="text"
+                     th:placeholder="|#{board.search.title} / #{board.search.writer}" style="width: 100%;">
                </div>
-               <!-- </span> -->
-            </form>
-            <br>
-            <div class="main_board" style="height: 100%;">
-               <table border="1">
-                  <tr style="display: flex;">
-                     <th class="center ellipsis" style="width: 10%;" th:text="#{label.id}"></th>
-                     <th class="center ellipsis" style="width: 30%;" th:text="#{label.title}"></th>
-                     <th class="center ellipsis" style="width: 20%;" th:text="#{label.writer}"></th>
-                     <th class="center ellipsis" style="width: 20%;" th:text="#{label.date}"></th>
-                     <th class="center ellipsis" style="width: 10%;" th:text="#{label.file}"></th>
-                     <th class="center ellipsis" style="width: 10%;" th:text="#{label.cnt}"></th>
-                  </tr>
-                  <tr style="display: flex; text-align: center;"
-                     th:each="board, state : ${pagedResult.getContent()}">
-                     <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardId}">
-                     </td>
-                     <td class="ellipsis" style="width: 30%; text-align: center;"><a class="Board-hover"
-                           th:href="@{/admin/updateBoard(boardId=${board.boardId})}"
-                           th:text="${board.boardTitle}"></a></td>
-                     <td class="ellipsis" style="width: 20%; text-align: center;" th:text="${board.boardWriter}">
-                     </td>
-                     <td class="ellipsis" style="width: 20%; text-align: center;"
-                        th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}"></td>
-                     <td class="ellipsis" style="width: 10%; text-align: center;"><img src="/img/board_clip.png"
-                           style="height: 15px;" alt=""
-                           th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></td>
-                     <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardCnt}">
-                     </td>
-                  </tr>
-               </table>
+               <select class="form-select" id="boardSort" name="boardSort" style="width: 15%;">
+                  <option value="번호순" th:selected="${bs == '번호순'}">번호순</option>
+                  <option value="조회순" th:selected="${bs == '조회순'}">조회순</option>
+                  <option value="오래된순" th:selected="${bs == '오래된순'}">오래된순</option>
+                  <option value="최신순" th:selected="${bs == '최신순'}">최신순</option>
+               </select>
+               <div style="width: 10%;">
+                  <input type="submit" name="검색" class="gradient" value="Search" style="width: 100%;">
+               </div>
             </div>
-            </br>
-            <!--PAGINATION-->
-            <div class="center">
-               <ul class="col pagination justify-content-center"
-                  style="list-style-type: none; display: flex; justify-content: center; width: 130%;">
-                  <th:block th:if="${sp > ps}">
-                     <li class="page-item"><a class="Board-hover page-link"
-                           th:href="@{/admin/boardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-                           th:text="#{page.prev}"></a></li>
-                  </th:block>
+         </form>
+         <br>
+         <table border="1" style="width: 100%;">
+            <tr style="display: flex;">
+               <th class="center ellipsis" style="width: 10%;" th:text="#{label.id}"></th>
+               <th class="center ellipsis" style="width: 30%;" th:text="#{label.title}"></th>
+               <th class="center ellipsis" style="width: 20%;" th:text="#{label.writer}"></th>
+               <th class="center ellipsis" style="width: 20%;" th:text="#{label.date}"></th>
+               <th class="center ellipsis" style="width: 10%;" th:text="#{label.file}"></th>
+               <th class="center ellipsis" style="width: 10%;" th:text="#{label.cnt}"></th>
+            </tr>
+            <tr style="display: flex; text-align: center;" th:each="board, state : ${pagedResult.getContent()}">
+               <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardId}">
+               </td>
+               <td class="ellipsis" style="width: 30%; text-align: center;"><a class="Board-hover"
+                     th:href="@{/admin/updateBoard(boardId=${board.boardId})}" th:text="${board.boardTitle}"></a>
+               </td>
+               <td class="ellipsis" style="width: 20%; text-align: center;" th:text="${board.boardWriter}">
+               </td>
+               <td class="ellipsis" style="width: 20%; text-align: center;"
+                  th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}"></td>
+               <td class="ellipsis" style="width: 10%; text-align: center;"><img src="/img/board_clip.png"
+                     style="height: 15px;" alt=""
+                     th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></td>
+               <td class="ellipsis" style="width: 10%; text-align: center;" th:text="${board.boardCnt}">
+               </td>
+            </tr>
+         </table>
+         </br>
 
-                  <th:block
-                     th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-                     <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-                        <a class="page-link"
-                           th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-                           th:href="@{/admin/boardList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-                           th:text="${page}"></a>
-                     </li>
-                  </th:block>
+         <!--PAGINATION-->
+         <div class="flex-container_row">
+            <ul class="col pagination justify-content-center"
+               style="list-style-type: none; display: flex; justify-content: center; width: 130%;">
+               <th:block th:if="${sp > ps}">
+                  <li class="page-item"><a class="Board-hover page-link"
+                        th:href="@{/admin/boardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                        th:text="#{page.prev}"></a></li>
+               </th:block>
+               <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+                  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+                     <a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+                        th:href="@{/admin/boardList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                        th:text="${page}"></a>
+                  </li>
+               </th:block>
 
-                  <th:block th:if="${ ep lt tp }">
-                     <li class="page-item"><a class="Board-hover page-link"
-                           th:href="@{/admin/boardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-                           th:text="#{page.next}"></a></li>
-                  </th:block>
-               </ul>
-            </div>
-
-            <div class="right" style="width: 130%;">
-               <input type="button" th:value="#{admin.adminList}" th:onclick="|location.href='@{/admin/adminList}'|">
-               <input type="button" th:value="#{board.writing}"
-                  th:onclick="|location.href='@{/admin/insertBoard}'|">
-            </div>
-         </article>
+               <th:block th:if="${ ep lt tp }">
+                  <li class="page-item"><a class="Board-hover page-link"
+                        th:href="@{/admin/boardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                        th:text="#{page.next}"></a></li>
+               </th:block>
+            </ul>
+         </div>
+         <div class="flex-container_row" style="text-align: right; justify-content: right;">
+            <a th:href="@{/admin/insertBoard}" th:text="#{board.writing}" style="margin-right: 50px;"></a>
+            <a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
+         </div>
       </div>
    </main>
+
    <!-- Footer -->
    <footer th:replace="~{base/base :: main_footer}"></footer>
-	<div id="kakao-talk-channel-chat-button"></div>
-	<script th:replace="~{base/base :: inquiry_script}"></script>
-   <!-- Inquiry -->
-   <!--
-   <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-   <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-   <div th:replace="~{base/base :: inquiry_writehtml}"></div>
-   <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-   <script src="/js/Inquiry/inquiry.js"></script>
-   -->
 
    <!-- Scripts -->
    <script src="/js/jquery.dropotron.min.js"></script>

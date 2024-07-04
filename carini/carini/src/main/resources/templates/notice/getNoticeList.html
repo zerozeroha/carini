@@ -58,9 +58,9 @@
 					<input type="hidden" id="curPage" name="curPage" th:value="0">
 					<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
 					<span> -
-						<span th:text="#{board.total.start}"></span>
+						<span th:text="#{notice.total.start}"></span>
 						<span th:text="${pagedResult.getTotalElements()}"></span>
-						<span th:text="#{board.total}"></span> -
+						<span th:text="#{notice.total}"></span> -
 					</span>
 
 					<!-- 검색창 부분 -->
@@ -87,6 +87,7 @@
 			</div>
 
 			<div class="flex-container_row" style="height: 600px; align-items: start;">
+				<div class="flex-container_column">
 				<table>
 					<tr>
 						<th style="width: 10%;" th:text="#{label.id}"></th>
@@ -104,14 +105,16 @@
 						</td>
 						<td style="width: 20%;" th:text="${#dates.format(notice.noticeDate, 'yyyy-MM-dd hh:mm')}"></td>
 						<td style="width: 10%;"><img src="/img/board_clip.png" style="height: 15px;"
-								<!--th:if="${notice.noiceFilename != null && !notice.noticeFilename.isEmpty()}" -->
+							th:if="${notice.noticeFilename != null && !notice.noticeFilename.isEmpty()}">
 
 						</td>
 						<td style="width: 10%;" th:text="${notice.noticeCnt}"></td>
 					</tr>
-
-
 				</table>
+				<p th:if="${session.user.memberRole == 'ROLE_ADMIN'}" style="text-align: right; width: 100%;">
+					<a th:href="@{/admin/insertNotice}" th:text="#{admin.notice.insert}" ></a>
+				</p>
+				</div>
 			</div>
 
 
