@@ -63,6 +63,7 @@ import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
 import com.car.service.BoardService;
 import com.car.service.BookMarkService;
+import com.car.service.CommentService;
 import com.car.service.InquiryService;
 import com.car.service.MemberService;
 import com.car.service.ModelService;
@@ -74,6 +75,7 @@ import com.car.validation.NoticeUpdateFormValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -81,26 +83,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
    
-   @Autowired
-   private BoardService boardService;
-   @Autowired
-   private MemberService memberService;
-   @Autowired
-   private NoticeService noticeService;
-   @Autowired
-   private InquiryService inquiryService;
-   @Autowired
-   private ModelService modelService;
-   @Autowired
-   private BookMarkService bookmarkService;
-   
-
-   @Autowired
-   private MessageSource messageSource;
-   @Autowired
-   private LocaleResolver localeResolver;
+   private final BoardService boardService;
+   private final MemberService memberService;
+   private final NoticeService noticeService;
+   private final InquiryService inquiryService;
+   private final ModelService modelService;
+   private final BookMarkService bookmarkService;
+   private final MessageSource messageSource;
+   private final LocaleResolver localeResolver;
 
    
    public PagingInfo pagingInfo = new PagingInfo();
@@ -417,21 +410,25 @@ public class AdminController {
       return "alert";
    }
    
-   // 게시판 삭제
-   @GetMapping("/deleteBoard")
-   public String deleteBoard(Board board, Model model)  {
-      Board findboard =  boardService.getBoardById(board.getBoardId());
-     
-      if(findboard ==null) {
-         model.addAttribute("msg", "해당 게시물이 존재하지않습니다.");
-         model.addAttribute("url", "/admin/boardList");
-         return "alert";
-      }
-        
-      boardService.deleteBoard(findboard);
-      model.addAttribute("msg", "해당 게시물을 삭제하였숩니다.");
-      model.addAttribute("url", "/admin/boardList");
-      return "alert";
+   @PostMapping("/deleteBoard")
+   @ResponseBody
+   public Map<String, Object> deleteBoard(@RequestParam("boardId") Long boardId) {
+       Map<String, Object> response = new HashMap<>();
+       try {
+           Board findboard = boardService.getBoardById(boardId);
+           if(findboard == null) {
+               response.put("success", false);
+               response.put("message", "해당 게시물이 존재하지 않습니다.");
+           } else {
+               boardService.deleteBoard(findboard);
+               response.put("success", true);
+               response.put("message", "해당 게시물을 삭제하였습니다.");
+           }
+       } catch (Exception e) {
+           response.put("success", false);
+           response.put("message", "게시물 삭제 중 오류가 발생했습니다.");
+       }
+       return response;
    }
    
    
@@ -494,7 +491,7 @@ public class AdminController {
       
       if(notice == null) {
          model.addAttribute("msg", "게시글을 찾을 수 없습니다.");
-           model.addAttribute("url", "/admin/noticeList");
+           model.addAttribute("url", "/notice/getNoticeList");
            return "alert";
       }
       // user의 Role이 ROLE_ADMIN일 때만 업데이트할 수 있도록 처리
@@ -534,7 +531,7 @@ public class AdminController {
       
       noticeService.updateNotice(notice);
       model.addAttribute("msg", "공지사항이 수정되었습니다!");
-      model.addAttribute("url", "/admin/noticeList");
+      model.addAttribute("url", "/notice/getNoticeList");
       return "alert";
    }
    
@@ -573,7 +570,7 @@ public class AdminController {
       noticeService.insertNotice(notice);
       
       model.addAttribute("msg", "공지사항이 작성되었습니다!");
-      model.addAttribute("url", "/admin/noticeList");
+      model.addAttribute("url", "/notice/getNoticeList");
       return "alert";
    }
    
@@ -631,13 +628,13 @@ public class AdminController {
      
      if(findNotice ==null) {
         model.addAttribute("msg", "해당 공지사항이 존재하지않습니다.");
-        model.addAttribute("url", "/admin/noticeList");
+        model.addAttribute("url", "/notice/getNoticeList");
         return "alert";
      }
      
      noticeService.deleteNoticeById(findNotice.getNoticeId());
      model.addAttribute("msg", "해당 공지사항을 삭제하였숩니다.");
-     model.addAttribute("url", "/admin/noticeList");
+     model.addAttribute("url", "/notice/getNoticeList");
      return "alert";
    }
    
@@ -860,13 +857,14 @@ public class AdminController {
       
    }
    
-   @GetMapping("/deleteCar")
-   public String deleteCar(@RequestParam("carId") int carId) {
-      
-      modelService.deleteCar(carId);
-      
-      return "redirect:/admin/modelList";
-      
+   @PostMapping("/deleteCar")
+   public ResponseEntity<String> deleteCar(@RequestParam("carId") int carId) {
+       try {
+           modelService.deleteCar(carId);
+           return ResponseEntity.ok("Car deleted successfully");
+       } catch (Exception e) {
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting car");
+       }
    }
 
    

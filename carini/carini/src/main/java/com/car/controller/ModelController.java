@@ -27,9 +27,12 @@ import com.car.dto.Car;
 import com.car.dto.CarBrand;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
+import com.car.service.BoardService;
 import com.car.service.BookMarkService;
+import com.car.service.CommentService;
 import com.car.service.MemberService;
 import com.car.service.ModelService;
+import com.car.service.NoticeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -72,8 +75,8 @@ public class ModelController {
 	       @RequestParam(name = "exCar", defaultValue = "false") Boolean exCar,
 	       HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		Member user = null;
-		if (session != null) {
+		Member user= null;
+		if(session != null ) {
 			user = (Member) session.getAttribute("user");
 		}
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative

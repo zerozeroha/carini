@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +11,45 @@
 	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
-	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 </head>
+<style>
+    /* Custom styles for the table and container */
+    .table-container {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8em; 
+    }
+
+    th{
+        padding: 8px;
+        text-align: center;
+		vertical-align: middle; 
+        border-bottom: 1px solid #ddd;
+		font-size: 1em; 
+    }
+    td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<!--SubTitle-->
+	<div class="container">
+		<section class="SubTitle">ADMIN</section>
+	</div>
+	
 	<div class="div">
 		<p id="SubTitle_Text" th:text="#{admin.member.memberList}"></p>
 	</div>
@@ -36,73 +67,77 @@
 				<div class="flex-container_row">
 					<input type="hidden" id="curPage" name="curPage" th:value="0">
 					<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
-					<span> 
-						<span th:text="#{board.total.start}"></span> 
-						<span th:text="${pagedResult.getTotalElements()}"></span> 
-						<span th:text="#{board.total}"></span>
+					<span style="width: 30%;">
+						<span th:text="#{board.total.start}"></span>
+						<span th:text="${pagedResult.getTotalElements()}"></span>
+						<span th:text="#{member.total}"></span>
 					</span>
 
-					<!-- <span class="container";> -->
-					<div class="flex-container_row">
-						<select class="form-select" id="searchType" name="searchType">
-							<option class="select_options" value="memberNickname" th:selected="${st=='memberNickname'}"
-								th:text="#{member.memberNickname}"></option>
-							<option class="select_options" value="memberPhoneNum" th:selected="${st =='memberPhoneNum'}"
-								th:text="#{member.memberPhoneNum}"></option>
-							<option class="select_options" value="memberId" th:selected="${st =='memberId'}"
-								th:text="#{member.memberId}"></option>
-						</select>
-						<div>
-							<input name="searchWord" type="text">
+					<span class="container";>
+						<div class="flex-container_row" style="width: 100%;">
+							<select class="form-select" id="searchType" name="searchType" style="width: 20%;">
+								<option class="select_options" value="memberNickname"
+									th:selected="${st=='memberNickname'}" th:text="#{member.memberNickname}"></option>
+								<option class="select_options" value="memberPhoneNum"
+									th:selected="${st =='memberPhoneNum'}" th:text="#{member.memberPhoneNum}"></option>
+								<option class="select_options" value="memberId" th:selected="${st =='memberId'}"
+									th:text="#{member.memberId}"></option>
+							</select>
+							<div style="width: 70%;">
+								<input name="searchWord" type="text" style="width: 100%">
+							</div>
+							<div style="width: 10%;">
+								<input type="submit" name="검색" class="gradient" value="Search" style="width: 100%;">
+							</div>
 						</div>
-						<div>
-							<input type="submit" name="검색" class="gradient" value="Search">
-						</div>
-					</div>
-					<!-- </span> -->
+					</span>
 				</div>
 			</form>
-			<table border="1">
-				<tr>
-					<th th:text="#{member.memberId}"></th>
-					<th th:text="#{member.memberPw}"></th>
-					<th th:text="#{member.memberName}"></th>
-					<th th:text="#{member.memberNickname}"></th>
-					<th th:text="#{member.memberEmail}"></th>
-					<th th:text="#{member.memberPhoneNum}"></th>
-					<th th:text="#{member.memberDate}"></th>
-					<th th:text="#{member.memberSocial}"></th>
-					<th th:text="#{member.memberRole}"></th>
-					<th th:text="#{member.memberSocialNickname}"></th>
-					<th th:text="#{member.boardCount}"></th>
-					<th th:text="#{member.bookmarkCount}"></th>
-					<th th:text="#{member.inquiryCount}"></th>
+			<div class="flex-container_row">
+				<div class="table-container">
+					<table border="1">
+						<tr>
+							<th th:text="#{member.memberId}"></th>
+							<th th:text="#{member.memberPw}"></th>
+							<th th:text="#{member.memberName}"></th>
+							<th th:text="#{member.memberNickname}"></th>
+							<th th:text="#{member.memberEmail}"></th>
+							<th th:text="#{member.memberPhoneNum}"></th>
+							<th th:text="#{member.memberDate}"></th>
+							<th th:text="#{member.memberSocial}"></th>
+							<th th:text="#{member.memberRole}"></th>
+							<th th:text="#{member.memberSocialNickname}"></th>
+							<th th:text="#{member.boardCount}"></th>
+							<th th:text="#{member.bookmarkCount}"></th>
+							<th th:text="#{member.inquiryCount}"></th>
+						</tr>
+						<tr th:each="member : ${memberList}">
+							<td><a th:href="@{/admin/updateMember(memberId=${member.memberId})}"
+									th:text="${member.memberId}"></a></td>
+							<td th:text="${member.memberPw}"></td>
+							<td th:text="${member.memberName}"></td>
+							<td th:text="${member.memberNickname}"></td>
+							<td th:text="${member.memberEmail}"></td>
+							<td th:text="${member.memberPhoneNum}"></td>
+							<td th:text="${member.memberDate}"></td>
+							<td th:text="${member.memberSocial}"></td>
+							<td th:text="${member.memberRole}"></td>
+							<td th:text="${member.memberSocialNickname}"></td>
+							<td>
+								<a th:href="@{/admin/boardList(searchType='boardWriter', searchWord=${member.memberNickname})}"
+									th:text="${memberCountMap[member.memberId].get(0)}"></a>
+							</td>
+							<td><a th:href="@{/admin/bookmarkList(memberId=${member.memberId})}"
+									th:text="${memberCountMap[member.memberId].get(1)}"></a></td>
+							<td>
+								<a th:href="@{/admin/inquiryList(searchType='memberId', searchWord=${member.memberId})}"
+									th:text="${memberCountMap[member.memberId].get(2)}"></a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 
-				</tr>
-				<tr th:each="member : ${memberList}">
-					<td><a th:href="@{/admin/updateMember(memberId=${member.memberId})}"
-							th:text="${member.memberId}"></a></td>
-					<td th:text="${member.memberPw}"></td>
-					<td th:text="${member.memberName}"></td>
-					<td th:text="${member.memberNickname}"></td>
-					<td th:text="${member.memberEmail}"></td>
-					<td th:text="${member.memberPhoneNum}"></td>
-					<td th:text="${member.memberDate}"></td>
-					<td th:text="${member.memberSocial}"></td>
-					<td th:text="${member.memberRole}"></td>
-					<td th:text="${member.memberSocialNickname}"></td>
-					<td>
-						<a th:href="@{/admin/boardList(searchType='boardWriter', searchWord=${member.memberNickname})}"
-							th:text="${memberCountMap[member.memberId].get(0)}"></a>
-					</td>
-					<td><a th:href="@{/admin/bookmarkList(memberId=${member.memberId})}"
-							th:text="${memberCountMap[member.memberId].get(1)}"></a></td>
-					<td>
-						<a th:href="@{/admin/inquiryList(searchType='memberId', searchWord=${member.memberId})}"
-							th:text="${memberCountMap[member.memberId].get(2)}"></a>
-					</td>
-				</tr>
-			</table>
 			<!--pagination-->
 			<div class="flex-container_row" style="margin-left: -2%; border-top: 1px solid lightgray;">
 				<ul class="col pagination justify-content-center"
@@ -129,7 +164,7 @@
 				</ul>
 			</div>
 			<div style="height: 40px;"></div> <!--간격박스-->
-			<div class="flex-container_row">
+			<div class="flex-container_row" style="justify-content: end;">
 				<a th:href="@{/admin/insertMember}" th:text="#{admin.member.insertMember}"
 					style="margin-right: 20px;">멤버 추가</a>
 				<a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
@@ -141,22 +176,10 @@
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<!-- Inquiry -->
-	<!--
-	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script>
-	-->
-
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
 	<script src="/js/breakpoints.min.js"></script>
 	<script src="/js/main.js"></script>
-
-
-
 
 </body>
 

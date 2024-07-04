@@ -8,8 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
 	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<link rel="stylesheet" href="/css/updateBoard.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
 	<noscript>
@@ -26,12 +27,22 @@
 <body class="no-sidebar is-preload">
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-
+	
+	<!--SubTitle-->
+	<div class="SubtitleContainer">
+		<section class="SubTitle" th:text="#{admin}"></section>
+	</div>
+	<div class="div">
+		<p id="SubTitle_Text" th:text="#{board.edit}"></p>
+	</div>
+	<div class="div">
+		<h3>with board</h3>
+	</div>
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+	
 	<!-- Main -->
-	<div class="wrapper style1">
-		<div class="container">
-			<p class="Board_text"><br>_Edit_Board</p>
-
+	<main>
+		<div class="flex-container_column">
 			<form th:action="@{/admin/updateBoard}" th:object="${BoardUpdateFormValidation}" method="post"
 				enctype="multipart/form-data" id="boardForm" name="boardForm">
 				<input name="boardId" type="hidden" th:value="${board.boardId}">
@@ -44,18 +55,19 @@
 						</p>
 					</div>
 				</div>
-				<table id="board_info">
+				<table style="width: 100%;">
 					<tr>
 						<td class="gangjo" th:text="#{board.write.writer}"></td>
-						<td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }" disabled>
+						<td>
+							<input type="text" name="boardWriter" th:value="${ session.user.memberNickname }" disabled style="width: 100%;">
 						</td>
 						<td class="gangjo" th:text="#{board.write.date}"></td>
-						<td><input type="text" name="boardDate" th:value="${board.boardDate}" disabled></td>
+						<td><input type="text" name="boardDate" th:value="${board.boardDate}" disabled style="width: 100%;"></td>
 					</tr>
 
 					<tr>
 						<td colspan="1" class="gangjo" th:text="#{board.write.title}"></td>
-						<td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error">
+						<td colspan="3"><input type="text" th:field="*{boardTitle}" th:errorclass="field-error" style="width: 100%;">
 
 						</td>
 					</tr>
@@ -85,7 +97,7 @@
 					</tr>
 				</table>
 
-				<div id="button_section" class="flex-container_row">
+				<div id="button_section" class="flex-container_column">
 					<div th:if="${board.boardFilename != null}" id="uploadFile_div"style="width: 100%;" >
 						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}"
 							id="uploadFile" class="icon-hover">
@@ -93,37 +105,27 @@
 						</a>
 						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${board.boardFilename})}"
 							th:text="${board.boardFilename}"></a>
-
 					</div>
 
-					<div class="change_list flex-container_row">
+					<div class="change_list flex-container_row" style="justify-content: right;">
 						<div style="width: 125px;" class="footer_btn1">
 							<a onclick="document.forms['boardForm'].submit();">수정하기</a>
 						</div>
 						<div style="width:85px;" class="footer_btn2">
-							<a th:href="@{/admin/boardList}" th:text="#{board.list}" class="btn"></a>
+						    <a href="#" th:onclick="'confirmDelete(' + ${board.boardId} + '); return false;'">삭제</a>
 						</div>
 						<div style="width:85px;" class="footer_btn2">
-							<a th:href="@{/admin/deleteBoard(boardId=${board.boardId})}">삭제</a>
+							<a th:href="@{/admin/boardList}" th:text="#{board.list}" class="btn"></a>
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
-	</div>
+	</main>
 
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
-
-	<!-- Inquiry -->
-	<!--
-	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script>
-	-->
-
+	
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
 	<script src="/js/breakpoints.min.js"></script>
@@ -149,8 +151,7 @@
 					});
 			}
 		}
-	</script>
-	<script>
+
 		function toggleDeleteLink(input) {
 			var deleteLink = document.getElementById("deleteLink");
 			if (input.value) {
@@ -165,6 +166,52 @@
 			var uploadFile = document.getElementById("uploadFile");
 			toggleDeleteLink(uploadFile);
 		});
+		
+		
+		function confirmDelete(boardId) {
+		    Swal.fire({
+		        title: "정말로 삭제하시겠습니까?",
+		        text: "이 작업은 되돌릴 수 없습니다!",
+		        icon: "warning",
+		        showCancelButton: true,
+		        confirmButtonColor: "#3085d6",
+		        cancelButtonColor: "#d33",
+		        confirmButtonText: "삭제합니다",
+		        cancelButtonText: "취소"
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            fetch(`/admin/deleteBoard?boardId=${boardId}`, {
+		                method: 'POST',
+		            })
+		            .then(response => response.json())
+		            .then(data => {
+		                if(data.success) {
+		                    Swal.fire({
+		                        title: "삭제되었습니다!",
+		                        text: data.message,
+		                        icon: "success"
+		                    }).then(() => {
+		                        window.location.href = "/admin/boardList";
+		                    });
+		                } else {
+		                    Swal.fire({
+		                        title: "오류!",
+		                        text: data.message,
+		                        icon: "error"
+		                    });
+		                }
+		            })
+		            .catch(error => {
+		                console.error('Error:', error);
+		                Swal.fire({
+		                    title: "오류!",
+		                    text: "게시물 삭제 중 오류가 발생했습니다.",
+		                    icon: "error"
+		                });
+		            });
+		        }
+		    });
+		}
 	</script>
 
 </body>

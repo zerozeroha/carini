@@ -17,7 +17,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<link rel="stylesheet" href="/css/getModelList.css">
 	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/base/inquiry.css">
 
 	<style>
 		/* css에서 안 먹어서 따로 기재 */
@@ -50,8 +49,6 @@
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
 
 	<section class="SubTitle">ADMIN_MODEL</section>
 
@@ -59,224 +56,226 @@
 
 	<!-- Main -->
 	<main>
-		<form
-			th:action="@{/admin/modelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
-			method="get">
-			<div class="flex-container_column">
-				<div class="flex-container_row">
-					<div style="height: 10px;"></div> <!--간격박스-->
-					<div style="display: flex; flex-direction: row;">
-						<input name="searchWord" placeholder=" 검색" type="text"
-							style="width: 300px; height: 40px; padding-left: 10px;">
-						<input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
-					</div>
-
-					<div style="height: 50px;"></div> <!--간격박스-->
-
-					<table>
-
-						<thead>
-							<th>구분</th>
-							<th>범위</th>
-						</thead>
-
-						<tbody>
-							<tr>
-								<td>가격범위</td>
-								<td>
-									<div>
-										<div id="priceSlider"></div>
-										<input type="hidden" class="form-control" id="filterMinPrice"
-											name="filterMinPrice" th:value="${filterMinPrice}">
-										<input type="hidden" class="form-control" id="filterMaxPrice"
-											name="filterMaxPrice" th:value="${filterMaxPrice}">
-										<span id="priceDisplay" style="text-align: justify;">
-											"filterMinPrice"원
-											"filterMaxPrice"원</span>
-									</div>
-									<script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
-										// priceSlider 초기화
-										var priceSlider = document.getElementById('priceSlider');
-										noUiSlider.create(priceSlider, {
-											start: [0, 50000], // 시작 가격 범위
-											connect: true,
-											range: {
-												'min': 0,
-												'max': 50000
-											}
-										});
-
-										// slider 값이 변경될 때마다 호출되는 함수
-										priceSlider.noUiSlider.on('update', function (values, handle) {
-											var minPrice = Math.round(values[0]);
-											var maxPrice = Math.round(values[1]);
-
-											// input 태그 값 업데이트
-											document.getElementById('filterMinPrice').value = minPrice;
-											document.getElementById('filterMaxPrice').value = maxPrice;
-
-											// 단위 변환 함수
-											// Math.floor : 주어진 숫자보다 크지 않은 가장 큰 정수를 반환(=소수점 이하 자리를 버리고 정수 부분만 남김)
-											function formatPrice(price) {
-												if (price >= 10000) {
-													return Math.floor(price / 10000) + "억 " + (price % 10000) + "만원";
-												}
-												return price + "만원";
-											}
-
-											// span 태그 값 업데이트
-											document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
-										});
-									</script>
-									<input type="checkbox" name="exCar"> 5억 이상
-								</td>
-							</tr>
-
-							<tr>
-								<td>자동차 크기</td>
-								<td>
-									<select class="form-select" id="filterSize" name="filterSize">
-										<option value="" th:selected="${fs == ''}">선택안함</option>
-										<option value="경형" th:selected="${fs == '경형'}">경형</option>
-										<option value="소형" th:selected="${fs == '소형'}">소형</option>
-										<option value="중형" th:selected="${fs == '중형'}">중형</option>
-										<option value="준중형" th:selected="${fs == '준중형'}">준중형</option>
-										<option value="대형" th:selected="${fs == '대형'}">대형</option>
-										<option value="준대형" th:selected="${fs == '준대형'}">준대형</option>
-									</select>
-								</td>
-							</tr>
-
-							<tr>
-								<td>자동차 연료</td>
-								<td>
-									<select class="form-select" id="filterFuel" name="filterFuel">
-										<option value="" th:selected="${ff == ''}">선택안함</option>
-										<option value="가솔린" th:selected="${ff == '가솔린'}">가솔린</option>
-										<option value="디젤" th:selected="${ff == '디젤'}">디젤</option>
-										<option value="전기" th:selected="${ff == '전기'}">전기</option>
-										<option value="하이브리드" th:selected="${ff == '하이브리드'}">하이브리드</option>
-										<option value="LPG" th:selected="${ff == 'LPG'}">LPG</option>
-									</select>
-								</td>
-							</tr>
-
-							<tr>
-								<td>정렬</td>
-								<td>
-									<select class="form-select" id="carSort" name="carSort">
-										<option value="저가순" th:selected="${cs == '저가순'}">저가순</option>
-										<option value="고가순" th:selected="${cs == '고가순'}">고가순</option>
-										<option value="이름순" th:selected="${cs == '이름순'}">이름순</option>
-										<option value="즐겨찾기순" th:selected="${cs == '즐겨찾기순'}">즐겨찾기순</option>
-									</select>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div style="height: 50px;"></div><!--간격박스-->
-					<button type="submit"
-						style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER</button>
-
-				</div>
-		</form>
-
-		<div style="height: 50px;"></div> <!--간격박스-->
-
-		<!--자동차LIST-->
-		<div class="flex-container_row" style="margin-left: 7%; width: 110%;">
-			<!-- 카드 박스 반복-->
-			<div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
-				<div class="card" style="width: 20rem; max-height: 22rem; flex-direction: row;"
-					th:each="car : ${carList}">
-					<a th:href="@{/admin/updateCar(carId=${car.carId})} " id="goToComparison" th:if="${car != null}">
-						<div class="card-body" style="width: 100%;">
-							<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지" style="border:0px;">
-
-							<h5 class="card-title"
-								style="font-size: 20px; font-weight: 900; background-color: whitesmoke;"
-								th:text="${car.carName}"></h5>
-							<p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;"
-								th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"> </p>
-							<p class="card-text" style="font-size: 15px; height: 10px;" th:text="|크기 : ${car.carSize}|">
-							</p>
-							<p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연료 : ${car.carFuel}|">
-							</p>
-							<p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|">
-							</p>
+		<div class="flex-container_column" style="width: 100%;">
+			<form
+				th:action="@{/admin/modelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
+				method="get">
+				<div class="flex-container_column">
+					<div class="flex-container_row">
+						<div style="height: 10px;"></div> <!--간격박스-->
+						<div style="display: flex; flex-direction: row;">
+							<input name="searchWord" placeholder=" 검색" type="text"
+								style="width: 300px; height: 40px; padding-left: 10px;">
+							<input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
 						</div>
-					</a>
+
+						<div style="height: 50px;"></div> <!--간격박스-->
+
+						<table>
+
+							<thead>
+								<th>구분</th>
+								<th>범위</th>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td>가격범위</td>
+									<td>
+										<div>
+											<div id="priceSlider"></div>
+											<input type="hidden" class="form-control" id="filterMinPrice"
+												name="filterMinPrice" th:value="${filterMinPrice}">
+											<input type="hidden" class="form-control" id="filterMaxPrice"
+												name="filterMaxPrice" th:value="${filterMaxPrice}">
+											<span id="priceDisplay" style="text-align: justify;">
+												"filterMinPrice"원
+												"filterMaxPrice"원</span>
+										</div>
+										<script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
+											// priceSlider 초기화
+											var priceSlider = document.getElementById('priceSlider');
+											noUiSlider.create(priceSlider, {
+												start: [0, 50000], // 시작 가격 범위
+												connect: true,
+												range: {
+													'min': 0,
+													'max': 50000
+												}
+											});
+
+											// slider 값이 변경될 때마다 호출되는 함수
+											priceSlider.noUiSlider.on('update', function (values, handle) {
+												var minPrice = Math.round(values[0]);
+												var maxPrice = Math.round(values[1]);
+
+												// input 태그 값 업데이트
+												document.getElementById('filterMinPrice').value = minPrice;
+												document.getElementById('filterMaxPrice').value = maxPrice;
+
+												// 단위 변환 함수
+												// Math.floor : 주어진 숫자보다 크지 않은 가장 큰 정수를 반환(=소수점 이하 자리를 버리고 정수 부분만 남김)
+												function formatPrice(price) {
+													if (price >= 10000) {
+														return Math.floor(price / 10000) + "억 " + (price % 10000) + "만원";
+													}
+													return price + "만원";
+												}
+
+												// span 태그 값 업데이트
+												document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
+											});
+										</script>
+										<input type="checkbox" name="exCar"> 5억 이상
+									</td>
+								</tr>
+
+								<tr>
+									<td>자동차 크기</td>
+									<td>
+										<select class="form-select" id="filterSize" name="filterSize">
+											<option value="" th:selected="${fs == ''}">선택안함</option>
+											<option value="경형" th:selected="${fs == '경형'}">경형</option>
+											<option value="소형" th:selected="${fs == '소형'}">소형</option>
+											<option value="중형" th:selected="${fs == '중형'}">중형</option>
+											<option value="준중형" th:selected="${fs == '준중형'}">준중형</option>
+											<option value="대형" th:selected="${fs == '대형'}">대형</option>
+											<option value="준대형" th:selected="${fs == '준대형'}">준대형</option>
+										</select>
+									</td>
+								</tr>
+
+								<tr>
+									<td>자동차 연료</td>
+									<td>
+										<select class="form-select" id="filterFuel" name="filterFuel">
+											<option value="" th:selected="${ff == ''}">선택안함</option>
+											<option value="가솔린" th:selected="${ff == '가솔린'}">가솔린</option>
+											<option value="디젤" th:selected="${ff == '디젤'}">디젤</option>
+											<option value="전기" th:selected="${ff == '전기'}">전기</option>
+											<option value="하이브리드" th:selected="${ff == '하이브리드'}">하이브리드</option>
+											<option value="LPG" th:selected="${ff == 'LPG'}">LPG</option>
+										</select>
+									</td>
+								</tr>
+
+								<tr>
+									<td>정렬</td>
+									<td>
+										<select class="form-select" id="carSort" name="carSort">
+											<option value="저가순" th:selected="${cs == '저가순'}">저가순</option>
+											<option value="고가순" th:selected="${cs == '고가순'}">고가순</option>
+											<option value="이름순" th:selected="${cs == '이름순'}">이름순</option>
+											<option value="즐겨찾기순" th:selected="${cs == '즐겨찾기순'}">즐겨찾기순</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div style="height: 50px;"></div><!--간격박스-->
+						<button type="submit"
+							style="font-size: 25px; letter-spacing: 5px; font-weight: 100;">FILTER</button>
+
+					</div>
+			</form>
+
+			<div style="height: 50px;"></div> <!--간격박스-->
+
+			<!--자동차LIST-->
+			<div class="flex-container_row" style="margin-left: 7%; width: 110%;">
+				<!-- 카드 박스 반복-->
+				<div class="card_box" style="display: flex; flex-wrap: wrap; width: 100%" id="first_card_box">
+					<div class="card" style="width: 20rem; max-height: 22rem; flex-direction: row;"
+						th:each="car : ${carList}">
+						<a th:href="@{/admin/updateCar(carId=${car.carId})}" th:if="${car != null}">
+							<div class="card-body" style="width: 100%;">
+								<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지" style="border:0px;">
+
+								<h5 class="card-title"
+									style="font-size: 20px; font-weight: 900; background-color: whitesmoke;"
+									th:text="${car.carName}"></h5>
+								<p class="card-text" style="font-size: 15px; height: 10px; margin-top: 10px;"
+									th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"> </p>
+								<p class="card-text" style="font-size: 15px; height: 10px;"
+									th:text="|크기 : ${car.carSize}|">
+								</p>
+								<p class="card-text" style="font-size: 15px; height: 10px;"
+									th:text="|연료 : ${car.carFuel}|">
+								</p>
+								<p class="card-text" style="font-size: 15px; height: 10px;"
+									th:text="|연비 : ${car.carEff}|">
+								</p>
+							</div>
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
 
 
-		<script><!--카드에 이미지랑 글씨 같이 선택되게 하는 스크립-->
-			document.querySelectorAll('.card').forEach(card => {
-				card.addEventListener('mouseenter', () => {
-					card.querySelector('.card-img-top').style.backgroundColor = 'whitesmoke';
-					card.querySelector('.card-img-top').style.border = '2px solid whitesmoke';
-					card.querySelector('.card-body').style.backgroundColor = 'whitesmoke';
-					card.querySelector('.card-body').style.border = '2px solid whitesmoke';
-					card.querySelector('.card-body').style.marginBottom = '1px';
+			<script><!--카드에 이미지랑 글씨 같이 선택되게 하는 스크립-->
+				document.querySelectorAll('.card').forEach(card => {
+					card.addEventListener('mouseenter', () => {
+						card.querySelector('.card-img-top').style.backgroundColor = 'whitesmoke';
+						card.querySelector('.card-img-top').style.border = '2px solid whitesmoke';
+						card.querySelector('.card-body').style.backgroundColor = 'whitesmoke';
+						card.querySelector('.card-body').style.border = '2px solid whitesmoke';
+						card.querySelector('.card-body').style.marginBottom = '1px';
+					});
+
+					card.addEventListener('mouseleave', () => {
+						card.querySelector('.card-img-top').style.backgroundColor = '';
+						card.querySelector('.card-img-top').style.border = '';
+						card.querySelector('.card-body').style.backgroundColor = '';
+						card.querySelector('.card-body').style.border = '';
+						card.querySelector('.card-body').style.marginBottom = '';
+					});
 				});
-
-				card.addEventListener('mouseleave', () => {
-					card.querySelector('.card-img-top').style.backgroundColor = '';
-					card.querySelector('.card-img-top').style.border = '';
-					card.querySelector('.card-body').style.backgroundColor = '';
-					card.querySelector('.card-body').style.border = '';
-					card.querySelector('.card-body').style.marginBottom = '';
-				});
-			});
-		</script>
+			</script>
 
 
-		<div style="height: 100px;"></div> <!--간격박스-->
+			<div style="height: 100px;"></div> <!--간격박스-->
 
-		<!--pagination-->
-		<div>
-			<ul class="col pagination justify-content-center">
-				<th:block th:if="${sp > ps}">
-					<li class="page-item"><a
-							th:href="@{/model/getModelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
-							th:text="#{page.prev}"></a></li>
-				</th:block>
+			<!--pagination-->
+			<div>
+				<ul class="col pagination justify-content-center">
+					<th:block th:if="${sp > ps}">
+						<li class="page-item"><a
+								th:href="@{/admin/modelList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
+								th:text="#{page.prev}"></a></li>
+					</th:block>
 
-				<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-					<li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-						<a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-							th:href="@{/model/getModelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
-							th:text="${page}"></a>
-					</li>
-				</th:block>
+					<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+						<li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+							<a th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+								th:href="@{/admin/modelList(curPage=${page-1}, rowSizePerPage=${rp}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
+								th:text="${page}"></a>
+						</li>
+					</th:block>
 
-				<th:block th:if="${ep lt tp}">
-					<li class="page-item"><a
-							th:href="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
-							th:text="#{page.next}"></a></li>
-				</th:block>
-			</ul>
-		</div><!--pagination end-->
-		<div style="height: 100px;"></div> <!--간격박스-->
-		<div class="flex-container_row">
-			<a th:href="@{/admin/insertCar}" th:text="#{model.insert}"></a>
-			<a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
+					<th:block th:if="${ep lt tp}">
+						<li class="page-item"><a
+								th:href="@{/admin/modelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
+								th:text="#{page.next}"></a></li>
+					</th:block>
+				</ul>
+			</div><!--pagination end-->
+
+			<div style="height: 100px;"></div> <!--간격박스-->
+
+			<div class="flex-container_row" style="align-items: center;">
+				<a th:href="@{/admin/insertCar}" th:text="#{model.insert}"></a>
+			</div>
+			<div class="flex-container_row" style="align-items: end;">
+				<a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
+			</div>
 		</div>
-
 	</main>
+
+
 
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<!-- Inquiry -->
-	<!--
-	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script>
-	-->
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>

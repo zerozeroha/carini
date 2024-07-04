@@ -83,6 +83,7 @@ import com.car.dto.PagingInfo;
 import com.car.persistence.BoardRepository;
 import com.car.service.AgencyService;
 import com.car.service.BoardService;
+import com.car.service.CommentService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
 
@@ -90,16 +91,17 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 
 @RequestMapping("/center")
 @Controller
+@RequiredArgsConstructor
 public class CenterController {
 
-	@Autowired
-	private AgencyService agencyService;
+	private final AgencyService agencyService;
 	
     @GetMapping("/centerMap")
     public String centerView(@RequestParam(value="carBrand",defaultValue = "") String carBrand,Model model) {

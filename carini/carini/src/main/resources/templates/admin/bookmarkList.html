@@ -7,8 +7,8 @@
 	<title>Answer Inquiry</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
+	<link rel="stylesheet" href="/css/favorite.css">
 	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
 	<noscript>
@@ -19,46 +19,52 @@
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
-	<div id="Favorites_box">
-		<p th:text="|${memberId}님의 즐겨찾기 목록|">_Favorites</p>
-		<!-- 카드 박스 반복 -->
-		<div class="card_box" id="first_card_box">
-			<div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${BookmarkCarList}">
-				<form th:action="@{/mypage/bookmark/delete/{carId}(carId=${car.carId})}" method="post">
-					<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
-					<div class="card-body">
-						<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
-						<p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;"
-							th:text="|가격(최소) : ${car.carMinPrice}|"></p>
-						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|"></p>
-						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|"></p>
-						<p class="card-text" style="font-size: 15px;height: 10px;" th:text="| 연비 : ${car.carEff}|"></p>
-						<div class="card_button_box" style="margin-top:20px; font-size: 15px;">
-							<a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;"
-								class="btn btn-primary" th:text="#{detail}"></a>
-							<button class="delete_button" type='submit' value='Delete'>
-								<img th:src="@{/img/delete_icon.png}" value="Delete" alt="삭제">
-							</button>
+
+	<!--SubTitle-->
+	<div class="SubtitleContainer">
+		<section class="SubTitle" th:text="#{admin}"></section>
+	</div>
+	<div class="div">
+		<p id="SubTitle_Text" th:text="|${memberId}님의 즐겨찾기 목록|"></p>
+	</div>
+	<div class="div">
+		<h3>with bookmark</h3>
+	</div>
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+	<main>
+		<div id="Favorites_box" class="flex-container_column">
+			<!-- 카드 박스 반복 -->
+			<div class="card_box" id="first_card_box">
+				<div class="card" style="width: 18rem;max-height: 23rem;" th:each="car : ${BookmarkCarList}">
+					<form th:action="@{/mypage/bookmark/delete/{carId}(carId=${car.carId})}" method="post">
+						<img th:src="@{${car.carImg}}" class="card-img-top" alt="이미지">
+						<div class="card-body">
+							<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
+							<p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;"
+								th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
+							<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|크기 : ${car.carSize}|">
+							</p>
+							<p class="card-text" style="font-size: 15px;height: 10px;" th:text="|연료 : ${car.carFuel}|">
+							</p>
+							<p class="card-text" style="font-size: 15px;height: 10px;" th:text="| 연비 : ${car.carEff}|">
+							</p>
+							<div class="card_button_box" style="margin-top:20px; font-size: 15px;">
+								<a th:href="@{/model/getModel(carId=${car.carId})}" style="padding: 0px 5px;"
+									class="btn btn-primary" th:text="#{detail}"></a>
+								<button class="delete_button" type='submit' value='Delete'>
+									<img th:src="@{/img/delete_icon.png}" value="Delete" alt="삭제"
+										style="width: 16px; height: 16px;">
+								</button>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-
+	</main>
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<!-- Inquiry -->
-	<!--
-	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script>
-	-->
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
