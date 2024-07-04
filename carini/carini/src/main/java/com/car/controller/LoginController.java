@@ -57,8 +57,7 @@ public class LoginController {
 	@Value("${coolsms.api.form_number}")
 	private String FROM_NUMBER;
 
-	@Autowired
-	private BookMarkService bookmarkService;
+	private final BookMarkService bookmarkService;
 	
 	private final MemberService memberService;
 

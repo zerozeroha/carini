@@ -11,6 +11,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/main.css" />
+	<link rel="stylesheet" href="/css/base/base.css">
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+		  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
@@ -87,7 +93,8 @@
 			</div>
 		</section>
 	</div>
-
+	<div id="kakao-talk-channel-chat-button"></div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Scripts -->
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/jquery.dropotron.min.js"></script>
