@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,105 +8,130 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
 	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
-	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 </head>
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
-	<div id="page-wrapper">
-		<div id="content">
-			<p class="Inquiry_text">Admin_InquiryList</p>
-			<article id="main">
-				<form th:action="@{/admin/inquiryList}" method="get">
-					<input type="hidden" id="curPage" name="curPage"  th:value="0">
-					<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
-					<span>
-						<span th:text="#{inquiry.total.start}"></span>
-						<span th:text="${pagedResult.getTotalElements()}"></span>
-						<span th:text="#{inquiry.total}"></span>
-					</span>
 
-					<!-- <span class="container";> -->
-					<div class="Inquiry">
-						<select class="form-select" id="searchType" name="searchType" >
-							<option class="select_options" value="reTitle" th:selected="${st=='reTitle'}" th:text="#{inquiry.search.reTitle}" ></option>
-							<option class="select_options" value="reContent" th:selected="${st =='reContent'}" th:text="#{inquiry.search.reContent}"></option>
-							<option class="select_options" value="memberId" th:selected="${st =='memberId'}" th:text="#{inquiry.search.memberId}"></option>
-							<option class="select_options" value="reTitleRq" th:selected="${st =='reTitleRq'}" th:text="#{inquiry.search.reTitleRq}"></option>
-							<option class="select_options" value="reContentRq" th:selected="${st =='reContentRq'}" th:text="#{inquiry.search.reContentRq}"></option>
-						</select>
-						<div>
-							<input name="searchWord" type="text">
-						</div>
-						<div>
-							<input type="submit" name="검색" class="gradient" value="Search">
-						</div>
-					</div>
-					<!-- </span> -->
-				</form>
-				<br>
-				<div class="main_inquiry" style="height: 100%;">
-					<table border="1">
-						<tr style="display: flex;">
-							<th class="center" style="width: 10%;" th:text="#{label.inquiry.reId}"></th>
-							<th class="center" style="width: 30%;" th:text="#{label.inquiry.reTitle}"></th>
-							<th class="center" style="width: 20%;" th:text="#{label.inquiry.reDate}"></th>
-							<th class="center" style="width: 20%;" th:text="#{label.inquiry.memberId}"></th>
-							<th class="center" style="width: 10%;" th:text="#{label.inquiry.answer}"></th>
-							<th class="center" style="width: 10%;" th:text="#{label.inquiry.reDateRq}"></th>
-							<th class="center" style="width: 10%;" th:text="#{label.inquiry.reHero}"></th>
-						</tr>
-						<tr style="display: flex; text-align: center;" th:each="inquiry, state : ${pagedResult.getContent()}">
-							<td class="ellipsis" style="width: 10%; text-align: center;" th:text="${inquiry.reId}"></td>
-							<td class="ellipsis" style="width: 30%; text-align: center;">
-								<a class="Inquiry-hover" th:href="@{/admin/answerInquiry(reId=${inquiry.reId})}" th:text="${inquiry.reTitle}"></a>
-							</td>
-							<td class="ellipsis" style="width: 20%; text-align: center;" th:text="${#dates.format(inquiry.reDate, 'yyyy-MM-dd hh:mm')}"></td>
-							<td class="ellipsis" style="width: 20%; text-align: center;" th:text="${inquiry.memberId}"></td>
-							<td class="ellipsis" style="width: 10%; text-align: center;">
-								<p th:if="${inquiry.reTitleRq != null && inquiry.reContentRq != null}">O</p>
-								<p th:if="${inquiry.reTitleRq == null && inquiry.reContentRq == null}">X</p>
-							</td>
-							<td class="ellipsis" style="width: 10%; text-align: center;" th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}"></p>
-							</td>
-							<td class="ellipsis" style="width: 10%; text-align: center;" th:if="${inquiry.reHero != null}" th:text="${inquiry.reHero}">
-							</td>
-						</tr>
-					</table>
-				</div>
-				</br>
-				
-				<!--pagination-->
-				<div class="center">
-					<ul class="col pagination justify-content-center" style="list-style-type: none; display: flex; justify-content: center; width: 130%;">	
-						<th:block th:if="${sp > ps}">
-							<li class="page-item"><a class="Inquiry-hover page-link" th:href="@{/admin/inquiryList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.prev}"></a></li>				
-						</th:block>
-						
-						<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-						  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-						    <a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-						       th:href="@{/admin/inquiryList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-						       th:text="${page}"></a>
-						  </li>
-						</th:block>
-						
-						<th:block th:if="${ ep lt tp }">
-							<li class="page-item"><a class="Inquiry-hover page-link" th:href="@{/admin/inquiryList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}" th:text="#{page.next}"></a></li>								
-						</th:block>
-					</ul>
-				</div>
-				
-				
-			</article>
-		</div><!--content-->
-	</div><!--page-wrapper-->
+	<!--SubTitle-->
+	<div class="SubtitleContainer">
+		<section class="SubTitle" th:text="#{admin}"></section>
+	</div>
+	<div class="div">
+		<p id="SubTitle_Text" th:text="#{inquiry.list}"></p>
+	</div>
+	<div class="div">
+		<h3>with inquiry</h3>
+	</div>
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
 	
+	<!--Main-->
+	<main>
+		<div id="flex-container_column">
+			<form th:action="@{/admin/inquiryList}" method="get" style="width: 100%;">
+				<input type="hidden" id="curPage" name="curPage" th:value="0">
+				<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
+				<span style="width: 40%;">
+					<span th:text="#{inquiry.total.start}"></span>
+					<span th:text="${pagedResult.getTotalElements()}"></span>
+					<span th:text="#{inquiry.total}"></span>
+				</span>
+
+				<div class="flex-container_row" style="width: 100%;">
+					<select class="form-select" id="searchType" name="searchType" style="width: 20%;">
+						<option class="select_options" value="reTitle" th:selected="${st=='reTitle'}"
+							th:text="#{inquiry.search.reTitle}"></option>
+						<option class="select_options" value="reContent" th:selected="${st =='reContent'}"
+							th:text="#{inquiry.search.reContent}"></option>
+						<option class="select_options" value="memberId" th:selected="${st =='memberId'}"
+							th:text="#{inquiry.search.memberId}"></option>
+						<option class="select_options" value="reTitleRq" th:selected="${st =='reTitleRq'}"
+							th:text="#{inquiry.search.reTitleRq}"></option>
+						<option class="select_options" value="reContentRq" th:selected="${st =='reContentRq'}"
+							th:text="#{inquiry.search.reContentRq}"></option>
+					</select>
+					<div style="width: 65%;">
+						<input name="searchWord" type="text" style="width: 100%;">
+					</div>
+					<div style="width: 15%;">
+						<input type="submit" name="검색" class="gradient" value="Search" style="width: 100%;">
+					</div>
+				</div>
+			</form>
+			<br>
+				<table border="1" style="width: 100%;">
+					<tr style="display: flex;">
+						<th class="center" style="width: 10%;" th:text="#{label.inquiry.reId}"></th>
+						<th class="center" style="width: 30%;" th:text="#{label.inquiry.reTitle}"></th>
+						<th class="center" style="width: 20%;" th:text="#{label.inquiry.reDate}"></th>
+						<th class="center" style="width: 20%;" th:text="#{label.inquiry.memberId}"></th>
+						<th class="center" style="width: 10%;" th:text="#{label.inquiry.answer}"></th>
+						<th class="center" style="width: 10%;" th:text="#{label.inquiry.reDateRq}"></th>
+						<th class="center" style="width: 10%;" th:text="#{label.inquiry.reHero}"></th>
+					</tr>
+					<tr style="display: flex; text-align: center;"
+						th:each="inquiry, state : ${pagedResult.getContent()}">
+						<td class="ellipsis" style="width: 10%; text-align: center;" th:text="${inquiry.reId}"></td>
+						<td class="ellipsis" style="width: 30%; text-align: center;">
+							<a class="Inquiry-hover" th:href="@{/admin/answerInquiry(reId=${inquiry.reId})}"
+								th:text="${inquiry.reTitle}"></a>
+						</td>
+						<td class="ellipsis" style="width: 20%; text-align: center;"
+							th:text="${#dates.format(inquiry.reDate, 'yyyy-MM-dd hh:mm')}"></td>
+						<td class="ellipsis" style="width: 20%; text-align: center;" th:text="${inquiry.memberId}"></td>
+						<td class="ellipsis" style="width: 10%; text-align: center;">
+							<p th:if="${inquiry.reTitleRq != null && inquiry.reContentRq != null}">O</p>
+							<p th:if="${inquiry.reTitleRq == null && inquiry.reContentRq == null}">X</p>
+						</td>
+						<td class="ellipsis" style="width: 10%; text-align: center;"
+							th:text="${#dates.format(inquiry.reDateRq, 'yyyy-MM-dd hh:mm')}">
+							</p>
+						</td>
+						<td class="ellipsis" style="width: 10%; text-align: center;" th:if="${inquiry.reHero != null}"
+							th:text="${inquiry.reHero}">
+						</td>
+					</tr>
+				</table>
+			</br>
+
+			<!--pagination-->
+			<div class="flex-container_row" style="width: 100%;">
+				<ul class="col pagination justify-content-center"
+					style="list-style-type: none; display: flex; justify-content: center; width: 130%;">
+					<th:block th:if="${sp > ps}">
+						<li class="page-item"><a class="Inquiry-hover page-link"
+								th:href="@{/admin/inquiryList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+								th:text="#{page.prev}"></a></li>
+					</th:block>
+
+					<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+						<li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+							<a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+								th:href="@{/admin/inquiryList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+								th:text="${page}"></a>
+						</li>
+					</th:block>
+
+					<th:block th:if="${ ep lt tp }">
+						<li class="page-item"><a class="Inquiry-hover page-link"
+								th:href="@{/admin/inquiryList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+								th:text="#{page.next}"></a></li>
+					</th:block>
+				</ul>
+			</div><!--pagination-->
+			
+			<div style="text-align: right;">
+				<a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
+			</div>
+			
+		</div>
+	</main>
+
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
@@ -122,7 +148,8 @@
 	<script src="/js/jquery.dropotron.min.js"></script>
 	<script src="/js/breakpoints.min.js"></script>
 	<script src="/js/main.js"></script>
-	
-	
+
+
 </body>
+
 </html>

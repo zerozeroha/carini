@@ -219,17 +219,6 @@
 		}
 	</script>
 
-					<div class="flex-container_row" style="height: 3%;" th:if="${session.user.memberSocial == '회원'}">
-						<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}">
-					</div>
-					</form>
-					<!--탈퇴하기 버튼-->
-					<div class="flex-container_row" style="height: 10%;">
-						<form th:action="@{/mypage/myinfo/delete}" method="post" onsubmit="return confirmUnsubscribe()">
-							<button id="member_quit" type="submit" th:text="#{info.btn.unsubscribe}" style></button>
-						</form>
-					</div>
-
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
