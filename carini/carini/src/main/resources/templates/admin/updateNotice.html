@@ -106,7 +106,7 @@
 							<a onclick="document.forms['noticeForm'].submit();">수정하기</a>
 						</div>
 						<div style="width:85px;" class="footer_btn2">
-							<a th:href="@{/admin/noticeList}" th:text="#{board.list}" class="btn"></a>
+							<a th:href="@{/notice/getNoticeList}" th:text="#{board.list}" class="btn"></a>
 						</div>
 						<div style="width:85px;" class="footer_btn2">
 							<a th:href="@{/admin/deleteNotice(noticeId=${notice.noticeId})}">삭제</a>

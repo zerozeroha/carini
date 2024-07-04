@@ -1,9 +1,9 @@
 * {
-   margin: 0;
-   padding: 0;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   letter-spacing: 2px;
-   cursor: default;
+	margin: 0;
+	padding: 0;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	letter-spacing: 2px;
+	cursor: default;
 }
 
 
@@ -11,139 +11,139 @@
 /* body */
 
 body {
-    background: white;
-    color: #5b5b5b;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    letter-spacing: 2px;
-    margin: 0;
-    padding: 0;
-    
- }
+	background: white;
+	color: #5b5b5b;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	letter-spacing: 2px;
+	margin: 0;
+	padding: 0;
+
+}
 
 
 
 /* 소제목 */
 
 /* 소제목 영역 */
-section {   
-    height: 50px;
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    margin: 5% 16%;
-    
+section {
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	align-items: center;
+	margin: 5% 16%;
+
 }
 
 /* 소제목 */
-.SubtitleContainer{
-    width: 100%;
-    height: 5%;
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    
+.SubtitleContainer {
+	width: 100%;
+	height: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
 }
 
 .SubTitle {
-    text-align: center;
-    font-size: 60px;
-    font-weight: 1000;
-    color: black;
-    width: 70%;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+	text-align: center;
+	font-size: 60px;
+	font-weight: 1000;
+	color: black;
+	width: 70%;
+	height: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 
 /* 소제목 소개글 */
 #SubTitle_Text {
-    display: inline;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    text-align: center;
-    font-size: 30px;
-    color: black;
+	display: inline;
+	align-items: center;
+	justify-content: center;
+	font-weight: 900;
+	text-align: center;
+	font-size: 30px;
+	color: black;
 }
 
 
 
 /* Main */
-        
+
 main {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
 }
 
 
 /* form */
 
 form {
-   display: flex;
-   align-items: center;
-   justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-    
-    
+
+
 /* Container */
 
 .container {
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    width: 1200px;
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	width: 1200px;
 }
 
 /* 세로박스 : 세로로 정렬됨. */
 .flex-container_column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1%;
-    width: 85%;
-    height: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	width: 85%;
+	height: 90%;
 }
 
 /* 가로박스 : 가로로 정렬됨.*/
-.flex-container_row { 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 1%;
-    width: 90%;
-    height: 90%;
+.flex-container_row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	width: 90%;
+	height: 90%;
 }
 
 
-.flex-container > div {
-    background-color: white;
-    text-align: center;
+.flex-container>div {
+	background-color: white;
+	text-align: center;
 }
 
 /* 각 라인들을 감싸는 박스 */
 .flex-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: white;
 }
 
-.flex-container > div {
-    background-color: white;
-    text-align: center;
+.flex-container>div {
+	background-color: white;
+	text-align: center;
 }
 
 
@@ -152,13 +152,13 @@ form {
 /* 박스 class */
 
 .div {
-    width: 100%;
-    height: 5%;
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+	width: 100%;
+	height: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 }
 
 
@@ -167,12 +167,14 @@ form {
 
 /* Form요소 - Input, textarea, select */
 
-input, textarea, select {
-    font-size: 15pt;
-    line-height: 1.85em;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 300;
- }
+input,
+textarea,
+select {
+	font-size: 15pt;
+	line-height: 1.85em;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+}
 
 form input[type="text"],
 form input[type="email"],
@@ -180,57 +182,65 @@ form input[type="password"],
 form input[type="submit"],
 form select,
 form textarea {
-    background: #fafafa;
-    border-radius: 0.5em;
-    border: 1.5px solid black;
-    margin: 0.1px;
-    padding: 0.1px;
+	background: #fafafa;
+	border-radius: 0.5em;
+	border: 1.5px solid black;
+	margin: 0.1px;
+	padding: 0.1px;
+}
+
+form select {
+	height: 1.9em;
+	/* Adjust this value as needed */
 }
 
 form textarea {
-    min-height: 9em;
+	min-height: 9em;
 }
 
 
 #search {
-    height: 15px;
-    width: 30px;
+	height: 15px;
+	width: 30px;
 }
 
 
- 
- /* Table */
- 
+
+/* Table */
+
 table {
-    width: 100%;
-    border-collapse: collapse;
-    border-top: 1px solid black; /* 테이블 상단 테두리 */
-    border-bottom: 1px solid black; /* 테이블 하단 테두리 */
+	width: 100%;
+	border-collapse: collapse;
+	border-top: 1px solid black;
+	/* 테이블 상단 테두리 */
+	border-bottom: 1px solid black;
+	/* 테이블 하단 테두리 */
 }
 
-th, td {
-    padding: 10px;
-    text-align: center;
+th,
+td {
+	padding: 10px;
+	text-align: center;
 }
 
 th {
-    background-color: #333;
-    color: white;
-    font-weight: bold;
+	background-color: #333;
+	color: white;
+	font-weight: bold;
 }
 
 tr {
-    background-color: #f2f2f2;
+	background-color: #f2f2f2;
 }
 
 .ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .center {
-    text-align: center;
+	text-align: center;
 }
 
 
@@ -239,7 +249,8 @@ tr {
 /* checkbox */
 
 .checkbox {
-    flex: 0 0 50px; /* 고정 크기 */
+	flex: 0 0 50px;
+	/* 고정 크기 */
 }
 
 
@@ -253,21 +264,21 @@ input[type="submit"],
 input[type="reset"],
 button,
 .button {
-    padding: 2px;
-    position: relative;
-    display: inline-block;
-    background-color: white;
-    color: black;
-    text-align: center;
-    border-radius: 0.5em;
-    text-decoration: none;
-    padding: 0.65em 3em 0.65em 3em;
-    border: 2px solid black;
-    cursor: pointer;
-    outline: 0;
-    font-weight: 300;
-    -webkit-text-stroke: 0.4px black;
-   }
+	padding: 2px;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	text-align: center;
+	border-radius: 0.5em;
+	text-decoration: none;
+	padding: 0.65em 3em 0.65em 3em;
+	border: 2px solid black;
+	cursor: pointer;
+	outline: 0;
+	font-weight: 300;
+	-webkit-text-stroke: 0.4px black;
+}
 
 /* button.hover */
 
@@ -277,91 +288,93 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-    color: white;
-    background: black;
-    -webkit-text-stroke: 0.9px white;
+	color: white;
+	background: black;
+	-webkit-text-stroke: 0.9px white;
 }
 
-input[type="text"]:hover{
-    border: 2px solid  rgb(170, 170, 170);
+input[type="text"]:hover {
+	border: 2px solid rgb(170, 170, 170);
 }
 
 
-    
+
 
 /* a */
 
 main>a {
 	font: inherit;
-    font-weight: bold; /* 글씨체를 두껍게 설정 */
-    text-decoration: none; /* 밑줄 제거 */
-    color: inherit;
-    cursor: pointer;
-    font-size: inherit;
-   }
+	font-weight: bold;
+	/* 글씨체를 두껍게 설정 */
+	text-decoration: none;
+	/* 밑줄 제거 */
+	color: inherit;
+	cursor: pointer;
+	font-size: inherit;
+}
 
 
 /* a.hover */
 
- main>a:hover {
-    background-color: black;
-    color: white;
-    font: inherit;
-    -webkit-text-stroke: 0.5px white;
-    border-bottom-color: transparent;
-    border-radius: 0.5rem;
-    background-color: none; 
-    cursor:pointer;
+main>a:hover {
+	background-color: black;
+	color: white;
+	font: inherit;
+	-webkit-text-stroke: 0.5px white;
+	border-bottom-color: transparent;
+	border-radius: 0.5rem;
+	background-color: none;
+	cursor: pointer;
 }
 
 
 
 /* 탈퇴하기 button */
 
-.getout{
-    width: 3%;
-    height: 5%;
-    color: black;
-    background-color: white;
- }
+.getout {
+	width: 3%;
+	height: 5%;
+	color: black;
+	background-color: white;
+}
 
-.getout_button, .getout .getout_button {
-    border: none;
-    color: black;
-    text-align: center;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 16px;
-    text-decoration: none;
-    margin-top: 300px;
+.getout_button,
+.getout .getout_button {
+	border: none;
+	color: black;
+	text-align: center;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 16px;
+	text-decoration: none;
+	margin-top: 300px;
 }
 
 button.getout-hover:hover {
-    color: black !important;
+	color: black !important;
 }
 
 button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
 	color: inherit;
 
 }
+
 button:hover {
 	background-color: transparent;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
 	background-color: black;
-    color: white;
-    -webkit-text-stroke: 0.5px white;
-    border-bottom-color: transparent;
-    border-radius: 0.5rem;
-    background-color: none; 
+	color: white;
+	-webkit-text-stroke: 0.5px white;
+	border-bottom-color: transparent;
+	border-radius: 0.5rem;
+	background-color: none;
 
 }
-
-

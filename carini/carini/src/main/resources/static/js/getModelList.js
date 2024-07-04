@@ -55,6 +55,8 @@ let selectedCarIds = JSON.parse(localStorage.getItem('selectedCarIds')) || [];
  * carData 선택
  */
 function selectCarForComparison(carId) {
+	event.preventDefault();
+	
     if (selectedCarIds.includes(carId)) {
         alert('이 차는 이미 선택되었습니다.');
         return;
@@ -74,6 +76,8 @@ function selectCarForComparison(carId) {
     } else {
         fetchSingleCarData(carId);
     }
+    
+     scrollToComparisonSection();
 }
 
 /**
@@ -83,12 +87,9 @@ function fetchSingleCarData(carId) {
     fetch(`/model/getCompareModel?carId=${carId}`)
         .then(response => response.json())
         .then(data => {
-            if (selectedCarIds.length === 1) {
-                document.getElementById('comparisonSection').style.display = 'block';
-                populateCarData(data, 1);
-            } else if (selectedCarIds.length === 2) {
-                populateCarData(data, 2);
-            }
+            document.getElementById('comparisonSection').style.display = 'block';
+            populateCarData(data, selectedCarIds.length);
+            scrollToComparisonSection();
         });
 }
 
@@ -102,6 +103,8 @@ function fetchComparisonData(carId1, carId2) {
             document.getElementById('comparisonSection').style.display = 'block';
             populateCarData(data.car1, 1);
             populateCarData(data.car2, 2);
+            scrollToComparisonSection();
+            
         });
 }
 
@@ -114,7 +117,7 @@ var carRadarLabels = ["주행", "가격", "거주성", "품질", "디자인", "�
 function populateCarData(car, position) {
     document.getElementById(`car${position}Img`).src = car.carImg;
     document.getElementById(`car${position}Name`).innerText = car.carName;
-    document.getElementById(`car${position}Price`).innerText = new Intl.NumberFormat('ko-KR').format(Math.round(car.carAvgPrice));
+    document.getElementById(`car${position}Price`).innerText = new Intl.NumberFormat('ko-KR').format(Math.round(car.carAvgPrice)) + "만원";
     document.getElementById(`car${position}Size`).innerText = car.carSize;
     document.getElementById(`car${position}Fuel`).innerText = car.carFuel;
     document.getElementById(`car${position}Eff`).innerText = car.carEff;
@@ -187,6 +190,13 @@ function populateCarData(car, position) {
     })
     saveCompareCar(car, position);
 } // function populateCarData END
+
+function scrollToComparisonSection() {
+    const comparisonSection = document.getElementById('comparisonSection');
+    if (comparisonSection) {
+        comparisonSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
 
 /**
  * radarChart 합치기

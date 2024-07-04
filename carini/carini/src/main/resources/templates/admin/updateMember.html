@@ -35,8 +35,8 @@
 
 	<!--Main-->
 	<main>
-		<div class="flex-container_column">
-			<form th:action="@{/admin/updateMember}" th:object="${member}" method="post">
+		<form th:action="@{/admin/updateMember}" th:object="${member}" method="post">
+			<div class="flex-container_column">
 				<div class="flex-container_row">
 					<table id="member_info" style="width: 1300px;">
 						<tr>
@@ -91,8 +91,8 @@
 					<button type="submit" class="btn btn-primary">Update Member</button>
 					<a th:href="@{/admin/deleteMember(memberId=${member.memberId})}">Delete Member</a>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</main>
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
