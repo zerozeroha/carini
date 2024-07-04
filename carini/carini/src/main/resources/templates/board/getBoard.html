@@ -64,7 +64,7 @@
 				<tr>
 					<td>첨부파일</td>
 					<td th:if="${ board.boardFilename != null }" colspan="3" style="padding: 20px;">
-						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${ board.boardFilename })}"
+						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${ board.boardFilename })}" style="color: black;"
 							th:text="${ board.boardFilename }"></a>
 						<a th:href="@{ /board/download(boardId=${board.boardId }, fn=${ board.boardFilename })}">
 							<img style="height: 20px; background-color: white; margin-right:7px;"

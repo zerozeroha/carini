@@ -1,53 +1,149 @@
 <!-- Header -->
 <div id="header" th:fragment="main_header">
-   <!-- Inner -->
-   <div class="inner">
-      <header>
-         <a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-      </header>
-   </div>
-   <!-- Nav -->
-   <nav id="nav">
-      <ul>
-         <li><a th:href="@{/board/getBoardList}">Board</a>
-            <ul style="margin-top:10px">
-               <li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver">커뮤니티</a>
-               </li>
-               <li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a>
-               </li>
-            </ul>
-         </li>
-         <li><a th:href="@{/model/getModelList}">&nbsp;Model</a></li>
-         <li><a th:href="@{/center/centerMap}">&nbsp;Center</a></li>
-         <li>
-            <a>&nbsp;MyPage</a>
-            <ul style="margin-top:5px;">
-               <li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
-                     th:text="#{side.menu1}"></a></li>
-               <li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
-                     th:text="#{side.menu2}"></a></li>
-               <li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
-                     th:text="#{side.menu3}"></a></li>
-            </ul>
-         </li>
-      </ul>
-   </nav>
+	<!-- Inner -->
+	<div class="inner">
+		<header>
+			<a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
+		</header>
+
+		<style>
+			#fixed-bar {
+				background-color: rgba(0, 0, 0, 0.7);
+				color: white;
+				padding: 20px;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				z-index: 1000;
+				height: 5%;
+			}
+			
+
+		</style>
+
+
+	</div>
+	<!-- Nav -->
+	<nav id="nav" style="padding: 0%;">
+
+		<div style="height: 10%; width: 80%; font-size: 20px;margin-left:50%; 
+		margin-top:0.2%;padding: 0%;font-size: 14px;cursor: default;font-weight: 700;">
+			<input type="text" style="	width: 5%;border: 1px solid black;
+			border-bottom: 1px solid white;color: white;background-color: black;text-align: center;
+			font-weight: 500;cursor: default;padding: 0%;padding-bottom: 0.2%; font-size: 15px;" value="하영"> 님 반갑습니다 ❤
+		</div>
+		<ul>
+			<li><a th:href="@{/board/getBoardList}">Board</a>
+				<ul style="margin-top:10px">
+					<li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver">커뮤니티</a>
+					</li>
+					<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a>
+					</li>
+				</ul>
+			</li>
+			<li><a th:href="@{/model/getModelList}">Model</a></li>
+			<li><a th:href="@{/center/centerMap}">Center</a></li>
+			<li>
+				<a>MyPage</a>
+				<ul style="margin-top:5px;">
+					<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
+							th:text="#{side.menu1}"></a></li>
+					<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
+							th:text="#{side.menu2}"></a></li>
+					<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
+							th:text="#{side.menu3}"></a></li>
+				</ul>
+			</li>
+		</ul>
+
+	</nav>
+	<div class="alertBox" id="fixed-bar">
+
+		<nav id="nav" >
+
+			<div style="height: 10%; width: 80%; font-size: 20px;margin-left:45%; 
+				margin-top:0.2%;padding: 0%;font-size: 14px;cursor: default;font-weight: 700;">
+				<input type="text" style="	width: 5%;border: 1px solid black;
+					border-bottom: 1px solid white;color: white;background-color: black;text-align: center;
+					font-weight: 500;cursor: default;padding: 0%;padding-bottom: 0.2%; font-size: 15px;" value="하영"> 님 반갑습니다 ❤
+			</div>
+			<ul style="border: none;">
+				<li><a th:href="@{/board/getBoardList}">Board</a>
+					<ul style="border: none;">
+						<li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver">커뮤니티</a>
+						</li>
+						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a>
+						</li>
+					</ul>
+				</li>
+				<li><a th:href="@{/model/getModelList}">Model</a></li>
+				<li><a th:href="@{/center/centerMap}">Center</a></li>
+				<li>
+					<a>MyPage</a>
+					<ul style="border: none;">
+						<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
+								th:text="#{side.menu1}"></a></li>
+						<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
+								th:text="#{side.menu2}"></a></li>
+						<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
+								th:text="#{side.menu3}"></a></li>
+					</ul>
+				</li>
+			</ul>
+
+		</nav>
+
+
+
+	</div>
+
+	<script>
+		// 함수를 통해 alertBox 요소를 가져오기
+		function sidebar(what) {
+			document.getElementById('fixed-bar').style.display = what;
+		}
+
+		// 초기 alertBox의 높이를 가져오기 위해 window.onload 사용
+		window.onload = function () {
+			var alertBox = document.getElementById('fixed-bar');
+			var alertBoxHeight = alertBox.offsetHeight;
+
+			// 스크롤 이벤트 리스너 추가
+			window.addEventListener('scroll', function () {
+				// 현재 스크롤 위치
+				var scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+
+				// 특정 height 값 설정
+				var triggerHeight = 90; // 예시로 300px로 설정
+
+				// 스크롤 위치가 트리거 높이를 넘었는지 확인
+				if (scrollPosition > triggerHeight) {
+					alertBox.style.display = 'block';
+				} else {
+					alertBox.style.display = 'none';
+				}
+			});
+		};
+	</script>
+
 </div>
+
+
 <!--여기까지 헤더-->
 
 
 <!-- Footer -->
 <footer th:fragment="main_footer">
-   <hr>
-   <h1 style="padding-bottom: 50px;">@ carini</h1>
+	<hr style="margin:0%; padding: 0%;">
+	<h1>@ carini</h1>
 </footer>
 
 
 <!--챗봇 아이콘-->
 <div id="float_icons" th:fragment="floaticon">
-   <a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
-      <img src="/img/popup.png" alt="문의" style="cursor: pointer;">
-   </a>
+	<a class="icon-hover" href="javascript:void(0);" onclick="pop()" id="qr">
+		<img src="/img/popup.png" alt="문의" style="cursor: pointer;">
+	</a>
 </div>
 
 <!-- Popup and Overlay -->
@@ -55,77 +151,77 @@
 <div id="popup-overlay" class="popup-overlay" onclick="closePopup()" th:fragment="inquiry_overlayhtml"></div>
 
 <div id="popup" class="popup_hidden" style="width:500px;height: 600px;" th:fragment="inquiry_Listhtml">
-   <!-- 평상시에 안보이게 -->
-   <button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
-   <div id="qna_header">문의 내역</div>
-   <div class="qna_container">
-      <div id="qna_ul">
+	<!-- 평상시에 안보이게 -->
+	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
+	<div id="qna_header">문의 내역</div>
+	<div class="qna_container">
+		<div id="qna_ul">
 
-      </div>
-   </div>
-   <div style="margin-top:10px;">
-      <button onclick="to_insert_popup()" class="qna_button">문의하기</button>
-   </div>
+		</div>
+	</div>
+	<div style="margin-top:10px;">
+		<button onclick="to_insert_popup()" class="qna_button">문의하기</button>
+	</div>
 </div>
 <!-- 문의 글 작성하기 -->
 <div id="insertpopup" class="popup_hidden" th:object="${InquiryWriteValidation}" th:fragment="inquiry_writehtml">
-   <button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
-   <div id="qna_header">문의하기</div>
-   <form onsubmit="verifyPassword(event)" th:object="${InquiryWriteValidation}">
-      <input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
-      <div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
-         <!-- 제목 오류 메시지 표시 영역 -->
-      </div>
+	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
+	<div id="qna_header">문의하기</div>
+	<form onsubmit="verifyPassword(event)" th:object="${InquiryWriteValidation}">
+		<input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
+		<div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
+			<!-- 제목 오류 메시지 표시 영역 -->
+		</div>
 
-      <textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요"
-         style="width:100%;height: 280px; resize: none;border-radius: 10px"></textarea>
-      <div class="field-error" id="reContentError" style="font-size: 15px; color: red;">
-         <!-- 내용 오류 메시지 표시 영역 -->
-      </div>
-      <button type="submit" class="qna_button">제출하기</button>
-   </form>
+		<textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요"
+			style="width:100%;height: 280px; resize: none;border-radius: 10px"></textarea>
+		<div class="field-error" id="reContentError" style="font-size: 15px; color: red;">
+			<!-- 내용 오류 메시지 표시 영역 -->
+		</div>
+		<button type="submit" class="qna_button">제출하기</button>
+	</form>
 </div>
 
 <!-- 나의 문의 상세보기 팝업 -->
 <div id="getpopup" class="popup_hidden" th:fragment="inquiry_detailhtml">
-   <button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
+	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
 
-   <div id="qna_header">상세보기</div>
+	<div id="qna_header">상세보기</div>
 
-   <!-- 여기부터 문의 글 영역 -->
-   <div id="qna_section" style="margin-top: 10px;">
-      <span class="q_section">
-         <span id="detailsreDate" class="title-date"></span>
-         <span id="detailsreTitle">문의합니다</span>
-      </span>
-      <p id="q_content" class="q_section"></p>
+	<!-- 여기부터 문의 글 영역 -->
+	<div id="qna_section" style="margin-top: 10px;">
+		<span class="q_section">
+			<span id="detailsreDate" class="title-date"></span>
+			<span id="detailsreTitle">문의합니다</span>
+		</span>
+		<p id="q_content" class="q_section"></p>
 
-      <h3 style="text-align: left;margin-top:15px;font-size: 20px;">관리자</h3>
-      <span class="a_section">
-         <span class="title-date" id="detailsreDateRq"></span>
-         <span id="detailsreTitleRq"></span>
-      </span>
-      <p id="a_content" class="a_section"></p>
-   </div>
+		<h3 style="text-align: left;margin-top:15px;font-size: 20px;">관리자</h3>
+		<span class="a_section">
+			<span class="title-date" id="detailsreDateRq"></span>
+			<span id="detailsreTitleRq"></span>
+		</span>
+		<p id="a_content" class="a_section"></p>
+	</div>
 
-   <!-- 문의 글 영역 여기까지 -->
-   <div id="button_list">
-      <button onclick="to_popup()" class="qna_button" id="list_button">목록</button>
-   </div>
+	<!-- 문의 글 영역 여기까지 -->
+	<div id="button_list">
+		<button onclick="to_popup()" class="qna_button" id="list_button">목록</button>
+	</div>
 </div>
 
 
 <script th:fragment="inquiry_script">
-  // 사용할 앱의 JavaScript 키를 설정해 주세요.
-  Kakao.init('f03e1323f64fa7f0d248d6b64a8bcd1b');
-  // 채널 1:1 채팅 버튼을 생성합니다.
-  Kakao.Channel.createChatButton({
-    container: '#kakao-talk-channel-chat-button',
-    channelPublicId: '_YGxcxcG',
-    title: 'consult',
-    size: 'small',
-    color: 'yellow',
-    shape: 'pc',
-    supportMultipleDensities: true,
-  });
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('f03e1323f64fa7f0d248d6b64a8bcd1b');
+	// 채널 1:1 채팅 버튼을 생성합니다.
+	Kakao.Channel.createChatButton({
+		container: '#kakao-talk-channel-chat-button',
+		channelPublicId: '_YGxcxcG',
+		title: 'consult',
+		size: 'small',
+		color: 'yellow',
+		shape: 'pc',
+		supportMultipleDensities: true,
+	});
 </script>
