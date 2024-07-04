@@ -83,7 +83,6 @@ input, select, textarea {
 	}
 
 	body {
-		background: #f0f4f4;
 		color: #5b5b5b;
 		font-size: 15pt;
 		line-height: 1.85em;
@@ -210,7 +209,8 @@ input, select, textarea {
 			display: block;
 			width: 1px;
 			height: 21px;
-			background: rgba(128, 128, 128, 0.2);
+			
+nd: rgba(128, 128, 128, 0.2);
 		}
 
 		hr:before {
@@ -2278,7 +2278,7 @@ input, select, textarea {
 
 		body.homepage #header:after {
 			content: '';
-			background: #1C0920;
+			background: black;
 			display: block;
 			position: absolute;
 			left: 0;
@@ -2485,7 +2485,7 @@ input, select, textarea {
 }
 
 #login{
-	
+	font-size: 4rem;
 }
 
 
@@ -3185,3 +3185,4 @@ input, select, textarea {
 					}
 
 	}
+	

@@ -63,6 +63,7 @@ import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
 import com.car.service.BoardService;
 import com.car.service.BookMarkService;
+import com.car.service.CommentService;
 import com.car.service.InquiryService;
 import com.car.service.MemberService;
 import com.car.service.ModelService;
@@ -74,6 +75,7 @@ import com.car.validation.NoticeUpdateFormValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -81,26 +83,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
    
-   @Autowired
-   private BoardService boardService;
-   @Autowired
-   private MemberService memberService;
-   @Autowired
-   private NoticeService noticeService;
-   @Autowired
-   private InquiryService inquiryService;
-   @Autowired
-   private ModelService modelService;
-   @Autowired
-   private BookMarkService bookmarkService;
-   
-
-   @Autowired
-   private MessageSource messageSource;
-   @Autowired
-   private LocaleResolver localeResolver;
+   private final BoardService boardService;
+   private final MemberService memberService;
+   private final NoticeService noticeService;
+   private final InquiryService inquiryService;
+   private final ModelService modelService;
+   private final BookMarkService bookmarkService;
+   private final MessageSource messageSource;
+   private final LocaleResolver localeResolver;
 
    
    public PagingInfo pagingInfo = new PagingInfo();

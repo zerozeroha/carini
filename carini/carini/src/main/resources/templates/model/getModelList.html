@@ -20,7 +20,9 @@
 	<link rel="stylesheet" href="/css/base/base.css">
 	<link rel="stylesheet" href="/css/base/inquiry.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 	<style>
 		/* css에서 안 먹어서 따로 기재 */
 		table {
@@ -117,8 +119,7 @@
 											"filterMinPrice"원
 											"filterMaxPrice"원</span>
 									</div>
-									<input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억
-									이상
+									<input type="checkbox" id="exCar" name="exCar" th:checked="${exCar == 'true'}"> 5억이상
 									<script>// js파일에 넣으면 적용이 안되서 여기 중간에 넣음.
 										// priceSlider 초기화
 										var priceSlider = document.getElementById('priceSlider');
@@ -379,10 +380,10 @@
 							<td id="car2Eff"></td>
 						</tr>
 						<tr id="carRadarChart">
-							<td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
-							<td><br />
+							<td style="text-align: center;" ><canvas id="car1RadarChart"></canvas></td>
+							<td style=" padding: 1%; justify-content: center; align-items: center;">
 								<a th:onclick="combineRadarChart()" id="combine">
-									COMBINE</a>
+								COMBINE</a>
 							</td>
 							<td><canvas id="car2RadarChart"></canvas></td>
 						</tr>
@@ -399,13 +400,14 @@
 				</table>
 			</div>
 		</div>
-		</div>
+	</div>
 
 	</main>
 
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
-
+	<div id="kakao-talk-channel-chat-button"></div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry 
    <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
    <div th:replace="~{base/base :: inquiry_Listhtml}"></div>

@@ -10,7 +10,8 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
-
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 
 <body>
 	<!--Header-->
@@ -32,6 +33,8 @@
 
 				<div style="width: 60%; height: 100%;">
 
+			<!--main 안에 있는 큰 박스-->
+			<div class="flex-container_column">
 
 					<table>
 						<form
@@ -196,7 +199,7 @@
 					<div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
 
 					<!--사용자만 쓰는 수정하기 버튼-->
-
+					<div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
 
 					<div class="flex-container_row" style="height: 3%;" th:if="${session.user.memberSocial == '회원'}">
 						<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}">
@@ -219,7 +222,8 @@
 
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
-
+	<div id="kakao-talk-channel-chat-button"></div>
+	   <script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
