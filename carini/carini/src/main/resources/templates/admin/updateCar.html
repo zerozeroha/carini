@@ -8,122 +8,197 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/css/admin.css">
 	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="assets/js/carini_script.js" defer></script>
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 </head>
+<style>
+	.content-column {
+		width: 70%;
+	}
+
+	.content-column>input {
+		width: 100%;
+	}
+</style>
 
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
 
+	<!--SubTitle-->
+	<div class="SubtitleContainer">
+		<section class="SubTitle" th:text="#{admin}"></section>
+	</div>
+	<div class="div">
+		<p id="SubTitle_Text" th:text="#{model.update}"></p>
+	</div>
+	<div class="div">
+		<h3>with model</h3>
+	</div>
+	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
+
 	<!--main-->
 	<main>
-		<div class="flex-container_column">
-			<form th:action="@{/admin/updateCar}" method="post" name="updateCarForm" id="updateCarForm">
-				<div class="flex-container_column">
-					<table style="width: 1000px;">
-						<tr>
-							<th>항목</th>
-							<th>내용</th>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.id}"></td>
-							<td><input type="text" name="carId" th:value="${car.carId}" readonly /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.name}"></td>
-							<td><input type="text" name="carName" th:value="${car.carName}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.min.price}"></td>
-							<td><input type="text" name="carMinPrice" th:value="${car.carMinPrice}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.max.price}"></td>
-							<td><input type="text" name="carMaxPrice" th:value="${car.carMaxPrice}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.avg.price}"></td>
-							<td><input type="text" name="carAvgPrice" th:value="${car.carAvgPrice}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.size}"></td>
-							<td><input type="text" name="carSize" th:value="${car.carSize}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.fuel}"></td>
-							<td><input type="text" name="carFuel" th:value="${car.carFuel}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.eff}"></td>
-							<td><input type="text" name="carEff" th:value="${car.carEff}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.img}"></td>
-							<td><input type="text" name="carImg" th:value="${car.carImg}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.per}"></td>
-							<td><input type="text" name="carScPer" th:value="${car.carScPer}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.price}"></td>
-							<td><input type="text" name="carScPrice" th:value="${car.carScPrice}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.geoju}"></td>
-							<td><input type="text" name="carScGeoju" th:value="${car.carScGeoju}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.quality}"></td>
-							<td><input type="text" name="carScQuality" th:value="${car.carScQuality}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.design}"></td>
-							<td><input type="text" name="carScDesign" th:value="${car.carScDesign}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.eff}"></td>
-							<td><input type="text" name="carScEff" th:value="${car.carScEff}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.score.avg}"></td>
-							<td><input type="text" name="carScAvg" th:value="${car.carScAvg}" /></td>
-						</tr>
-						<tr>
-							<td th:text="#{label.car.brand}"></td>
-							<td><a th:href="@{/center/centerMap(carBrand=${carBrand})}" th:text="${carBrand}"></a></td>
-						</tr>
-					</table>
-				</div>
+		<form th:action="@{/admin/updateCar}" method="post" name="updateCarForm" id="updateCarForm">
+			<div class="flex-container_column" style="width: 100%;">
+				<table style="width: 100%;">
+					<tr>
+						<th>항목</th>
+						<th class="content-column">내용</th>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.id}"></td>
+						<td class="content-column"><input type="text" name="carId" th:value="${car.carId}" readonly />
+						</td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.name}"></td>
+						<td class="content-column"><input type="text" name="carName" th:value="${car.carName}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.min.price}"></td>
+						<td class="content-column"><input type="text" name="carMinPrice"
+								th:value="${car.carMinPrice}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.max.price}"></td>
+						<td class="content-column"><input type="text" name="carMaxPrice"
+								th:value="${car.carMaxPrice}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.avg.price}"></td>
+						<td class="content-column"><input type="text" name="carAvgPrice"
+								th:value="${car.carAvgPrice}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.size}"></td>
+						<td class="content-column"><input type="text" name="carSize" th:value="${car.carSize}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.fuel}"></td>
+						<td class="content-column"><input type="text" name="carFuel" th:value="${car.carFuel}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.eff}"></td>
+						<td class="content-column"><input type="text" name="carEff" th:value="${car.carEff}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.img}"></td>
+						<td class="content-column"><input type="text" name="carImg" th:value="${car.carImg}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.per}"></td>
+						<td class="content-column"><input type="text" name="carScPer" th:value="${car.carScPer}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.price}"></td>
+						<td class="content-column"><input type="text" name="carScPrice" th:value="${car.carScPrice}" />
+						</td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.geoju}"></td>
+						<td class="content-column"><input type="text" name="carScGeoju" th:value="${car.carScGeoju}" />
+						</td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.quality}"></td>
+						<td class="content-column"><input type="text" name="carScQuality"
+								th:value="${car.carScQuality}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.design}"></td>
+						<td class="content-column"><input type="text" name="carScDesign"
+								th:value="${car.carScDesign}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.eff}"></td>
+						<td class="content-column"><input type="text" name="carScEff" th:value="${car.carScEff}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.score.avg}"></td>
+						<td class="content-column"><input type="text" name="carScAvg" th:value="${car.carScAvg}" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{label.car.brand}"></td>
+						<td class="content-column"><a th:href="@{/center/centerMap(carBrand=${carBrand})}"
+								th:text="${carBrand}"></a></td>
+					</tr>
+				</table>
 				<div class="flex-container_row">
-					<input type="submit" th:value="#{label.car.update}"></input>
-					<a th:href="@{/admin/deleteCar(carId=${car.carId})}" th:text="#{label.car.delete}"></a>
-					<a th:href="@{/admin/modelList}" th:text="#{label.car.list}"></a>
+					<button type="submit" th:text="#{label.car.update}"
+						style="margin: 100px; width:300px; text-align: center;"></button>
+					<a id="deleteCar" th:data-car-id="${car.carId}" th:text="#{label.car.delete}"
+						style="width: 300px; text-align: center;"></a>
+					<a th:href="@{/admin/modelList}" th:text="#{label.car.list}"
+						style="margin-left: 100px; width: 300px; text-align: center;"></a>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</main>
 
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
-	<!-- Inquiry -->
-	<!--
-	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script>
-	-->
-
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
 	<script src="/js/breakpoints.min.js"></script>
 	<script src="/js/main.js"></script>
+
+	<script>
+		document.getElementById("deleteCar").onclick = (event) => {
+		    event.preventDefault();
+		    const carId = event.target.getAttribute('data-car-id');
+		    
+		    Swal.fire({
+		        title: "Are you sure?",
+		        text: "You won't be able to revert this!",
+		        icon: "warning",
+		        showCancelButton: true,
+		        confirmButtonColor: "#3085d6",
+		        cancelButtonColor: "#d33",
+		        confirmButtonText: "Yes, delete it!"
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            // AJAX 요청으로 삭제 실행
+		            fetch(`/admin/deleteCar?carId=${carId}`, {
+		                method: 'POST',
+		            })
+		            .then(response => {
+		                if(response.ok) {
+		                    Swal.fire({
+		                        title: "Deleted!",
+		                        text: "Your file has been deleted.",
+		                        icon: "success"
+		                    }).then(() => {
+		                        // 삭제 후 페이지 리로드 또는 리다이렉트
+		                        window.location.href = "/admin/modelList";
+		                    });
+		                } else {
+		                    Swal.fire({
+		                        title: "Error!",
+		                        text: "There was an error deleting the car.",
+		                        icon: "error"
+		                    });
+		                }
+		            })
+		            .catch(error => {
+		                console.error('Error:', error);
+		                Swal.fire({
+		                    title: "Error!",
+		                    text: "There was an error deleting the car.",
+		                    icon: "error"
+		                });
+		            });
+		        }
+		    });
+		};
+	</script>
+
 </body>
 
 </html>

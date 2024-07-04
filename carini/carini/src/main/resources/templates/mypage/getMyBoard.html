@@ -7,102 +7,114 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title> getMyBoard</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/css/getMyBoard.css" />
-   <link rel="stylesheet" href="/css/base.css" />
+	<title> getMyBoard</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/getMyBoard.css" />
+	<link rel="stylesheet" href="/css/base/base.css">
+	<link rel="stylesheet" href="/css/base/inquiry.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 
-
-   <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 
 </head>
 
 <body class="no-sidebar is-preload">
 
-   
-   <div th:replace="~{base/base :: header}"></div>
 
-   <!--SubTitle-->
- 
-   <section class="SubTitle">MY_BOARD_DETAILED</section>
- 
-   <div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
- 
-    <!-- Main -->
-    <main>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
-      <!--main 안에 있는 큰 박스-->
-      <div class="flex-container_column">
-         <table>
-           <tr>
-             <td>작성자</td>
-             <td><input type="text" name="boardWriter" th:value="${ board.boardWriter }"disabled></td>
-             <td>조회수</td>
-             <td><input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled></td>
-           </tr>
-  
-           <tr>
-             <td>제목</td>
-             <td><input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled></td>
-             <td>등록일</td>
-             <td><input type="text" name="boardDate"
-                  th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
-           </tr>
-           <tr>
-             <td>첨부파일</td>
-             <td th:if="${ board.boardFilename != null }" colspan="3" style="padding: 20px;">
-              <a th:href="@{/board/download(boardId=${board.boardId}, fn=${ board.boardFilename })}"
-                th:text="${ board.boardFilename }"></a>
-              <a th:href="@{ /board/download(boardId=${board.boardId }, fn=${ board.boardFilename })}" >
-               <img style="height: 20px; background-color: white; margin-right:7px;" 
-               th:src="@{ /img/download_icon.png }" alt="다운로드이미지">
-              </a>
-              </td>
-           </tr>
-           <tr>
-             <td colspan="4" style="padding: 1.5% 0%;">내용</td>
-           </tr>
-           <tr>
-             <td colspan="4" style="padding: 20px;">
-               <textarea th:text="${board.boardContent}" name="boardContent" rows="15" disabled />
-             </td>
-           </tr>
-         </table>
-  
-         <div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
-  
-      
-         <div class="flex-container_row">
-  
-           
-           <div style="width: 90%;"></div>
-           <div style="width: 10%;">
-             <a th:href="@{/board/updateBoard(boardId=${board.boardId})}"
-               style="padding:1% 2%;">수정하기</a>
-               <a th:href="@{/board/getBoardList}" style="padding:1% 2%;">목록</a>
-           </div>
-           
-           
-         </div>
-  
-      </div>
-  
-    </main>
-  
-    <!-- Footer -->
-    <div th:replace="~{base/base :: footer}"></div>
-  
-    <!-- Scripts -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.dropotron.min.js"></script>
-    <script src="/js/jquery.scrolly.min.js"></script>
-    <script src="/js/jquery.scrollex.min.js"></script>
-    <script src="/js/browser.min.js"></script>
-    <script src="/js/breakpoints.min.js"></script>
-    <script src="/js/util.js"></script>
-    <script src="/js/main.js"></script>
-  
-  </body>
-  
+	<!--SubTitle-->
+
+	<section class="SubTitle">MY_BOARD_DETAILED</section>
+
+	<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
+
+	<!-- Main -->
+	<main>
+
+		<!--main 안에 있는 큰 박스-->
+		<div class="flex-container_column">
+			<table>
+				<tr>
+					<td>작성자</td>
+					<td><input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled></td>
+					<td>조회수</td>
+					<td><input type="text" name="boardCnt" th:value="${ board.boardCnt }" disabled></td>
+				</tr>
+
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="boardTitle" th:value="${ board.boardTitle }" disabled></td>
+					<td>등록일</td>
+					<td><input type="text" name="boardDate"
+							th:placeholder="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
+				</tr>
+				<tr>
+					<td>첨부파일</td>
+					<td th:if="${ board.boardFilename != null }" colspan="3" style="padding: 20px;">
+						<a th:href="@{/board/download(boardId=${board.boardId}, fn=${ board.boardFilename })}"
+							th:text="${ board.boardFilename }"></a>
+						<a th:href="@{ /board/download(boardId=${board.boardId }, fn=${ board.boardFilename })}">
+							<img style="height: 20px; background-color: white; margin-right:7px;"
+								th:src="@{ /img/download_icon.png }" alt="다운로드이미지">
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="padding: 1.5% 0%;">내용</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="padding: 20px;">
+						<textarea th:text="${board.boardContent}" name="boardContent" rows="15" disabled />
+					</td>
+				</tr>
+			</table>
+
+			<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
+
+
+			<div class="flex-container_row">
+
+
+				<div style="width: 90%;"></div>
+				<div style="width: 10%;">
+					<a th:href="@{/mypage/updateMyBoard(boardId=${board.boardId})}" style="padding:1% 2%;">수정하기</a>
+					<a th:href="@{/mypage/myBoard}" style="padding:1% 2%;">목록</a>
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</main>
+
+	!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+	<div id="kakao-talk-channel-chat-button"></div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
+	
+	<!-- Inquiry
+		   	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+		   	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+		   	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+		   	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+		   	<script src="/js/Inquiry/inquiry.js"></script>
+		   	-->
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
+
+</body>
+
 </html>

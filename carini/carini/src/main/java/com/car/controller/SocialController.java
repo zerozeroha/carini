@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +23,16 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import com.car.dto.Member;
+import com.car.service.BookMarkService;
+import com.car.service.MemberService;
 import com.car.service.SocialService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class SocialController {
 
 	private final SocialService socialService;
@@ -41,10 +46,6 @@ public class SocialController {
 	@ModelAttribute("member")
 	public Member setMember() {
 		return new Member(); // 기본 Member 객체를 세션에 저장
-	}
-
-	public SocialController(SocialService socialService) {
-		this.socialService = socialService;
 	}
 
 	/*

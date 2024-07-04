@@ -12,6 +12,8 @@
 	<noscript>
 		<link rel="stylesheet" th:href="@{/assets/css/noscript.css}" />
 	</noscript>
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -49,7 +51,7 @@
 
 								<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
 								<p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;"
-									th:text="|가격(최소) : ${car.carMinPrice}|"></p>
+									th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
 								<p class="card-text" style="font-size: 15px;height: 10px;"
 									th:text="|크기 : ${car.carSize}|">
 								</p>
@@ -86,6 +88,8 @@
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 
+	<div id="kakao-talk-channel-chat-button"></div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry -->
 	<!-- <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>

@@ -24,21 +24,26 @@ import com.car.dto.Member;
 import com.car.exception.InquiryException;
 import com.car.exception.ValidationException;
 import com.car.exception.errorcode.ErrorCode;
+import com.car.service.BoardService;
+import com.car.service.CommentService;
 import com.car.service.InquiryService;
+import com.car.service.MemberService;
+import com.car.service.NoticeService;
 import com.car.validation.BoardUpdateFormValidation;
 import com.car.validation.InquiryWriteValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/inquiry")
+@RequiredArgsConstructor
 public class InquiryController {
 
-	@Autowired
-	private InquiryService inquiryService;
+	private final InquiryService inquiryService;
 	
 	/*
 	 * 문의함 리스트
