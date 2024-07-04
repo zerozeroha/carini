@@ -111,11 +111,6 @@ public class LoginController {
 		return "member/signup.html";
 	}
 
-	@GetMapping("/test")
-	public String getTestPage(Model model) {
-		return "base/test";
-	}
-
 	/*
 	 * 회원가입
 	 */
@@ -170,7 +165,7 @@ public class LoginController {
 		Member.setMemberNickname(member.getMemberNickname());
 		Member.setMemberPhoneNum(member.getMemberPhoneNum());
 		Member.setMemberSocialNickname("");
-		Member.setMemberSocial("회원");
+		Member.setMemberSocial("user");
 		Member.setMemberRole("ROLE_USER");
 
 		Member save_member = memberService.insertMember(Member);
