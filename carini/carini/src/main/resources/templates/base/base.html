@@ -42,8 +42,6 @@
                      th:text="#{side.menu3}"></a></li>
             </ul>
          </li>
-        <li th:if="${session.user == null}" ><a  th:href="@{/member_login}">Login</a></li> 
-       <li th:if="${session.user != null}"><a  th:href="@{/user_logout}">LogOut</a></li> 
       </ul>
 
    </nav> -->
@@ -78,7 +76,7 @@
             </li>
 			<li th:if="${session.user == null}" ><a  th:href="@{/member_login}">LOGIN</a></li> 
 			<li th:if="${session.user != null}"><a  th:href="@{/user_logout}">LOGOUT</a></li> 
-         </ul>
+        </ul>
 
 
       </nav>
