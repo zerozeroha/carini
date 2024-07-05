@@ -182,8 +182,8 @@ td {
 	color: black;
 	padding: 1%;
 	text-align: center;
-	border-bottom: 3px solid black;
-	border-top: 3px solid black;
+	border-bottom: 1.5px solid #BFBCBA;
+	border-top: 1.5px solid #BFBCBA;
 }
 
 /* 수정하기 버튼 */

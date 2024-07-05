@@ -177,6 +177,10 @@ section {
    cursor: pointer;
 }
 
+.form-select {
+   cursor: pointer;
+}
+
 
 card-title:hover {
    background-color: white;
@@ -346,7 +350,7 @@ td {
    border-collapse: collapse;
    table-layout: fixed;
    margin: 0% 5%;
-   width: 80%;
+   width: 90%;
 }
 
 #comparisonTable th,
@@ -622,23 +626,21 @@ button:hover,
 /* combine 버튼 */
 
 #combine {
-   padding: 5% 10%;
    font-size: 20px;
    text-align: center;
-   margin-left: -50px;
    border-radius: 0.5rem;
    font-weight: 100;
-
+   padding: 1% 5%;
 }
 
 #combine:hover {
-   padding: 5% 10%;
-   font-size: 20px;
+      font-size: 20px;
    text-align: center;
-   margin-left: -50px;
-   text-decoration: underline !important;
    border-radius: 0.5rem;
-   opacity: 70%;
+   font-weight: 100;
+   border: 1px solid lightgray;
+   padding: 1% 5%;
+   opacity: 85%;
 }
 
 
@@ -671,6 +673,7 @@ button:hover,
    font-weight: 100;
    border: 2px solid black;
    padding: 1% 2%;
+   border-radius: 0.5rem;
 }
 
 .return:hover {
@@ -699,3 +702,87 @@ button:hover,
    align-items: center;
    justify-content: center;
 }
+
+
+/* Form요소 - Input, textarea, select */
+
+input,
+textarea,
+select {
+   font-size: 15pt;
+   line-height: 1.85em;
+   width: 90%;
+   height: 80%;
+   font-weight: 700;
+   background-color: white;
+   margin: 0%;
+   padding: 1%;
+   cursor: text;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="submit"],
+form select,
+form textarea {
+   padding: 2%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   text-decoration: none;
+   border: 1px solid lightgray;
+   border-radius: 0.3rem;
+   cursor: pointer;
+   outline: 0;
+   font-weight: 700;
+   cursor: text;
+
+}
+
+form input[type="text"]:hover,
+form input[type="email"]:hover,
+form input[type="password"]:hover,
+form input[type="submit"]:hover,
+form select,
+form textarea:hover {
+   padding: 2%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   text-decoration: none;
+   border: 1px solid lightgray;
+   border-radius: 0.3rem;
+   outline: 0;
+   font-weight: 700;
+}
+
+#exCar {
+   width: 5%;
+}
+
+
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: none !important;
+}
+
+
