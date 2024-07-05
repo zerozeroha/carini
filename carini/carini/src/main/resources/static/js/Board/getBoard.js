@@ -76,8 +76,10 @@ function updateCommentsTable(comments, userId, boardId) {
                 <td >${comment.userNickname}</td>
                 <td >${comment.content}</td>
                 <td> 
+                	<a onclick="addComment_Reply(this)" id="replyLink_${comment.commentId}"  write-data-commentid1="${comment.commentId}"  write-data-commentid2="${boardId}" write-data-commentid3=${comment.userNickname} style="font-size: small;" > 답글달기</a>
+                	<a style="font-size: small;">|</a>
 					<a onclick="comment_more(this)" id="comment_more_${comment.commentId}"  data-commentid1="${comment.commentId}" data-commentid2="${boardId}" style="font-size: small;" >더보기 </a><a style="font-size: small;">|</a>
-					<a onclick="addComment_Reply(this)" id="replyLink_${comment.commentId}"  write-data-commentid1="${comment.commentId}"  write-data-commentid2="${boardId}" write-data-commentid3=${comment.userNickname} style="font-size: small;" > 답글달기</a>
+					<a onclick="Comment_fold(this)" id="reply_fold${comment.commentId}" data-commentid1="${comment.commentId}" style="font-size: small;" class="disabled"> 접기 </a>
 				</td>
                 <td>${comment.commentDate}</td>
                 ${deleteButton}
@@ -131,6 +133,10 @@ function addComment_Reply(link) {
 	let commentId = $(link).attr("write-data-commentid1");
 	let boardId = $(link).attr("write-data-commentid2");
 	let memberNickname = $(link).attr("write-data-commentid3");
+	
+	$("#comment_more" + commentId).removeClass("disabled");
+	$("#comment_more_" + commentId).removeClass("disabled");
+	$(".comment_moreList_" + commentId).remove();
 	addReplyRow(link, commentId, boardId, memberNickname);
 
 }
@@ -197,6 +203,9 @@ function comment_more(link) {
 	let commentId = $(link).attr("data-commentid1");
 	let boardId = $(link).attr("data-commentid2");
 	$("#reply_fold" + commentId).removeClass("disabled");
+	$("#replyLink_" + commentId).removeClass("disabled");
+	$(".replyRow_" + commentId).remove();
+	$(".replyTextArea").val('');
 	comment_moreList(link, commentId, boardId);
 
 }
@@ -248,18 +257,18 @@ function comment_moreList(link, commentId, boardId) {
 /*
 대댓글 삭제
 */
-function deleteaddComment(commentReplyId,commentId,boardId) {
+function deleteaddComment(commentReplyId, commentId, boardId) {
 
 	$.ajax({
 		type: "Post",
 		url: "/comment/more/delete",
 		data: {
-			boardId:boardId,
+			boardId: boardId,
 			commentReplyId: commentReplyId
 		},
 		success: function(response) {
 			alert(response.message);
-			window.location.href=response.redirectUrl;
+			window.location.href = response.redirectUrl;
 		}
 	})
 
@@ -267,11 +276,13 @@ function deleteaddComment(commentReplyId,commentId,boardId) {
 /*
 더보기 접기
 */
-function Comment_fold(link){
+function Comment_fold(link) {
 	let commentId = $(link).attr("data-commentid1");
 	$("#reply_fold" + commentId).addClass("disabled");
 	$("#comment_more" + commentId).removeClass("disabled");
+	$("#comment_more_" + commentId).removeClass("disabled");
 	$(".comment_moreList_" + commentId).remove();
+
 }
 function formatDate(dateString) {
 	let date = new Date(dateString);
