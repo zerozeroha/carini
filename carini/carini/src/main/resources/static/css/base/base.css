@@ -60,9 +60,6 @@ body.is-preload :before {
 
 
 
-ul {
-   margin-bottom: 1em
-}
 
 hr {
    position: relative;
@@ -78,7 +75,7 @@ hr {
 hr:after,
 hr:before {
    content: '';
-   position: static;   
+   position: static;
    top: -8px;
    display: block;
    width: 1px;
@@ -168,23 +165,25 @@ ul.icons li a:hover {
 
 
 
+
+
 #header {
    position: relative;
-   background-color: black;
+   background-color: white;
    background-size: cover;
    background-position: center center;
    background-attachment: fixed;
    color: #fff;
    text-align: center;
    cursor: default;
-   height: 300px !important;
+   height: 100px !important;
    padding: 5px;
    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
    letter-spacing: 2px;
 }
 
 .header_carini {
-   color: black;
+   color: #FFCC4C;
    font-size: 7rem;
    font-weight: 700;
    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -224,17 +223,6 @@ ul.icons li a:hover {
    color: #000
 }
 
-th {
-   padding: 10px;
-   text-align: center;
-   border: none
-}
-
-th {
-   background-color: #333;
-   color: #fff;
-   font-weight: 700
-}
 
 .center {
    text-align: center
@@ -281,14 +269,9 @@ body {
    opacity: 85%
 }
 
-a:hover {
-   text-decoration: none;
 
-
-}
 
 a.title-hover:hover {
-   color: #fff;
    background-color: #000;
    -webkit-text-stroke: .5px #fff;
    border-bottom-color: transparent;
@@ -360,21 +343,40 @@ footer {
    margin: 1em 0 0 0
 }
 
+/* 상단바 */
+#fixed-bar {
+   border-bottom: 1px solid #eeeeee;
+   color: #222222;
+   padding: 2%;
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 1000;
+   height: 10%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   background-color: white;
+   opacity: 80%;
+}
+
 #nav {
    position: absolute;
    font-weight: lighter;
    font-size: 30px;
    top: 0;
    left: 0;
-   width: 100%;
+   width: 70%;
+   height: 100%;
    text-align: center;
-   padding: 0%;
+   padding: 1.5%;
+   padding-left: 20%;
    overflow: hidden;
-}
-
-li:hover {
-   opacity: 85%;
-
+   color: #222222;
+   text-shadow: opx;
+   -webkit-text-stroke: 0px;
+   background-color: white;
 }
 
 
@@ -391,6 +393,7 @@ li:hover {
 #nav>ul:before {
    left: 100%;
    margin-left: 1px;
+   
 }
 
 #nav>ul:after {
@@ -403,6 +406,17 @@ li:hover {
    margin: -9px .5em 0 .5em;
    border-radius: .5em;
    padding: .85em;
+   border: 1px solid white;
+
+}
+
+#nav>ul>li:hover {
+   display: inline-block;
+   margin: -9px .5em 0 .5em;
+   border-radius: .5em;
+   padding: .85em;
+   border: 1px solid #FFCC4C;
+   color: #222222;
 }
 
 #nav>ul>li>a {
@@ -411,29 +425,31 @@ li:hover {
    text-decoration: none;
    border: 0;
    outline: 0;
-   -webkit-text-stroke: 0.9px black;
+   
 }
 
 #nav>ul>li>ul {
    display: none;
+   
 }
 
 .dropotron {
    background: rgba(255, 255, 255, .975);
-   padding: 1em 1.25em 1em 1.25em;
+   padding: 1em;
    line-height: 1em;
    height: auto;
    text-align: left;
    border-radius: .5em;
    min-width: 12em;
-   margin-top: -1em;
-   list-style: none
+   list-style: none;
+
 }
 
 .dropotron li {
    border-top: solid 1px rgba(128, 128, 128, .2);
    color: #5b5b5b;
-   padding-left: 0
+   padding-left: 0;
+
 }
 
 .dropotron li:first-child {
@@ -441,7 +457,7 @@ li:hover {
 }
 
 .dropotron li:hover {
-   color: #bbb3b3;
+   color: #FFCC4C;
 }
 
 .dropotron li a {
@@ -544,10 +560,17 @@ footer img {
    height: 300px
 }
 
+.side-hver {
+   margin: 5px;
+   padding: 2px;
+   color: #222222;
+}
+
 .side-hver:hover {
-   color: #fff !important;
-   background-color: #000 !important;
+   color: #222222 !important;
+   background-color: #FFCC4C;
    border-radius: .5rem;
+   text-align: center;
 }
 
 
@@ -603,7 +626,7 @@ footer img {
    top: 0;
    height: 100px;
    width: 100%;
-   background-color: black;
+   background-color: #222222;
    text-align: center;
    position: fixed;
    display: flex;
@@ -640,3 +663,9 @@ footer img {
 img {
    cursor: pointer;
 }
+
+
+
+
+
+
