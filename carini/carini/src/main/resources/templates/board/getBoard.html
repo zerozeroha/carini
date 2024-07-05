@@ -19,13 +19,23 @@
 	</noscript>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 
 </head>
 <style>
 	.field-error {
 		border-color: #dc3545;
 		color: #dc3545;
+	}
+
+	.disabled {
+		pointer-events: none;
+		/* 클릭 이벤트를 비활성화합니다 */
+		opacity: 0.6;
+		/* 비활성화된 상태를 시각적으로 나타냅니다 (선택사항) */
+		cursor: not-allowed;
+		/* 마우스 커서를 기본 설정에서 변경하여 비활성화된 상태임을 알립니다 (선택사항) */
 	}
 </style>
 
@@ -105,24 +115,35 @@
 		<table id="commentsTable" style="word-wrap: break-word;table-layout: fixed;">
 			<thead>
 				<tr>
-					<th>NICNAME</th>
-					<th>Comment</th>
-					<th>Timestamp</th>
-					<th>delete</th>
+					<th style="width:15%">NICNAME</th>
+					<th style="width:40%">Comment</th>
+					<th style="width:10%"></th>
+					<th style="width:15%">Timestamp</th>
+					<th style="width: 10%;">delete</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="comment : ${comments}">
-					<td th:text="${comment.userNickname}" style="width:10%">닉네임</td>
-					<td th:text="${comment.content}" style="width:50%">내용</td>
-					<td th:text="${comment.commentDate}" style="width:20%">등록일</td>
+					<td th:text="${comment.userNickname}">닉네임</td>
+					<td th:text="${comment.content}">내용</td>
+					<td>
+						<a onclick="addComment_Reply(this)" th:id="'replyLink_' + ${comment.commentId}"
+							th:write-data-commentid1="${comment.commentId}" th:write-data-commentid2="${board.boardId}"
+							th:write-data-commentid3=${session.user.memberNickname} style="font-size: small;"> 답글달기
+						</a><a style="font-size: small;">|</a>
+						<a onclick="comment_more(this)" th:id="'comment_more' + ${comment.commentId}"
+							th:data-commentid1="${comment.commentId}" th:data-commentid2="${board.boardId}"
+							style="font-size: small;">더보기 </a><a style="font-size: small;">|</a>
+						<a onclick="Comment_fold(this)" th:id="'reply_fold' + ${comment.commentId}" th:data-commentid1="${comment.commentId}"
+							style="font-size: small;" class="disabled"> 접기 </a>
+					</td>
+					<td th:text="${comment.commentDate}">등록일</td>
 					<td th:if="${session.user.memberId == comment.userId}">
 						<input id="delete_commentId" type="hidden" th:value="${comment.commentId}" />
 						<input id="delete_boardId" type="hidden" th:value="${board.boardId}" />
-						<button onclick="deleteComment()" style="width: 20%;">삭제하기</button>
+						<button onclick="deleteComment()" style="cursor: pointer;">삭제하기</button>
 					</td>
 				</tr>
-
 			</tbody>
 		</table>
 
@@ -144,7 +165,6 @@
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
-	
 	<!-- Inquiry -->
 	<!--
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>

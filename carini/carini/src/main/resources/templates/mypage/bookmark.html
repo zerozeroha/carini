@@ -51,7 +51,7 @@
 
 								<h5 class="card-title" style="font-size: 20px;" th:text="${car.carName}"></h5>
 								<p class="card-text" style="font-size: 15px;height: 10px;margin-top: 10px;"
-									th:text="|가격(최소) : ${car.carMinPrice}|"></p>
+									th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
 								<p class="card-text" style="font-size: 15px;height: 10px;"
 									th:text="|크기 : ${car.carSize}|">
 								</p>
