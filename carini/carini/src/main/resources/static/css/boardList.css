@@ -147,9 +147,7 @@ form {
    -webkit-text-stroke: 0.3px white;
    text-decoration: underline;
 }
-hr {
-   border: 2px solid gray;
-}
+
 
 
 
@@ -171,7 +169,7 @@ select {
    line-height: 1.85em;
    width: 90%;
    height: 80%;
-   font-weight: 700;
+   font-weight: 300;
    background-color: white;
    margin: 0%;
    padding: 1%;
@@ -195,7 +193,7 @@ form textarea {
    border-radius: 0.3rem;
    cursor: pointer;
    outline: 0;
-   font-weight: 700;
+   font-weight: 350;
    cursor: text;
 
 }
@@ -210,7 +208,7 @@ form textarea:hover {
    position: relative;
    display: inline-block;
    background-color: white;
-   color: black;
+   color: #222426;
    text-align: left;
    text-decoration: none;
    border: 1px solid lightgray;
@@ -284,14 +282,15 @@ font-size: 23px;
 
 /* Table */
 
-table {
+table.boardList {
    width: 100%;
    border-collapse: collapse;
    border-top: 1px solid black; 
-    border-bottom: 1px solid black; 
+   border-bottom: 1px solid black; 
    font-size: larger;
-   font-weight: 700;
+   font-weight: 150;
    border-bottom: 1px solid black;
+   height: 100%;
 }
 
 th,
@@ -299,13 +298,12 @@ td {
    padding: 1%;
    text-align: center;
    background-color: white;
-   border-bottom: 1px solid black;
+   border-bottom: 1px solid #BFBCBA;
 }
 
 th {
    background-color: #333;
    color: white;
-   font-weight: bold;
 }
 
 tr {
@@ -336,13 +334,14 @@ input[type="button"] {
    text-align: center;
    border: 0px;
    cursor: pointer;
+   color: 222426;
 }
 
 input[type="button"]:hover {
    padding: 1%;
    text-align: center;
    border: 0px;
-   -webkit-text-stroke: 0.3px black;
+   -webkit-text-stroke: 0.3px #222426;
    margin-top: 1px;
    cursor: pointer;
 }
