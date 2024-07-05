@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.car.dto.Board;
 import com.car.dto.Comment;
 import com.car.dto.Member;
+import com.car.persistence.CommentReplyRepository;
 import com.car.persistence.CommentRepository;
+import com.car.service.CommentReplyService;
 import com.car.service.CommentService;
 
 import jakarta.transaction.Transactional;
@@ -19,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class CommentServiceImpl implements CommentService{
 
 	private final CommentRepository commentRepository;
-	
+	private final CommentReplyRepository commentReplyRepository;
 	@Override
 	public void save(Comment comment) {
 		
@@ -53,9 +55,12 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteComment(Long commentId) {
+		System.out.println(commentId);
+		commentReplyRepository.deleteByCommentId(commentId);
+
 		commentRepository.deleteById(commentId);
-		
 	}
 
 	@Override
