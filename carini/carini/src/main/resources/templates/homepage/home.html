@@ -58,6 +58,7 @@
 						</ul>
 					</li>
 					<li th:if="${session.user.memberRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/adminList}">admin</a></li>
+					<li><a th:href="@{/user_logout}">LogOut</a></li> 
 				</ul>
 			</nav>
 		</div>

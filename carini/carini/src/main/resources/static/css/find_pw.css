@@ -29,7 +29,12 @@ main {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 }
-/* 헤더 스타일링 */
+* 헤더 스타일링 */
+.find_header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 
 
 .find_header a {

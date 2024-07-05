@@ -1,29 +1,17 @@
 <!-- Header -->
 <div id="header" th:fragment="main_header">
 	<!-- Inner -->
-	<div class="inner">
+	<!--<div class="inner">
 		<header>
 			<a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
 		</header>
 
-		<style>
-			#fixed-bar {
-				background-color: rgba(0, 0, 0, 0.7);
-				color: white;
-				padding: 20px;
-				position: fixed;
-				top: 0;
-				width: 100%;
-				z-index: 1000;
-				height: 5%;
-			}
-			
-
-		</style>
 
 
-	</div>
-	<!-- Nav -->
+
+	</div>-->
+
+	<!-- Nav
 	<nav id="nav" style="padding: 0%;">
 
 		<div style="height: 10%; width: 80%; font-size: 20px;margin-left:50%; 
@@ -56,19 +44,16 @@
 			</li>
 		</ul>
 
-	</nav>
+	</nav> -->
 	<div class="alertBox" id="fixed-bar">
 
-		<nav id="nav" >
+		<nav id="nav">
 
-			<div style="height: 10%; width: 80%; font-size: 20px;margin-left:45%; 
-				margin-top:0.2%;padding: 0%;font-size: 14px;cursor: default;font-weight: 700;">
-				<input type="text" style="	width: 5%;border: 1px solid black;
-					border-bottom: 1px solid white;color: white;background-color: black;text-align: center;
-					font-weight: 500;cursor: default;padding: 0%;padding-bottom: 0.2%; font-size: 15px;" value="하영"> 님 반갑습니다 ❤
-			</div>
+
+
+			<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1;">CARINI</a>
 			<ul style="border: none;">
-				<li><a th:href="@{/board/getBoardList}">Board</a>
+				<li><a th:href="@{/board/getBoardList}">BOARD</a>
 					<ul style="border: none;">
 						<li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver">커뮤니티</a>
 						</li>
@@ -76,10 +61,10 @@
 						</li>
 					</ul>
 				</li>
-				<li><a th:href="@{/model/getModelList}">Model</a></li>
-				<li><a th:href="@{/center/centerMap}">Center</a></li>
+				<li><a th:href="@{/model/getModelList}">MODEL</a></li>
+				<li><a th:href="@{/center/centerMap}">CENTER</a></li>
 				<li>
-					<a>MyPage</a>
+					<a>MYPAGE</a>
 					<ul style="border: none;">
 						<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
 								th:text="#{side.menu1}"></a></li>
@@ -89,15 +74,24 @@
 								th:text="#{side.menu3}"></a></li>
 					</ul>
 				</li>
+			
 			</ul>
 
+
 		</nav>
+		<div style="height: 50px; width: 100%; font-size: 20px; margin-left:75%;
+								margin-top:0.2%;padding: 0.2%;font-size: 16px;cursor: default;font-weight: 700;">
+			<input type="text"
+				style="	width: 40%; border: 1px solid white; 
+					background-color: white; text-align: center;font-weight: 500 ;cursor: default; padding: 0%; 
+					font-size: 15px;" value="..."; disabled> 님 반갑습니다 🚗🚙
+		</div>
 
 
 
 	</div>
 
-	<script>
+	<!--<script>
 		// 함수를 통해 alertBox 요소를 가져오기
 		function sidebar(what) {
 			document.getElementById('fixed-bar').style.display = what;
@@ -114,7 +108,7 @@
 				var scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
 
 				// 특정 height 값 설정
-				var triggerHeight = 90; // 예시로 300px로 설정
+				var triggerHeight = 0; // 예시로 300px로 설정
 
 				// 스크롤 위치가 트리거 높이를 넘었는지 확인
 				if (scrollPosition > triggerHeight) {
@@ -124,7 +118,7 @@
 				}
 			});
 		};
-	</script>
+	</script>-->
 
 </div>
 
