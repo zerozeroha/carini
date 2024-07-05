@@ -50,7 +50,6 @@ public class ModelController {
 	private final BookMarkService bookMarkService;
 	private final MessageSource messageSource;
 	private final LocaleResolver localeResolver;
-
 	public PagingInfo pagingInfo = new PagingInfo();
 	
 	@ModelAttribute("member")
