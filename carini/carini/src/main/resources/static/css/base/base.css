@@ -1,4 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
    margin: 0;
@@ -6,7 +8,7 @@
    border: 0;
    font-size: 100%;
    font: inherit;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   font-family: "Noto Sans KR", "Noto Sans", sans-serif;
    letter-spacing: 2px;
 }
 
@@ -178,7 +180,7 @@ ul.icons li a:hover {
    cursor: default;
    height: 100px !important;
    padding: 5px;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   font-family: "Noto Sans KR", "Noto Sans", sans-serif;
    letter-spacing: 2px;
 }
 
@@ -186,7 +188,7 @@ ul.icons li a:hover {
    color: #FFCC4C;
    font-size: 7rem;
    font-weight: 700;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   font-family: "Noto Sans KR", "Noto Sans", sans-serif;
    letter-spacing: 10px;
    -webkit-text-stroke: 0.5px white;
 }
@@ -246,7 +248,7 @@ a.Board-hover {
 
 body {
    background: #fff;
-   font-family: 'Source Sans Pro', sans-serif
+   font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 }
 
 /*#float_icons {
@@ -371,7 +373,6 @@ footer {
    height: 100%;
    text-align: center;
    padding: 1.5%;
-   padding-left: 20%;
    overflow: hidden;
    color: #222222;
    text-shadow: opx;
@@ -421,7 +422,8 @@ footer {
 
 #nav>ul>li>a {
    display: block;
-   color: inherit;
+   color: #222222;
+   font-size: large;
    text-decoration: none;
    border: 0;
    outline: 0;

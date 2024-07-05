@@ -26,27 +26,27 @@
 	<style>
 		/* css에서 안 먹어서 따로 기재 */
 		table {
-			width: 60%;
+			width: 70%;
 			font-size: 18px;
 			text-align: center;
 			border-collapse: collapse;
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #222222;
+			border-bottom: 1px solid #222222;
 			font-weight: 900;
 		}
 
 		tr,
 		td {
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #222222;
+			border-bottom: 1px solid #222222;
 		}
 
 		th {
-			background-color: black;
+			background-color: #222222;
 			color: white;
 			font-size: 1.3rem;
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #222222;
+			border-bottom: 1px solid #222222;
 			border-right: 3px solid white;
 		}
 	</style>
@@ -382,7 +382,7 @@
                   </tr>
                   <tr id="carRadarChart">
                      <td style="text-align: center;"><canvas id="car1RadarChart"></canvas></td>
-                     <td><br />
+                     <td>
                         <a th:onclick="combineRadarChart()" id="combine">
                            COMBINE</a>
                      </td>

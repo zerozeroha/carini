@@ -212,7 +212,6 @@ a {
 }
 
 
-*,
 ::after,
 ::before {
    box-sizing: content-box !important;
@@ -361,19 +360,19 @@ td {
 
 #comparisonTable th:nth-child(1),
 #comparisonTable td:nth-child(1) {
-   width: 45%;
+   width: 43%;
    /* 첫 번째 열 너비 */
 }
 
 #comparisonTable th:nth-child(2),
 #comparisonTable td:nth-child(2) {
-   width: 10%;
+   width: 24%;
    /* 두 번째 열 너비 */
 }
 
 #comparisonTable th:nth-child(3),
 #comparisonTable td:nth-child(3) {
-   width: 45%;
+   width: 43%;
    /* 세 번째 열 너비 */
 }
 
@@ -634,7 +633,7 @@ button:hover,
 }
 
 #combine:hover {
-      font-size: 20px;
+   font-size: 20px;
    text-align: center;
    border-radius: 0.5rem;
    font-weight: 100;
