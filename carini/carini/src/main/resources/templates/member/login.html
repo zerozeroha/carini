@@ -64,17 +64,14 @@
 
                   <input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
 
-						<div class="flex-container_row" style="height: 60px; width: 300px; font-size: 15px; font-weight: 200;gap:5px">
-							<a th:href="@{/find_idForm}">
-								아이디찾기 </a> /
-							<a th:href="@{/find_pwForm}">비밀번호찾기</a>/
-							<a href="/signup"> 회원가입</a>
-						</div>
 
+                  <div class="flex-container_row" style="height: 60px;width: 300px; font-size: 15px; font-weight: 200;">
+                     <a th:href="@{/find_idForm}">
+                        아이디찾기 </a> /
+                     <a th:href="@{/find_pwForm}">비밀번호찾기</a>/
+                     <a href="/signup"> 회원가입</a>
+                  </div>
 
-						<a href="/api/naver/oauth">
-							<img src="/img/naver.png" class="img_login">
-						</a>
                   <a href="/api/naver/oauth">
                      <img src="/img/naver.png" class="img_login">
                   </a>
@@ -87,14 +84,14 @@
                      <img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
                   </a>
 
-					</fieldset>
-				</div>
-			</form>
-
+               </fieldset>
+            </div>
+         </form>
 
       </div>
 
    </main>
+
 </body>
 
 </html>

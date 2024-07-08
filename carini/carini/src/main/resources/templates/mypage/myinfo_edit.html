@@ -14,30 +14,24 @@
    integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
    crossorigin="anonymous"></script>
 
-
 <body>
-   <!--Header-->
-   <header th:replace="~{base/base :: main_header}"></header>
-   <!--챗봇 아이콘-->
-   <div th:replace="~{base/base :: floaticon}"></div>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
-   <section class="SubTitle">EDIT_MY_INFORMATION</section>
-   <!-- Main -->
-   <main>
-      <div id="Favorites_box">
+	<section class="SubTitle">EDIT_MY_INFORMATION</section>
+	<!-- Main -->
+	<main>
+		<div id="Favorites_box">
 
-         <div class="div">
-            <h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
-         </div>
+			<div class="div">
+				<h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
+			</div>
+			<!--main 안에 있는 큰 박스-->
+			<div class="flex-container_column">
 
-         <!--main 안에 있는 큰 박스-->
-         <div class="flex-container_column">
-
-            <div style="width: 60%; height: 100%;">
-
-               <!--main 안에 있는 큰 박스-->
-               <div class="flex-container_column">
-
+				<div style="width: 60%; height: 100%;">
                   <table>
                      <form
                         th:action="${session.user.memberSocial == 'user' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}"
@@ -202,45 +196,44 @@
 
                   <div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
               
-                  <!--사용자만 쓰는 수정하기 버튼-->
-                  <div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
+						<!--사용자만 쓰는 수정하기 버튼-->
+						<div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
 
-                  <div class="flex-container_row" style="height: 3%;"
-                     th:if="${session.user.memberSocial == 'user'}">
-                     <input type="submit" id="edit_save_td" th:value="#{info.btn.edit}">
-                  </div>
-                  </form>
-                  <!--탈퇴하기 버튼-->
-                  <div class="flex-container_row" style="height: 10%;">
-                     <form th:action="@{/mypage/myinfo/delete}" method="post"
-                        onsubmit="return confirmUnsubscribe()">
-                        <button id="member_quit" type="submit" th:text="#{info.btn.unsubscribe}" style></button>
-                     </form>
-                  </div>
+						<div class="flex-container_row" style="height: 3%;"
+							th:if="${session.user.memberSocial == 'user'}">
+							<input type="submit" id="edit_save_td" th:value="#{info.btn.edit}">
+						</div>
+						</form>
+						<!--탈퇴하기 버튼-->
+						<div class="flex-container_row" style="height: 10%;">
+							<form th:action="@{/mypage/myinfo/delete}" method="post"
+								onsubmit="return confirmUnsubscribe()">
+								<button id="member_quit" type="submit" th:text="#{info.btn.unsubscribe}" style></button>
+							</form>
+						</div>
 
-   </main>
-   <script>
-      function confirmUnsubscribe() {
-         return confirm("정말로 탈퇴하시겠습니까?");
-      }
-   </script>
+	</main>
+	<script>
+		function confirmUnsubscribe() {
+			return confirm("정말로 탈퇴하시겠습니까?");
+		}
+	</script>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+	<div id="kakao-talk-channel-chat-button"></div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
+	
+	<!-- Inquiry -->
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
 
-   <!-- Footer -->
-   <footer th:replace="~{base/base :: main_footer}"></footer>
-   <div id="kakao-talk-channel-chat-button"></div>
-   <script th:replace="~{base/base :: inquiry_script}"></script>
-   
-   <!-- Inquiry -->
-   <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-   <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-   <div th:replace="~{base/base :: inquiry_writehtml}"></div>
-   <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-   <script src="/js/Inquiry/inquiry.js"></script>
-
-   <!-- Scripts -->
-   <script src="/js/jquery.dropotron.min.js"></script>
-   <script src="/js/breakpoints.min.js"></script>
-   <script src="/js/main.js"></script>
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 </body>
 
 </html>
