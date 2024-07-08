@@ -2,104 +2,90 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>signup.html</title>
-   <link rel="stylesheet" href="/css/signup.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>signup.html</title>
+	<link rel="stylesheet" href="/css/signup.css">
 
-   <script src="/src/main/resources/static/script/available.js" defer></script>
+	<script src="/src/main/resources/static/script/available.js" defer></script>
 </head>
 <script>
-   import TextField from '@mui/material/TextField';
+	import TextField from '@mui/material/TextField';
 </script>
 <style>
-   .field-error {
-      border-color: #dc3545;
-      color: #dc3545;
-   }
+	.field-error {
+		border-color: #dc3545;
+		color: #dc3545;
+	}
 </style>
 
 <body>
 
-   <a th:href="@{/homepage/first_home}" class="SubTitle">CARINI</a>
+	<header style="background-color: white; height:110px; padding: 0%;">
+		<a th:href="@{/homepage/first_home}" class="SubTitle">CARINI</a>
+		<a th:href="@{/member/member_login}">로그인하러 가기</a>		
+	</header>
+	<!-- Main -->
+	<main>
 
-   <!-- Main -->
-   <main>
+		<div class="flex-container_row" style="width: 100%; height: 90%;">
 
-      <div class="flex-container_row" style="width: 100%; height: 90%; margin-right: 10%;">
+			<form action="/signup" method="post" th:object="${SignupFormValidation}">
 
-         <form action="/signup" method="post" th:object="${SignupFormValidation}">
+				<div class="flex-container_column" style="width: 100%; height: 90%; background-color: #FFCC4C;">
 
-            <div class="flex-container_column" style="width: 60%;  height: 650px;">
-
-               <div class="video-container">
-
-                  <iframe src="https://www.youtube.com/embed/RkrWjuCYHVM?autoplay=1&loop=1&playlist=RkrWjuCYHVM&controls=0"
-                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
-               </div>
-
-               <div style="float: left; padding-left: 10px;">
-                  <h1 class="flipped-text">ADVERTISEMENT</h1>
-               </div>
-
-            </div>
+					<fieldset>
+						<legend>sign_up</legend>
 
 
-            <div class="flex-container_column" style="width: 40%;  height: 700px; float: left;">
+						<input type="text" id="id_input" th:field="*{memberId}" th:errorclass="field-error"
+							placeholder="아이디" minlength="5" maxlength="15">
+						<div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
+							아이디 오류
+						</div>
+						<br>
+						<input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="비밀번호"
+							minlength="8" maxlength="16">
+						<P>"8~16자의 영문대/소문자,숫자,특수문자를 입력해주세요"</P>
+						<div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
+							비밀번호 오류
+						</div>
+						<br>
+						<input type="text" th:field="*{memberName}" th:errorclass="field-error" placeholder="이름">
+						<div class="field-error" th:errors="*{memberName}" style="font-size: 15px;">
+							이름 오류
+						</div>
+						<br>
+						<input type="text" th:field="*{memberNickname}" th:errorclass="field-error" placeholder="닉네임">
+						<div class="field-error" th:errors="*{memberNickname}" style="font-size: 15px;">
+							닉네임 오류
+						</div>
+						<br>
+						<input type="email" th:field="*{memberEmail}" th:errorclass="field-error" placeholder="이메일">
+						<div class="field-error" th:errors="*{memberEmail}" style="font-size: 15px;">
+							이메일 오류
+						</div>
+						<br>
+						<input type="tel" th:field="*{memberPhoneNum}" placeholder="전화번호" size="25">
+						<div class="field-error" th:errors="*{memberPhoneNum}" style="font-size: 15px;">
+							전화번호 오류
+						</div>
+						<br>
+						<input id="login" type="submit" name="submit" value="signup" style="text-align: center;">
+					</fieldset>
+				</div>
+			</form>
 
-               <fieldset>
-                  <legend>sign_up</legend>
+		</div>
 
+	</main>
 
-                  <input type="text" id="id_input" th:field="*{memberId}" th:errorclass="field-error"
-                     placeholder="아이디" minlength="5" maxlength="15">
-                  <br>
-                  <div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
-                     아이디 오류
-                  </div>
-                  <br>
-                  <input type="password" th:field="*{memberPw}" th:errorclass="field-error"
-                     placeholder="비밀번호" minlength="8" maxlength="16">
-                  <P>"8~16자의 영문대/소문자,숫자,특수문자를 입력해주세요"</P>
-               
-                  <div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
-                     비밀번호 오류
-                  </div>
-                  <br>
-                  <input type="text" th:field="*{memberName}" th:errorclass="field-error"
-                     placeholder="이름">
-                  <br>
-                  <div class="field-error" th:errors="*{memberName}" style="font-size: 15px;">
-                     이름 오류
-                  </div>
-                  <br>
-                  <input type="text" th:field="*{memberNickname}" th:errorclass="field-error" placeholder="닉네임">
-                  <br>
-                  <div class="field-error" th:errors="*{memberNickname}" style="font-size: 15px;">
-                     닉네임 오류
-                  </div>
-                  <br>
-                  <input type="email" th:field="*{memberEmail}" th:errorclass="field-error"
-                     placeholder="이메일">
-                  <br>
-                  <div class="field-error" th:errors="*{memberEmail}" style="font-size: 15px;">
-                     이메일 오류
-                  </div>
-                  <br>
-                  <input type="tel" th:field="*{memberPhoneNum}" placeholder="전화번호" size="25">
-                  <br>
-                  <div class="field-error" th:errors="*{memberPhoneNum}" style="font-size: 15px;">
-                     전화번호 오류
-                  </div>
-                  <br>
-                  <input id="login" type="submit" name="submit" value="signup" style="text-align: center;">
-               </fieldset>
-            </div>
-         </form>
-
-      </div>
-
-   </main>
+	<footer style="margin: 0%; padding: 0%;">
+		<div class="flex-container_row flipped-text" style="height: 60px; width: 100%; font-size: 60px; 
+    background-color: white; color:  #FFCC4C; padding: 0% 1.5%; margin: 0%;">
+			CARINI CARINI CARINI CARINI CARINI CARINI CARINI CARINI CARINI CARINI
+		</div>
+	</footer>
 
 
 </body>

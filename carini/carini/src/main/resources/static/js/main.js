@@ -1,217 +1,149 @@
-/*
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
 (function($) {
 
-	var	$window = $(window),
-		$body = $('body'),
-		settings = {
+    var $window = $(window),
+        $body = $('body'),
+        settings = {
+            // Carousels
+            carousels: {
+                speed: 2, // Speed for smoother movement
+                fadeIn: true,
+                fadeDelay: 100, // Faster fade-in
+                autoScroll: true, // Auto-scroll feature
+                autoScrollInterval: 20 // Smaller interval for smoother scrolling
+            },
+        };
 
-			// Carousels
-				carousels: {
-					speed: 4,
-					fadeIn: true,
-					fadeDelay: 250
-				},
+    // Breakpoints.
+    breakpoints({
+        wide: [ '1281px', '1680px' ],
+        normal: [ '961px', '1280px' ],
+        narrow: [ '841px', '960px' ],
+        narrower: [ '737px', '840px' ],
+        mobile: [ null, '736px' ]
+    });
 
-		};
+    // Play initial animations on page load.
+    $window.on('load', function() {
+        window.setTimeout(function() {
+            $body.removeClass('is-preload');
+        }, 100);
+    });
 
-	// Breakpoints.
-		breakpoints({
-			wide:      [ '1281px',  '1680px' ],
-			normal:    [ '961px',   '1280px' ],
-			narrow:    [ '841px',   '960px'  ],
-			narrower:  [ '737px',   '840px'  ],
-			mobile:    [ null,      '736px'  ]
-		});
+    // Dropdowns.
+    $('#nav > ul').dropotron({
+        mode: 'fade',
+        speed: 350,
+        noOpenerFade: true,
+        alignment: 'center'
+    });
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+    // Scrolly.
+    $('.scrolly').scrolly();
 
-	// Dropdowns.
-		$('#nav > ul').dropotron({
-			mode: 'fade',
-			speed: 350,
-			noOpenerFade: true,
-			alignment: 'center'
-		});
+    // Nav.
 
-	// Scrolly.
-		$('.scrolly').scrolly();
+    // Button.
+    $(
+        '<div id="navButton">' +
+        '<a href="#navPanel" class="toggle"></a>' +
+        '</div>'
+    ).appendTo($body);
 
-	// Nav.
+    // Panel.
+    $(
+        '<div id="navPanel">' +
+        '<nav>' +
+        $('#nav').navList() +
+        '</nav>' +
+        '</div>'
+    ).appendTo($body).panel({
+        delay: 500,
+        hideOnClick: true,
+        hideOnSwipe: true,
+        resetScroll: true,
+        resetForms: true,
+        target: $body,
+        visibleClass: 'navPanel-visible'
+    });
 
-		// Button.
-			$(
-				'<div id="navButton">' +
-					'<a href="#navPanel" class="toggle"></a>' +
-				'</div>'
-			)
-				.appendTo($body);
+    // Carousels.
+    $('.carousel').each(function() {
 
-		// Panel.
-			$(
-				'<div id="navPanel">' +
-					'<nav>' +
-						$('#nav').navList() +
-					'</nav>' +
-				'</div>'
-			)
-				.appendTo($body)
-				.panel({
-					delay: 500,
-					hideOnClick: true,
-					hideOnSwipe: true,
-					resetScroll: true,
-					resetForms: true,
-					target: $body,
-					visibleClass: 'navPanel-visible'
-				});
+        var $t = $(this),
+            $reel = $t.children('.reel'),
+            $items = $reel.children('article');
 
-	// Carousels.
-		$('.carousel').each(function() {
+        var pos = 0,
+            reelWidth,
+            itemWidth,
+            timerId;
 
-			var	$t = $(this),
-				$forward = $('<span class="forward"></span>'),
-				$backward = $('<span class="backward"></span>'),
-				$reel = $t.children('.reel'),
-				$items = $reel.children('article');
+        // Items.
+        if (settings.carousels.fadeIn) {
 
-			var	pos = 0,
-				leftLimit,
-				rightLimit,
-				itemWidth,
-				reelWidth,
-				timerId;
+            $items.addClass('loading');
 
-			// Items.
-				if (settings.carousels.fadeIn) {
+            $t.scrollex({
+                mode: 'middle',
+                top: '-20vh',
+                bottom: '-20vh',
+                enter: function() {
 
-					$items.addClass('loading');
+                    var timerId,
+                        limit = $items.length - Math.ceil($window.width() / itemWidth);
 
-					$t.scrollex({
-						mode: 'middle',
-						top: '-20vh',
-						bottom: '-20vh',
-						enter: function() {
+                    timerId = window.setInterval(function() {
+                        var x = $items.filter('.loading'),
+                            xf = x.first();
 
-							var	timerId,
-								limit = $items.length - Math.ceil($window.width() / itemWidth);
+                        if (x.length <= limit) {
+                            window.clearInterval(timerId);
+                            $items.removeClass('loading');
+                            return;
+                        }
 
-							timerId = window.setInterval(function() {
-								var x = $items.filter('.loading'), xf = x.first();
+                        xf.removeClass('loading');
 
-								if (x.length <= limit) {
+                    }, settings.carousels.fadeDelay);
 
-									window.clearInterval(timerId);
-									$items.removeClass('loading');
-									return;
+                }
+            });
 
-								}
+        }
 
-								xf.removeClass('loading');
+        // Main.
+        $t._update = function() {
+            pos = 0;
+            reelWidth = $reel[0].scrollWidth;
+            itemWidth = $items.outerWidth(true); // Get the width of each item including margin
+            $t._updatePos();
+        };
 
-							}, settings.carousels.fadeDelay);
+        $t._updatePos = function() {
+            $reel.css('transform', 'translate(' + pos + 'px, 0)');
+        };
 
-						}
-					});
+        // Auto-Scroll
+        function startAutoScroll() {
+            timerId = setInterval(function() {
+                pos -= settings.carousels.speed;
+                if (pos <= -reelWidth) {
+                    pos = $window.width();
+                }
+                $t._updatePos();
+            }, settings.carousels.autoScrollInterval);
+        }
 
-				}
+        // Init.
+        $window.on('load', function() {
+            $t._update();
+            startAutoScroll();
 
-			// Main.
-				$t._update = function() {
-					pos = 0;
-					rightLimit = (-1 * reelWidth) + $window.width();
-					leftLimit = 0;
-					$t._updatePos();
-				};
+            $window.on('resize', function() {
+                $t._update();
+            }).trigger('resize');
+        });
 
-				$t._updatePos = function() { $reel.css('transform', 'translate(' + pos + 'px, 0)'); };
-
-			// Forward.
-				$forward
-					.appendTo($t)
-					.hide()
-					.mouseenter(function(e) {
-						timerId = window.setInterval(function() {
-							pos -= settings.carousels.speed;
-
-							if (pos <= rightLimit)
-							{
-								window.clearInterval(timerId);
-								pos = rightLimit;
-							}
-
-							$t._updatePos();
-						}, 10);
-					})
-					.mouseleave(function(e) {
-						window.clearInterval(timerId);
-					});
-
-			// Backward.
-				$backward
-					.appendTo($t)
-					.hide()
-					.mouseenter(function(e) {
-						timerId = window.setInterval(function() {
-							pos += settings.carousels.speed;
-
-							if (pos >= leftLimit) {
-
-								window.clearInterval(timerId);
-								pos = leftLimit;
-
-							}
-
-							$t._updatePos();
-						}, 10);
-					})
-					.mouseleave(function(e) {
-						window.clearInterval(timerId);
-					});
-
-			// Init.
-				$window.on('load', function() {
-
-					reelWidth = $reel[0].scrollWidth;
-
-					if (browser.mobile) {
-
-						$reel
-							.css('overflow-y', 'hidden')
-							.css('overflow-x', 'scroll')
-							.scrollLeft(0);
-						$forward.hide();
-						$backward.hide();
-
-					}
-					else {
-
-						$reel
-							.css('overflow', 'visible')
-							.scrollLeft(0);
-						$forward.show();
-						$backward.show();
-
-					}
-
-					$t._update();
-
-					$window.on('resize', function() {
-						reelWidth = $reel[0].scrollWidth;
-						$t._update();
-					}).trigger('resize');
-
-				});
-
-		});
+    });
 
 })(jQuery);
