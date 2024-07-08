@@ -2317,7 +2317,6 @@ nd: rgba(128, 128, 128, 0.2);
 				left: 100%;
 				margin-left: 1px;
 			}
-
          #nav > ul:after {
             right: 100%;
             margin-right: 1px;
@@ -2403,6 +2402,7 @@ nd: rgba(128, 128, 128, 0.2);
             border-left: solid 0.75em rgba(64, 64, 64, 0);
             border-right: solid 0.75em rgba(64, 64, 64, 0);
          }
+
 
 /* Banner */
 
