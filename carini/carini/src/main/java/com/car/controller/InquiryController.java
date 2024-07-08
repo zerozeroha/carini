@@ -52,7 +52,7 @@ public class InquiryController {
 	public ResponseEntity<Map<String, Object>> inquiryList(HttpSession session,Model model,HttpServletRequest request) {
 		
 		Member user = (Member) session.getAttribute("user");
-		
+		System.out.println(user);
 		Map<String, Object> response = new HashMap<>();
 		if( user == null ) { 
 			response.put("message", "로그인후 이용 가능합니다.");

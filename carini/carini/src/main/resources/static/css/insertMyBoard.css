@@ -1,71 +1,70 @@
-
 * {
-    margin: 0;
-    padding: 0;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    letter-spacing: 2px;
-    cursor: default;
+	margin: 0;
+	padding: 0;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	letter-spacing: 2px;
+	cursor: default;
 }
 
 
 /* body */
 
 body {
-    background: white;
-    color: #5b5b5b;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    letter-spacing: 2px;
-    margin: 0;
-    padding: 0;
- }
+	background: white;
+	color: #5b5b5b;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	letter-spacing: 2px;
+	margin: 0;
+	padding: 0;
+}
 
 
 /* 소제목 */
 
 /* 소제목 영역 */
-section {   
-    height: 50px;
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    margin: 5% 16%;
+section {
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	align-items: center;
+	margin: 5% 16%;
 }
 
 /* 소제목 */
-.SubTitle {   
-    font-size: 60px;
-    font-weight: 1000;
-    color: black;
-    width: 70%;
-    height: 10%;
-    display: flex;
-    flex-direction: column;
-    letter-spacing: 6px;
+.SubTitle {
+	font-size: 60px;
+	font-weight: 1000;
+	color: black;
+	width: 70%;
+	height: 10%;
+	display: flex;
+	flex-direction: column;
+	letter-spacing: 6px;
 
- }
+}
 
 
 /* 소제목 소개글 */
 #SubTitle_Text {
-    display: inline;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    text-align: center;
-    font-size: 30px;
-    color: black;
+	display: inline;
+	align-items: center;
+	justify-content: center;
+	font-weight: 900;
+	text-align: center;
+	font-size: 30px;
+	color: black;
 }
 
 
 
 /* Main */
-        
+
 main {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
 }
 
 
@@ -73,65 +72,65 @@ main {
 
 form {
 
-   display: flex;
-   align-items: center;
-   justify-content: center;
-    flex-direction: column;
-    width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
 }
 
-    
-    
+
+
 /* Container */
 
 .container {
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    width: 1200px;
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	width: 1200px;
 }
 
 /* 세로박스 */
 .flex-container_column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1%;
-    width: 85%;
-    height: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	width: 85%;
+	height: 90%;
 }
 
 /* 가로박스 */
-.flex-container_row { 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 1%;
-    width: 100%;
-    height: 90%;
-    gap: 10px;
-    }
+.flex-container_row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	width: 100%;
+	height: 90%;
+	gap: 10px;
+}
 
-.flex-container > div {
-    background-color: white;
-    text-align: center;
+.flex-container>div {
+	background-color: white;
+	text-align: center;
 }
 
 /* 각 라인들을 감싸는 박스 */
 .flex-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: white;
 }
 
-.flex-container > div {
-    background-color: white;
-    text-align: center;
+.flex-container>div {
+	background-color: white;
+	text-align: center;
 }
 
 
@@ -140,17 +139,19 @@ form {
 
 /* Form요소 - Input, textarea, select */
 
-input, textarea, select {
-    font-size: 15pt;
-    line-height: 1.85em;
-    width: 90%;
-    height: 80%;
-    font-weight: 700;
-    background-color: white;
-    margin: 0%;
-    padding: 1%;
-    
- }
+input,
+textarea,
+select {
+	font-size: 15pt;
+	line-height: 1.85em;
+	width: 90%;
+	height: 80%;
+	font-weight: 700;
+	background-color: white;
+	margin: 0%;
+	padding: 1%;
+
+}
 
 form input[type="text"],
 form input[type="email"],
@@ -158,17 +159,17 @@ form input[type="password"],
 form input[type="submit"],
 form select,
 form textarea {
-      padding: 2%;
-    position: relative;
-    display: inline-block;
-    background-color: white;
-    color: black;
-    text-align: left;
-    text-decoration: none;
-    border: 1px solid lightgray;
-    border-radius: 0.3rem;
-    outline: 0;
-    font-weight: 700;
+	padding: 2%;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+	border: 1px solid lightgray;
+	border-radius: 0.3rem;
+	outline: 0;
+	font-weight: 700;
 }
 
 form input[type="text"]:hover,
@@ -177,73 +178,74 @@ form input[type="password"]:hover,
 form input[type="submit"]:hover,
 form select,
 form textarea:hover {
-    padding: 2%;
-    position: relative;
-    display: inline-block;
-    background-color: white;
-    color: black;
-    text-align: left;
-    text-decoration: none;
-    border: 1px solid lightgray;
-    border-radius: 0.3rem;
-    outline: 0;
-    font-weight: 700;
-    
+	padding: 2%;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+	border: 1px solid lightgray;
+	border-radius: 0.3rem;
+	outline: 0;
+	font-weight: 700;
+
 }
 
 form textarea {
-    min-height: 9em;
-    cursor: text;
+	min-height: 9em;
+	cursor: text;
 }
 
 
 form textarea:hover {
-    min-height: 9em;
-    cursor: text;
+	min-height: 9em;
+	cursor: text;
 }
 
 #search {
-    height: 15px;
-    width: 30px;
+	height: 15px;
+	width: 30px;
 }
 
 
- 
- /* Table */
- 
+
+/* Table */
+
 table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: larger;
-    font-weight: 700;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: larger;
+	font-weight: 700;
 }
 
-th, td {
-    padding: 1%;
-    text-align: center;
-    border: 3px solid white;
+th,
+td {
+	padding: 1%;
+	text-align: center;
+	border: 3px solid white;
 }
 
 th {
-    background-color: #333;
-    color: white;
-    font-weight: bold;
+	background-color: #333;
+	color: white;
+	font-weight: bold;
 }
 
 tr {
-    background-color: white;
+	background-color: white;
 }
 
 td:nth-child(odd) {
-    background-color: whitesmoke;
-    border-top: 3px solid white;
-    border-bottom: 3px solid white;
+	background-color: whitesmoke;
+	border-top: 3px solid white;
+	border-bottom: 3px solid white;
 }
 
 td:nth-child(even) {
-    background-color: white;
-    border-bottom: 0px;
-    text-align: left;
+	background-color: white;
+	border-bottom: 0px;
+	text-align: left;
 }
 
 
@@ -255,17 +257,17 @@ input[type="reset"],
 input[type="text"],
 button,
 .button {
-    padding: 2%;
-    position: relative;
-    display: inline-block;
-    background-color: white;
-    color: black;
-    text-align: left;
-    text-decoration: none;
-    border: 1px solid lightgray;
-    border-radius: 0.3rem;
-    outline: 0;
-    font-weight: 700;
+	padding: 2%;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+	border: 1px solid lightgray;
+	border-radius: 0.3rem;
+	outline: 0;
+	font-weight: 700;
 }
 
 /* button.hover */
@@ -277,67 +279,87 @@ input[type="reset"]:hover,
 input[type="text"]:hover,
 button:hover,
 .button:hover {
-    padding: 2%;
-    position: relative;
-    display: inline-block;
-    background-color: white;
-    color: black;
-    text-align: left;
-    text-decoration: none;
-    border: 1px solid lightgray;
-    border-radius: 0.3rem;
-    outline: 0;
-    font-weight: 700;
+	padding: 2%;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+	border: 1px solid lightgray;
+	border-radius: 0.3rem;
+	outline: 0;
+	font-weight: 700;
 }
 
 
 
-    
+
 
 /* a */
 
 a {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-     }
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
 
 
 /* a.hover */
 
- a:hover {
-    -webkit-text-stroke: 0.5px black;
-    cursor: pointer;
-    }
+a:hover {
+	cursor: pointer;
+}
+
+.list {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #BFBCBA;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	color: #333;
+}
+
+
+
+
+.list:hover {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #FFCC4C;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
 
 
 /* 각 종 hover들 */
 a.icon-hover:hover {
-    background-color: white;
+	background-color: white;
 }
 
 .float_hover:hover {
-    background-color: whitesmoke !important;
+	background-color: whitesmoke !important;
 }
 
 
 .side-hover:hover {
- color: white !important;
- background-color: black !important;
- border-radius: 0.5rem;
- padding: 1.5%;
+	color: white !important;
+	background-color: black !important;
+	border-radius: 0.5rem;
+	padding: 1.5%;
 }
 
 a.Board-hover {
-    text-decoration: none;
-    color: black;
+	text-decoration: none;
+	color: black;
 }
 
 a.Board-hover:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 select:hover {
-    border: 2px solid rgb(170, 170, 170);
+	border: 2px solid rgb(170, 170, 170);
 }
-

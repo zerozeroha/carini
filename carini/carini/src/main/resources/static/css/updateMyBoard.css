@@ -310,10 +310,32 @@ a {
 /* a.hover */
 
  a:hover {
-    -webkit-text-stroke: 0.5px black;
     cursor: pointer;
 
 }
+
+.list {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #BFBCBA;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	color: #333;
+}
+
+
+
+
+.list:hover {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #FFCC4C;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
 
 
 /* 각 종 hover들 */

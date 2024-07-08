@@ -12,6 +12,7 @@
 <noscript>
 	<link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
+
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
   integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 <style>
@@ -60,17 +61,17 @@
 					<table>
 						<tr>
 							<th th:text="#{info.nickname}"></th>
-							<td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberNickname}"
+							<td th:if="${session.user.memberSocial == 'user'}" th:text="${hiddenuser.memberNickname}"
 								aria-disabled="true"></td>
-							<td th:unless="${session.user.memberSocial == '회원'}"
+							<td th:unless="${session.user.memberSocial == 'user'}"
 								th:text="${hiddenuser.memberSocialNickname}" aria-disabled="true"></td>
 						</tr>
 
 						<tr>
 							<th th:text="#{info.id}"></th>
-							<td th:if="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberId}"
+							<td th:if="${session.user.memberSocial == 'user'}" th:text="${hiddenuser.memberId}"
 								aria-disabled="true"></td>
-							<td th:unless="${session.user.memberSocial == '회원'}" th:text="${hiddenuser.memberEmail}"
+							<td th:unless="${session.user.memberSocial == 'user'}" th:text="${hiddenuser.memberEmail}"
 								aria-disabled="true"></td>
 						</tr>
 
@@ -98,10 +99,10 @@
 					<br>
 
 					<div class="flex-container_row" style="height: 10%;">
-						<a id="edit_save_td" th:if="${session.user.memberSocial == '회원'}">
+						<a id="edit_save_td" th:if="${session.user.memberSocial == 'user'}">
 							<button type="button" onclick="change_info()" th:text="#{info.btn.edit}"></button>
 						</a>
-						<a id="edit_save_td" th:unless="${session.user.memberSocial == '회원'}"
+						<a id="edit_save_td" th:unless="${session.user.memberSocial == 'user'}"
 							th:href="@{/mypage/myinfo_social_edit}">
 							<button type="button" th:text="#{info.btn.edit}"></button>
 						</a>
@@ -121,6 +122,7 @@
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
+	
 	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>

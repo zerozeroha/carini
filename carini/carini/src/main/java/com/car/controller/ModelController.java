@@ -25,6 +25,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import com.car.dto.Bookmark;
 import com.car.dto.Car;
 import com.car.dto.CarBrand;
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.PagingInfo;
 import com.car.service.BoardService;
@@ -33,6 +34,7 @@ import com.car.service.CommentService;
 import com.car.service.MemberService;
 import com.car.service.ModelService;
 import com.car.service.NoticeService;
+import com.car.validation.InquiryWriteValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -72,7 +74,7 @@ public class ModelController {
 	       @RequestParam(name = "carSort", defaultValue = "저가순") String carSort,
 	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
 	       @RequestParam(name = "exCar", defaultValue = "false") Boolean exCar,
-	       HttpServletRequest request) {
+	       HttpServletRequest request,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		HttpSession session = request.getSession(false);
 		Member user= null;
 		if(session != null ) {
@@ -139,12 +141,12 @@ public class ModelController {
         model.addAttribute("exCar", exCar.toString());
 	    model.addAttribute("carList", pagedResult.getContent());
 	    model.addAttribute("user", user);
-	    
+	    model.addAttribute("inquiry", new Inquiry());
 	    return "model/getModelList.html";
 	}
 	
     @GetMapping("/getModel")
-    public String getCar(@RequestParam("carId") int carId, Model model, HttpServletRequest request) {
+    public String getCar(@RequestParam("carId") int carId, Model model, HttpServletRequest request,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
     	HttpSession session = request.getSession(false);
 		
     	Member user =null;
@@ -168,7 +170,7 @@ public class ModelController {
     	
     	model.addAttribute("car", car);
     	model.addAttribute("carBrand", carBrand);
-    	
+    	model.addAttribute("inquiry", new Inquiry());
         return "model/getModel.html";
     }
     
@@ -204,7 +206,7 @@ public class ModelController {
      * */
 	@PostMapping("/bookmark/{carId}")
 	public String modelbookmarkAdd(@PathVariable("carId") String carId, Model model, Bookmark bookmark,
-			HttpServletRequest request, HttpSession session) {
+			HttpServletRequest request, HttpSession session,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		
 		Locale locale = localeResolver.resolveLocale(request);
 
@@ -217,6 +219,8 @@ public class ModelController {
 
 		model.addAttribute("msg", messageSource.getMessage("bookmark.add", null, locale));
 		model.addAttribute("url", request.getHeader("Referer"));
+		model.addAttribute("inquiry", new Inquiry());
+		
 		return "alert";
 	}
 
@@ -227,7 +231,7 @@ public class ModelController {
 	 */
 	@PostMapping("/bookmark/delete/{carId}")
 	public String modelbookmarkdelete(@PathVariable("carId") String carId, Model model, HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		Locale locale = localeResolver.resolveLocale(request);
 		Member user = (Member) session.getAttribute("user");
@@ -235,6 +239,7 @@ public class ModelController {
 		bookMarkService.findBookmarkByCarDelete(Integer.parseInt(carId), user.getMemberId());
 		model.addAttribute("msg", messageSource.getMessage("bookmark.delete", null, locale));
 		model.addAttribute("url", request.getHeader("Referer"));
+		model.addAttribute("inquiry", new Inquiry());
 		return "alert";
 	}
     

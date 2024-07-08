@@ -170,7 +170,7 @@ public class MypageController {
 
 	@GetMapping("/myinfo_edit")
 	public String myinfo_edit(HttpSession session,
-			@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members, Model model) {
+			@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members, Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		Member user = (Member) session.getAttribute("user");
 		Member finduser = memberService.findByMemberId(user.getMemberId());
 		members.setMemberEmail(finduser.getMemberEmail());
@@ -179,16 +179,17 @@ public class MypageController {
 		members.setMemberPw(finduser.getMemberPw());
 		model.addAttribute("Update_InfoFormValidation", finduser);
 		session.setAttribute("showuser", finduser);
-
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/myinfo_edit.html";
 	}
 
 	@GetMapping("/myinfo_social_edit")
 	public String myinfo_social_edit(@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members,
-			HttpSession session) {
+			HttpSession session,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation,Model model) {
 		Member user = (Member) session.getAttribute("user");
 		Member finduser = memberService.findByMemberId(user.getMemberId());
 		session.setAttribute("showuser", finduser);
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/myinfo_edit.html";
 	}
 
@@ -217,7 +218,7 @@ public class MypageController {
 				model.addAttribute("url", "/mypage/myinfo_edit");
 				return "alert";
 			}
-			System.out.println("memberNickname3"+memberNickname);
+
 			if (member != null && (memberOne.getMemberNickname().equals(memberNickname)
 					|| memberOne.getMemberSocialNickname().equals(memberNickname) )) {
 				model.addAttribute("msg", messageSource.getMessage("info.Nickinput.failure", null, locale));
@@ -387,7 +388,7 @@ public class MypageController {
 	 * =================================== 즐겨찾기
 	 */
 	@GetMapping("/bookmark")
-	public String myPagebookmarkList(Model model, HttpServletRequest request, HttpSession session) {
+	public String myPagebookmarkList(Model model, HttpServletRequest request, HttpSession session,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		Locale locale = localeResolver.resolveLocale(request);
 
 		Member user = (Member) session.getAttribute("user");
@@ -397,6 +398,7 @@ public class MypageController {
 		List<Car> bookmarkCarList = bookMarkService.findAllCar(bookmarkCarID);
 
 		model.addAttribute("BookmarkCarList", bookmarkCarList);
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/bookmark.html";
 	}
 
@@ -461,7 +463,7 @@ public class MypageController {
 			@RequestParam(name = "curPage", defaultValue = "0") int curPage,
 			@RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 			@RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
-			@RequestParam(name = "searchWord", defaultValue = "") String searchWord, HttpSession session) {
+			@RequestParam(name = "searchWord", defaultValue = "") String searchWord, HttpSession session,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		Member findMember = (Member) session.getAttribute("user");
 
@@ -500,7 +502,7 @@ public class MypageController {
 		model.addAttribute("st", searchType);
 		model.addAttribute("sw", searchWord);
 		model.addAttribute("boardList", pagedResult.getContent()); // Add this line
-
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/myboard.html";
 	}
 
@@ -509,12 +511,12 @@ public class MypageController {
 	 */
 	@GetMapping("/insertMyBoard")
 	public String insertBoardForm(Board board, Member member,
-			@ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, Model model) {
+			@ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		LocalDate currentDate = LocalDate.now();
 
 		model.addAttribute("date", currentDate);
-
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/insertMyBoard";
 	}
 
@@ -553,12 +555,12 @@ public class MypageController {
 	 * 내 게시물 상세 조회
 	 */
 	@GetMapping("/myBoard/getBoard")
-	public String myPagemyboard(Board board, Model model, HttpSession session) {
+	public String myPagemyboard(Board board, Model model, HttpSession session,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		Member user = (Member) session.getAttribute("user");
 
 		model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
-
+		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/getMyBoard";
 	}
 
@@ -567,7 +569,7 @@ public class MypageController {
 	 */
 	@GetMapping("/updateMyBoard")
 	public String updateMyBoard(@RequestParam("boardId") Long boardId, Model model, HttpSession session,
-			@ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
+			@ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation,
 			BindingResult bindingResult) {
 		Member user = (Member) session.getAttribute("user");
 
@@ -584,6 +586,7 @@ public class MypageController {
 
 			model.addAttribute("BoardUpdateFormValidation", boardValidation);
 			model.addAttribute("board", board);
+			model.addAttribute("inquiry", new Inquiry());
 			return "mypage/updateMyBoard"; // 게시글 수정 페이지
 		}
 
@@ -598,11 +601,12 @@ public class MypageController {
 	@PostMapping("/updateBoard")
 	public String updateBoard(Board board,
 			@Validated @ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		if (bindingResult.hasErrors()) {
 			board = boardService.getBoardById(board.getBoardId());
 			model.addAttribute("board", board);
+			model.addAttribute("inquiry", new Inquiry());
 			return "mypage/updateMyBoard";
 		}
 

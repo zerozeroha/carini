@@ -13,7 +13,8 @@
 		<link rel="stylesheet" th:href="@{/assets/css/noscript.css}" />
 	</noscript>
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
 
 		<div id="Favorites_box" style="background-color: white;">
 
-			<div class="div" style="border-bottom: 1px solid lightgray;">
+			<div class="div" style="border-bottom: 1px solid #FFCC4C">
 				<h3>- CHECK YOUR DREAM CAR -</h3>
 			</div>
 
@@ -91,11 +92,11 @@
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry -->
-	<!-- <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script> -->
+	<script src="/js/Inquiry/inquiry.js"></script>
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>

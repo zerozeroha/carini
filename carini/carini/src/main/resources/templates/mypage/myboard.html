@@ -18,7 +18,8 @@
 		<link rel="stylesheet" th:href="@{/assets/css/noscript.css}" />
 	</noscript>
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -126,14 +127,15 @@
 			<!--삭제, 글쓰기, 목록 버튼-->
 			<div class="flex-container_row" style="height: 10%;">
 				<div style="width: 88%;">
-					<a th:text="#{myboard.delete}" onclick="submitForm()" style="padding:10px 20px;"></a>
-				</div>
-				<div style="width:85px;">
-					<a th:href="@{/mypage/myBoard}" style="padding:10px 20px; " class="btn">목록</a>
+					<a th:text="#{myboard.delete}" onclick="submitForm()" class="list"></a>
 				</div>
 				<div style="width:105px;">
-					<a th:href="@{/mypage/insertMyBoard}" style="padding:10px 20px; " class="btn">글쓰기</a>
+					<a th:href="@{/mypage/insertMyBoard}" class="btn list">글쓰기</a>
 				</div>
+				<div style="width:85px;">
+					<a th:href="@{/mypage/myBoard}" class="btn list">목록</a>
+				</div>
+
 			</div>
 
 		</div>
@@ -146,11 +148,11 @@
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry -->
-	<!-- <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-	<script src="/js/Inquiry/inquiry.js"></script> -->
+	<script src="/js/Inquiry/inquiry.js"></script>
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
