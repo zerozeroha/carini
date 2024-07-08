@@ -218,7 +218,7 @@ h3 {
 
 .img_login {
    height: 60px;
-   width: 300px;
+   width: 400px;
    border: 1px solid rgb(192, 192, 192);
    border-radius: 0.5rem;
 }
@@ -255,7 +255,7 @@ input[type="password"],
 button,
 .button {
    height: 60px;
-   width: 300px;
+   width: 400px;
    font-size: 15px;
    padding: 1%;
    position: relative;
@@ -280,7 +280,7 @@ input[type="tel"],
 button,
 .button {
    height: 60px;
-   width: 300px;
+   width: 400px;
    font-size: 15px;
    padding: 1%;
    position: relative;
@@ -304,7 +304,7 @@ input[type="button"],
 input[type="submit"] {
    font-weight: 900;
    height: 50px;
-   width: 150px;
+   width: 400px;
    font-size: 17px;
    padding: 1%;
    position: relative;
@@ -322,7 +322,7 @@ input[type="submit"] {
 input[type="button"]:hover,
 input[type="submit"]:hover {
    height: 50px;
-   width: 150px;
+   width: 400px;
    font-size: 18px;
    padding: 1%;
    position: relative;

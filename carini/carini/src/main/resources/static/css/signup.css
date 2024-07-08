@@ -254,19 +254,20 @@ input[type="text"],
 input[type="password"],
 button,
 .button {
-	height: 60px;
-	width: 340px;
-	font-size: 15px;
-	padding: 1%;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: left;
-	border-radius: 0.2em;
-	border: 1px solid #222222;
-	cursor: text;
-	margin: 1%;
+
+   height: 60px;
+   width: 340px;
+   font-size: 15px;
+   padding: 1%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   border-radius: 0.2em;
+   border: 1px solid #222222;
+   cursor: text;
+   margin: 1%;
 }
 
 

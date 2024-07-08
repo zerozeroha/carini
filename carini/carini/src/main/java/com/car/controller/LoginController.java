@@ -95,7 +95,6 @@ public class LoginController {
 		return "redirect:/home";
 	}
 
-	
 	@GetMapping("/home")
 	public String goHome(HttpSession session, Model model) {
 		
@@ -104,7 +103,7 @@ public class LoginController {
 		model.addAttribute("top10Cars", top10Cars);
 		System.out.println(top10Cars);
 		
-		return "homepage/home.html";
+		return "homepage/home";
 	}
 	
 	/*
