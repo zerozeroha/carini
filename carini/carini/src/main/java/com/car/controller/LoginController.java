@@ -39,6 +39,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.internal.build.AllowSysOut;
 
 @Slf4j
 @Controller
@@ -70,7 +71,7 @@ public class LoginController {
 
 	@RequestMapping("/")
 	public String first_home() {
-		return "redirect:/user_logout";
+		return "homepage/home";
 	}
 
 	/* 세션 초기화 */
@@ -91,19 +92,21 @@ public class LoginController {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);
 
-		return "redirect:/homepage/first_home";
+		return "redirect:/home";
 	}
 
-	@RequestMapping("/homepage/first_home")
-	public String firstHome(Model model) {
-
+	
+	@GetMapping("/home")
+	public String goHome(HttpSession session, Model model) {
+		
 		// 즐겨찾기 Top10 캐로셀
 		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
 		model.addAttribute("top10Cars", top10Cars);
-
-		return "homepage/first_home";
+		System.out.println(top10Cars);
+		
+		return "homepage/home.html";
 	}
-
+	
 	/*
 	 * 회원가입 view
 	 */
@@ -202,15 +205,6 @@ public class LoginController {
 		return "member/login.html";
 	}
 
-	@GetMapping("/home")
-	public String goHome(HttpSession session, Model model) {
-
-		// 즐겨찾기 Top10 캐로셀
-		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
-		model.addAttribute("top10Cars", top10Cars);
-
-		return "homepage/home.html";
-	}
 
 	/*
 	 * 로그인

@@ -9,182 +9,181 @@
 <html>
 
 <head>
-	<title>getBoardList</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="/css/base/base.css">
-	<link rel="stylesheet" href="/css/boardList.css" />
-	<link rel="stylesheet" href="/css/base/inquiry.css">
-	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
-		crossorigin="anonymous"></script>
+   <title>getBoardList</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <noscript>
+      <link rel="stylesheet" href="assets/css/noscript.css" />
+   </noscript>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="/css/base/base.css">
+   <link rel="stylesheet" href="/css/boardList.css" />
+   <link rel="stylesheet" href="/css/base/inquiry.css">
+   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+      crossorigin="anonymous"></script>
 </head>
 <style>
-	th {
-		text-align: center;
-		border-bottom: 1.5px solid #BFBCBA;
-		border-top: 1.5px solid #BFBCBA;
-		background-color: #BFBCBA;
-		color: white;
-		border-right: 3px solid white;
-		font-weight: bold;
-		font-family: inherit;
-		height: 20px;
-	}
+   th {
+      text-align: center;
+      border-bottom: 1.5px solid #BFBCBA;
+      border-top: 1.5px solid #BFBCBA;
+      background-color: #BFBCBA;
+      color: white;
+      border-right: 3px solid white;
+      font-weight: bold;
+      font-family: inherit;
+      height: 20px;
+   }
 
-	td {
-		color: #222222;
-	}
+   td {
+      color: #222222;
+   }
 </style>
 
 <body>
-	<!--Header-->
-	<header th:replace="~{base/base :: main_header}"></header>
-	<!--챗봇 아이콘-->
-	<div th:replace="~{base/base :: floaticon}"></div>
+   <!--Header-->
+   <header th:replace="~{base/base :: main_header}"></header>
+   <!--챗봇 아이콘-->
+   <div th:replace="~{base/base :: floaticon}"></div>
 
-	<!--SubTitle-->
+   <!--SubTitle-->
 
-	<section class="SubTitle">BOARD</section>
+   <section class="SubTitle">BOARD</section>
 
-	<div class="div">
-		<p id="SubTitle_text">다양한 의견, 폭넓은 수용</p>
-	</div>
+   <div class="div">
+      <p id="SubTitle_text">다양한 의견, 폭넓은 수용</p>
+   </div>
 
-	<div class="div">
-		<h3>with carini</h3>
-	</div>
+   <div class="div">
+      <h3>with carini</h3>
+   </div>
 
-	<div style="height: 50px;"></div> <!--간격박스-->
+   <div style="height: 50px;"></div> <!--간격박스-->
 
 
-	<!-- Main -->
-	<main>
+   <!-- Main -->
+   <main>
 
-		<div class="flex-container_column">
+      <div class="flex-container_column">
 
-			<div class="flex-container_column">
+         <div class="flex-container_column">
 
-				<!--총 0개의 게시물 어쩌꾸 부분-->
-				<form th:action="@{/board/getBoardList}" method="get">
-					<input type="hidden" id="curPage" name="curPage" th:value="0">
-					<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
-					<span> -
-						<span th:text="#{board.total.start}"></span>
-						<span th:text="${pagedResult.getTotalElements()}"></span>
-						<span th:text="#{board.total}"></span> -
-					</span>
+            <!--총 0개의 게시물 어쩌꾸 부분-->
+            <form th:action="@{/board/getBoardList}" method="get">
+               <input type="hidden" id="curPage" name="curPage" th:value="0">
+               <input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
+               <span> -
+                  <span th:text="#{board.total.start}"></span>
+                  <span th:text="${pagedResult.getTotalElements()}"></span>
+                  <span th:text="#{board.total}"></span> -
+               </span>
 
-					<!-- 검색창 부분 -->
-					<div class="flex-container_row">
-						<select class="form-select" id="searchType" name="searchType" placeholder="작성자">
-							<option value="boardTitle" th:selected="${st=='boardTitle'}"
-								th:text="#{board.search.title}"></option>
-							<option value="boardWriter" th:selected="${st =='boardWriter'}"
-								th:text="#{board.search.writer}"></option>
-							<option value="boardContent" th:selected="${st =='boardContent'}"
-								th:text="#{board.search.content}"></option>
-						</select>
+               <!-- 검색창 부분 -->
+               <div class="flex-container_row">
+                  <select class="form-select" id="searchType" name="searchType" placeholder="작성자">
+                     <option value="boardTitle" th:selected="${st=='boardTitle'}"
+                        th:text="#{board.search.title}"></option>
+                     <option value="boardWriter" th:selected="${st =='boardWriter'}"
+                        th:text="#{board.search.writer}"></option>
+                     <option value="boardContent" th:selected="${st =='boardContent'}"
+                        th:text="#{board.search.content}"></option>
+                  </select>
 
-						<div style="width: 50%;">
-							<input name="searchWord" type="text"
-								style="cursor:text; width: 100%; height: 30px; padding: 4% 3%;" placeholder="제목 / 작성자">
-						</div>
+                  <div style="width: 50%;">
+                     <input name="searchWord" type="text"
+                        style="cursor:text; width: 100%; height: 30px; padding: 4% 3%;" placeholder="제목 / 작성자">
+                  </div>
 
-						<div>
-							<input type="submit" name="검색" value=" 검색 " style="width:100%; height:17%;">
-						</div>
-					</div>
+                  <div>
+                     <input type="submit" name="검색" value=" 검색 " style="width:100%; height:17%;">
+                  </div>
+               </div>
 
-				</form>
+            </form>
 
-			</div>
+         </div>
 
-			<div class="flex-container_row" style="height: 600px; align-items: start;">
-				<table class="boardList">
-					<tr>
-						<th style="width: 10%;" th:text="#{label.id}"></th>
-						<th style="width: 30%;" th:text="#{label.title}"></th>
-						<th style="width: 20%;" th:text="#{label.writer}"></th>
-						<th style="width: 20%;" th:text="#{label.date}"></th>
-						<th style="width: 10%;" th:text="#{label.file}"></th>
-						<th style="width: 10%;" th:text="#{label.cnt}"></th>
-					</tr>
-					<tr style="text-align: center;" th:each="board, state : ${pagedResult.getContent()}">
-						<td style="width: 10%; text-align: center;" th:text="${board.boardId}"></td>
-						<td style="width: 30%; text-align: center;"><a class="Board-hover"
-								th:href="@{/board/getBoard(boardId=${board.boardId})}"
-								th:text="${board.boardTitle}"></a></td>
-						<td style="width: 20%; text-align: center;" th:text="${board.boardWriter}"></td>
-						<td style="width: 20%; text-align: center;"
-							th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}"></td>
-						<td style="width: 10%; text-align: center;"><img src="/img/board_clip.png" style="height: 15px;"
-								alt="" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></td>
-						<td style="width: 10%; text-align: center;" th:text="${board.boardCnt}"></td>
-					</tr>
-				</table>
-			</div>
-			<hr />
-			<!--pagination-->
-			<div class="flex-container_row" style="margin-left: -2%; border-top: 1px solid lightgray;">
-				<ul class="col pagination justify-content-center"
-					style="list-style-type: none; display: flex; justify-content: center; width: 130%;">-
-					<th:block th:if="${sp > ps}">
-						<li class="page-item"><a class="Board-hover page-link"
-								th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-								th:text="#{page.prev}"></a></li>
-					</th:block>
+         <div class="flex-container_row" style="height: 600px; align-items: start;">
+            <table class="boardList">
+               <tr>
+                  <th style="width: 10%;" th:text="#{label.id}"></th>
+                  <th style="width: 30%;" th:text="#{label.title}"></th>
+                  <th style="width: 20%;" th:text="#{label.writer}"></th>
+                  <th style="width: 20%;" th:text="#{label.date}"></th>
+                  <th style="width: 10%;" th:text="#{label.file}"></th>
+                  <th style="width: 10%;" th:text="#{label.cnt}"></th>
+               </tr>
+               <tr style="text-align: center;" th:each="board, state : ${pagedResult.getContent()}">
+                  <td style="width: 10%; text-align: center;" th:text="${board.boardId}"></td>
+                  <td style="width: 30%; text-align: center;"><a class="Board-hover"
+                        th:href="@{/board/getBoard(boardId=${board.boardId})}"
+                        th:text="${board.boardTitle}"></a></td>
+                  <td style="width: 20%; text-align: center;" th:text="${board.boardWriter}"></td>
+                  <td style="width: 20%; text-align: center;"
+                     th:text="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}"></td>
+                  <td style="width: 10%; text-align: center;"><img src="/img/board_clip.png" style="height: 15px;"
+                        alt="" th:if="${board.boardFilename != null && !board.boardFilename.isEmpty()}"></td>
+                  <td style="width: 10%; text-align: center;" th:text="${board.boardCnt}"></td>
+               </tr>
+            </table>
+         </div>
+         <hr />
+         <!--pagination-->
+         <div class="flex-container_row" style="margin-left: -2%; border-top: 1px solid lightgray;">
+            <ul class="col pagination justify-content-center"
+               style="list-style-type: none; display: flex; justify-content: center; width: 130%;">-
+               <th:block th:if="${sp > ps}">
+                  <li class="page-item"><a class="Board-hover page-link"
+                        th:href="@{/board/getBoardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                        th:text="#{page.prev}"></a></li>
+               </th:block>
 
-					<th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
-						<li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
-							<a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
-								th:href="@{/board/getBoardList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-								th:text="${page}"></a>
-						</li>
-					</th:block>
+               <th:block th:each="page : ${#numbers.sequence(pagingInfo.getStartPage(), pagingInfo.getEndPage())}">
+                  <li class="page-item" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'active' : ''}">
+                     <a class="page-link" th:classappend="${(page-1)==pagingInfo.getCurPage() ? 'current' : ''}"
+                        th:href="@{/board/getBoardList(curPage=${page-1}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                        th:text="${page}"></a>
+                  </li>
+               </th:block>
 
-					<th:block th:if="${ ep lt tp }">
-						<li class="page-item"><a class="Board-hover page-link"
-								th:href="@{/board/getBoardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
-								th:text="#{page.next}"></a></li>
-					</th:block>&nbsp;&nbsp;-
-				</ul>
-			</div>
+               <th:block th:if="${ ep lt tp }">
+                  <li class="page-item"><a class="Board-hover page-link"
+                        th:href="@{/board/getBoardList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
+                        th:text="#{page.next}"></a></li>
+               </th:block>&nbsp;&nbsp;-
+            </ul>
+         </div>
 
-			<!--글쓰기, 목록 버튼-->
-			<div class="flex-container_row">
-				<div style="width: 88%;"></div>
-				<input type="button" th:value="#{board.writing}" class="gradient" style="float:right; width: 6%;"
-					th:onclick="|location.href='@{/board/insertBoard}'|">
-				<input type="button" th:value="#{board.list}" class="greylist" style="float:right; width: 5%;"
-					th:onclick="|location.href='@{/board/getBoardList}'|">
-			</div>
+         <!--글쓰기, 목록 버튼-->
+         <div class="flex-container_row">
+            <div style="width: 88%;"></div>
+            <input type="button" th:value="#{board.writing}" class="gradient" style="float:right; width: 6%;"
+               th:onclick="|location.href='@{/board/insertBoard}'|">
+            <input type="button" th:value="#{board.list}" class="greylist" style="float:right; width: 5%;"
+               th:onclick="|location.href='@{/board/getBoardList}'|">
+         </div>
 
-		</div>
+      </div>
 
-	</main>
+   </main>
 
-	<!-- Footer -->
-	<footer th:replace="~{base/base :: main_footer}"></footer>
-	<div id="kakao-talk-channel-chat-button"></div>
-	<script th:replace="~{base/base :: inquiry_script}"></script>
-	<!-- Inquiry -->
-	<!--
+   <!-- Footer -->
+   <footer th:replace="~{base/base :: main_footer}"></footer>
+   <div id="kakao-talk-channel-chat-button"></div>
+   <script th:replace="~{base/base :: inquiry_script}"></script>
+  
+   <!-- Inquiry -->
    <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
    <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
    <div th:replace="~{base/base :: inquiry_writehtml}"></div>
    <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
    <script src="/js/Inquiry/inquiry.js"></script>
-   -->
 
-	<!-- Scripts -->
-	<script src="/js/jquery.dropotron.min.js"></script>
-	<script src="/js/breakpoints.min.js"></script>
-	<script src="/js/main.js"></script>
+   <!-- Scripts -->
+   <script src="/js/jquery.dropotron.min.js"></script>
+   <script src="/js/breakpoints.min.js"></script>
+   <script src="/js/main.js"></script>
 </body>
 
 </html>
