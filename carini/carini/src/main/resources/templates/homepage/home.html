@@ -1,79 +1,181 @@
 <!DOCTYPE HTML>
-<!--
-   Helios by HTML5 UP
-   html5up.net | @ajlkn
-   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Helios by HTML5 UP</title>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="/css/main.css" />
-<link rel="stylesheet" href="/css/base/base.css">
-<noscript>
-	<link rel="stylesheet" href="assets/css/noscript.css" />
-</noscript>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
-	crossorigin="anonymous"></script>
-<noscript>
-	<link rel="stylesheet" href="assets/css/noscript.css" />
-</noscript>
+	<title>Helios by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/css/main.css" />
+	<link rel="stylesheet" href="/css/base/inquiry.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 </head>
 <style>
-.carousel .reel {
-	transition: transform 0.1s linear; /* Smooth transition */
-}
+	.carousel .reel {
+		transition: transform 0.1s linear;
+		/* Smooth transition */
+	}
 
-article .cardBox {
-	min-width: 100%;
-	box-sizing: border-box;
-}
+	article .cardBox {
+		min-width: 100%;
+		box-sizing: border-box;
+	}
 </style>
+
 <body class="homepage is-preload">
 	<div id="page-wrapper">
-
 		<!-- Header -->
-		<header th:replace="~{base/base :: main_header}"></header>
+		<header id="header" th:fragment="main_header" style="font-family: inherit">
+			<!-- Inner -->
+			<div class="video-container">
+				<video src="/img/main.mp4" muted autoplay playsinline></video>
+			</div>
+			<div class="alertBox" id="fixed-bar">
+				<nav id="nav">
+					<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1;">CARINI</a>
+					<ul style="border: none;">
+						<li><a th:href="@{/board/getBoardList}">BOARD</a>
+							<ul style="border: none;">
+								<li><a th:href="@{/board/getBoardList}" style="text-align: center;"
+										class="side-hver">커뮤니티</a></li>
+								<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;"
+										class="side-hver">공지사항</a></li>
+							</ul>
+						</li>
+						<li><a th:href="@{/model/getModelList}">MODEL</a></li>
+						<li><a th:href="@{/center/centerMap}">CENTER</a></li>
+						<li th:if="${session.user != null}">
+							<a>MYPAGE</a>
+							<ul style="border: none;">
+								<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
+										th:text="#{side.menu1}"></a></li>
+								<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
+										th:text="#{side.menu2}"></a></li>
+								<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
+										th:text="#{side.menu3}"></a></li>
+							</ul>
+						</li>
+						<li th:if="${session.user == null}"><a th:href="@{/member_login}">LOGIN</a></li>
+						<li th:if="${session.user != null}"><a th:href="@{/user_logout}">LOGOUT</a></li>
+					</ul>
+				</nav>
+				<div style="height: 50px; width: 100%; font-size: 20px; margin-left:65%;
+				                        margin-top:0.2%;padding: 0.2%;font-size: 16px;cursor: default;font-weight: 700;">
+					<input type="text" style="width: 100%; border: 1px solid white; 
+				               background-color: white; text-align: center;font-weight: 500 ;cursor: default; padding: 0%; 
+				               font-size: 15px;" th:if="${session.user != null}"
+						th:value="|${session.user.memberNickname}님 반갑습니다 🚗🚙|" ; disabled>
+
+				</div>
+			</div>
+		</header>
+		<div th:replace="~{base/base :: floaticon}"></div>
+
+		<div><img src="/img/arrow.png" alt="화살" id="arrow_png"></div>
+
+
+
 
 		<!-- Banner -->
-		<section id="banner">
-			<header>
+		<section class="banner">
+			<div>
+				<img src="/img/main1.png" alt="챗봇이미지1">
+			</div>
+			<header class="main1_header">
 				<h2>자동차 고르기 어려우셨죠?</h2>
-				<p>
-					CARINI 챗봇과 함께 쉽고 빠르게<BR> 자동차를 골라보세요!
+				<p class="banner_p">
+					<span class="emphasis">CARINI 챗봇</span>과 함께
+					쉽고 빠르게<BR> 자동차를 골라보세요!
 				</p>
+			</header>
+
+		</section>
+
+
+		<section class="banner" style="background-color: #F2F2F2;">
+			<div style="margin-right: 140px;">
+				<p>
+				<h2>누구나 쉽게</h2>
+				<BR>
+				<p class="banner_p">
+					자동차에 대한 지식이 없어도
+					<BR>
+					<span class="emphasis">CARINI</span>
+					와 함께 차근차근!
+				</p>
+
+				</p>
+			</div>
+			<header class="main1_header">
+				<img src="/img/main2.png" alt="챗봇이미지2" style="width: 500px;">
 			</header>
 		</section>
 
+
+		<section class="banner" style="padding-top: 50px;">
+			<div>
+				<img src="/img/main1.png" alt="챗봇이미지3">
+			</div>
+			<header class="main1_header">
+				<h2>지금 바로 이용해보세요!</h2>
+				<p class="banner_p">
+					<span class="emphasis">CARINI 챗봇</span>과 함께
+					쉽고 빠르게<BR> 자동차를 골라보세요!
+				</p>
+			</header>
+
+		</section>
+
 		<!-- Carousel -->
-		<section class="carousel">
-			<div class="reel" id="carouselReel">
+		<section class="carousel" style="padding-top: 100px;">
+			<div class="reel" id="carouselReel" style="width: 100%;">
 				<!--자동차LIST-->
 				<article class="cardBox" th:each="car, state : ${top10Cars}">
 					<h4 th:text="|Top${state.count}|"></h4>
-					<a th:href="@{/model/getModel(carId=${car.carId})}"
-						class="image featured"> <img th:src="@{${car.carImg}}"
-						alt="이미지">
+					<a th:href="@{/model/getModel(carId=${car.carId})}" class="image featured"> <img
+							th:src="@{${car.carImg}}" alt="이미지">
 					</a>
 					<header>
 						<h3 class="card-title" th:text="${car.carName}"></h3>
 					</header>
-					<p class="card-text"
-						th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
+					<p class="card-text" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
 					<p class="card-text" th:text="|크기 : ${car.carSize}|"></p>
 					<p class="card-text" th:text="|연료 : ${car.carFuel}|"></p>
 					<p class="card-text" th:text="|연비 : ${car.carEff}|"></p>
 				</article>
 			</div>
+			<div class="duplicate" style="width: 0;"></div>
 		</section>
-
 	</div>
-	<div id="kakao-talk-channel-chat-button"></div>
+	
+	<section id="qr_section">
+		<a
+			href="https://accounts.kakao.com/login/?continue=https%3A%2F%2Fpf.kakao.com%2F_YGxcxcG%2Fchat%3Fapi_ver%3D1.1%26kakao_agent%3Dsdk%252F2.7.2%2520os%252Fjavascript%2520sdk_type%252Fjavascript%2520lang%252Fko-KR%2520device%252FWin32%2520origin%252Fhttp%25253A%25252F%25252Flocalhost%25253A8080%26app_key%3Df03e1323f64fa7f0d248d6b64a8bcd1b%26referer%3Dhttp%253A%252F%252Flocalhost%253A8080%252Fboard%252FgetBoardList#login">
+			<img src="/img/큐알.png" alt="qr이미지">
+		</a>
+		<p style="margin-left: 30px;">
+			카리니 채널을 추가하고 <br>많은 정보를 얻어보세요!
+		</p>
+		<button id="delete_button">
+			<p>X</p>
+		</button>
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<hr>
+		<p style="text-align: center;">@ carini</p>
+	</footer>
+
+
+	<div id="kakao-talk-channel-chat-button" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer;
+		text-decoration: none;"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
+
 	<!-- Scripts -->
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/jquery.dropotron.min.js"></script>

@@ -152,8 +152,6 @@
          <!--글쓰기, 목록 버튼-->
          <div class="flex-container_row">
             <div style="width: 88%;"></div>
-            <input type="button" th:value="#{board.list}" class="greylist" style="float:right; width: 5%;"
-               th:onclick="|location.href='@{/board/getBoardList}'|">
             <input type="button" th:value="#{board.writing}" class="gradient"
                style="float:right; width: 6%;" th:onclick="|location.href='@{/board/insertBoard}'|">
          </div>
@@ -166,14 +164,13 @@
    <footer th:replace="~{base/base :: main_footer}"></footer>
    <div id="kakao-talk-channel-chat-button"></div>
    <script th:replace="~{base/base :: inquiry_script}"></script>
+   
    <!-- Inquiry -->
-   <!--
    <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
    <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
    <div th:replace="~{base/base :: inquiry_writehtml}"></div>
    <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
    <script src="/js/Inquiry/inquiry.js"></script>
-   -->
 
    <!-- Scripts -->
    <script src="/js/jquery.dropotron.min.js"></script>

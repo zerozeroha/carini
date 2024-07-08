@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.car.dto.Bookmark;
@@ -117,8 +119,8 @@ public class BookMarkServiceImpl implements BookMarkService{
 	
 	@Override
 	public List<Car> getBookmarkTop10Cars() {
-		
-		List<Integer> carIds = bookMarkRepository.findTop10CarIdsWithCount();
+		Pageable pageable = PageRequest.of(0, 10);
+		List<Integer> carIds = bookMarkRepository.findTop10CarIdsWithCount(pageable);
 		List<Car> top10Cars = new ArrayList<Car>();
 		for(int carId:carIds) {
 			Optional<Car> car = carRepository.findById(carId);

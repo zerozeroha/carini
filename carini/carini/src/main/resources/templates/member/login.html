@@ -3,97 +3,93 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login.html</title>
-   <link rel="stylesheet" href="/css/login.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>login.html</title>
+	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/base/base.css">
+
 </head>
 <script>
-   import TextField from '@mui/material/TextField';
+	import TextField from '@mui/material/TextField';
 </script>
 <style>
-   .field-error {
-      border-color: #dc3545;
-      color: #dc3545;
-   }
+	.field-error {
+		border-color: #dc3545;
+		color: #dc3545;
+	}
 </style>
 
 <body>
+	<!--Header-->
+  <header th:replace="~{base/base :: main_header}"></header>
 
-	<header style="background-color: white; height:110px; padding: 0%;">
-   <a th:href="@{/homepage/first_home}" class="SubTitle">CARINI</a>
-   </header>
-   
-   <!-- Main -->
-   <main>
-
-      <div class="flex-container_row" style="width: 100%; height: 90%; background-color: #FFCC4C;">
+	<!-- Main -->
+	<main>
+		<section class="SubTitle">Login</section>
 
 
-         <form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
-            method="post">
-
-            <div class="flex-container_column">
-
-               <fieldset>
-                  <legend> login</legend>
+		<div class="flex-container_column">
 
 
-                  <input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
+			<form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
+				method="post">
+
+				<div class="flex-container_column">
+
+					<fieldset>
+
+						<input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
+
+						<div style="height: 10px;"></div>
+
+						<div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
+							아이디 오류
+						</div>
+
+						<input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
+							size="25">
+
+						<div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
+							비물번호 오류
+						</div>
 
 
+						<div style="height: 15px;"></div>
 
-                  <div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
-                     아이디 오류
-                  </div>
-
-                  <input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
-                     size="25">
-
-                  <div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
-                     비물번호 오류
-                  </div>
+						<input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
 
 
-
-                  <input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
-
-
-                  <div class="flex-container_row" style="height: 10%;">
-                     <a th:href="@{/find_idForm}">
-                        아이디찾기 </a> /
-                     <a th:href="@{/find_pwForm}">비밀번호찾기</a>/
-                     <a href="/signup"> 회원가입</a>
-                  </div>
+						<div class="flex-container_row" style="						height: 60px;
+						width: 300px; font-size: 15px; font-weight: 200;">
+							<a th:href="@{/find_idForm}">
+								아이디찾기 </a> /
+							<a th:href="@{/find_pwForm}">비밀번호찾기</a>/
+							<a href="/signup"> 회원가입</a>
+						</div>
 
 
-                  <a href="/api/naver/oauth">
-                     <img src="/img/naver.png" class="img_login">
-                  </a>
+						<a href="/api/naver/oauth">
+							<img src="/img/naver.png" class="img_login">
+						</a>
 
-                  <a href="/oauth/kakao">
-                     <img src="/img/kakaotalk.png" class="img_login">
-                  </a>
+						<a href="/oauth/kakao">
+							<img src="/img/kakaotalk.png" class="img_login">
+						</a>
 
-                  <a href="/oauth/kakao">
-                     <img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
-                  </a>
+						<a href="/oauth/kakao">
+							<img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
+						</a>
 
-               </fieldset>
-            </div>
-         </form>
+					</fieldset>
+				</div>
+			</form>
 
-      </div>
+		</div>
 
-   </main>
-   
-   <footer  style="margin: 0%; padding: 0%;">
-	 <div class="flex-container_row flipped-text" style="height: 60px; width: 100%; font-size: 60px; 
-	 background-color: white; color:  #FFCC4C; padding: 0% 1.5%; margin: 0%;">
-	CARINI CARINI CARINI CARINI CARINI CARINI CARINI CARINI CARINI CARINI 
-	</div>
-   </footer>
-   
+	</main>
+
+
 </body>
 
 </html>
