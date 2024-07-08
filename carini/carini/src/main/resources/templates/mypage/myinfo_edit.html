@@ -8,12 +8,11 @@
 <link rel="stylesheet" href="/css/base/inquiry.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <noscript>
-	<link rel="stylesheet" href="assets/css/noscript.css" />
+   <link rel="stylesheet" href="assets/css/noscript.css" />
 </noscript>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
-	crossorigin="anonymous"></script>
-
+   integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+   crossorigin="anonymous"></script>
 
 <body>
 	<!--Header-->
@@ -29,178 +28,173 @@
 			<div class="div">
 				<h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
 			</div>
-
 			<!--main 안에 있는 큰 박스-->
 			<div class="flex-container_column">
 
 				<div style="width: 60%; height: 100%;">
+                  <table>
+                     <form
+                        th:action="${session.user.memberSocial == 'user' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}"
+                        method="post">
+                        <tr>
+                           <th th:text="#{info.nickname}"></th>
+                           <td id="nicknameCell" th:if="${session.user.memberSocial == 'user'}"
+                              style="padding: 1%;">
+                              <div class="flex-container_row" style="height: 30%;">
+                                 <input type="text" name="memberNickname"
+                                    th:value="${session.showuser.memberNickname}">
+                                 <button type='submit' class="pencil-button" id="editNickname">
+                                    <img th:src="@{/img/edit_icon.png}" alt="edit icon"
+                                       style="height: 50%; width: 50%; cursor: pointer;">
+                                 </button>
+                              </div>
+                           </td>
 
-					<!--main 안에 있는 큰 박스-->
-					<div class="flex-container_column">
+                           <td th:unless="${session.user.memberSocial == 'user'}">
+                              <input type="text" name="memberSocialNickname"
+                                 th:value="${session.showuser.memberSocialNickname}">
+                              <button class="pencil-button" id="editNickname" type='submit'
+                                 style="width: 50%">
+                                 <img th:src="@{/img/edit_icon.png}" alt="edit icon"
+                                    style="height: 15px; width: 15px;">
+                              </button>
+                           </td>
 
-						<table>
-							<form
-								th:action="${session.user.memberSocial == 'user' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}"
-								method="post">
-								<tr>
-									<th th:text="#{info.nickname}"></th>
-									<td id="nicknameCell" th:if="${session.user.memberSocial == 'user'}"
-										style="padding: 1%;">
-										<div class="flex-container_row" style="height: 30%;">
-											<input type="text" name="memberNickname"
-												th:value="${session.showuser.memberNickname}">
-											<button type='submit' class="pencil-button" id="editNickname">
-												<img th:src="@{/img/edit_icon.png}" alt="edit icon"
-													style="height: 50%; width: 50%; cursor: pointer;">
-											</button>
-										</div>
-									</td>
+                        </tr>
+                     </form>
 
-									<td th:unless="${session.user.memberSocial == 'user'}">
-										<input type="text" name="memberSocialNickname"
-											th:value="${session.showuser.memberSocialNickname}">
-										<button class="pencil-button" id="editNickname" type='submit'
-											style="width: 50%">
-											<img th:src="@{/img/edit_icon.png}" alt="edit icon"
-												style="height: 15px; width: 15px;">
-										</button>
-									</td>
+                     <form th:action="@{/mypage/myinfo/updateAll}" method="post"
+                        th:object="${Update_InfoFormValidation}">
+                        <tr>
+                           <th th:text="#{info.id}"></th>
 
-								</tr>
-							</form>
+                           <input type="hidden" name="memberId" th:value="${session.user.memberId}" />
 
-							<form th:action="@{/mypage/myinfo/updateAll}" method="post"
-								th:object="${Update_InfoFormValidation}">
-								<tr>
-									<th th:text="#{info.id}"></th>
+                           <td th:if="${session.showuser.memberSocial == 'user'}">
+                              <span th:text="${session.showuser.memberId}"></span>
+                           </td>
 
-									<input type="hidden" name="memberId" th:value="${session.user.memberId}" />
+                           <td th:unless="${session.showuser.memberSocial == 'user'}">
+                              <span th:text="${session.showuser.memberEmail}" readonly>이메일</span>
+                           </td>
 
-									<td th:if="${session.showuser.memberSocial == 'user'}">
-										<span th:text="${session.showuser.memberId}"></span>
-									</td>
+                        <tr>
 
-									<td th:unless="${session.showuser.memberSocial == 'user'}">
-										<span th:text="${session.showuser.memberEmail}" readonly>이메일</span>
-									</td>
+                           <th th:text="#{info.pw}"></th>
 
-								<tr>
+                           <td th:if="${session.user.memberSocial == 'user'}">
 
-									<th th:text="#{info.pw}"></th>
+                              <div class="password-input-container">
+                                 <input type="text" name="memberPw"
+                                    th:field="${Update_InfoFormValidation.memberPw}"
+                                    th:value="${session.showuser.memberPw}" placeholder="memberPw" />
+                              </div>
 
-									<td th:if="${session.user.memberSocial == 'user'}">
+                              <div th:if="${#fields.hasErrors('memberPw')}" style="height:15px">
+                                 <span style="color: red; font-size: small;height: 5px;"
+                                    th:errors="*{memberPw}"></span>
+                              </div>
 
-										<div class="password-input-container">
-											<input type="text" name="memberPw"
-												th:field="${Update_InfoFormValidation.memberPw}"
-												th:value="${session.showuser.memberPw}" placeholder="memberPw" />
-										</div>
+                           </td>
 
-										<div th:if="${#fields.hasErrors('memberPw')}" style="height:15px">
-											<span style="color: red; font-size: small;height: 5px;"
-												th:errors="*{memberPw}"></span>
-										</div>
+                           <td th:unless="${session.user.memberSocial == 'user'}">
 
-									</td>
+                              <span th:text="${session.showuser.memberPw}" readonly></span>
 
-									<td th:unless="${session.user.memberSocial == 'user'}">
+                              <div th:if="${#fields.hasErrors('memberPw')}" style="height:15px">
+                                 <span style="color: red; font-size: small;height: 5px;"
+                                    th:errors="*{memberPw}"></span>
+                              </div>
 
-										<span th:text="${session.showuser.memberPw}" readonly></span>
+                           </td>
 
-										<div th:if="${#fields.hasErrors('memberPw')}" style="height:15px">
-											<span style="color: red; font-size: small;height: 5px;"
-												th:errors="*{memberPw}"></span>
-										</div>
+                        </tr>
 
-									</td>
+                        <tr>
 
-								</tr>
+                           <th th:text="#{info.name}"></th>
 
-								<tr>
+                           <td th:if="${session.user.memberSocial == 'user'}">
 
-									<th th:text="#{info.name}"></th>
+                              <div>
+                                 <input type="text" name="memberName"
+                                    th:field="${Update_InfoFormValidation.memberName}"
+                                    th:value="${session.showuser.memberName}" placeholder="memberName" />
+                              </div>
 
-									<td th:if="${session.user.memberSocial == 'user'}">
+                           </td>
 
-										<div>
-											<input type="text" name="memberName"
-												th:field="${Update_InfoFormValidation.memberName}"
-												th:value="${session.showuser.memberName}" placeholder="memberName" />
-										</div>
+                           <td th:unless="${session.user.memberSocial == 'user'}">
+                              <span th:text="${session.showuser.memberName}" readonly></span>
+                           </td>
 
-									</td>
+                        </tr>
 
-									<td th:unless="${session.user.memberSocial == 'user'}">
-										<span th:text="${session.showuser.memberName}" readonly></span>
-									</td>
+                        <tr>
 
-								</tr>
+                           <th th:text="#{info.email}"></th>
 
-								<tr>
+                           <td th:if="${session.user.memberSocial == 'user'}">
 
-									<th th:text="#{info.email}"></th>
+                              <div>
+                                 <input type="email" name="memberEmail"
+                                    th:field="${Update_InfoFormValidation.memberEmail}"
+                                    th:value="${session.showuser.memberEmail}" placeholder="memberEmail" />
+                              </div>
 
-									<td th:if="${session.user.memberSocial == 'user'}">
+                              <div th:if="${#fields.hasErrors('memberEmail')}" style="height:15px">
+                                 <span style="color: red; font-size: small;height: 5px;"
+                                    th:errors="*{memberEmail}"></span>
+                              </div>
 
-										<div>
-											<input type="email" name="memberEmail"
-												th:field="${Update_InfoFormValidation.memberEmail}"
-												th:value="${session.showuser.memberEmail}" placeholder="memberEmail" />
-										</div>
+                           </td>
 
-										<div th:if="${#fields.hasErrors('memberEmail')}" style="height:15px">
-											<span style="color: red; font-size: small;height: 5px;"
-												th:errors="*{memberEmail}"></span>
-										</div>
+                           <td th:unless="${session.user.memberSocial == 'user'}">
 
-									</td>
+                              <span th:text="${session.showuser.memberEmail}" readonly></span>
 
-									<td th:unless="${session.user.memberSocial == 'user'}">
+                              <div th:if="${#fields.hasErrors('memberEmail')}">
+                                 <span style="color: red;" th:errors="*{memberEmail}"></span>
+                              </div>
 
-										<span th:text="${session.showuser.memberEmail}" readonly></span>
+                           </td>
 
-										<div th:if="${#fields.hasErrors('memberEmail')}">
-											<span style="color: red;" th:errors="*{memberEmail}"></span>
-										</div>
+                        </tr>
 
-									</td>
+                        <tr>
 
-								</tr>
+                           <th th:text="#{info.phone}"></th>
 
-								<tr>
+                           <td th:if="${session.user.memberSocial == 'user'}">
+                              <div>
+                                 <input type="tel" name="memberPhoneNum"
+                                    th:field="${Update_InfoFormValidation.memberPhoneNum}"
+                                    placeholder="memberPhoneNum" />
+                              </div>
 
-									<th th:text="#{info.phone}"></th>
+                              <div th:if="${#fields.hasErrors('memberPhoneNum')}" style="height:15px">
+                                 <span style="color: red; font-size: small;height: 5px;"
+                                    th:errors="*{memberPhoneNum}"></span>
+                              </div>
 
-									<td th:if="${session.user.memberSocial == 'user'}">
-										<div>
-											<input type="tel" name="memberPhoneNum"
-												th:field="${Update_InfoFormValidation.memberPhoneNum}"
-												placeholder="memberPhoneNum" />
-										</div>
+                           </td>
 
-										<div th:if="${#fields.hasErrors('memberPhoneNum')}" style="height:15px">
-											<span style="color: red; font-size: small;height: 5px;"
-												th:errors="*{memberPhoneNum}"></span>
-										</div>
+                           <td th:unless="${session.user.memberSocial == 'user'}">
 
-									</td>
+                              <span th:text="${session.showuser.memberPhoneNum}" readonly></span>
 
-									<td th:unless="${session.user.memberSocial == 'user'}">
+                              <div th:if="${#fields.hasErrors('memberPhoneNum')}">
+                                 <span style="color: red; font-size: small;height: 5px;"
+                                    th:errors="*{memberPhoneNum}"></span>
+                              </div>
 
-										<span th:text="${session.showuser.memberPhoneNum}" readonly></span>
+                           </td>
 
-										<div th:if="${#fields.hasErrors('memberPhoneNum')}">
-											<span style="color: red; font-size: small;height: 5px;"
-												th:errors="*{memberPhoneNum}"></span>
-										</div>
+                        </tr>
 
-									</td>
+                  </table>
 
-								</tr>
-
-						</table>
-
-						<div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
+                  <div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
               
 						<!--사용자만 쓰는 수정하기 버튼-->
 						<div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
@@ -224,8 +218,6 @@
 			return confirm("정말로 탈퇴하시겠습니까?");
 		}
 	</script>
-
-
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
