@@ -4,79 +4,42 @@
 	<div class="alertBox" id="fixed-bar">
 
 		<nav id="nav">
-
-
-
-			<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1;">CARINI</a>
+			<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1; font-weight: normal;">CARINI</a>
 			<ul style="border: none;">
-				<li><a th:href="@{/board/getBoardList}">BOARD</a>
+				<li><a th:href="@{/board/getBoardList}" style="font-weight: normal;">BOARD</a>
 					<ul style="border: none;">
-						<li><a th:href="@{/board/getBoardList}" style="text-align: center;" class="side-hver">커뮤니티</a>
+						<li><a th:href="@{/board/getBoardList}" style="text-align: center; font-weight: normal;" class="side-hver">커뮤니티</a>
 						</li>
-						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;" class="side-hver">공지사항</a>
+						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center; font-weight: normal;" class="side-hver">공지사항</a>
 						</li>
 					</ul>
 				</li>
-				<li><a th:href="@{/model/getModelList}">MODEL</a></li>
-				<li><a th:href="@{/center/centerMap}">CENTER</a></li>
-				<li>
+				<li><a th:href="@{/model/getModelList}" style="font-weight: normal;">MODEL</a></li>
+				<li><a th:href="@{/center/centerMap}" style="font-weight: normal;">CENTER</a></li>
+				<li th:if="${session.user != null}">
 					<a>MYPAGE</a>
 					<ul style="border: none;">
-						<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
+						<li><a th:href="@{/mypage/form}" style="text-align: center; font-weight: normal;" class="side-hver"
 								th:text="#{side.menu1}"></a></li>
-						<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
+						<li><a th:href="@{/mypage/bookmark}" style="text-align: center; font-weight: normal;" class="side-hver"
 								th:text="#{side.menu2}"></a></li>
-						<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
+						<li><a th:href="@{/mypage/myBoard}" style="text-align: center; font-weight: normal;" class="side-hver"
 								th:text="#{side.menu3}"></a></li>
 					</ul>
 				</li>
-				<li th:if="${session.user == null}"><a th:href="@{/member_login}">LOGIN</a></li>
-				<li th:if="${session.user != null}"><a th:href="@{/user_logout}">LOGOUT</a></li>
+				<li th:if="${session.user == null}"><a style="font-weight: normal;" th:href="@{/member_login}">LOGIN</a></li>
+				<li th:if="${session.user != null}"><a style="font-weight: normal;" th:href="@{/user_logout}">LOGOUT</a></li>
 			</ul>
-
-
 		</nav>
-		<div style="height: 50px; width: 100%; font-size: 20px; margin-left:75%;
-                        margin-top:0.2%;padding: 0.2%;font-size: 16px;cursor: default;font-weight: 700;">
-			<input type="text" style="width: 30%; border: 1px solid white; 
-               background-color: white; text-align: center;font-weight: 500 ;cursor: default; padding: 0%; 
-               font-size: 15px;" th:if="${session.user != null}" th:value="${session.user.memberNickname}" ; disabled>
-			님 반갑습니다 🚗🚙
+		<div style="height: 50px; width: 100%; font-size: 20px; margin-left:65%;
+						                        margin-top:0.2%;padding: 0.2%;font-size: 16px;cursor: default;font-weight: 700;">
+			<input type="text" style="width: 100%; border: 1px solid white; 
+						               background-color: white; text-align: center;font-weight: 500 ;cursor: default; padding: 0%; 
+						               font-size: 15px;" th:if="${session.user != null}"
+				th:value="|${session.user.memberNickname}님 반갑습니다 🚗🚙|" ; disabled>
+
 		</div>
-
-
-
 	</div>
-
-	<!--<script>
-      // 함수를 통해 alertBox 요소를 가져오기
-      function sidebar(what) {
-         document.getElementById('fixed-bar').style.display = what;
-      }
-
-      // 초기 alertBox의 높이를 가져오기 위해 window.onload 사용
-      window.onload = function () {
-         var alertBox = document.getElementById('fixed-bar');
-         var alertBoxHeight = alertBox.offsetHeight;
-
-         // 스크롤 이벤트 리스너 추가
-         window.addEventListener('scroll', function () {
-            // 현재 스크롤 위치
-            var scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-
-            // 특정 height 값 설정
-            var triggerHeight = 0; // 예시로 300px로 설정
-
-            // 스크롤 위치가 트리거 높이를 넘었는지 확인
-            if (scrollPosition > triggerHeight) {
-               alertBox.style.display = 'block';
-            } else {
-               alertBox.style.display = 'none';
-            }
-         });
-      };
-   </script>-->
-
 </div>
 
 
