@@ -13,6 +13,7 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
   integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
 
+
 <body>
    <!--Header-->
    <header th:replace="~{base/base :: main_header}"></header>
@@ -27,6 +28,8 @@
          <div class="div">
             <h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
          </div>
+		 <div style="height: 5%;"></div> <!-- 간격박스 -->
+
 
          <!--main 안에 있는 큰 박스-->
          <div class="flex-container_column">
@@ -42,9 +45,9 @@
                      method="post">
                      <tr>
                         <th th:text="#{info.nickname}"></th>
-                        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}" style="padding: 1%;">
-                           <div class="flex-container_row" style="height: 30%;">
-                              <input type="text" name="memberNickname"
+                        <td id="nicknameCell" th:if="${session.user.memberSocial == '회원'}" >
+                           <div class="flex-container_row" style="height: 30%;">	
+							 <input type="text" name="memberNickname"
                                  th:value="${session.showuser.memberNickname}">
                               <button type='submit' class="pencil-button" id="editNickname">
                                  <img th:src="@{/img/edit_icon.png}" alt="edit icon"
@@ -201,7 +204,7 @@
                <!--사용자만 쓰는 수정하기 버튼-->
                <div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
 
-               <div class="flex-container_row" style="height: 3%;" th:if="${session.user.memberSocial == '회원'}">
+               <div class="flex-container_row" th:if="${session.user.memberSocial == '회원'}">
                   <input type="submit" id="edit_save_td" th:value="#{info.btn.edit}">
                </div>
                </form>

@@ -15,7 +15,7 @@ main {
 
 /* 아이디 찾기/비밀번호 변경 박스 스타일링 */
 .find_box {
-    background-color: rgb(46, 46, 46);
+    background-color: #FFCC4C;
     width: 750px;
     height: 450px;
     padding: 20px;
@@ -41,12 +41,12 @@ main {
 
 /* 메인 콘텐츠 스타일링 */
 #find_main {
-padding-top: 5px;
+	padding: 2px;
     background-color: #f9f9f9;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    height: 90%;
+	height: 400px;
 }
 
 #find_main span {
@@ -79,20 +79,20 @@ padding-top: 5px;
 
 /* 확인 버튼 스타일링 */
 #find_main button {
-    padding: 10px 20px;
-    background-color: rgb(45, 45, 45);
+    padding: 9px 20px;
+    background-color: #FFCC4C;
     color: #ffffff;
     border: none;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0.1rem;
     cursor: pointer;
     font-size: 20px; /* 폰트 사이즈 설정 */
 }
 
 #find_main button:hover {
-    background-color: #0056b3;
+	opacity: 80%;
 }
 
-/* 팝업 관련 스타일링 */
+팝업 관련 스타일링 */
 #popup_hidden span {
     color: rgb(255, 0, 0);
 }
