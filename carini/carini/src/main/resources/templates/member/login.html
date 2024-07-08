@@ -21,13 +21,11 @@
 </style>
 
 <body>
-
 	<!--Header-->
-	<header th:replace="~{base/base :: main_header}"></header>
+  <header th:replace="~{base/base :: main_header}"></header>
 
 	<!-- Main -->
 	<main>
-
 		<section class="SubTitle">Login</section>
 
 
@@ -40,7 +38,6 @@
 				<div class="flex-container_column">
 
 					<fieldset>
-
 
 						<input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
 

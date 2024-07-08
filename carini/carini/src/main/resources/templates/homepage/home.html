@@ -7,92 +7,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Helios by HTML5 UP</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/css/main.css" />
-	<link rel="stylesheet" href="/css/base/base.css">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-		  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+<title>Helios by HTML5 UP</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/base/base.css">
+<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+	integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+	crossorigin="anonymous"></script>
+<noscript>
+	<link rel="stylesheet" href="assets/css/noscript.css" />
+</noscript>
 </head>
+<style>
+.carousel .reel {
+	transition: transform 0.1s linear; /* Smooth transition */
+}
 
+article .cardBox {
+	min-width: 100%;
+	box-sizing: border-box;
+}
+</style>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
 
 		<!-- Header -->
-		<div id="header">
-			<!-- Inner -->
-			<div class="inner">
-				<header>
-					<a th:href="@{/home}" class="header_carini carini-hover">CARINI</a>
-				</header>
-			</div>
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li><a>Board</a>
-						<ul>
-							<li><a th:href="@{/board/getBoardList}" style="text-align: center;"
-									class="side-hver">커뮤니티</a></li>
-							<li><a th:href="@{/notice/getNoticeList}" style="text-align: center;"
-									class="side-hver">공지사항</a></li>
-						</ul>
-					</li>
-					<li><a th:href="@{/model/getModelList}">Model</a></li>
-					<li><a th:href="@{/center/centerMap}">Center</a></li>
-					<li>
-						<a>MyPage</a>
-						<ul>
-							<li><a th:href="@{/mypage/form}" style="text-align: center;" class="side-hver"
-									th:text="#{side.menu1}"></a></li>
-							<li><a th:href="@{/mypage/bookmark}" style="text-align: center;" class="side-hver"
-									th:text="#{side.menu2}"></a></li>
-							<li><a th:href="@{/mypage/myBoard}" style="text-align: center;" class="side-hver"
-									th:text="#{side.menu3}"></a></li>
-						</ul>
-					</li>
-					<li th:if="${session.user.memberRole == 'ROLE_ADMIN'}"><a th:href="@{/admin/adminList}">admin</a></li>
-					<li><a th:href="@{/user_logout}">LogOut</a></li> 
-				</ul>
-			</nav>
-		</div>
+		<header th:replace="~{base/base :: main_header}"></header>
 
 		<!-- Banner -->
 		<section id="banner">
 			<header>
 				<h2>자동차 고르기 어려우셨죠?</h2>
 				<p>
-					CARINI 챗봇과 함께
-					쉽고 빠르게<BR> 자동차를 골라보세요!
+					CARINI 챗봇과 함께 쉽고 빠르게<BR> 자동차를 골라보세요!
 				</p>
 			</header>
 		</section>
 
 		<!-- Carousel -->
 		<section class="carousel">
-			<div class="reel">
+			<div class="reel" id="carouselReel">
 				<!--자동차LIST-->
-				<article th:each="car, state : ${top10Cars}">
+				<article class="cardBox" th:each="car, state : ${top10Cars}">
 					<h4 th:text="|Top${state.count}|"></h4>
-					<a th:href="@{/model/getModel(carId=${car.carId})}" class="image featured">
-						<img th:src="@{${car.carImg}}" alt="이미지">
+					<a th:href="@{/model/getModel(carId=${car.carId})}"
+						class="image featured"> <img th:src="@{${car.carImg}}"
+						alt="이미지">
 					</a>
 					<header>
 						<h3 class="card-title" th:text="${car.carName}"></h3>
 					</header>
-					<p class="card-text" th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"> </p>
+					<p class="card-text"
+						th:text="|가격 : ${#numbers.formatInteger(car.carAvgPrice, 0, 'COMMA')}만원|"></p>
 					<p class="card-text" th:text="|크기 : ${car.carSize}|"></p>
 					<p class="card-text" th:text="|연료 : ${car.carFuel}|"></p>
 					<p class="card-text" th:text="|연비 : ${car.carEff}|"></p>
 				</article>
 			</div>
 		</section>
+
 	</div>
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
