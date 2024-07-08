@@ -188,7 +188,7 @@ iframe {
 /*  loginbox */
 
 fieldset {
-	width: 100%;
+	width: 80%;
 	height: 90%;
 	color: black;
 	border: 1px solid white;
@@ -335,6 +335,7 @@ input[type="submit"]:hover {
 	margin-top: 1%;
 	opacity: 90%;
 }
+
 placeholder {
 	font-size: 10px;
 }
