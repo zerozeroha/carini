@@ -63,16 +63,16 @@ function updateCommentsTable(comments, userId, boardId) {
 		if (userId == comment.userId) {
 			deleteButton = `
                 <td>
-                    <input id="delete_commentId" type="hidden" value="${comment.commentId}" />
+                    <input type="hidden" value="${comment.commentId}" />
                     <input id="delete_boardId" type="hidden" value="${comment.boardId}" />
-                    <button onclick="deleteComment(${comment.commentId})" >삭제하기</button>
+                    <button onclick="deleteComment(this)" data-delete-commentid="${comment.commentId}">삭제하기</button>
                 </td>`;
 		} else {
 			deleteButton = '<td></td>';
 		}
 
 		var row = `
-            <tr>
+            <tr id="${comment.commentId}">
                 <td >${comment.userNickname}</td>
                 <td >${comment.content}</td>
                 <td> 
@@ -91,10 +91,13 @@ function updateCommentsTable(comments, userId, boardId) {
 /*
 	댓글 삭제
  */
-function deleteComment() {
+function deleteComment(link) {
+	
 	let user_ID = document.querySelector("#hidden_userId").value;
-	let commentId = document.querySelector("#delete_commentId").value;
+	let commentId = $(link).attr("data-delete-commentid");
 	let boardId = document.querySelector("#delete_boardId").value;
+	console.log("==============");
+	console.log(commentId);
 	if (confirm("정말로 삭제하시겠습니까?")) {
 
 		$.ajax({
@@ -112,8 +115,8 @@ function deleteComment() {
 						boardId: boardId
 					},
 					success: function(response) {
-						console.log(response.comments);
-						updateCommentsTable(response.comments, user_ID);
+							
+						updateCommentsTable(response.comments, user_ID,boardId);
 					}
 				});
 			},
@@ -199,8 +202,11 @@ function saveReply(commentId, boardId, memberNickname) {
 	대댓글 목록보여주기
  */
 function comment_more(link) {
+	console.log(link);
 	$(link).addClass("disabled");
 	let commentId = $(link).attr("data-commentid1");
+	console.log(commentId);
+	console.log("============");
 	let boardId = $(link).attr("data-commentid2");
 	$("#reply_fold" + commentId).removeClass("disabled");
 	$("#replyLink_" + commentId).removeClass("disabled");
@@ -214,7 +220,6 @@ function comment_more(link) {
 	대댓글 목록가져와서 보여주기
  */
 function comment_moreList(link, commentId, boardId) {
-
 	$.ajax({
 		type: "Get",
 		url: "/comment/more",
@@ -229,7 +234,7 @@ function comment_moreList(link, commentId, boardId) {
 				if (response.sessionNicename == comment_list.memberNickname) {
 					deleteButton = `
                 <td>
-                    <button onclick="deleteaddComment(${comment_list.commentReplyId},${comment_list.commentId},${comment_list.boardId})" >삭제하기</button>
+                    <button onclick="deleteaddComment(this,${comment_list.commentReplyId},${comment_list.commentId},${comment_list.boardId})" >삭제하기</button>
                 </td>`;
 				} else {
 					deleteButton = '<td></td>';
@@ -257,7 +262,7 @@ function comment_moreList(link, commentId, boardId) {
 /*
 대댓글 삭제
 */
-function deleteaddComment(commentReplyId, commentId, boardId) {
+function deleteaddComment(link,commentReplyId, commentId, boardId) {
 
 	$.ajax({
 		type: "Post",
@@ -268,11 +273,55 @@ function deleteaddComment(commentReplyId, commentId, boardId) {
 		},
 		success: function(response) {
 			alert(response.message);
-			window.location.href = response.redirectUrl;
+			$(".comment_moreList_" + commentId).remove();
+			comment_more_delete_List(commentId,boardId);
 		}
 	})
 
 }
+
+function comment_more_delete_List(commentId, boardId) {
+	console.log(commentId);
+	$.ajax({
+		type: "Get",
+		url: "/comment/more",
+		data: {
+			commentId: commentId,
+			boardId: boardId
+		},
+		success: function(response) {
+			$.each(response.comment_List, function(index, comment_list) {
+				let date = formatDate(comment_list.commentDate);
+
+				if (response.sessionNicename == comment_list.memberNickname) {
+					deleteButton = `
+                <td>
+                    <button onclick="deleteaddComment(this,${comment_list.commentReplyId},${comment_list.commentId},${comment_list.boardId})" >삭제하기</button>
+                </td>`;
+				} else {
+					deleteButton = '<td></td>';
+				}
+				let replyRow = `
+				        <tr class="comment_moreList_${comment_list.commentId}">
+				            <td style="font-size:20px"></td> 
+				            <td colspan="2" style="font-size:20px">
+				            	${comment_list.memberNickname} :  &nbsp;&nbsp;&nbsp;
+				                ${comment_list.replyTextArea}
+				            </td>
+				            <td style="font-size:20px">
+				            	${date}
+				            </td> 
+				            ${deleteButton}
+				        </tr>
+				    `;
+				// 새로운 답글 행을 현재 클릭된 답글 달기 버튼의 바로 아래에 추가합니다
+				$("#"+commentId).after(replyRow);
+			});
+		}
+	})
+
+}
+
 /*
 더보기 접기
 */
@@ -284,6 +333,8 @@ function Comment_fold(link) {
 	$(".comment_moreList_" + commentId).remove();
 
 }
+
+
 function formatDate(dateString) {
 	let date = new Date(dateString);
 	let year = date.getFullYear();
