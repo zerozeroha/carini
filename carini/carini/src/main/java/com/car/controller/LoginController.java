@@ -71,7 +71,7 @@ public class LoginController {
 
 	@RequestMapping("/")
 	public String first_home() {
-		return "homepage/home";
+		return "redirect:/home";
 	}
 
 	/* 세션 초기화 */
@@ -104,7 +104,7 @@ public class LoginController {
 		model.addAttribute("top10Cars", top10Cars);
 		System.out.println(top10Cars);
 		
-		return "homepage/home.html";
+		return "homepage/home";
 	}
 	
 	/*
