@@ -77,6 +77,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.car.dto.Agency;
 import com.car.dto.Board;
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
@@ -86,6 +87,7 @@ import com.car.service.BoardService;
 import com.car.service.CommentService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
+import com.car.validation.InquiryWriteValidation;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -104,17 +106,17 @@ public class CenterController {
 	private final AgencyService agencyService;
 	
     @GetMapping("/centerMap")
-    public String centerView(@RequestParam(value="carBrand",defaultValue = "") String carBrand,Model model) {
+    public String centerView(@RequestParam(value="carBrand",defaultValue = "") String carBrand,Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
     	
     	List<Agency> agencies = agencyService.findagency_carBrand(carBrand);
     	
     	model.addAttribute("agency", agencies);
-    	
+    	model.addAttribute("inquiry", new Inquiry());
         return "center/centerMap";
     }
     
     @PostMapping("/search_brand")
-    public String search_brandCenter(@RequestParam(value="search_brand", defaultValue = "") String search_brand,Model model) {
+    public String search_brandCenter(@RequestParam(value="search_brand", defaultValue = "") String search_brand,Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
     	List<Agency> agencies = agencyService.findagency_search_brand(search_brand);
     	
     	if(agencies.isEmpty()) {
@@ -124,13 +126,13 @@ public class CenterController {
     	}
     	
     	model.addAttribute("agency", agencies);
-        	
+    	model.addAttribute("inquiry", new Inquiry());
         return "center/centerMap";
     
     }
     
     @PostMapping("/search_address")
-    public String search_addressCenter(@RequestParam(value="city", defaultValue = "") String search_city,
+    public String search_addressCenter(@RequestParam(value="city", defaultValue = "") String search_city,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation,
     		@RequestParam(value="gu", defaultValue = "") String search_gu,
     		Model model) {
     	List<Agency> agencies = agencyService.findagency_search_address(search_city,search_gu);
@@ -138,9 +140,10 @@ public class CenterController {
     	if(agencies.isEmpty()) {
     		model.addAttribute("msg", "검색결과가 없습니다.");
     		model.addAttribute("url", "/center/centerMap");
+    		model.addAttribute("inquiry", new Inquiry());
     		return "alert";
     	}
-    	
+    	model.addAttribute("inquiry", new Inquiry());
     	model.addAttribute("agency", agencies);
         return "center/centerMap";
     

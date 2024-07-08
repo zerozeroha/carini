@@ -58,10 +58,10 @@
 				<table>
 					<tr>
 						<td th:text="#{board.write.writer}"></td>
-						<td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }"
+						<td><input type="text" name="boardWriter" th:value="${ session.user.memberNickname }"   style="border: 1px solid white;"
 								id="boardWriter" readonly></td>
 						<td th:text="#{board.write.date}"></td>
-						<td><input type="text" name="boardDate" th:value="${date}" disabled></td>
+						<td><input type="text" name="boardDate" th:value="${date}" style="border: 1px solid white;" disabled></td>
 					</tr>
 					<tr>
 						<td colspan="1" th:text="#{board.write.title}"></td>
@@ -111,13 +111,12 @@
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
 	
-	<!-- Inquiry
-		<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-		<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-		<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-		<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-		<script src="/js/Inquiry/inquiry.js"></script>
-		-->
+	<!-- Inquiry -->
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
