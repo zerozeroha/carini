@@ -18,7 +18,8 @@
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 
 <body>
 	<!--Header-->
@@ -66,7 +67,7 @@
 					</tr>
 					<tr>
 						<td colspan="1" th:text="#{ board.write.uploadfile }"></td>
-						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile"
+						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile" style="cursor: pointer;"
 								aria-label="Upload"></td>
 					</tr>
 
@@ -87,9 +88,9 @@
 					<div style="width: 90%;"></div><!--간격박스-->
 
 					<div style="width: 10%;">
-						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"
+						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();" class="list"
 							style="padding-right: 2%;"></a>
-						<a th:text="#{board.list}" th:href="@{/board/getBoardList}"></a>
+						<a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="list"></a>
 					</div>
 
 				</div>
@@ -106,14 +107,13 @@
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
+	
 	<!-- Inquiry -->
-	<!--
-		<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-		<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-		<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-		<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-		<script src="/js/Inquiry/inquiry.js"></script>
-		-->
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>

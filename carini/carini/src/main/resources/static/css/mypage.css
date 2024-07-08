@@ -167,7 +167,7 @@ th {
 	padding: 1%;
 	text-align: center;
 	border-bottom: 3px solid white;
-	background-color: black;
+   background-color: #BFBCBA;
 	color: white;
 	font-weight: bold;
 }
@@ -199,27 +199,26 @@ button {
 	color: black;
 	font-size: 20px;
 	font-weight: bolder;
-	padding: 10% 20%;
-	border: 2px solid black;
+	padding: 5% 10%;
+	border: 2px solid #BFBCBA;;
 	font-weight: bolder;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	-webkit-text-stroke: 0.9px black;
+	-webkit-text-stroke: 0.3px black;
+	margin-left: 10%;
 }
 
 button:hover {
-	background-color: black;
-	color: white;
+	color: #222426;
 	font-weight: 800;
 	font-weight: bold;
 	font-size: 20px;
-	padding: 10% 20%;
-	border: 2px solid black;
+	padding: 5% 10%;
+	border: 2px solid #FFCC4C;
 	font-weight: bolder;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	-webkit-text-stroke: 0.9px white;
-
+	-webkit-text-stroke: 0.3px black;
 }
 
 
@@ -236,7 +235,6 @@ a {
 /* a.hover */
 
 a:hover {
-	-webkit-text-stroke: 0.5px black;
 	cursor: pointer;
 
 }

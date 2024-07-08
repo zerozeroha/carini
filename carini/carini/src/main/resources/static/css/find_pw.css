@@ -1,135 +1,152 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
 }
+
 /* 메인 컨테이너 스타일링 */
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* 화면 전체 높이에 맞추어 세로 중앙 정렬 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	/* 화면 전체 높이에 맞추어 세로 중앙 정렬 */
 }
 
 /* 아이디 찾기/비밀번호 변경 박스 스타일링 */
 .find_box1 {
-    background-color: rgb(46, 46, 46);
-    width: 750px;
-    height: 450px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+	background-color: #FFCC4C;
+	width: 750px;
+	height: 450px;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* 그림자 효과 추가 */
 }
+
 .find_box2 {
-    background-color: rgb(46, 46, 46);
-    width: 750px;
-    height: 450px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+	background-color: #FFCC4C;
+	width: 750px;
+	height: 450px;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* 그림자 효과 추가 */
 }
-* 헤더 스타일링 */
-.find_header {
-    text-align: center;
-    margin-bottom: 20px;
+
+* 헤더 스타일링 */ .find_header {
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 
 
 .find_header a {
-    text-decoration: none;
-    font-size: 18px;
-    margin-right: 28px;
+	text-decoration: none;
+	font-size: 18px;
+	margin-right: 28px;
 
 }
+
 #find_id {
-    opacity: 30%;
+	opacity: 30%;
 }
 
 
 
 /* 메인 콘텐츠 스타일링 */
 .find_main {
-padding-top: 5px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    justify-content: center;
-    align-items: center;
-    height: 90%;
+	padding: 2px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	justify-content: center;
+	align-items: center;
+	height: 400px;
 }
 
 
 
 
 .find_main span {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	display: block;
 }
 
-.find_main_id, .find_main_tel {
-    padding: 10px;
-    border-radius: 4px;
-
-
-    
+.find_main_id,
+.find_main_tel {
+	padding: 10px;
+	border-radius: 4px;
 }
+
+
+
 
 
 /* 입력란 스타일링 */
 .find_main input[type="text"] {
-    width: calc(100% - 80px); /* 버튼 고려한 너비 계산 */
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 4px 0 0 4px;
-    margin-right: -4px; /* 인풋과 버튼 사이 간격 조정 */
-    font-size: 20px; /* 폰트 사이즈 설정 */
+	width: calc(100% - 80px);
+	/* 버튼 고려한 너비 계산 */
+	padding: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 4px 0 0 4px;
+	margin-right: -4px;
+	/* 인풋과 버튼 사이 간격 조정 */
+	font-size: 20px;
+	/* 폰트 사이즈 설정 */
 }
 
 /* 확인 버튼 스타일링 */
 .find_main button {
-    padding: 10px 20px;
-    background-color: rgb(45, 45, 45);
-    color: #ffffff;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    font-size: 20px; /* 폰트 사이즈 설정 */
+	padding: 9px 20px;
+	background-color: #FFCC4C;
+	color: #ffffff;
+	border: none;
+	border-radius: 0.1rem;
+	cursor: pointer;
+	font-size: 20px;
+	/* 폰트 사이즈 설정 */
 }
 
+#find_main button:hover {
+	opacity: 80%;
+}
+
+button:hover {
+	opacity: 80%;
+}
 
 /* 팝업 관련 스타일링 */
-#popup_hidden span {
-
-}
+#popup_hidden span {}
 
 #close-popup {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 10px; /* 여백 설정 */
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	margin-left: 10px;
+	/* 여백 설정 */
 }
 
 .popup_hidden {
-    display: none;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 200px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    padding: 20px;
-    text-align: center;
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 200px;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	padding: 20px;
+	text-align: center;
 }
 
 #popup {
-    background-color: rgb(237, 237, 237);
+	background-color: rgb(237, 237, 237);
 
 
 }
@@ -137,200 +154,202 @@ padding-top: 5px;
 
 
 #c_num {
-    margin-top: 30px;
-    margin-bottom: 0;
+	margin-top: 30px;
+	margin-bottom: 0;
 }
 
 #timer_wrapper {
-    display: flex;
+	display: flex;
 }
 
 #timer {
-    margin: 5px;
+	margin: 5px;
 }
 
 .bold {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .find_main_tel {
-    height: 43px;
-    white-space: nowrap;
-    margin-bottom: 8%;
-    width: 80%;
+	height: 43px;
+	white-space: nowrap;
+	margin-bottom: 8%;
+	width: 80%;
 }
 
 #nickname_title {
-    margin-left: 6px;
-    height: 43px;
-    white-space: nowrap;
-
-    width: 80%;
+	margin: 0%;
+	margin-left: 6px;
+	height: 37px;
+	white-space: nowrap;
+	width: 80%;
 }
 
-#insert_nickname , .find_main_tel {
-    margin: 30px auto;
+#insert_nickname,
+.find_main_tel {
+	margin: 30px auto;
 
 }
 
 
 #insert_nickname {
-    width: 91%;
-    margin-left: 64px;
-    /* margin-bottom: 15px; */
+	width: 91%;
+	margin-left: 64px;
+	/* margin-bottom: 15px; */
 
 }
 
-#c_num{
-    margin-top: 55px;
+#c_num {
+	margin-top: 55px;
 }
 
 * {
-    font-size: 20px !important;
-    font-weight: bold !important;
+	font-size: 20px !important;
+	font-weight: bold !important;
 }
 
 
 .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* 팝업이 최상위에 나타나도록 설정 */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #FFCC4C;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	/* 팝업이 최상위에 나타나도록 설정 */
 }
 
 .popup_content {
 
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-align: center;
 }
 
 .popup_content p {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .popup_content button {
-    padding: 10px 20px;
-    border: none;
-
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
+	padding: 10px 20px;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 5px;
 }
 
-.popup_content button:hover {
-
-}
+.popup_content button:hover {}
 
 .popup_hidden {
-    display: none;
+	display: none;
 }
 
 #close-popup {
-    color: black;
+	color: #FFCC4C;
 }
 
 #popup_header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    white-space: nowrap;
-    margin-bottom: 25px;
-    color: white;
-    background-color: black;
-    font-size: 20px !important;
-    height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	white-space: nowrap;
+	margin-bottom: 25px;
+	color: white;
+	background-color: #FFCC4C;
+	font-size: 20px !important;
+	height: 50px;
 }
 
 #close-popup {
-    position: fixed;
-    right: 90px;
-    font: 20px;
+	position: fixed;
+	right: 90px;
+	font: 20px;
 }
 
-.password-input{
-    margin-bottom: 25px;
+.password-input {
+	margin-bottom: 25px;
 }
 
-#popup-content{
-    width: 750px;
-    height: 450px;
+#popup-content {
+	width: 750px;
+	height: 450px;
 
-}
-
-#edit_password{
-    width: 750px;
-    height: 490px;
-    border-radius: 8px;
-    background-color: black;
-    color: white;
-    
 }
 
 #edit_password {
-    text-align: center;
-    
+	width: 750px;
+	height: 490px;
+	border-radius: 8px;
+	background-color: #FFCC4C;
+	color: white;
+
+}
+
+#edit_password {
+	text-align: center;
+
 }
 
 #edit_password_title {
-    margin-top: 10px;
+	margin-top: 10px;
 
 }
 
 
 
-.find_main_id{
-    width: 600px !important;
-    margin-left: 10px ;
+.find_main_id {
+	width: 600px !important;
+	margin-left: 10px;
 }
 
 
 
 #send_new_pw {
-    margin-left: 46%;
-    margin-top: 8% ;
-    border-radius: 5px;
+	margin-left: 46%;
+	margin-top: 8%;
+	border-radius: 5px;
 
 }
 
 #find_box2 {
-    position: absolute;
+	position: absolute;
 	display: none;
 }
 
 
 .find_header {
-    text-align: center;
-    margin-bottom: 15px;
-    color: white;
+	text-align: center;
+	margin-bottom: 15px;
+	color: white;
 
 }
 
-#find_pw_link
-#find_pw , #find_id  {
-    color: white;
+#find_pw_link #find_pw,
+#find_id {
+	color: white;
 }
 
 #find_pw {
-    color: white;
+	color: white;
 }
 
 #find_pw_link {
-    color: white;
+	color: white;
 }
 
 #c_num {
-    display: none; /* 초기에 숨김 */
+	display: none;
+	/* 초기에 숨김 */
 }
+
 #c_num.red {
-    background-color: red; /* 배경색을 빨간색으로 변경 */
+	background-color: red;
+	/* 배경색을 빨간색으로 변경 */
 }

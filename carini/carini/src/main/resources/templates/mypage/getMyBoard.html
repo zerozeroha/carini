@@ -84,10 +84,10 @@
 			<div class="flex-container_row">
 
 
-				<div style="width: 90%;"></div>
-				<div style="width: 10%;">
-					<a th:href="@{/mypage/updateMyBoard(boardId=${board.boardId})}" style="padding:1% 2%;">수정하기</a>
-					<a th:href="@{/mypage/myBoard}" style="padding:1% 2%;">목록</a>
+				<div style="width: 85%;"></div>
+				<div style="width: 15%;">
+					<a th:href="@{/mypage/updateMyBoard(boardId=${board.boardId})}" class="list">수정하기</a>
+					<a th:href="@{/mypage/myBoard}" class="list">목록</a>
 				</div>
 
 
@@ -102,13 +102,12 @@
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
 	
-	<!-- Inquiry
-		   	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-		   	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-		   	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
-		   	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-		   	<script src="/js/Inquiry/inquiry.js"></script>
-		   	-->
+	<!-- Inquiry -->
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>

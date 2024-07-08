@@ -48,6 +48,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.car.dto.Board;
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
@@ -62,6 +63,7 @@ import com.car.validation.BoardUpdateFormValidation;
 
 import com.car.validation.BoardWriteFormValidation;
 import com.car.validation.CommentWriteValidation;
+import com.car.validation.InquiryWriteValidation;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -107,8 +109,8 @@ public class BoardController {
 			@RequestParam(name = "curPage", defaultValue = "0") int curPage,
 			@RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 			@RequestParam(name = "searchType", defaultValue = "boardWriter") String searchType,
-			@RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
-
+			@RequestParam(name = "searchWord", defaultValue = "") String searchWord,
+			@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		
 		curPage = Math.max(curPage, 0);
@@ -139,6 +141,7 @@ public class BoardController {
 		pagingInfo.setSearchWord(searchWord);
 		pagingInfo.setRowSizePerPage(rowSizePerPage);
 
+
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("pagedResult", pagedResult);
 		model.addAttribute("pageable", pageable);
@@ -152,6 +155,7 @@ public class BoardController {
 		model.addAttribute("sw", searchWord);
 		model.addAttribute("boardList", pagedResult.getContent()); // Add this line
 		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("inquiry", new Inquiry());
 
 		return "board/getBoardList";
 	}
@@ -161,11 +165,13 @@ public class BoardController {
 	 */
 	@GetMapping("/board/getBoard")
 	public String getBoard(Board board, Model model, HttpSession session,
-			@ModelAttribute("CommentWriteValidation") CommentWriteValidation commentWriteValidation) {
+			@ModelAttribute("CommentWriteValidation") CommentWriteValidation commentWriteValidation,
+			@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		Member user = (Member) session.getAttribute("user");
 
 		model.addAttribute("comments", commentService.findComment(board.getBoardId()));
 		model.addAttribute("board", boardService.getBoard(board, user.getMemberId())); // 여기서 조회수 증가
+		model.addAttribute("inquiry", new Inquiry());
 
 		return "board/getBoard";
 	}
@@ -174,12 +180,14 @@ public class BoardController {
 	 * 게시판 작성
 	 */
 	@GetMapping("/board/insertBoard")
-	public String insertBoardForm(Board board, Member member,
-			@ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation, Model model) {
+	public String insertBoardForm(Board board, Member member, Model model,
+			@ModelAttribute("BoardWriteFormValidation") BoardWriteFormValidation boardValidation,
+			@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		LocalDate currentDate = LocalDate.now();
 
 		model.addAttribute("date", currentDate);
+		model.addAttribute("inquiry", new Inquiry());
 
 		return "board/insertBoard";
 	}
@@ -221,7 +229,8 @@ public class BoardController {
 	@GetMapping("/board/updateBoard")
 	public String updateBoardForm(@RequestParam("boardId") Long boardId, Model model,
 			@ModelAttribute("BoardUpdateFormValidation") BoardUpdateFormValidation boardValidation,
-			BindingResult bindingResult, HttpSession session) {
+			BindingResult bindingResult, HttpSession session,
+			@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		Member user = (Member) session.getAttribute("user");
 		Board board = boardService.getBoardById(boardId);
 
@@ -245,6 +254,7 @@ public class BoardController {
 
 		model.addAttribute("msg", "작성자만 수정이 가능합니다!.");
 		model.addAttribute("url", "/board/getBoard?boardId=" + board.getBoardId());
+		model.addAttribute("inquiry", new Inquiry());
 		return "alert";
 	}
 
@@ -297,7 +307,7 @@ public class BoardController {
 		}
 
 		boardService.deleteBoard(findboard);
-		model.addAttribute("msg", "해당 게시물을 삭제하였숩니다.");
+		model.addAttribute("msg", "해당 게시물을 삭제하였습니다.");
 		model.addAttribute("url", "/board/getBoardList");
 		return "alert";
 	}

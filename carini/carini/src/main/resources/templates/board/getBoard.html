@@ -27,8 +27,12 @@
 	.field-error {
 		border-color: #dc3545;
 		color: #dc3545;
-	}
-
+		font-size: small;
+		width: 100%;
+		text-align: left;
+		font-weight: bolder;
+		margin-left:15px;
+		}
 	.disabled {
 		pointer-events: none;
 		/* 클릭 이벤트를 비활성화합니다 */
@@ -57,7 +61,7 @@
 		<!--main 안에 있는 큰 박스-->
 		<div class="flex-container_column">
 			<table>
-				<tr>
+				<tr>	
 					<td>작성자</td>
 					<td><input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled></td>
 					<td>조회수</td>
@@ -98,10 +102,10 @@
 			<div class="flex-container_row">
 
 
-				<div style="width: 90%;"></div>
-				<div style="width: 10%;">
-					<a th:href="@{/board/updateBoard(boardId=${board.boardId})}" style="padding:1% 2%;">수정하기</a>
-					<a th:href="@{/board/getBoardList}" style="padding:1% 2%;">목록</a>
+				<div style="width: 80%;"></div>
+				<div style="width: 20%;">
+					<a th:href="@{/board/updateBoard(boardId=${board.boardId})}" class="list">수정하기</a>
+					<a th:href="@{/board/getBoardList}" class="list">목록</a>
 				</div>
 
 
@@ -129,7 +133,7 @@
 					<td>
 						<a onclick="addComment_Reply(this)" th:id="'replyLink_' + ${comment.commentId}"
 							th:write-data-commentid1="${comment.commentId}" th:write-data-commentid2="${board.boardId}"
-							th:write-data-commentid3=${session.user.memberNickname} style="font-size: small;"> 답글달기
+							th:write-data-commentid3=${session.user.memberNickname} th:write-data-commentid4="${comment.userNickname}"style="font-size: small;"> 답글달기
 						</a><a style="font-size: small;">|</a>
 						<a onclick="comment_more(this)" th:id="'comment_more' + ${comment.commentId}"
 							th:data-commentid1="${comment.commentId}" th:data-commentid2="${board.boardId}"
@@ -149,13 +153,13 @@
 
 		<div class="comment-form" th:object="${CommentWriteValidation}">
 			<h3>Leave a Comment</h3>
-			<div class="field-error" id="contentErrors" style="font-size: 15px;">
+			<div class="field-error" id="contentErrors" style="font-weight: bolder;" >
 
 			</div>
 			<input type="hidden" id="hidden_boardId" th:value="${board.boardId}">
 			<input type="hidden" id="hidden_userId" th:value="${session.user.memberId}">
 			<input type="hidden" id="hidden_userNickname" th:value="${session.user.memberNickname}">
-			<textarea id="commentContent" placeholder="Write your comment here..."></textarea>
+			<textarea id="commentContent" placeholder="하고싶은 말을 적어주세요!!"></textarea>
 			<button onclick="addComment()">Submit</button>
 		</div>
 	</div>
@@ -165,14 +169,13 @@
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
+	
 	<!-- Inquiry -->
-	<!--
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
 	<script src="/js/Inquiry/inquiry.js"></script>
-	-->
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
