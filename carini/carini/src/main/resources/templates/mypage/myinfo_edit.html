@@ -15,7 +15,6 @@
 	crossorigin="anonymous"></script>
 
 
-
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
@@ -26,10 +25,10 @@
 	<!-- Main -->
 	<main>
 		<div id="Favorites_box">
+
 			<div class="div">
 				<h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
 			</div>
-
 			<!--main 안에 있는 큰 박스-->
 			<div class="flex-container_column">
 
@@ -216,26 +215,24 @@
 								<button id="member_quit" type="submit" th:text="#{info.btn.unsubscribe}" style></button>
 							</form>
 						</div>
+
 	</main>
 	<script>
 		function confirmUnsubscribe() {
 			return confirm("정말로 탈퇴하시겠습니까?");
 		}
 	</script>
-
-
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
-	
 	<script th:replace="~{base/base :: inquiry_script}"></script>
+	
 	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
 	<script src="/js/Inquiry/inquiry.js"></script>
-
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
