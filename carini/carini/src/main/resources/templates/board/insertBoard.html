@@ -67,7 +67,7 @@
 					</tr>
 					<tr>
 						<td colspan="1" th:text="#{ board.write.uploadfile }"></td>
-						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile"
+						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile" style="cursor: pointer;"
 								aria-label="Upload"></td>
 					</tr>
 
@@ -88,9 +88,9 @@
 					<div style="width: 90%;"></div><!--간격박스-->
 
 					<div style="width: 10%;">
-						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"
+						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();" class="list"
 							style="padding-right: 2%;"></a>
-						<a th:text="#{board.list}" th:href="@{/board/getBoardList}"></a>
+						<a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="list"></a>
 					</div>
 
 				</div>

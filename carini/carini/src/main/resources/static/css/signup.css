@@ -1,8 +1,8 @@
 * {
-	margin: 0;
-	padding: 0;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	letter-spacing: 2px;
+   margin: 0;
+   padding: 0;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   letter-spacing: 2px;
 }
 
 
@@ -10,44 +10,45 @@
 /* body */
 
 body {
-	margin: 0%;
-	padding: 0%;
-	background-color: white;
+   margin: 0%;
+   padding: 0%;
+   background-color: white;
 }
 
 html {
-	padding: 0%;
-	margin: 0%;
+   padding: 0%;
+   margin: 0%;
 }
 
 
 /* 소제목 */
 
 section {
-	/* 소제목 영역 */
-	height: 50px;
-	width: 100%;
-	text-align: center;
-	align-items: center;
-	border-bottom: 1px solid #FFCC4C;
+   /* 소제목 영역 */
+   height: 50px;
+   width: 100%;
+   text-align: center;
+   align-items: center;
+   border-bottom: 1px solid #FFCC4C;
 }
 
 .SubTitle {
-	/* 소제목 */
-	font-size: 50px;
-	font-weight: 500;
-	text-align: center;
-	color: #222222;
-	background-color: white;
-	display: flex;
-	flex-direction: column;
-	cursor: pointer;
-	padding-top: 2%;
-	margin: 0%;
+   /* 소제목 */
+   font-size: 50px;
+   font-weight: bold;
+   text-align: center;
+   color: #222222;
+   background-color: white;
+   display: flex;
+   flex-direction: column;
+   cursor: pointer;
+   padding-top: 2%;
+   margin: 0%;
+   cursor: default;
 }
 
 .SubTitle:hover {
-	background-color: white;
+   background-color: white;
 }
 
 
@@ -57,16 +58,16 @@ section {
 
 
 main {
-	padding: 0%;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	border-top: 5px solid #FFCC4C;
-	border-bottom: 5px solid #FFCC4C;
-	padding: 2%;
+   padding: 0%;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   border-top: 5px solid #FFCC4C;
+   padding: 2%;
+   padding-bottom: 10%;
 }
 
 
@@ -74,105 +75,106 @@ main {
 /* Container */
 
 .container {
-	margin: auto;
-	justify-content: center;
-	align-items: center;
-	width: 1200px;
+   margin: auto;
+   justify-content: center;
+   align-items: center;
+   width: 1200px;
 }
 
 /* 세로박스 */
 .flex-container_column {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 90%;
-	height: 90%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 90%;
+   height: 90%;
+   padding-left: 2%;
 }
 
 /* 가로박스 */
 .flex-container_row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	width: 90%;
-	height: 90%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   width: 90%;
+   height: 90%;
 }
 
 .flex-container>div {
-	background-color: white;
-	text-align: center;
+   background-color: white;
+   text-align: center;
 }
 
 /* 각 라인들을 감싸는 박스 */
 .flex-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 100%;
-	background-color: white;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   background-color: white;
 }
 
 .flex-container>div {
-	background-color: white;
-	text-align: center;
+   background-color: white;
+   text-align: center;
 }
 
 
 
 form {
-	display: flex;
-	flex-direction: row;
-	margin: 0%;
+   display: flex;
+   flex-direction: row;
+   margin: 0%;
 }
 
 
 
 section {
-	width: 70%;
-	height: 150px;
+   width: 70%;
+   height: 150px;
 }
 
 
 /* advertisement 영상 */
 
 .flipped-text {
-	transform: scaleY(-1);
-	display: inline-block;
-	font-size: 1.5rem;
-	color: black;
+   transform: scaleY(-1);
+   display: inline-block;
+   font-size: 1.5rem;
+   color: black;
 }
 
 h1.flipped-text {
-	color: black(77, 74, 74, .9);
-	font-size: 4rem;
-	text-shadow: 2px 2px 5px rgba(175, 171, 182, .7);
-	-webkit-text-stroke: .2px #f5f5f5;
-	text-align: center;
+   color: black(77, 74, 74, .9);
+   font-size: 4rem;
+   text-shadow: 2px 2px 5px rgba(175, 171, 182, .7);
+   -webkit-text-stroke: .2px #f5f5f5;
+   text-align: center;
 }
 
 .video-container {
-	display: flex;
-	max-width: 1200px;
-	overflow: hidden;
-	height: 90%;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 5%;
+   display: flex;
+   max-width: 1200px;
+   overflow: hidden;
+   height: 90%;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 5%;
 }
 
 iframe {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex: 1;
-	border: none;
-	width: 800px;
-	height: 400px
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   flex: 1;
+   border: none;
+   width: 800px;
+   height: 400px
 }
 
 
@@ -186,61 +188,62 @@ iframe {
 /*  loginbox */
 
 fieldset {
-	width: 80%;
-	height: 90%;
-	color: black;
-	border: 1px solid white;
-	border-radius: 0.5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	background-color: white;
-	padding: 1%;
-	margin: 1%;
+   width: 80%;
+   height: 90%;
+   color: black;
+   border: 1px solid white;
+   border-radius: 0.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   background-color: white;
+   padding: 1%;
+   margin: 1%;
 }
 
 legend {
-	padding: 2%;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	font-size: 80px;
+   padding: 2%;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   font-size: 80px;
 }
 
 h3 {
-	color: white;
+   color: white;
 }
 
 .img_login {
-	height: 65px;
-	width: 350px;
-	border: 1px solid rgb(192, 192, 192);
-	border-radius: 0.5rem;
+   height: 65px;
+   width: 350px;
+   border: 1px solid rgb(192, 192, 192);
+   border-radius: 0.5rem;
 }
 
 .img_login:hover {
-	height: 65px;
-	width: 347px;
-	border-radius: 0.5rem;
+   height: 65px;
+   width: 347px;
+   border-radius: 0.5rem;
 }
 
 
 
 /* a */
 a {
-	text-decoration: none;
-	color: #222222;
-	font-weight: 700;
-	padding: 1%;
+   text-decoration: none;
+   color: #222222;
+   font-weight: 700;
+   padding: 1%;
 }
 
 a:hover {
-	text-decoration: none;
-	color: #FFCC4C;
-	font-weight: 600;
+   text-decoration: none;
+   color: #FFCC4C;
+   padding: 1%;
+   font-weight: 600;
 }
 
 
@@ -251,20 +254,20 @@ input[type="text"],
 input[type="password"],
 button,
 .button {
-	height: 60px;
-	width: 340px;
-	font-size: 15px;
-	padding: 1%;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: left;
-	border-radius: 0.2em;
-	border: 1px solid #222222;
-	cursor: text;
-	margin: 0%;
-	
+   height: 60px;
+   width: 340px;
+   font-size: 15px;
+   padding: 1%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   border-radius: 0.2em;
+   border: 1px solid #222222;
+   cursor: text;
+   margin: 1%;
+
 }
 
 
@@ -276,62 +279,401 @@ input[type="email"],
 input[type="tel"],
 button,
 .button {
-	height: 40px;
-	width: 500px;
-	font-size: 15px;
-	padding: 1%;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: left;
-	border-radius: 0.2em;
-	border: 1px solid #222222;
-	cursor: text;
-	margin: 0%;
+   height: 40px;
+   width: 500px;
+   font-size: 15px;
+   padding: 1%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   border-radius: 0.2em;
+   border: 1px solid #222222;
+   cursor: text;
+   margin: 1%;
+
 }
 
 P {
-	color: #222222;
-	font-size: 12px;
+   color: #222222;
+   font-size: 12px;
 }
 
 
 input[type="button"],
 input[type="submit"] {
-	height: 50px;
-	width: 150px;
-	font-size: 15px;
-	padding: 1%;
-	position: relative;
-	display: inline-block;
-	color: #222222;
-	background: #FFCC4C;
-	border: 2px solid #222222;
-	border-radius: 10px;
-	cursor: pointer;
-	margin-top: 1%;
+   font-weight: 900;
+   height: 40px;
+   width: 500px;
+   font-size: 17px;
+   position: relative;
+   display: inline-block;
+   color: #222222;
+   background: #FFCC4C;
+   border: 2px solid #222222;
+   border-radius: 10px;
+   cursor: pointer;
+   margin: 1%;
 
 }
 
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
-	height: 50px;
-	width: 150px;
-	font-size: 18px;
-	padding: 1%;
-	position: relative;
-	display: inline-block;
-	border: 2px solid #222222;
-	color: #222222;
-	background: #FFCC4C;
-	border-radius: 10px;
-	cursor: pointer;
-	margin-top: 1%;
-	opacity: 90%;
+   height: 40px;
+   width: 500px;
+   font-size: 18px;
+   position: relative;
+   display: inline-block;
+   border: 2px solid #222222;
+   color: #222222;
+   background: #FFCC4C;
+   border-radius: 10px;
+   cursor: pointer;
+   margin: 1%;
+   opacity: 90%;
 }
 
 placeholder {
-	font-size: 10px;
+   font-size: 10px;
+}* {
+   margin: 0;
+   padding: 0;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   letter-spacing: 2px;
+}
+
+
+
+/* body */
+
+body {
+   margin: 0%;
+   padding: 0%;
+   background-color: white;
+}
+
+html {
+   padding: 0%;
+   margin: 0%;
+}
+
+
+/* 소제목 */
+
+section {
+   /* 소제목 영역 */
+   height: 50px;
+   width: 100%;
+   text-align: center;
+   align-items: center;
+   border-bottom: 1px solid #FFCC4C;
+}
+
+.SubTitle {
+   /* 소제목 */
+   font-size: 50px;
+   font-weight: bold;
+   text-align: center;
+   color: #222222;
+   background-color: white;
+   display: flex;
+   flex-direction: column;
+   cursor: pointer;
+   padding-top: 2%;
+   margin: 0%;
+   cursor: default;
+}
+
+.SubTitle:hover {
+   background-color: white;
+}
+
+
+
+
+/* Main */
+
+
+main {
+   padding: 0%;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   border-top: 5px solid #FFCC4C;
+   padding: 2%;
+   padding-bottom: 10%;
+}
+
+
+
+/* Container */
+
+.container {
+   margin: auto;
+   justify-content: center;
+   align-items: center;
+   width: 1200px;
+}
+
+/* 세로박스 */
+.flex-container_column {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 90%;
+   height: 90%;
+   padding-left: 2%;
+}
+
+/* 가로박스 */
+.flex-container_row {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   width: 90%;
+   height: 90%;
+}
+
+.flex-container>div {
+   background-color: white;
+   text-align: center;
+}
+
+/* 각 라인들을 감싸는 박스 */
+.flex-container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   background-color: white;
+}
+
+.flex-container>div {
+   background-color: white;
+   text-align: center;
+}
+
+
+
+form {
+   display: flex;
+   flex-direction: row;
+   margin: 0%;
+}
+
+
+
+section {
+   width: 70%;
+   height: 150px;
+}
+
+
+/* advertisement 영상 */
+
+.flipped-text {
+   transform: scaleY(-1);
+   display: inline-block;
+   font-size: 1.5rem;
+   color: black;
+}
+
+h1.flipped-text {
+   color: black(77, 74, 74, .9);
+   font-size: 4rem;
+   text-shadow: 2px 2px 5px rgba(175, 171, 182, .7);
+   -webkit-text-stroke: .2px #f5f5f5;
+   text-align: center;
+}
+
+.video-container {
+   display: flex;
+   max-width: 1200px;
+   overflow: hidden;
+   height: 90%;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 5%;
+}
+
+iframe {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   flex: 1;
+   border: none;
+   width: 800px;
+   height: 400px
+}
+
+
+
+
+
+
+
+
+
+/*  loginbox */
+
+fieldset {
+   width: 80%;
+   height: 90%;
+   color: black;
+   border: 1px solid white;
+   border-radius: 0.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   background-color: white;
+   padding: 1%;
+   margin: 1%;
+}
+
+legend {
+   padding: 2%;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   font-size: 80px;
+}
+
+h3 {
+   color: white;
+}
+
+.img_login {
+   height: 65px;
+   width: 350px;
+   border: 1px solid rgb(192, 192, 192);
+   border-radius: 0.5rem;
+}
+
+.img_login:hover {
+   height: 65px;
+   width: 347px;
+   border-radius: 0.5rem;
+}
+
+
+
+/* a */
+a {
+   text-decoration: none;
+   color: #222222;
+   font-weight: 700;
+   padding: 1%;
+}
+
+a:hover {
+   text-decoration: none;
+   color: #FFCC4C;
+   padding: 1%;
+   font-weight: 600;
+}
+
+
+
+/* Button */
+
+input[type="text"],
+input[type="password"],
+button,
+.button {
+   height: 60px;
+   width: 340px;
+   font-size: 15px;
+   padding: 1%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   border-radius: 0.2em;
+   border: 1px solid #222222;
+   cursor: text;
+   margin: 1%;
+
+}
+
+
+/* Button */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+button,
+.button {
+   height: 40px;
+   width: 500px;
+   font-size: 15px;
+   padding: 1%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   border-radius: 0.2em;
+   border: 1px solid #222222;
+   cursor: text;
+   margin: 1%;
+
+}
+
+P {
+   color: #222222;
+   font-size: 12px;
+}
+
+
+input[type="button"],
+input[type="submit"] {
+   font-weight: 900;
+   height: 40px;
+   width: 500px;
+   font-size: 17px;
+   position: relative;
+   display: inline-block;
+   color: #222222;
+   background: #FFCC4C;
+   border: 2px solid #222222;
+   border-radius: 10px;
+   cursor: pointer;
+   margin: 1%;
+
+}
+
+
+input[type="button"]:hover,
+input[type="submit"]:hover {
+   height: 40px;
+   width: 500px;
+   font-size: 18px;
+   position: relative;
+   display: inline-block;
+   border: 2px solid #222222;
+   color: #222222;
+   background: #FFCC4C;
+   border-radius: 10px;
+   cursor: pointer;
+   margin: 1%;
+   opacity: 90%;
+}
+
+placeholder {
+   font-size: 10px;
 }
