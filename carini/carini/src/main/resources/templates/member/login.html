@@ -43,7 +43,6 @@
 
                   <input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
 
-
 						<div class="field-error" th:if="${memberIdError}" th:text="${memberIdError}">
 							아이디오류
 						</div>
@@ -68,7 +67,6 @@
 							<a th:href="@{/find_pwForm}">비밀번호찾기</a>/
 							<a href="/signup"> 회원가입</a>
 						</div>
-
 
                   <a href="/api/naver/oauth">
                      <img src="/img/naver.png" class="img_login">
