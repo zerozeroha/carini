@@ -88,12 +88,12 @@
 
 				<div class="flex-container_row" style="height: 10%;">
 
-					<div style="width: 90%;"></div><!--간격박스-->
+					<div style="width: 85%;"></div><!--간격박스-->
 
-					<div style="width: 10%;">
+					<div style="width: 15%;">
 						<a th:text="#{board.writing}" onclick="document.forms['boardForm'].submit();"
-							style="padding-right: 2%;"></a>
-						<a th:text="#{board.list}" th:href="@{/mypage/myBoard}"></a>
+							class="list"></a>
+						<a th:text="#{board.list}" th:href="@{/mypage/myBoard}" class="list"></a>
 					</div>
 
 				</div>

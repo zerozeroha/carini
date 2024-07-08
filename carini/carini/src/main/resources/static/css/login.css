@@ -36,7 +36,7 @@ section {
 .SubTitle {
 	/* 소제목 */
 	font-size: 50px;
-	font-weight: 500;
+	font-weight: 900;
 	text-align: center;
 	color: #222222;
 	background-color: white;
@@ -45,8 +45,8 @@ section {
 	cursor: pointer;
 	padding-top: 2%;
 	margin: 0%;
-		margin-bottom:15px;
-
+	margin-bottom:15px;
+	cursor: default;
 }
 
 .SubTitle:hover {
@@ -68,7 +68,6 @@ main {
 	align-items: center;
 	justify-content: center;
 	border-top: 5px solid #FFCC4C;
-	border-bottom: 5px solid #FFCC4C;
 	padding: 2%;
 }
 
@@ -200,7 +199,7 @@ fieldset {
 	justify-content: center;
 	text-align: center;
 	background-color: white;
-	padding: 1%;
+	padding: 10%;
 	margin: 1%;
 }
 
@@ -303,9 +302,10 @@ P {
 
 input[type="button"],
 input[type="submit"] {
-	height: 60px;
-	width: 300px;
-	font-size: 15px;
+	font-weight: 900;
+	height: 50px;
+	width: 150px;
+	font-size: 17px;
 	padding: 1%;
 	position: relative;
 	display: inline-block;
@@ -321,8 +321,8 @@ input[type="submit"] {
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
-	height: 60px;
-	width: 300px;
+	height: 50px;
+	width: 150px;
 	font-size: 18px;
 	padding: 1%;
 	position: relative;

@@ -41,7 +41,7 @@
 
 	<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
 
-
+	
 	<!-- Main -->
 	<main>
 
@@ -61,10 +61,10 @@
 				<table>
 					<tr>
 						<td style="width: 15%;" th:text="#{board.write.writer}"></td>
-						<td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default;"
+						<td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default; border: 1px solid white;"
 								th:value="${ session.user.memberNickname }" disabled></td>
 						<td style="width: 15%;" th:text="#{board.write.date}"></td>
-						<td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default;"
+						<td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default; border: 1px solid white;"
 								th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
 					</tr>
 
@@ -108,12 +108,12 @@
                      th:text="${ board.boardFilename }"></a>
                 </div>여기까지-->
 
-					<div style="width: 88%;"></div>
+					<div style="width: 85%;"></div>
 
-					<div style="width: 12%">
-						<a th:href="@{/mypage/myboard/getMyboard/deleteBoard(boardId=${board.boardId})}">삭제</a>
-						<a th:text="#{board.update}" onclick="document.forms['boardForm'].submit();"></a>
-						<a th:href="@{/mypage/myBoard}">목록</a>
+					<div style="width: 15%">
+						<a th:href="@{/mypage/myboard/getMyboard/deleteBoard(boardId=${board.boardId})}" class="list">삭제</a>
+						<a th:text="#{board.update}" onclick="document.forms['boardForm'].submit();" class="list"></a>
+						<a th:href="@{/mypage/myBoard}" class="list">목록</a>
 					</div>
 
 				</div>

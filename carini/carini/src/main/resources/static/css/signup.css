@@ -35,7 +35,7 @@ section {
 .SubTitle {
 	/* 소제목 */
 	font-size: 50px;
-	font-weight: 500;
+	font-weight: bold;
 	text-align: center;
 	color: #222222;
 	background-color: white;
@@ -44,6 +44,7 @@ section {
 	cursor: pointer;
 	padding-top: 2%;
 	margin: 0%;
+	cursor: default;
 }
 
 .SubTitle:hover {
@@ -65,8 +66,8 @@ main {
 	align-items: center;
 	justify-content: center;
 	border-top: 5px solid #FFCC4C;
-	border-bottom: 5px solid #FFCC4C;
 	padding: 2%;
+	padding-bottom: 10%;
 }
 
 
@@ -88,6 +89,7 @@ main {
 	justify-content: center;
 	width: 90%;
 	height: 90%;
+	padding-left: 2%;
 }
 
 /* 가로박스 */
@@ -240,6 +242,7 @@ a {
 a:hover {
 	text-decoration: none;
 	color: #FFCC4C;
+	padding: 1%;
 	font-weight: 600;
 }
 
@@ -263,8 +266,7 @@ button,
 	border-radius: 0.2em;
 	border: 1px solid #222222;
 	cursor: text;
-	margin: 0%;
-	
+	margin: 1%;
 }
 
 
@@ -288,7 +290,8 @@ button,
 	border-radius: 0.2em;
 	border: 1px solid #222222;
 	cursor: text;
-	margin: 0%;
+	margin: 1%;
+
 }
 
 P {
@@ -299,10 +302,10 @@ P {
 
 input[type="button"],
 input[type="submit"] {
-	height: 50px;
-	width: 150px;
-	font-size: 15px;
-	padding: 1%;
+	font-weight: 900;
+	height: 40px;
+	width: 500px;
+	font-size: 17px;
 	position: relative;
 	display: inline-block;
 	color: #222222;
@@ -310,17 +313,16 @@ input[type="submit"] {
 	border: 2px solid #222222;
 	border-radius: 10px;
 	cursor: pointer;
-	margin-top: 1%;
+	margin: 1%;
 
 }
 
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
-	height: 50px;
-	width: 150px;
+	height: 40px;
+	width: 500px;
 	font-size: 18px;
-	padding: 1%;
 	position: relative;
 	display: inline-block;
 	border: 2px solid #222222;
@@ -328,7 +330,7 @@ input[type="submit"]:hover {
 	background: #FFCC4C;
 	border-radius: 10px;
 	cursor: pointer;
-	margin-top: 1%;
+	margin: 1%;
 	opacity: 90%;
 }
 
