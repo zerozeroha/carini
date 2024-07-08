@@ -29,7 +29,6 @@
 			<div class="div">
 				<h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
 			</div>
-
 			<!--main 안에 있는 큰 박스-->
 			<div class="flex-container_column">
 
@@ -37,7 +36,6 @@
 
 					<!--main 안에 있는 큰 박스-->
 					<div class="flex-container_column">
-
 						<table>
 							<form
 								th:action="${session.user.memberSocial == 'user' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}"
@@ -224,7 +222,6 @@
 			return confirm("정말로 탈퇴하시겠습니까?");
 		}
 	</script>
-
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
