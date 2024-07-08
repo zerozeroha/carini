@@ -158,7 +158,7 @@ form select,
 form textarea {
     background: #fafafa;
     border-radius: 0.5em;
-    border: 1.5px solid black;
+    border: 1.5px solid white;
     margin: 0px;
     padding: 1%;
 }
@@ -228,7 +228,7 @@ button,
     color: black;
     text-align: left;
     text-decoration: none;
-    border: 1px solid lightgray;
+    border: 1.5px solid white;
     border-radius: 0.3rem;
     outline: 0;
     font-weight: 700;
@@ -250,7 +250,7 @@ button:hover,
     color: black;
     text-align: left;
     text-decoration: none;
-    border: 1px solid lightgray;
+    border: 1.5px solid white;
     border-radius: 0.3rem;
     outline: 0;
     font-weight: 700;
@@ -258,22 +258,33 @@ button:hover,
 
 
 
-    
+ a {
+	text-decoration: none;
+	cursor: pointer;
+ }
+ 
 
-/* a */
 
-a {
-    text-decoration: none;
-    cursor: pointer;
+.list{
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #BFBCBA;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	color: #333;
 }
 
 
-/* a.hover */
 
- a:hover {
-    -webkit-text-stroke: 0.5px black;
-    cursor: pointer;
-
+ 
+.list:hover {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #FFCC4C;
+	border-radius: 0.5rem;
+	cursor: pointer;
 }
 
 

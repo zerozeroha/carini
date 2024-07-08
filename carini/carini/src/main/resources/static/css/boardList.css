@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-   margin: 0;
-   padding: 0;
-   font-family: "Noto Sans KR", "Noto Sans", sans-serif;
-   letter-spacing: 2px;
-   cursor: default;
+	margin: 0;
+	padding: 0;
+	font-family: "Noto Sans KR", "Noto Sans", sans-serif;
+	letter-spacing: 2px;
+	cursor: default;
 }
 
 
@@ -15,57 +15,57 @@
 /* body */
 
 body {
-   background: white;
-   color: #5b5b5b;
-   margin: 0;
-   padding: 0;
+	background: white;
+	color: #5b5b5b;
+	margin: 0;
+	padding: 0;
 }
 
 
 /* 박스적용 css */
 
 .div {
-   width: 100%;
-   height: 5%;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   padding: 1%;
+	width: 100%;
+	height: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
 }
 
 /* 소제목 */
 
 /* 소제목 영역 */
 section {
-   width: 70%;
-   height: 100%;
-   text-align: center;
-   align-items: center;
-   margin: 5% 16%;
+	width: 70%;
+	height: 100%;
+	text-align: center;
+	align-items: center;
+	margin: 5% 16%;
 }
 
 /* 소제목 */
 .SubTitle {
-   font-size: 70px;
-   font-weight: 1000;
-   color: black;
-   width: 70%;
-   height: 10%;
-   display: flex;
-   flex-direction: column;
-   letter-spacing: 6px;
+	font-size: 70px;
+	font-weight: 1000;
+	color: black;
+	width: 70%;
+	height: 10%;
+	display: flex;
+	flex-direction: column;
+	letter-spacing: 6px;
 }
 
 /* 소제목밑에글씨 */
 #SubTitle_text {
-   display: inline;
-   align-items: center;
-   justify-content: center;
-   font-weight: 900;
-   text-align: center;
-   font-size: 30px;
-   color: black;
+	display: inline;
+	align-items: center;
+	justify-content: center;
+	font-weight: 900;
+	text-align: center;
+	font-size: 30px;
+	color: black;
 }
 
 
@@ -73,22 +73,22 @@ section {
 /* Main */
 
 main {
-   width: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: row;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
 }
 
 
 /* form */
 
 form {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
-   width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
 }
 
 
@@ -96,60 +96,60 @@ form {
 /* Container */
 
 .container {
-   margin: auto;
-   justify-content: center;
-   align-items: center;
-   width: 50%
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	width: 50%
 }
 
 /* 세로박스 */
 .flex-container_column {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   padding: 1%;
-   width: 85%;
-   height: 90%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	width: 85%;
+	height: 90%;
 }
 
 /* 가로박스 */
 .flex-container_row {
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: center;
-   padding: 1%;
-   width: 100%;
-   height: 90%;
-   gap: 10px;
-   }
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 1%;
+	width: 100%;
+	height: 90%;
+	gap: 10px;
+}
 
 .flex-container>div {
-   background-color: white;
-   text-align: center;
+	background-color: white;
+	text-align: center;
 }
 
 /* 각 라인들을 감싸는 박스 */
 .flex-container {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 100%;
-   height: 100%;
-   background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: white;
 }
 
 .flex-container>div {
-   background-color: white;
-   text-align: center;
+	background-color: white;
+	text-align: center;
 }
 
 /*  */
 .page-link:hover {
-   color: gray;
-   -webkit-text-stroke: 0.3px white;
-   text-decoration: underline;
+	color: gray;
+	-webkit-text-stroke: 0.3px white;
+	text-decoration: underline;
 }
 
 
@@ -157,10 +157,10 @@ form {
 
 
 .placeholder {
-   opacity: 70%;
-   padding-left: 5%;
-   font-weight: light;
-   color: lightgray;
+	opacity: 70%;
+	padding-left: 5%;
+	font-weight: light;
+	color: lightgray;
 }
 
 
@@ -169,15 +169,15 @@ form {
 input,
 textarea,
 select {
-   font-size: 15pt;
-   line-height: 1.85em;
-   width: 90%;
-   height: 80%;
-   font-weight: 300;
-   background-color: white;
-   margin: 0%;
-   padding: 1%;
-   cursor: text;
+	font-size: 15pt;
+	line-height: 1.85em;
+	width: 90%;
+	height: 80%;
+	font-weight: 300;
+	background-color: white;
+	margin: 0%;
+	padding: 1%;
+	cursor: text;
 }
 
 form input[type="text"],
@@ -186,19 +186,19 @@ form input[type="password"],
 form input[type="submit"],
 form select,
 form textarea {
-   padding: 2%;
-   position: relative;
-   display: inline-block;
-   background-color: white;
-   color: black;
-   text-align: left;
-   text-decoration: none;
-   border: 1px solid lightgray;
-   border-radius: 0.3rem;
-   cursor: pointer;
-   outline: 0;
-   font-weight: 350;
-   cursor: text;
+	padding: 2%;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: black;
+	text-align: left;
+	text-decoration: none;
+	border: 2px solid lightgray;
+	border-radius: 0.3rem;
+	cursor: pointer;
+	outline: 0;
+	font-weight: 350;
+	cursor: text;
 
 }
 
@@ -208,51 +208,51 @@ form input[type="password"]:hover,
 form input[type="submit"]:hover,
 form select,
 form textarea:hover {
-   padding: 2%;
-   position: relative;
-   display: inline-block;
-   background-color: white;
-   color: #222426;
-   text-align: left;
-   text-decoration: none;
-   border: 1px solid lightgray;
-   border-radius: 0.3rem;
-   outline: 0;
-   font-weight: 700;
+	padding: 2%;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	color: #222426;
+	text-align: left;
+	text-decoration: none;
+	border: 2px solid lightgray;
+	border-radius: 0.3rem;
+	outline: 0;
+	font-weight: 700;
 }
 
 
 /* 검색창부분 */
 
 .form-select {
-   font-size: 23px;
-   width: 15%;
-   height: 17px;
-   cursor: pointer;
-   padding: 2%;
+	font-size: 23px;
+	width: 15%;
+	height: 17px;
+	cursor: pointer;
+	padding: 2%;
 }
 
 .form-select:hover {
-   font-size: 23px;
-   width: 15%;
-   height: 17px;
-   cursor: pointer;
-   border: 1px solid gray;
-   padding: 2%;
+	font-size: 23px;
+	width: 15%;
+	height: 17px;
+	cursor: pointer;
+	border: 2px solid #FFCC4C;
+	padding: 2%;
 }
 
 
 /* 제목 / 작성자 검색창 */
 form input[type="text"] {
-   padding: 5%;
-   font-weight: 300;
+	padding: 5%;
+	font-weight: 300;
 }
 
 
 form input[type="text"]:hover {
-   padding: 5%;
-   font-weight: 300;
-   border: 1px solid gray;
+	padding: 5%;
+	font-weight: 300;
+	border: 2px solid #FFCC4C;
 
 }
 
@@ -260,26 +260,26 @@ form input[type="text"]:hover {
 
 /* 검색버튼 */
 
-form input[type="submit"] {   
-   font-size: 23px;
-   padding: 3%;
-   cursor: pointer;
+form input[type="submit"] {
+	font-size: 23px;
+	padding: 5% 3%;
+	cursor: pointer;
 }
 
 form input[type="submit"]:hover {
-font-size: 23px;
-   padding: 3%;
-   color: white;
-   background-color: black;
-   cursor: pointer;
+	font-size: 23px;
+	padding: 5% 3%;
+	border: 2px solid #FFCC4C;
+	cursor: pointer;
+	font-weight: 100;
 }
 
 
 
 
 #search {
-   height: 15px;
-   width: 30px;
+	height: 15px;
+	width: 30px;
 }
 
 
@@ -287,31 +287,30 @@ font-size: 23px;
 /* Table */
 
 table.boardList {
-   width: 100%;
-   border-collapse: collapse;
-   border-top: 1px solid black; 
-   border-bottom: 1px solid black; 
-   font-size: larger;
-   font-weight: 150;
-   border-bottom: 1px solid black;
-   height: 100%;
+	width: 100%;
+	border-collapse: collapse;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: larger;
+	font-weight: 150;
+	border-bottom: 1px solid black;
 }
 
 th,
 td {
-   padding: 1%;
-   text-align: center;
-   background-color: white;
-   border-bottom: 1px solid #BFBCBA;
+	padding: 1%;
+	text-align: center;
+	background-color: white;
+	border-bottom: 1px solid #BFBCBA;
 }
 
 th {
-   background-color: #333;
-   color: white;
+	background-color: #333;
+	color: white;
 }
 
 tr {
-   background-color: white;
+	background-color: white;
 }
 
 /*td:nth-child(odd) {
@@ -334,20 +333,20 @@ td:nth-child(even) {
 /* 글쓰기, 목록 버튼 */
 
 input[type="button"] {
-   padding: 1%;
-   text-align: center;
-   border: 0px;
-   cursor: pointer;
-   color: 222426;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #BFBCBA;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	color: #333;
 }
 
 input[type="button"]:hover {
-   padding: 1%;
-   text-align: center;
-   border: 0px;
-   -webkit-text-stroke: 0.3px #222426;
-   margin-top: 1px;
-   cursor: pointer;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #FFCC4C;
+	border-radius: 0.5rem;
+	cursor: pointer;
 }
 
 
@@ -357,48 +356,48 @@ input[type="button"]:hover {
 /* a */
 
 a {
-   color: inherit;
-   text-decoration: none;
-   cursor: pointer;
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 
 /* a.hover */
 
 a:hover {
-   cursor: pointer;
+	cursor: pointer;
 
 }
 
 
 /* 각 종 hover들 */
 a.icon-hover:hover {
-   background-color: white;
+	background-color: white;
 }
 
 .float_hover:hover {
-   background-color: whitesmoke !important;
+	background-color: whitesmoke !important;
 }
 
 
 .side-hover:hover {
-   color: white !important;
-   background-color: black !important;
-   border-radius: 0.5rem;
-   padding: 1.5%;
+	color: white !important;
+	background-color: black !important;
+	border-radius: 0.5rem;
+	padding: 1.5%;
 }
 
 a.Board-hover {
-   text-decoration: none;
-   color: black;
+	text-decoration: none;
+	color: black;
 }
 
 a.Board-hover:hover {
-   text-decoration: underline;
+	text-decoration: underline;
 }
 
 select:hover {
-   border: 2px solid rgb(170, 170, 170);
+	border: 2px solid rgb(170, 170, 170);
 }
 
 
@@ -406,24 +405,24 @@ select:hover {
 /* 탈퇴하기 button */
 
 .getout {
-   width: 3%;
-   height: 5%;
-   color: black;
-   background-color: white;
+	width: 3%;
+	height: 5%;
+	color: black;
+	background-color: white;
 }
 
 .getout_button,
 .getout .getout_button {
-   border: none;
-   color: black;
-   text-align: center;
-   font-size: 14px;
-   cursor: pointer;
-   border-radius: 16px;
-   text-decoration: none;
-   margin-top: 300px;
+	border: none;
+	color: black;
+	text-align: center;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 16px;
+	text-decoration: none;
+	margin-top: 300px;
 }
 
 button.getout-hover:hover {
-   color: black !important;
+	color: black !important;
 }

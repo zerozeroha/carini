@@ -57,7 +57,7 @@
 		<!--main 안에 있는 큰 박스-->
 		<div class="flex-container_column">
 			<table>
-				<tr>
+				<tr>	
 					<td>작성자</td>
 					<td><input type="text" name="boardWriter" th:value="${ board.boardWriter }" disabled></td>
 					<td>조회수</td>
@@ -98,10 +98,10 @@
 			<div class="flex-container_row">
 
 
-				<div style="width: 90%;"></div>
-				<div style="width: 10%;">
-					<a th:href="@{/board/updateBoard(boardId=${board.boardId})}" style="padding:1% 2%;">수정하기</a>
-					<a th:href="@{/board/getBoardList}" style="padding:1% 2%;">목록</a>
+				<div style="width: 80%;"></div>
+				<div style="width: 20%;">
+					<a th:href="@{/board/updateBoard(boardId=${board.boardId})}" class="list">수정하기</a>
+					<a th:href="@{/board/getBoardList}" class="list">목록</a>
 				</div>
 
 
