@@ -20,6 +20,7 @@ import com.car.dto.Member;
 import com.car.exception.ValidationException;
 import com.car.service.CommentReplyService;
 import com.car.service.CommentService;
+import com.car.validation.CommentReplyWriteValidation;
 import com.car.validation.CommentWriteValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -102,8 +103,19 @@ public class CommentController {
 	 * 대댓글 작성후 저장
 	 * */
 	@PostMapping("/comment/reply")
-	public ResponseEntity<Map<String, Object>> replycomment_save(CommentReply commentReply,HttpServletRequest request) {
-		
+	public ResponseEntity<Map<String, Object>> replycomment_save(@ModelAttribute("CommentReply") CommentReply commentReply,
+			@Validated @ModelAttribute("CommentReplyWriteValidation") CommentReplyWriteValidation commentReplyWriteValidation,BindingResult bindingResult,HttpServletRequest request) {
+
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errors = new HashMap<>();
+			// 필드별로 발생한 모든 오류 메시지를 맵에 담음
+			bindingResult.getFieldErrors().forEach(error -> {
+				String fieldName = error.getField();
+				String errorMessage = error.getDefaultMessage();
+				errors.put(fieldName, errorMessage);
+			});
+			throw new ValidationException(errors);
+		}
 	
 		Map<String, Object> response = new HashMap<>();
 

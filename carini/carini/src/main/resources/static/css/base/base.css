@@ -251,14 +251,15 @@ body {
    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 }
 
-/*#float_icons {
+#float_icons {
    position: sticky;
+   display: block;
    top: 90%;
    bottom: 10%;
    right: 0;
    z-index: 3000;
-   float: right
-}*/
+   float: right;
+}
 
 #float_icons a {
    margin-top: 18px;
@@ -661,7 +662,13 @@ footer img {
    z-index: 1000;
    cursor: pointer;
 }
-
+#kakao-talk-channel-chat-button {
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   z-index: 1000;
+   cursor: pointer;
+}
 img {
    cursor: pointer;
 }
