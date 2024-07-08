@@ -69,6 +69,7 @@ public class CommentController {
 		commentService.deleteComment(commentId);
 		
 		Map<String, Object> response = new HashMap<>();
+		
 		response.put("message", "댓글이 정상적으로 삭제되었습니다.");
 		
 		return ResponseEntity.ok(response);
@@ -127,7 +128,7 @@ public class CommentController {
 		return ResponseEntity.ok(response);
 	}
 	/*
-	 * 내댓글 삭제
+	 * 대댓글 삭제
 	 * */
 	@PostMapping("/comment/more/delete")
 	public ResponseEntity<Map<String, Object>> comment_moredelete(CommentReply commentReply) {

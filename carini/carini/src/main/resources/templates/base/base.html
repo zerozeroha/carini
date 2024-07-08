@@ -45,6 +45,7 @@
       </ul>
 
    </nav> -->
+
    <div class="alertBox" id="fixed-bar">
 
       <nav id="nav">
@@ -74,17 +75,18 @@
                         th:text="#{side.menu3}"></a></li>
                </ul>
             </li>
-         
-         </ul>
+			<li th:if="${session.user == null}" ><a  th:href="@{/member_login}">LOGIN</a></li> 
+			<li th:if="${session.user != null}"><a  th:href="@{/user_logout}">LOGOUT</a></li> 
+        </ul>
 
 
       </nav>
       <div style="height: 50px; width: 100%; font-size: 20px; margin-left:75%;
                         margin-top:0.2%;padding: 0.2%;font-size: 16px;cursor: default;font-weight: 700;">
          <input type="text"
-            style="   width: 40%; border: 1px solid white; 
+            style="width: 30%; border: 1px solid white; 
                background-color: white; text-align: center;font-weight: 500 ;cursor: default; padding: 0%; 
-               font-size: 15px;" value="..."; disabled> 님 반갑습니다 🚗🚙
+               font-size: 15px;" th:if="${session.user != null}" th:value="${session.user.memberNickname}"; disabled> 님 반갑습니다 🚗🚙
       </div>
 
 
@@ -129,7 +131,7 @@
 <!-- Footer -->
 <footer th:fragment="main_footer">
    <hr style="margin:0%; padding: 0%;">
-   <h1>@ carini</h1>
+   <p>@ carini</p>
 </footer>
 
 
