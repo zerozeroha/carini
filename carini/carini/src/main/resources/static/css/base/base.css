@@ -9,7 +9,6 @@
    font-size: 100%;
    font: inherit;
    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
-   letter-spacing: 2px;
 }
 
 
@@ -181,7 +180,6 @@ ul.icons li a:hover {
    height: 100px !important;
    padding: 5px;
    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
-   letter-spacing: 2px;
 }
 
 .header_carini {
@@ -189,7 +187,6 @@ ul.icons li a:hover {
    font-size: 7rem;
    font-weight: 700;
    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
-   letter-spacing: 10px;
    -webkit-text-stroke: 0.5px white;
 }
 
@@ -250,27 +247,6 @@ body {
    background: #fff;
    font-family: "Noto Sans KR", "Noto Sans", sans-serif;
 }
-
-/*#float_icons {
-   position: sticky;
-   top: 90%;
-   bottom: 10%;
-   right: 0;
-   z-index: 3000;
-   float: right
-}*/
-
-#float_icons a {
-   margin-top: 18px;
-   display: block;
-   margin-right: 15px
-}
-
-#float_icons img {
-   width: 50px;
-   opacity: 85%
-}
-
 
 
 a.title-hover:hover {
@@ -661,7 +637,13 @@ footer img {
    z-index: 1000;
    cursor: pointer;
 }
-
+#kakao-talk-channel-chat-button {
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   z-index: 1000;
+   cursor: pointer;
+}
 img {
    cursor: pointer;
 }

@@ -8,7 +8,6 @@ function addComment() {
 	let board_ID = document.querySelector("#hidden_boardId").value;
 	let user_Nickname = document.querySelector("#hidden_userNickname").value;
 
-
 	event.preventDefault();
 	$.ajax({
 		type: "Post",
@@ -28,17 +27,18 @@ function addComment() {
 					boardId: board_ID
 				},
 				success: function(response) {
-					updateCommentsTable(response.comments, user_ID, board_ID);
+					updateCommentsTable(response.comments, user_ID, board_ID,user_Nickname);
 					$("#commentContent").val('');
+					$("#contentErrors").text("");
 				}
 			});
 		},
 		error: function(xhr, status, error) {
 			var response = JSON.parse(xhr.responseText);
+			console.log(response);
 			alert(response.errors.content);
 			if (response.errors && Object.keys(response.errors).length > 0) {
 				$.each(response.errors, function(field, errorMessage) {
-					console.log(errorMessage)
 					$("#" + field + "Errors").text(errorMessage);
 				});
 			} else {
@@ -52,7 +52,7 @@ function addComment() {
 /*
 	댓글쓴후 보여주기
 */
-function updateCommentsTable(comments, userId, boardId) {
+function updateCommentsTable(comments, userId, boardId,user_Nickname) {
 	$("#commentsTable tbody").empty();
 
 	// 새로운 댓글 데이터를 추가합니다.
@@ -70,13 +70,13 @@ function updateCommentsTable(comments, userId, boardId) {
 		} else {
 			deleteButton = '<td></td>';
 		}
-
+		let usercommentmember= comment.userNickname;
 		var row = `
             <tr id="${comment.commentId}">
                 <td >${comment.userNickname}</td>
                 <td >${comment.content}</td>
                 <td> 
-                	<a onclick="addComment_Reply(this)" id="replyLink_${comment.commentId}"  write-data-commentid1="${comment.commentId}"  write-data-commentid2="${boardId}" write-data-commentid3=${comment.userNickname} style="font-size: small;" > 답글달기</a>
+                	<a onclick="addComment_Reply(this)" id="replyLink_${comment.commentId}"  write-data-commentid1="${comment.commentId}"  write-data-commentid2="${boardId}" write-data-commentid3="${user_Nickname}" write-data-commentid4="${usercommentmember}" style="font-size: small;" > 답글달기</a>
                 	<a style="font-size: small;">|</a>
 					<a onclick="comment_more(this)" id="comment_more_${comment.commentId}"  data-commentid1="${comment.commentId}" data-commentid2="${boardId}" style="font-size: small;" >더보기 </a><a style="font-size: small;">|</a>
 					<a onclick="Comment_fold(this)" id="reply_fold${comment.commentId}" data-commentid1="${comment.commentId}" style="font-size: small;" class="disabled"> 접기 </a>
@@ -92,7 +92,6 @@ function updateCommentsTable(comments, userId, boardId) {
 	댓글 삭제
  */
 function deleteComment(link) {
-	
 	let user_ID = document.querySelector("#hidden_userId").value;
 	let commentId = $(link).attr("data-delete-commentid");
 	let boardId = document.querySelector("#delete_boardId").value;
@@ -115,8 +114,8 @@ function deleteComment(link) {
 						boardId: boardId
 					},
 					success: function(response) {
-							
-						updateCommentsTable(response.comments, user_ID,boardId);
+
+						updateCommentsTable(response.comments, user_ID, boardId);
 					}
 				});
 			},
@@ -132,27 +131,32 @@ function deleteComment(link) {
  */
 function addComment_Reply(link) {
 	$(link).addClass("disabled");
-
+	console.log(link);
 	let commentId = $(link).attr("write-data-commentid1");
 	let boardId = $(link).attr("write-data-commentid2");
 	let memberNickname = $(link).attr("write-data-commentid3");
-	
+	let commentmemberNickname = $(link).attr("write-data-commentid4");
+	console.log(commentmemberNickname);
 	$("#comment_more" + commentId).removeClass("disabled");
 	$("#comment_more_" + commentId).removeClass("disabled");
 	$(".comment_moreList_" + commentId).remove();
-	addReplyRow(link, commentId, boardId, memberNickname);
+	addReplyRow(link, commentId, boardId, memberNickname,commentmemberNickname);
 
 }
 
 /*
 	대댓글 쓰는 폼
  */
-function addReplyRow(link, commentId, boardId, memberNickname) {
-
+function addReplyRow(link, commentId, boardId, memberNickname,commentmemberNickname) {
+	console.log("================");
+	console.log(commentmemberNickname);
 	var replyRow = `
                 <tr class="replyRow_${commentId}">
                     <td colspan="5">
-                        <textarea class="replyTextArea" placeholder="답글을 입력하세요..." style="resize: none;width:"100%;height:50px></textarea>
+                    	<div class="field-error" id="replyTextAreaError">
+
+						</div>
+                        <textarea class="replyTextArea" placeholder="${commentmemberNickname}님에게 남길 답글" style="resize: none;width:"100%;height:50px></textarea>
                         <button style="cursor:pointer;padding:5px 10px;" onclick="saveReply(${commentId},${boardId},'${memberNickname}')">저장</button>
                         <button style="cursor:pointer;padding:5px 10px;" data-commentid="${commentId}" onclick="cancelReply(this)">취소</button>
                     </td>
@@ -178,7 +182,7 @@ function cancelReply(link) {
  */
 function saveReply(commentId, boardId, memberNickname) {
 	let replyTextArea = document.querySelector(".replyTextArea").value;
-
+	console.log(replyTextArea);
 	$.ajax({
 		type: "POST",
 		url: "/comment/reply",
@@ -193,6 +197,21 @@ function saveReply(commentId, boardId, memberNickname) {
 			$("#replyLink_" + commentId).removeClass("disabled");
 			$(".replyRow_" + commentId).remove();
 			$(".replyTextArea").val('');
+			// 오류가 없으면 빈 문자열로 초기화
+			$(".contentErrors").text("");
+		},
+		error: function(xhr, status, error) {
+			var response = JSON.parse(xhr.responseText);
+			
+			alert(response.errors.replyTextArea);
+			if (response.errors && Object.keys(response.errors).length > 0) {
+				$.each(response.errors, function(field, errorMessage) {
+					$("#" + field + "Error").text(errorMessage);
+				});
+			} else {
+				// 오류가 없으면 빈 문자열로 초기화
+				$(".contentErrors").text("");
+			}
 		}
 
 	})
@@ -262,7 +281,7 @@ function comment_moreList(link, commentId, boardId) {
 /*
 대댓글 삭제
 */
-function deleteaddComment(link,commentReplyId, commentId, boardId) {
+function deleteaddComment(link, commentReplyId, commentId, boardId) {
 
 	$.ajax({
 		type: "Post",
@@ -274,7 +293,7 @@ function deleteaddComment(link,commentReplyId, commentId, boardId) {
 		success: function(response) {
 			alert(response.message);
 			$(".comment_moreList_" + commentId).remove();
-			comment_more_delete_List(commentId,boardId);
+			comment_more_delete_List(commentId, boardId);
 		}
 	})
 
@@ -315,7 +334,7 @@ function comment_more_delete_List(commentId, boardId) {
 				        </tr>
 				    `;
 				// 새로운 답글 행을 현재 클릭된 답글 달기 버튼의 바로 아래에 추가합니다
-				$("#"+commentId).after(replyRow);
+				$("#" + commentId).after(replyRow);
 			});
 		}
 	})
