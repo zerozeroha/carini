@@ -3,15 +3,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login.html</title>
-   <link rel="stylesheet" href="/css/login.css">
-   <link rel="stylesheet" href="/css/base/base.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>login.html</title>
+	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/base/base.css">
 
 </head>
 <script>
-   import TextField from '@mui/material/TextField';
+	import TextField from '@mui/material/TextField';
 </script>
 <style>
 	.field-error {
@@ -30,61 +30,64 @@
 	<!-- Main -->
 	<main>
 
-      <section class="SubTitle">Login</section>
+		<section class="SubTitle">Login</section>
 
-      <div class="flex-container_column">
+		<div class="flex-container_column">
 
-         <form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
-            method="post">
+			<form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
+				method="post">
 
-            <div class="flex-container_column">
+				<div class="flex-container_column">
 
-               <fieldset>
+					<fieldset>
 
-                  <input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
+						<input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
 
 						<div class="field-error" th:if="${memberIdError}" th:text="${memberIdError}">
 							아이디오류
 						</div>
 						
+						<div style="height: 10px;"></div>
+						
 						<input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
 							size="25">
+
 						<div class="field-error" th:if="${memberPwError}" th:text="${memberPwError}">
 							비밀번호오류
 						</div>
 
 						<div style="height: 15px;"></div>
 
-                  <div style="height: 15px;"></div>
-
-                  <input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
+						<input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
 
 
-						<div class="flex-container_row" style="height: 60px; width: 300px; font-size: 15px; font-weight: 200;gap:5px">
+						<div class="flex-container_row"
+							style="height: 60px; width: 300px; font-size: 15px; font-weight: 200;gap:5px">
 							<a th:href="@{/find_idForm}">
 								아이디찾기 </a> /
 							<a th:href="@{/find_pwForm}">비밀번호찾기</a>/
 							<a href="/signup"> 회원가입</a>
 						</div>
-                  <a href="/api/naver/oauth">
-                     <img src="/img/naver.png" class="img_login">
-                  </a>
 
-                  <a href="/oauth/kakao">
-                     <img src="/img/kakaotalk.png" class="img_login">
-                  </a>
+						<a href="/api/naver/oauth">
+							<img src="/img/naver.png" class="img_login">
+						</a>
 
-                  <a href="/oauth/kakao">
-                     <img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
-                  </a>
+						<a href="/oauth/kakao">
+							<img src="/img/kakaotalk.png" class="img_login">
+						</a>
 
-               </fieldset>
-            </div>
-         </form>
+						<a href="/oauth/kakao">
+							<img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
+						</a>
 
-      </div>
+					</fieldset>
+				</div>
+			</form>
 
-   </main>
+		</div>
+
+	</main>
 </body>
 
 </html>
