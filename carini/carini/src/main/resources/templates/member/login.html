@@ -14,18 +14,23 @@
    import TextField from '@mui/material/TextField';
 </script>
 <style>
-   .field-error {
-      border-color: #dc3545;
-      color: #dc3545;
-   }
+	.field-error {
+		border-color: #dc3545;
+		color: #dc3545;
+		font-size: small;
+		width: 120%;
+		text-align: left;
+	}
 </style>
 
 <body>
-   <!--Header-->
-   <header th:replace="~{base/base :: main_header}"></header>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
 
-   <!-- Main -->
-   <main>
+	<!-- Main -->
+	<main>
+
+		<section class="SubTitle">Login</section>
 
       <section class="SubTitle">Login</section>
 
@@ -40,19 +45,20 @@
 
                   <input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
 
-                  <div style="height: 10px;"></div>
 
-                  <div class="field-error" th:errors="*{memberId}" style="font-size: 15px;">
-                     아이디 오류
-                  </div>
+				  
+						<div class="field-error" th:if="${memberIdError}" th:text="${memberIdError}">
+							아이디오류
+						</div>
+						
+						<input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
+							size="25">
 
-                  <input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
-                     size="25">
+						<div class="field-error" th:if="${memberPwError}" th:text="${memberPwError}">
+							비밀번호오류
+						</div>
 
-                  <div class="field-error" th:errors="*{memberPw}" style="font-size: 15px;">
-                     비물번호 오류
-                  </div>
-
+						<div style="height: 15px;"></div>
 
                   <div style="height: 15px;"></div>
 
@@ -65,7 +71,6 @@
                      <a th:href="@{/find_pwForm}">비밀번호찾기</a>/
                      <a href="/signup"> 회원가입</a>
                   </div>
-
 
                   <a href="/api/naver/oauth">
                      <img src="/img/naver.png" class="img_login">

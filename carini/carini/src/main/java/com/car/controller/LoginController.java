@@ -95,7 +95,6 @@ public class LoginController {
 		return "redirect:/home";
 	}
 
-	
 	@GetMapping("/home")
 	public String goHome(HttpSession session, Model model) {
 		

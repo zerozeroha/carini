@@ -1,9 +1,9 @@
 * {
-	margin: 0;
-	padding: 0;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	letter-spacing: 2px;
-	cursor: default;
+   margin: 0;
+   padding: 0;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   letter-spacing: 2px;
+   cursor: default;
 }
 
 
@@ -13,12 +13,12 @@
 /* body */
 
 body {
-	background: white;
-	color: #5b5b5b;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	letter-spacing: 2px;
-	margin: 0;
-	padding: 0;
+   background: white;
+   color: #5b5b5b;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   letter-spacing: 2px;
+   margin: 0;
+   padding: 0;
 }
 
 
@@ -26,36 +26,36 @@ body {
 
 /* 소제목 영역 */
 section {
-	height: 50px;
-	width: 100%;
-	text-align: center;
-	align-items: center;
-	margin: 5% 16%;
+   height: 50px;
+   width: 100%;
+   text-align: center;
+   align-items: center;
+   margin: 5% 16%;
 }
 
 /* 소제목 */
 .SubTitle {
-	font-size: 60px;
-	font-weight: 1000;
-	color: black;
-	width: 70%;
-	height: 10%;
-	display: flex;
-	flex-direction: column;
-	letter-spacing: 6px;
+   font-size: 60px;
+   font-weight: 1000;
+   color: black;
+   width: 70%;
+   height: 10%;
+   display: flex;
+   flex-direction: column;
+   letter-spacing: 6px;
 
 }
 
 
 /* 소제목 소개글 */
 #SubTitle_Text {
-	display: inline;
-	align-items: center;
-	justify-content: center;
-	font-weight: 900;
-	text-align: center;
-	font-size: 30px;
-	color: black;
+   display: inline;
+   align-items: center;
+   justify-content: center;
+   font-weight: 900;
+   text-align: center;
+   font-size: 30px;
+   color: black;
 }
 
 
@@ -63,86 +63,86 @@ section {
 /* Main */
 
 main {
-	height: 1000px;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
+   height: 1000px;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
 }
 
 
 /* form */
 
 form {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   width: 100%;
 }
 
 
 /* 박스적용 css */
 
 .div {
-	width: 100%;
-	height: 5%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 1%;
+   width: 100%;
+   height: 5%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 1%;
 }
 
 
 /* Container */
 
 .container {
-	margin: auto;
-	justify-content: center;
-	align-items: center;
-	width: 1200px;
+   margin: auto;
+   justify-content: center;
+   align-items: center;
+   width: 1200px;
 }
 
 /* 세로박스 */
 .flex-container_column {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 95%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 95%;
 }
 
 /* 가로박스 */
 .flex-container_row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 90%;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 90%;
 }
 
 .flex-container>div {
-	background-color: white;
-	text-align: center;
+   background-color: white;
+   text-align: center;
 }
 
 /* 각 라인들을 감싸는 박스 */
 .flex-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 100%;
-	background-color: white;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   background-color: white;
 }
 
 .flex-container>div {
-	background-color: white;
-	text-align: center;
+   background-color: white;
+   text-align: center;
 }
 
 
@@ -155,79 +155,79 @@ form {
 /* Table */
 
 table {
-	width: 100%;
-	height: 70%;
-	border-collapse: collapse;
-	font-size: larger;
-	font-weight: 700;
+   width: 100%;
+   height: 70%;
+   border-collapse: collapse;
+   font-size: larger;
+   font-weight: 700;
 }
 
 th {
-	width: 35%;
-	padding: 1%;
-	font-weight: bold;
-	text-align: center;
-	border-bottom: 1.5px solid #BFBCBA;
-	border-top: 1.5px solid #BFBCBA;
-	background-color: #F2F2F2;
-	color: #222426;
-	font-weight: bold;
-	font-family: inherit;
-	height: 90px;
+   width: 35%;
+   padding: 1%;
+   font-weight: bold;
+   text-align: center;
+   border-bottom: 1.5px solid #BFBCBA;
+   border-top: 1.5px solid #BFBCBA;
+   background-color: #F2F2F2;
+   color: #222426;
+   font-weight: bold;
+   font-family: inherit;
+   height: 90px;
 }
 
 
 tr {
-	background-color: white;
+   background-color: white;
 }
 
 td {
-	background-color: white;
-	color: #222426;
-	padding: 1%;
-	text-align: center;
-	border-bottom: 1.5px solid #BFBCBA;
-	border-top: 1.5px solid #BFBCBA;
+   background-color: white;
+   color: #222426;
+   padding: 1%;
+   text-align: center;
+   border-bottom: 1.5px solid #BFBCBA;
+   border-top: 1.5px solid #BFBCBA;
 }
 
 /* 수정하기 버튼 */
 
 #edit_save_td {
-	color: black;
-	background-color: white;
-	border: 2px solid #BFBCBA;
-	width: 120px;
-	cursor: pointer;
-	font-weight: bold;
-	padding: 1% 2%;
+   color: black;
+   background-color: white;
+   border: 2px solid #BFBCBA;
+   width: 120px;
+   cursor: pointer;
+   font-weight: bold;
+   padding: 1% 2%;
 }
 
 #edit_save_td:hover {
-	border: 2px solid #FFCC4C;
+   border: 2px solid #FFCC4C;
 }
 
 
 button {
-	background-color: white;
-	color: black;
-	font-size: 20px;
-	padding: 5% 10%;
-	border: 1px solid black;
-	font-weight: bolder;
-	border-radius: 0.5rem;
-	cursor: pointer;
+   background-color: white;
+   color: black;
+   font-size: 20px;
+   padding: 5% 10%;
+   border: 1px solid black;
+   font-weight: bolder;
+   border-radius: 0.5rem;
+   cursor: pointer;
 }
 
 button:hover {
-	background-color: black;
-	color: white;
-	font-weight: 800;
-	font-size: 20px;
-	padding: 5% 10%;
-	border: 1px solid black;
-	font-weight: bolder;
-	border-radius: 0.5rem;
-	cursor: pointer;
+   background-color: black;
+   color: white;
+   font-weight: 800;
+   font-size: 20px;
+   padding: 5% 10%;
+   border: 1px solid black;
+   font-weight: bolder;
+   border-radius: 0.5rem;
+   cursor: pointer;
 }
 
 /* input요소 : table에 td자리 */
@@ -237,35 +237,35 @@ input[type="text"],
 input[type="password"],
 input[type="tel"],
 input[type="submit"] {
-	background: white;
-	border-radius: 0.5em;
-	border: 2px solid lightgray;
-	margin: 1%;
-	padding: 2%;
-	padding-left: 3%;
-	cursor: text;
-	font-size: 18px;
-	font-weight: 500;
+   background: white;
+   border-radius: 0.5em;
+   border: 2px solid lightgray;
+   margin: 1%;
+   padding: 2%;
+   padding-left: 3%;
+   cursor: text;
+   font-size: 18px;
+   font-weight: 500;
 }
 
 input[type="email"] {
-	background: white;
-	border-radius: 0.5em;
-	border: 2px solid lightgray;
-	margin: 1%;
-	padding: 2%;
-	padding-left: 3%;
-	cursor: text;
-	font-size: 18px;
-	font-weight: 500;
+   background: white;
+   border-radius: 0.5em;
+   border: 2px solid lightgray;
+   margin: 1%;
+   padding: 2%;
+   padding-left: 3%;
+   cursor: text;
+   font-size: 18px;
+   font-weight: 500;
 }
 
 
 
 
 #search {
-	height: 15px;
-	width: 30px;
+   height: 15px;
+   width: 30px;
 }
 
 
@@ -273,9 +273,9 @@ input[type="email"] {
 /* a */
 
 a {
-	color: inherit;
-	text-decoration: none;
-	cursor: pointer;
+   color: inherit;
+   text-decoration: none;
+   cursor: pointer;
 
 }
 
@@ -283,53 +283,53 @@ a {
 /* a.hover */
 
 a:hover {
-	-webkit-text-stroke: 0.5px black;
-	cursor: pointer;
+   -webkit-text-stroke: 0.5px black;
+   cursor: pointer;
 
 }
 
 
 /* 각 종 hover들 */
 a.icon-hover:hover {
-	background-color: white;
+   background-color: white;
 }
 
 .float_hover:hover {
-	background-color: whitesmoke !important;
+   background-color: whitesmoke !important;
 }
 
 
 .side-hover:hover {
-	color: white !important;
-	background-color: black !important;
-	border-radius: 0.5rem;
-	padding: 1.5%;
+   color: white !important;
+   background-color: black !important;
+   border-radius: 0.5rem;
+   padding: 1.5%;
 }
 
 a.Board-hover {
-	text-decoration: none;
-	color: black;
+   text-decoration: none;
+   color: black;
 }
 
 a.Board-hover:hover {
-	text-decoration: underline;
+   text-decoration: underline;
 }
 
 select:hover {
-	border: 2px solid rgb(170, 170, 170);
+   border: 2px solid rgb(170, 170, 170);
 }
 
 /* 자세히 보기 */
 .btn:hover {
-	color: black;
-	text-shadow: 1px 1px 1px 1px white;
+   color: black;
+   text-shadow: 1px 1px 1px 1px white;
 
 }
 
 
 .information_box {
-	width: 130%;
-	height: 100%
+   width: 130%;
+   height: 100%
 }
 
 
@@ -337,115 +337,115 @@ select:hover {
 
 #Favorites_box {
 
-	height: 90%;
-	width: 75%;
-	display: flex;
-	flex-direction: column;
-	margin-top: 50px;
+   height: 90%;
+   width: 75%;
+   display: flex;
+   flex-direction: column;
+   margin-top: 50px;
 }
 
 #Favorites_box>P {
-	float: left;
-	flex-direction: row;
-	font-size: 45px;
-	font-weight: 700;
-	color: #000;
+   float: left;
+   flex-direction: row;
+   font-size: 45px;
+   font-weight: 700;
+   color: #000;
 }
 
 .card {
-	margin: 10px;
-	padding: 1%;
-	;
-	text-align: center;
-	height: 350px;
-	background-color: #fff;
+   margin: 10px;
+   padding: 1%;
+   ;
+   text-align: center;
+   height: 350px;
+   background-color: #fff;
 }
 
 .card-text {
-	padding: 8% 1%;
+   padding: 8% 1%;
 }
 
 .card_box {
-	height: 800px;
-	display: flex;
-	flex-wrap: wrap;
-	flex: 1;
-	overflow: scroll;
-	overflow-x: hidden;
+   height: 800px;
+   display: flex;
+   flex-wrap: wrap;
+   flex: 1;
+   overflow: scroll;
+   overflow-x: hidden;
 }
 
 .card-title {
-	font-weight: 700;
-	background-color: whitesmoke;
-	height: 15px;
-	padding-bottom: 10px;
+   font-weight: 700;
+   background-color: whitesmoke;
+   height: 15px;
+   padding-bottom: 10px;
 }
 
 .card:hover {
-	background-color: #f5f5f5;
-	border-radius: 30px;
-	box-shadow: inset 0 1px 0 0 rgba(192, 192, 192, .35);
+   background-color: #f5f5f5;
+   border-radius: 30px;
+   box-shadow: inset 0 1px 0 0 rgba(192, 192, 192, .35);
 }
 
 .card_button_box {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	bottom: 0;
-	font-weight: 700;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   bottom: 0;
+   font-weight: 700;
 }
 
 .delete_button {
-	background-color: whitesmoke;
-	display: flex;
-	width: 30px;
-	height: 30px;
-	border: 0px;
-	align-items: center;
-	justify-content: center;
-	margin-left: 12px;
-	padding: 0%;
+   background-color: whitesmoke;
+   display: flex;
+   width: 30px;
+   height: 30px;
+   border: 0px;
+   align-items: center;
+   justify-content: center;
+   margin-left: 12px;
+   padding: 0%;
 }
 
 #member_quit {
-	font-size: 13px;
-	height: 25px;
-	width: 70px;
-	color: black;
-	background-color: white;
-	padding: 0%;
-	border: 0px;
-	margin-left: 900px;
+   font-size: 13px;
+   height: 25px;
+   width: 70px;
+   color: black;
+   background-color: white;
+   padding: 0%;
+   border: 0px;
+   margin-left: 900px;
 }
 
 #first_card_box {
-	width: 100%
+   width: 100%
 }
 
 .card-img-top {
-	width: 280px
+   width: 280px
 }
 
 /* 닉네임 옆에 연필모양 버튼 */
 .pencil-button {
-	padding: 0% !important;
-	margin: 0%;
-	border: 0px;
-	cursor: pointer;
-	width: 10%;
+   padding: 0% !important;
+   margin: 0%;
+   border: 0px;
+   cursor: pointer;
+   width: 10%;
 }
 
 
 .pencil-button:hover {
-	padding: 0%;
-	margin: 0%;
-	border: 0px;
-	cursor: pointer;
-	width: 10%;
-	background-color: white;
+   padding: 0%;
+   margin: 0%;
+   border: 0px;
+   cursor: pointer;
+   width: 10%;
+   background-color: white;
 }
 
 /* 연필 이미지 */
 #pencil:hover {
-	background-color: white;
+   background-color: white;
 }
