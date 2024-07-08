@@ -29,21 +29,20 @@ section {
 	width: 100%;
 	text-align: center;
 	align-items: center;
+	border-bottom: 1px solid #FFCC4C;
 }
 
 .SubTitle {
 	/* 소제목 */
-	height: auto;
-	font-size: 110px;
+	font-size: 50px;
 	font-weight: 500;
 	text-align: center;
-	color: #FFCC4C;
+	color: #222222;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	letter-spacing: 10px;
 	cursor: pointer;
-	padding: 0%;
+	padding-top: 2%;
 	margin: 0%;
 }
 
@@ -58,15 +57,16 @@ section {
 
 
 main {
-	padding-bottom: 5%;
+	padding: 0%;
 	width: 100%;
+	height: 100%;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	flex-direction: row;
 	border-top: 5px solid #FFCC4C;
 	border-bottom: 5px solid #FFCC4C;
-	background-color: #FFCC4C;
+	padding: 2%;
 }
 
 
@@ -132,7 +132,7 @@ form {
 
 section {
 	width: 70%;
-	height: 80%;
+	height: 150px;
 }
 
 
@@ -186,10 +186,10 @@ iframe {
 /*  loginbox */
 
 fieldset {
-	width: 750px;
-	height: 900px;
+	width: 80%;
+	height: 90%;
 	color: black;
-	border: 1px solid #FFCC4C;
+	border: 1px solid white;
 	border-radius: 0.5rem;
 	display: flex;
 	flex-direction: column;
@@ -197,7 +197,8 @@ fieldset {
 	justify-content: center;
 	text-align: center;
 	background-color: white;
-	padding: 0%;
+	padding: 1%;
+	margin: 1%;
 }
 
 legend {
@@ -206,7 +207,6 @@ legend {
 	align-items: center;
 	justify-content: center;
 	color: white;
-	-webkit-text-stroke: 0.9px #FFCC4C;
 	font-size: 80px;
 }
 
@@ -253,17 +253,18 @@ button,
 .button {
 	height: 60px;
 	width: 340px;
-	font-size: 25px;
+	font-size: 15px;
 	padding: 1%;
 	position: relative;
 	display: inline-block;
 	background-color: white;
 	color: black;
-	text-align: center;
-	border-radius: 0.5em;
-	border: 2px solid #222222;
+	text-align: left;
+	border-radius: 0.2em;
+	border: 1px solid #222222;
 	cursor: text;
 	margin: 0%;
+	
 }
 
 
@@ -277,30 +278,30 @@ button,
 .button {
 	height: 40px;
 	width: 500px;
-	font-size: 25px;
+	font-size: 15px;
 	padding: 1%;
 	position: relative;
 	display: inline-block;
 	background-color: white;
 	color: black;
-	text-align: center;
-	border-radius: 0.5em;
-	border: 2px solid white;
-	border: 2px solid #222222;
+	text-align: left;
+	border-radius: 0.2em;
+	border: 1px solid #222222;
 	cursor: text;
 	margin: 0%;
 }
 
 P {
 	color: #222222;
+	font-size: 12px;
 }
 
 
 input[type="button"],
 input[type="submit"] {
-	height: 70px;
-	width: 350px;
-	font-size: 20px;
+	height: 50px;
+	width: 150px;
+	font-size: 15px;
 	padding: 1%;
 	position: relative;
 	display: inline-block;
@@ -316,9 +317,9 @@ input[type="submit"] {
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
-	height: 70px;
-	width: 345px;
-	font-size: 25px;
+	height: 50px;
+	width: 150px;
+	font-size: 18px;
 	padding: 1%;
 	position: relative;
 	display: inline-block;
