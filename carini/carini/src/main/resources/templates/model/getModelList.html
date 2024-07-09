@@ -42,7 +42,7 @@
 		}
 
 		th {
-			background-color: #FFCC4C;
+			background-color: #BFBCBA;
 			color: white;
 			font-size: 1.3rem;
 			border-top: 1px solid #222222;
@@ -259,7 +259,7 @@
                      </p>
                      <p class="card-text" style="font-size: 15px; height: 10px;" th:text="|연비 : ${car.carEff}|">
                      </p>
-                     <div class="card_button_box" style=" margin-left: 30%; font-size: 15px; margin-top:3%;">
+                     <div class="card_button_box" style=" margin-left: 30%; font-size: 15px; margin-top:6%;">
                         <a th:href="@{/model/getModel(carId=${car.carId})}" class="detail"> 자세히 보기 </a>
                         <img th:src="${car.isBookmarked} ? @{/img/bookmarked.png} : @{/img/unbookmarked.png}"
                            th:alt="${car.isBookmarked} ? '즐겨찾기 삭제' : '즐겨찾기 추가'"

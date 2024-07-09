@@ -176,6 +176,7 @@ select {
    margin: 0%;
    padding: 1%;
    cursor: text;
+   resize:none;
 }
 
 form input[type="text"],
@@ -287,11 +288,11 @@ font-size: 23px;
 table {
    width: 100%;
    border-collapse: collapse;
-   border-top: 1px solid black; 
-    border-bottom: 1px solid black; 
+   border-top: 1px solid  #BFBCBA; 
+    border-bottom: 1px solid  #BFBCBA; 
    font-size: larger;
    font-weight: 700;
-   border-bottom: 2px solid black;
+   border-bottom: 2px solid  #BFBCBA;
 }
 
 th,
@@ -302,9 +303,10 @@ td {
 }
 
 th {
-   background-color: #333;
+   background-color:  #BFBCBA;
    color: white;
    font-weight: bold;
+   border-right: 3px solid white;
 }
 
 tr {

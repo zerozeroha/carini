@@ -374,7 +374,7 @@ form select,
 form textarea {
 	background: white;
 	border-radius: 0.5em;
-	border: 2px solid black;
+	border: 2px solid #BFBCBA;
 	margin: 0.1px;
 	padding: 0.1px;
 }
@@ -531,17 +531,11 @@ button,
 	border-radius: 0.5em;
 	text-decoration: none;
 	padding: 0.65em 0.5em 0.65em 0.5em;
-	border: 2px solid black;
+	border: 2px solid #BFBCBA;
 	cursor: pointer;
 	outline: 0;
 	margin: 5px;
-	font-weight: 300;
-	-webkit-text-stroke: 0.4px black;
-	/* 버튼 화면전환 효과 (0.35초씩 늦게 껐다가 켜짐) */
-	/* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
+	font-weight: 500;
 }
 
 
@@ -551,63 +545,21 @@ button,
 a {
 	color: inherit;
 	text-decoration: none;
-	/* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
 }
 
-
-
-/* hover */
 
 
 /* a.hover */
 
 a:hover {
-	/* background-color: black; */
 	color: white;
-	/* -webkit-text-stroke: 0.5px white; */
-	/* border-bottom-color: transparent; */
-	border-radius: 0.5rem;
 	background-color: none;
 }
 
-.float_hover:hover {
-	background-color: white;
-	height: 50px;
-	margin-top: 18px;
-	height: 50px;
-	width: 50px;
-	position: sticky;
-	/* 화면에서 고정 위치에 놓습니다 */
-	top: 40%;
-	/* 화면 높이의 50%에서 고정됩니다 */
-	right: 0px;
-	z-index: 300;
-	/* 다른 요소 위에 표시될 수 있도록 설정합니다 */
-	float: right;
-	margin: 15px;
-}
 
-.side-hover:hover {
-	color: white !important;
-	background-color: black !important;
-	border-radius: 0.5rem;
-	padding: 1.5%;
-}
-
-a.Board-hover {
-	text-decoration: none;
-	color: black;
-}
-
-a.Board-hover:hover {
-	text-decoration: underline;
-}
 
 select:hover {
-	border: 2px solid rgb(170, 170, 170);
+	border: 2px solid #FFCC4C;
 }
 
 /* button.hover */
@@ -619,20 +571,18 @@ button:hover,
 .button:hover {
 	position: relative;
 	display: inline-block;
-	background-color: black;
-	color: white;
+	color: #222222;
 	text-align: center;
 	border-radius: 0.5em;
 	text-decoration: none;
-	border: 2px solid black;
+	border: 2px solid #FFCC4C;
 	cursor: pointer;
 	outline: 0;
-	font-weight: 300;
-	-webkit-text-stroke: 0.4px white;
+	font-weight: 500;
 }
 
 input[type="text"]:hover {
-	border: 2px solid lightgray;
+	border: 2px solid #FFCC4C;
 }
 
 
