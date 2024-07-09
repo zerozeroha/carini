@@ -116,14 +116,6 @@ public class BoardController {
 		curPage = Math.max(curPage, 0);
 		Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("boardId").descending());
 		Page<Board> pagedResult = boardService.getBoardList(pageable, searchType, searchWord);
-		List<Notice> noticeList = noticeService.noticeList();
-
-		noticeList = noticeList.stream().sorted(Comparator.comparing(Notice::getNoticeDate).reversed())
-				.collect(Collectors.toList());
-
-		if (noticeList.size() > 2) {
-			noticeList = noticeList.subList(0, 3);
-		}
 
 		int totalRowCount = (int) pagedResult.getNumberOfElements();
 		int totalPageCount = pagedResult.getTotalPages();
@@ -154,7 +146,6 @@ public class BoardController {
 		model.addAttribute("st", searchType);
 		model.addAttribute("sw", searchWord);
 		model.addAttribute("boardList", pagedResult.getContent()); // Add this line
-		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("inquiry", new Inquiry());
 
 		return "board/getBoardList";

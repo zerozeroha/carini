@@ -3,30 +3,31 @@
 	<!-- Inner -->
 	<div class="alertBox" id="fixed-bar">
 
-		<nav id="nav">
-			<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1; font-weight: normal;">CARINI</a>
+		<nav id="nav" style="font-weight:bold;">
+			<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1; font-weight: bold;">CARINI</a>
 			<ul style="border: none;">
-				<li><a th:href="@{/board/getBoardList}" style="font-weight: normal;">BOARD</a>
+				<li><a th:href="@{/board/getBoardList}" style="font-weight: bold;">BOARD</a>
 					<ul style="border: none;">
-						<li><a th:href="@{/board/getBoardList}" style="text-align: center; font-weight: normal;" class="side-hver">커뮤니티</a>
+						<li><a th:href="@{/board/getBoardList}" style="text-align: center; font-weight: bold;" class="side-hver">커뮤니티</a>
 						</li>
-						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center; font-weight: normal;" class="side-hver">공지사항</a>
+						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center; font-weight: bold;" class="side-hver">공지사항</a>
 						</li>
 					</ul>
 				</li>
-				<li><a th:href="@{/model/getModelList}" style="font-weight: normal;">MODEL</a></li>
-				<li><a th:href="@{/center/centerMap}" style="font-weight: normal;">CENTER</a></li>
+				<li><a th:href="@{/model/getModelList}" style="font-weight: bold;">MODEL</a></li>
+				<li><a th:href="@{/center/centerMap}" style="font-weight: bold;">CENTER</a></li>
 				<li th:if="${session.user != null}">
 					<a>MYPAGE</a>
 					<ul style="border: none;">
-						<li><a th:href="@{/mypage/form}" style="text-align: center; font-weight: normal;" class="side-hver"
+						<li><a th:href="@{/mypage/form}" style="text-align: center; font-weight: bold;" class="side-hver"
 								th:text="#{side.menu1}"></a></li>
-						<li><a th:href="@{/mypage/bookmark}" style="text-align: center; font-weight: normal;" class="side-hver"
+						<li><a th:href="@{/mypage/bookmark}" style="text-align: center; font-weight: bold;" class="side-hver"
 								th:text="#{side.menu2}"></a></li>
-						<li><a th:href="@{/mypage/myBoard}" style="text-align: center; font-weight: normal;" class="side-hver"
+						<li><a th:href="@{/mypage/myBoard}" style="text-align: center; font-weight: bold;" class="side-hver"
 								th:text="#{side.menu3}"></a></li>
 					</ul>
 				</li>
+				<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a style="font-weight: normal;" th:href="@{/admin/adminList}">ADMIN</a></li>
 				<li th:if="${session.user == null}"><a style="font-weight: normal;" th:href="@{/member_login}">LOGIN</a></li>
 				<li th:if="${session.user != null}"><a style="font-weight: normal;" th:href="@{/user_logout}">LOGOUT</a></li>
 			</ul>

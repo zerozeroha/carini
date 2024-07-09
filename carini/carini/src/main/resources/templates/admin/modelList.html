@@ -57,7 +57,7 @@
 	<!-- Main -->
 	<main>
 		<div class="flex-container_column" style="width: 100%;">
-			<form
+			<form id="modelList"
 				th:action="@{/admin/modelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
 				method="get">
 				<div class="flex-container_column">

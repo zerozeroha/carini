@@ -36,7 +36,7 @@
 			</div>
 			<div class="alertBox" id="fixed-bar">
 				<nav id="nav">
-					<a th:href="@{/home}" style="color:#FFCC4C; opacity: 1;">CARINI</a>
+					<a th:href="@{/home}"  class="carini">CARINI</a>
 					<ul style="border: none;">
 						<li><a th:href="@{/board/getBoardList}">BOARD</a>
 							<ul style="border: none;">
@@ -59,6 +59,7 @@
 										th:text="#{side.menu3}"></a></li>
 							</ul>
 						</li>
+						<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a style="font-weight: normal;" th:href="@{/admin/adminList}">ADMIN</a></li>
 						<li th:if="${session.user == null}"><a th:href="@{/member_login}">LOGIN</a></li>
 						<li th:if="${session.user != null}"><a th:href="@{/user_logout}">LOGOUT</a></li>
 					</ul>
