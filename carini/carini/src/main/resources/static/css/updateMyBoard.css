@@ -152,6 +152,7 @@ input, textarea, select {
     margin: 0%;
     padding: 1%;
     cursor: text;
+    resize:none;
  }
 
 form input[type="text"],

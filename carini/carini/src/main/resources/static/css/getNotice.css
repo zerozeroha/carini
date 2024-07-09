@@ -150,6 +150,7 @@ input, textarea, select {
     background-color: white;
     margin: 0%;
     padding: 1%;
+    resize:none;
  }
 
 form input[type="text"],
@@ -192,7 +193,7 @@ th, td {
 }
 
 th {
-    background-color: #333;
+    background-color:  #BFBCBA;
     color: white;
     font-weight: bold;
 }
@@ -229,7 +230,7 @@ button,
     color: black;
     text-align: left;
     text-decoration: none;
-    border: 1px solid;
+    border: 1px solid white;
     outline: 0;
     font-weight: 700;
 
@@ -249,7 +250,6 @@ a {
 /* a.hover */
 
  a:hover {
-    -webkit-text-stroke: 0.5px black;
 
 
 }

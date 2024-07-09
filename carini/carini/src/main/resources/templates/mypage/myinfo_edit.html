@@ -62,6 +62,17 @@
 
                         </tr>
                      </form>
+									<td th:unless="${session.user.memberSocial == 'user'}">
+										<input type="text" name="memberSocialNickname"
+											th:value="${session.showuser.memberSocialNickname}">
+										<button class="pencil-button" id="editNickname" type='submit'
+											style="width: 50%">
+											<img th:src="@{/img/edit_icon.png}" alt="edit icon"
+												style="height: 15px; width: 15px;">
+										</button>
+                  </td>
+                        </tr>
+                     </form>
 
                      <form th:action="@{/mypage/myinfo/updateAll}" method="post"
                         th:object="${Update_InfoFormValidation}">
@@ -193,7 +204,6 @@
                         </tr>
 
                   </table>
-
                   <div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
               
 						<!--사용자만 쓰는 수정하기 버튼-->
@@ -221,14 +231,15 @@
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
-	<script th:replace="~{base/base :: inquiry_script}"></script>
 	
+	<script th:replace="~{base/base :: inquiry_script}"></script>
 	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
 	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
 	<script src="/js/Inquiry/inquiry.js"></script>
+
 
 	<!-- Scripts -->
 	<script src="/js/jquery.dropotron.min.js"></script>
