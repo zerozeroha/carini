@@ -6,9 +6,11 @@ import com.car.exception.errorcode.ErrorCode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class BoardDeleteFileException extends RuntimeException{
 
 	private ErrorCode errorCode; 
