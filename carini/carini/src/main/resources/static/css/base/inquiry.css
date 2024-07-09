@@ -181,7 +181,7 @@
    cursor: pointer;
    color: black;
    border: 3px solid black;
-   margin: 0 auto;
+
 }
 
 .qna_button:hover {
@@ -338,6 +338,7 @@
    display: block;
 }
 
+
 #inquiry_close-popup {
    position: absolute;
    top: 10px;
@@ -349,7 +350,6 @@
    padding: 1% 5% 5% 3.5%;
    border: 3px solid black;
 }
-
 #inquiry_close-popup:hover {
    background-color: black;
 }
@@ -417,49 +417,4 @@
 
 #button_list {
    margin-top: 30px
-}
-
-
-
-#inquiry_close-popup {
-   position: absolute;
-   top: 10px;
-   right: 10px;
-   font-size: 20px;
-   width: 5px;
-   height: 5px;
-
-
-}
-
-
-.delete_qna {
-
-   background-color: #f7f7f7;
-   padding: 2% 2.5%;
-   text-align: center;
-   font-weight: 700;
-   font-size: 20px
-}
-
-
-#inquiry_close-popup , .delete_qna {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   text-align: center;
-   cursor: pointer;
-   border-style: none;
-   width: 20px;
-   height: 20px;
-   
-}
-
-.delete_qna:hover {
-   background-color: black;
-   border: 3px solid black;
-   padding: 2% 2.5%;
-   text-align: center;
-
-   font-size: 20px;
 }
