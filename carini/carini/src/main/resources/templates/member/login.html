@@ -29,11 +29,8 @@
 
 	<!-- Main -->
 	<main>
-
 		<section class="SubTitle">Login</section>
-
 		<div class="flex-container_column">
-
 			<form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
 				method="post">
 
@@ -58,8 +55,6 @@
 						<div style="height: 15px;"></div>
 
 						<input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
-
-
 						<div class="flex-container_row"
 							style="height: 60px; width: 300px; font-size: 15px; font-weight: 200;gap:5px">
 							<a th:href="@{/find_idForm}">
@@ -70,12 +65,11 @@
 						<a href="/api/naver/oauth">
 							<img src="/img/naver.png" class="img_login">
 						</a>
-
 						<a href="/oauth/kakao">
 							<img src="/img/kakaotalk.png" class="img_login">
 						</a>
 
-						<a href="/oauth/kakao">
+						<a href="/oauth/google">
 							<img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
 						</a>
 

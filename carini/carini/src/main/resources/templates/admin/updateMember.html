@@ -13,6 +13,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+<style>
+	td {
+		border: 1px solid #BFBCBA;;
+	}
+	
+	input {
+		width: 100%;
+	}
+</style>
 
 <body>
 	<!--Header-->
@@ -88,8 +97,9 @@
 					</table>
 				</div>
 				<div class="flex-container_row">
-					<button type="submit" class="btn btn-primary">Update Member</button>
-					<a th:href="@{/admin/deleteMember(memberId=${member.memberId})}">Delete Member</a>
+					<button type="submit" class="btn btn-primary" style="margin-right: 13px;" th:text="#{member.update}">Update Member</button>
+					<a th:href="@{/admin/deleteMember(memberId=${member.memberId})}" th:text="#{member.delete}">Delete Member</a>
+					<a th:href="@{/admin/memberList}" style="margin-left: 13px;" th:text="#{member.list}">Member List</a>
 				</div>
 			</div>
 		</form>
