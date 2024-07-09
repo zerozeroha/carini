@@ -5,10 +5,12 @@ import java.util.Map;
 import com.car.exception.errorcode.ErrorCode;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class CodeNumberException extends RuntimeException{
 	
 	private ErrorCode errorCode; 
