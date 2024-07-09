@@ -27,7 +27,7 @@ function addComment() {
 					boardId: board_ID
 				},
 				success: function(response) {
-					updateCommentsTable(response.comments, user_ID, board_ID,user_Nickname);
+					updateCommentsTable(response.comments, user_ID, board_ID, user_Nickname);
 					$("#commentContent").val('');
 					$("#contentErrors").text("");
 				}
@@ -52,7 +52,7 @@ function addComment() {
 /*
 	댓글쓴후 보여주기
 */
-function updateCommentsTable(comments, userId, boardId,user_Nickname) {
+function updateCommentsTable(comments, userId, boardId, user_Nickname) {
 	$("#commentsTable tbody").empty();
 
 	// 새로운 댓글 데이터를 추가합니다.
@@ -70,7 +70,7 @@ function updateCommentsTable(comments, userId, boardId,user_Nickname) {
 		} else {
 			deleteButton = '<td></td>';
 		}
-		let usercommentmember= comment.userNickname;
+		let usercommentmember = comment.userNickname;
 		var row = `
             <tr id="${comment.commentId}">
                 <td >${comment.userNickname}</td>
@@ -129,6 +129,7 @@ function deleteComment(link) {
 /*
 	대댓글 쓰기
  */
+
 function addComment_Reply(link) {
 	$(link).addClass("disabled");
 	console.log(link);
@@ -140,14 +141,14 @@ function addComment_Reply(link) {
 	$("#comment_more" + commentId).removeClass("disabled");
 	$("#comment_more_" + commentId).removeClass("disabled");
 	$(".comment_moreList_" + commentId).remove();
-	addReplyRow(link, commentId, boardId, memberNickname,commentmemberNickname);
+	addReplyRow(link, commentId, boardId, memberNickname, commentmemberNickname);
 
 }
 
 /*
 	대댓글 쓰는 폼
  */
-function addReplyRow(link, commentId, boardId, memberNickname,commentmemberNickname) {
+function addReplyRow(link, commentId, boardId, memberNickname, commentmemberNickname) {
 	console.log("================");
 	console.log(commentmemberNickname);
 	var replyRow = `
@@ -156,9 +157,15 @@ function addReplyRow(link, commentId, boardId, memberNickname,commentmemberNickn
                     	<div class="field-error" id="replyTextAreaError">
 
 						</div>
-                        <textarea class="replyTextArea" placeholder="${commentmemberNickname}님에게 남길 답글" style="resize: none;width:"100%;height:50px></textarea>
-                        <button style="cursor:pointer;padding:5px 10px;" onclick="saveReply(${commentId},${boardId},'${memberNickname}')">저장</button>
-                        <button style="cursor:pointer;padding:5px 10px;" data-commentid="${commentId}" onclick="cancelReply(this)">취소</button>
+                        <textarea class="replyTextArea" placeholder="${commentmemberNickname}님에게 남길 답글" style="resize: none;width:"100%;height:50px;></textarea>
+                        <button style="cursor:pointer; padding:1px 10px;"
+				        onmouseover="this.style.color='#BFBCBA';"
+				        onmouseout="this.style.color='black';"
+        				onclick="saveReply(${commentId},${boardId},'${memberNickname}')">등록</button>
+                        <button style="cursor:pointer;padding:1px 10px;"
+                        onmouseover="this.style.color='#BFBCBA';"
+				        onmouseout="this.style.color='black';"
+				         data-commentid="${commentId}" onclick="cancelReply(this)">취소</button>
                     </td>
                 </tr>
             `;
@@ -202,7 +209,7 @@ function saveReply(commentId, boardId, memberNickname) {
 		},
 		error: function(xhr, status, error) {
 			var response = JSON.parse(xhr.responseText);
-			
+
 			alert(response.errors.replyTextArea);
 			if (response.errors && Object.keys(response.errors).length > 0) {
 				$.each(response.errors, function(field, errorMessage) {
@@ -253,19 +260,23 @@ function comment_moreList(link, commentId, boardId) {
 				if (response.sessionNicename == comment_list.memberNickname) {
 					deleteButton = `
                 <td>
-                    <button onclick="deleteaddComment(this,${comment_list.commentReplyId},${comment_list.commentId},${comment_list.boardId})" >삭제하기</button>
+                    <button onclick="deleteaddComment(this,${comment_list.commentReplyId},${comment_list.commentId},${comment_list.boardId})" 
+                    style="cursor:pointer; font-size:14px;" 
+                    onmouseover="this.style.color='#BFBCBA';"
+        			onmouseout="this.style.color='black';" >삭제하기</button>
                 </td>`;
 				} else {
 					deleteButton = '<td></td>';
 				}
 				let replyRow = `
 				        <tr class="comment_moreList_${comment_list.commentId}">
-				            <td style="font-size:20px"></td> 
-				            <td colspan="2" style="font-size:20px">
-				            	${comment_list.memberNickname} :  &nbsp;&nbsp;&nbsp;
+				            <td style="font-size:14px; border-bottom:1px solid white;"></td> 
+				            <td colspan="2" style="font-size: 14px; text-align:start;  ">
+				            	💬
+				            	${comment_list.memberNickname} : 
 				                ${comment_list.replyTextArea}
 				            </td>
-				            <td style="font-size:20px">
+				            <td style="font-size:14px">
 				            	${date}
 				            </td> 
 				            ${deleteButton}
@@ -298,6 +309,9 @@ function deleteaddComment(link, commentReplyId, commentId, boardId) {
 	})
 
 }
+
+
+
 
 function comment_more_delete_List(commentId, boardId) {
 	console.log(commentId);
@@ -361,3 +375,16 @@ function formatDate(dateString) {
 	let day = ("0" + date.getDate()).slice(-2);
 	return `${year}-${month}-${day}`;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

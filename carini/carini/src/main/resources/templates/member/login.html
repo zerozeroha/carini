@@ -33,13 +33,19 @@
 		<div class="flex-container_column">
 			<form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
 				method="post">
+		<section class="SubTitle">Login</section>
+
+		<div class="flex-container_column">
+
+			<form th:action="@{/member_login_check(redirectURL=${redirectURL})}" th:object="${LoginFormValidation}"
+				method="post">
 
 				<div class="flex-container_column">
 
 					<fieldset>
-
 						<input type="text" th:field="*{memberId}" th:errorclass="field-error" placeholder="ID">
 
+				  
 						<div class="field-error" th:if="${memberIdError}" th:text="${memberIdError}">
 							아이디오류
 						</div>
@@ -48,7 +54,6 @@
 						
 						<input type="password" th:field="*{memberPw}" th:errorclass="field-error" placeholder="PASSWORD"
 							size="25">
-
 						<div class="field-error" th:if="${memberPwError}" th:text="${memberPwError}">
 							비밀번호오류
 						</div>
@@ -56,8 +61,6 @@
 						<div style="height: 15px;"></div>
 
 						<input id="login" type="submit" name="submit" value="LOGIN" style="text-align: center;">
-
-
 						<div class="flex-container_row"
 							style="height: 60px; width: 300px; font-size: 15px; font-weight: 200;gap:5px">
 							<a th:href="@{/find_idForm}">
@@ -65,23 +68,20 @@
 							<a th:href="@{/find_pwForm}">비밀번호찾기</a>/
 							<a href="/signup"> 회원가입</a>
 						</div>
-
 						<a href="/api/naver/oauth">
 							<img src="/img/naver.png" class="img_login">
 						</a>
-
 						<a href="/oauth/kakao">
 							<img src="/img/kakaotalk.png" class="img_login">
 						</a>
 
-						<a href="/oauth/google">
+						<a href="/oauth/kakao">
 							<img src="/img/google.png" class="img_login" style="border-radius: 0.5rem;">
 						</a>
 
 					</fieldset>
 				</div>
 			</form>
-
 		</div>
 
 	</main>

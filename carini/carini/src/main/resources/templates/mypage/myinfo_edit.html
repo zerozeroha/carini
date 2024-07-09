@@ -28,7 +28,6 @@
 			<div class="div">
 				<h3 style="color: black;">- MAKE IT MORE PERFECT -</h3>
 			</div>
-
 			<!--main 안에 있는 큰 박스-->
 			<div class="flex-container_column">
 
@@ -51,27 +50,18 @@
                               </div>
                            </td>
 
-					<!--main 안에 있는 큰 박스-->
-					<div class="flex-container_column">
+                           <td th:unless="${session.user.memberSocial == 'user'}">
+                              <input type="text" name="memberSocialNickname"
+                                 th:value="${session.showuser.memberSocialNickname}">
+                              <button class="pencil-button" id="editNickname" type='submit'
+                                 style="width: 50%">
+                                 <img th:src="@{/img/edit_icon.png}" alt="edit icon"
+                                    style="height: 15px; width: 15px;">
+                              </button>
+                           </td>
 
-						<table>
-							<form
-								th:action="${session.user.memberSocial == 'user' ? '/mypage/myinfo/updatenickname' : '/mypage/myinfo/updatenicknameSocial'}"
-								method="post">
-								<tr>
-									<th th:text="#{info.nickname}"></th>
-									<td id="nicknameCell" th:if="${session.user.memberSocial == 'user'}"
-										style="padding: 1%;">
-										<div class="flex-container_row" style="height: 30%;">
-											<input type="text" name="memberNickname"
-												th:value="${session.showuser.memberNickname}">
-											<button type='submit' class="pencil-button" id="editNickname">
-												<img th:src="@{/img/edit_icon.png}" alt="edit icon"
-													style="height: 50%; width: 50%; cursor: pointer;">
-											</button>
-										</div>
-									</td>
-
+                        </tr>
+                     </form>
 									<td th:unless="${session.user.memberSocial == 'user'}">
 										<input type="text" name="memberSocialNickname"
 											th:value="${session.showuser.memberSocialNickname}">
@@ -214,7 +204,6 @@
                         </tr>
 
                   </table>
-
                   <div class="flex-container_row" style="height: 10%;"></div><!--간격박스-->
               
 						<!--사용자만 쓰는 수정하기 버튼-->
@@ -239,7 +228,6 @@
 			return confirm("정말로 탈퇴하시겠습니까?");
 		}
 	</script>
-
 	<!-- Footer -->
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
