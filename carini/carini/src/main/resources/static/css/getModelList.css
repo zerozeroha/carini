@@ -283,8 +283,6 @@ th {
    font-weight: 900;
    border-right: 3px solid white;
    border-left: 3px solid white;
-
-
 }
 
 tr {
@@ -644,7 +642,6 @@ input[type="submit"]:hover {
    font-weight: 100;
    padding: 1% 5%;
    border: 2px solid #BFBCBA;
-
 }
 
 #combine:hover {
@@ -695,7 +692,6 @@ input[type="submit"]:hover {
    font-weight: 500;
    color: #222222;
    border: 2px solid #FFCC4C;
-
 }
 
 

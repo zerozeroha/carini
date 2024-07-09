@@ -56,7 +56,7 @@
                </select>
                <div style="width: 60%;">
                   <input name="searchWord" type="text"
-                     th:placeholder="|#{board.search.title} / #{board.search.writer}" style="width: 100%;">
+                     th:placeholder="|#{board.search.title} / #{board.search.writer}" style="width: 100%; cursor: text;">
                </div>
                <select class="form-select" id="boardSort" name="boardSort" style="width: 15%;">
                   <option value="번호순" th:selected="${bs == '번호순'}">번호순</option>
@@ -101,7 +101,7 @@
          <!--PAGINATION-->
          <div class="flex-container_row">
             <ul class="col pagination justify-content-center"
-               style="list-style-type: none; display: flex; justify-content: center; width: 130%;">
+               style="list-style-type: none; display: flex; justify-content: center; width: 130%; gap: 10px;">
                <th:block th:if="${sp > ps}">
                   <li class="page-item"><a class="Board-hover page-link"
                         th:href="@{/admin/boardList(curPage=${sp-ps}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw})}"
@@ -123,8 +123,8 @@
             </ul>
          </div>
          <div class="flex-container_row" style="text-align: right; justify-content: right;">
-            <a th:href="@{/admin/insertBoard}" th:text="#{board.writing}" style="margin-right: 50px;"></a>
-            <a th:href="@{/admin/adminList}" th:text="#{admin.adminList}"></a>
+            <a th:href="@{/admin/insertBoard}" th:text="#{board.writing}" style="margin-right:5%;cursor: pointer;"></a>
+            <a th:href="@{/admin/adminList}" th:text="#{admin.adminList}" style="cursor: pointer;"></a>
          </div>
       </div>
    </main>
