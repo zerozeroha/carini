@@ -2,23 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="utf-8">
-   <title>centerMap.html</title>
-   <link rel="stylesheet" href="/css/centerMap.css">
-   <!-- <link rel="stylesheet" href="../js/carini_script.js"> -->
+<meta charset="utf-8">
+<title>centerMap.html</title>
+<link rel="stylesheet" href="/css/centerMap.css">
+<!-- <link rel="stylesheet" href="../js/carini_script.js"> -->
 
-   <link rel="stylesheet" href="/css/base/base.css">
-   <link rel="stylesheet" href="/css/base/inquiry.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <script type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6176b21dbade8671d06887982700f4b5"></script>
-   <script th:inline="javascript">
-      var agencies = '[[${agency}]]';
-      var agenciesArray = JSON.parse(agencies);
-   </script>
-   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
-      crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/base/base.css">
+<link rel="stylesheet" href="/css/base/inquiry.css">
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript"
+   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6176b21dbade8671d06887982700f4b5"></script>
+<script th:inline="javascript">
+   var agencies = '[[${agency}]]';
+   var agenciesArray = JSON.parse(agencies);
+</script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+   integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+   crossorigin="anonymous"></script>
 </head>
 
 
@@ -38,19 +39,21 @@
       <h3>with carini</h3>
    </div>
 
-   <div style="height: 100px;"></div><!--공간 박스-->   
+   <div style="height: 100px;"></div>
+   <!--공간 박스-->
 
 
    <main>
       <div class="flex-container_row">
 
          <div class="flex-container_column"
-            style="width: 60%; height: 100%;  padding: 2% 1% ; border-radius: 0.5rem;">
-               
+            style="width: 60%; height: 100%; padding: 2% 1%; border-radius: 0.5rem; margin: 2%;">
+
             <!--지도영역-->
-            <div id="map_box" style="height: 1400px;"> <!--지도박스-->
+            <div id="map_box" style="height: 1400px;">
+               <!--지도박스-->
                <!-- 지도를 표시-->
-               <div id="map"></div>
+               <div id="map" style="width: 100%"></div>
                <!--지도-->
                <script src="/js/centerMap.js" th:inline="javascript"></script>
             </div>
@@ -60,9 +63,11 @@
             style="width: 35%; height: 100%; border: 2px solid #FFCC4C; padding: 1%; border-radius: 0.5rem;">
             <!--검색창영역-->
 
-            <form th:action="@{/center/search_address}" method="Post" style="width: 100%; height: 10%; " >
+            <form th:action="@{/center/search_address}" method="Post"
+               style="width: 90%; height: 9%;">
 
-               <select name="city" id="city" style="margin: 10px; width: 40%; cursor: pointer; ">
+               <select name="city" id="city"
+                  style="margin: 10px; width: 40%; cursor: pointer;">
                   <option value="서울특별시">서울특별시</option>
                   <option value="부산광역시">부산광역시</option>
                   <option value="대구광역시">대구광역시</option>
@@ -80,9 +85,7 @@
                   <option value="경상북도">경상북도</option>
                   <option value="경상남도">경상남도</option>
                   <option value="제주특별자치도">제주특별자치도</option>
-               </select>
-
-               <select name="gu" id="gu" style="width: 30%; cursor: pointer; ">
+               </select> <select name="gu" id="gu" style="width: 35%; cursor: pointer;">
                   <option value="강남구">강남구</option>
                   <option value="강동구">강동구</option>
                   <option value="강북구">강북구</option>
@@ -108,24 +111,27 @@
                   <option value="종로구">종로구</option>
                   <option value="중구">중구</option>
                   <option value="중랑구">중랑구</option>
-               </select>
-
-               <input type="submit" name="검색창" id="search" style="width: 50px; height: 50px; margin-left: 10px;"
+               </select> <input type="submit" name="검색창" id="search"
+                  style="width: 10%; height: 50px; margin-left: 10px; font-weight: bold;"
                   value="검색">
 
             </form>
 
-            <form th:action="@{/center/search_brand}" style="height: 10%; width: 90%; margin: 0%;" method="post">
+            <form th:action="@{/center/search_brand}"
+               style="height: 10%; width: 90%; margin: 1%; " method="post">
 
                <input type="text" name="search_brand" id="search"
-                  style="width: 250px; height: 50px; padding-left: 10px; margin: 10px;" placeholder="브랜드">
-               <input type="submit" name="검색창" id="search" style="width: 50px; height: 50px; margin-right: 20px;"
+                  style="width: 80%; height: 50px; padding-left: 10px; margin: 10px;"
+                  placeholder="브랜드"> <input type="submit" name="검색창"
+                  id="search"
+                  style="width: 10%; height: 50px; margin-right: 20px; font-weight: bold;"
                   value="검색">
 
             </form>
 
 
-            <div style="height: 80%; width: 90%; overflow-y: auto; overflow-x: visible;">
+            <div
+               style="height: 80%; width: 90%; overflow-y: auto; overflow-x: visible;">
                <table style="width: 100%; height: 600px;">
                   <thead>
                      <th>BRAND</th>
@@ -133,27 +139,23 @@
                   </thead>
                   <tbody>
                      <tr th:each="agency : ${agency}">
-                        <td>
-                           <img th:src="@{/img/carBrandLogo/{carBrand}.png(carBrand=${agency.carBrand})}"
-                              style="width:30%;" th:alt="${agency.carBrand}" />
-                        </td>
+                        <td><img
+                           th:src="@{/img/carBrandLogo/{carBrand}.png(carBrand=${agency.carBrand})}"
+                           style="width: 30%;" th:alt="${agency.carBrand}" /></td>
                         <td th:text="${agency.agencyName}"></td>
                      </tr>
                   </tbody>
-
                </table>
             </div>
 
          </div>
-
       </div>
-
-
    </main>
 
    <!-- Footer -->
    <footer th:replace="~{base/base :: main_footer}"></footer>
-   <div id="kakao-talk-channel-chat-button" style="height: 48px; width: 66px; margin-right:38px; margin-bottom:11px;">
+   <div id="kakao-talk-channel-chat-button"
+      style="height: 48px; width: 66px; margin-right: 38px; margin-bottom: 11px;">
    </div>
    <script th:replace="~{base/base :: inquiry_script}"></script>
    <!-- Inquiry -->

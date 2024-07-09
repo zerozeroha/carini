@@ -18,11 +18,40 @@
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
 	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
-	  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+		crossorigin="anonymous"></script>
 	<style>
 		.field-error {
 			border-color: #dc3545;
 			color: #dc3545;
+		}
+
+		.qna_button:hover {
+			position: absolute;
+			white-space: nowrap;
+			padding: 0;
+			width: 100px;
+			bottom: 20px;
+			left: 40%;
+			font-weight: bolder;
+			cursor: pointer;
+		}
+
+		.delete_qna:hover {
+			cursor: pointer;
+			border: none;
+			width: inherit;
+		}
+		.qna_button{
+			border: none;
+			text-align: center;
+		}
+		.qna_button:hover{
+			border: none;
+			text-align: center;
+		}
+		#form_edit {
+			display: block;
 		}
 	</style>
 </head>
@@ -59,10 +88,12 @@
 				<table>
 					<tr>
 						<td style="width: 15%;" th:text="#{board.write.writer}"></td>
-						<td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default; border: 1px solid white;"
+						<td style="width: 35%;"><input type="text" name="boardWriter"
+								style="cursor:default; border: 1px solid white;"
 								th:value="${ session.user.memberNickname }" disabled></td>
 						<td style="width: 15%;" th:text="#{board.write.date}"></td>
-						<td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default; border: 1px solid white;"
+						<td style="width: 35%;"><input type="text" name="boardDate"
+								style="cursor:default; border: 1px solid white;"
 								th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
 					</tr>
 
@@ -83,8 +114,8 @@
 						</td>
 						<td>변경파일</td>
 						<td><input type="file" name="uploadFile" aria-describedby="uploadFile" aria-label="Upload"
-								th:value="${board.boardFilename}" th:disabled="${board.boardFilename != null}" style="cursor: pointer;"
-								onchange="toggleDeleteLink(this)"></td>
+								th:value="${board.boardFilename}" th:disabled="${board.boardFilename != null}"
+								style="cursor: pointer;" onchange="toggleDeleteLink(this)"></td>
 					</tr>
 
 					<tr>
@@ -109,8 +140,8 @@
 					<div style="width: 80%;"></div>
 
 					<div style="width: 20%">
-						<a th:href="@{/board/deleteBoard(boardId=${board.boardId})}" class="list" >삭제하기</a>
-						<a onclick="document.forms['boardForm'].submit();" class="list" >수정하기</a>
+						<a th:href="@{/board/deleteBoard(boardId=${board.boardId})}" class="list">삭제하기</a>
+						<a onclick="document.forms['boardForm'].submit();" class="list">수정하기</a>
 						<a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="list"></a>
 					</div>
 				</div>
@@ -125,7 +156,7 @@
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
-	
+
 	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>

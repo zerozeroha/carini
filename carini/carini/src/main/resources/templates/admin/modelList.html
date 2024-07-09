@@ -25,23 +25,23 @@
 			font-size: 18px;
 			text-align: center;
 			border-collapse: collapse;
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #BFBCBA;
+			border-bottom: 1px solid #BFBCBA;
 			font-weight: 900;
 		}
 
 		tr,
 		td {
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #BFBCBA;
+			border-bottom: 1px solid #BFBCBA;
 		}
 
 		th {
-			background-color: black;
+			background-color: #BFBCBA;
 			color: white;
 			font-size: 1.3rem;
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #BFBCBA;
+			border-bottom: 1px solid #BFBCBA;
 		}
 	</style>
 </head>
@@ -57,7 +57,7 @@
 	<!-- Main -->
 	<main>
 		<div class="flex-container_column" style="width: 100%;">
-			<form
+			<form id="modelList"
 				th:action="@{/admin/modelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
 				method="get">
 				<div class="flex-container_column">
@@ -66,7 +66,6 @@
 						<div style="display: flex; flex-direction: row;">
 							<input name="searchWord" placeholder=" 검색" type="text"
 								style="width: 300px; height: 40px; padding-left: 10px;">
-							<input type="submit" value="검색" style="height: 40px; margin-left: 10px; width: 50px;">
 						</div>
 
 						<div style="height: 50px;"></div> <!--간격박스-->
@@ -126,7 +125,7 @@
 												document.getElementById('priceDisplay').innerText = formatPrice(minPrice) + " - " + formatPrice(maxPrice);
 											});
 										</script>
-										<input type="checkbox" name="exCar"> 5억 이상
+										<input type="checkbox" id="exCar"> 5억 이상
 									</td>
 								</tr>
 

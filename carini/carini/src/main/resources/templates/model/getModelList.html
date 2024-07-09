@@ -42,7 +42,7 @@
       }
 
       th {
-         background-color: #FFCC4C;
+         background-color: #BFBCBA;
          color: white;
          font-size: 1.3rem;
          border-top: 1px solid #222222;
@@ -79,7 +79,7 @@
 
    <!-- Main -->
    <main>
-      <form
+      <form id="modelList"
          th:action="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
          method="get" class="flex">
          <div class="flex-container_column">

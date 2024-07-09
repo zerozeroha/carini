@@ -1,6 +1,5 @@
 
 * {
-   height: 100%;
    margin: 0;
    padding: 0;
 }
@@ -149,7 +148,7 @@ select {
 /* 가로박스 */
 .flex-container_row {
    display: flex;
-   flex-direction: column;
+   flex-direction: row;
    align-items: center;
    justify-content: center;
    padding: 1%;
@@ -520,7 +519,6 @@ tbody img {
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
-button,
 .button {
    padding: 1px;
    position: relative;
