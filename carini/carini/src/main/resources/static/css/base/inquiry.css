@@ -146,7 +146,23 @@
    font-size: 18px
 }
 
+.delete_qna {
+   border: 3px solid black;
+   background-color: #f7f7f7;
+   padding: 2% 2.5%;
+   text-align: center;
+   font-weight: 700;
+   font-size: 20px
+}
 
+.delete_qna:hover {
+   background-color: black;
+   border: 3px solid black;
+   padding: 2% 2.5%;
+   text-align: center;
+   font-weight: 700;
+   font-size: 20px;
+}
 
 .qna_wrapper {
    display: flex;
@@ -166,7 +182,6 @@
    color: black;
    border: 3px solid black;
    margin: 0 auto;
-
 }
 
 .qna_button:hover {
@@ -323,6 +338,17 @@
    display: block;
 }
 
+#inquiry_close-popup {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   font-size: 20px;
+   cursor: pointer;
+   width: 5px;
+   height: 5px;
+   padding: 1% 5% 5% 3.5%;
+   border: 3px solid black;
+}
 
 #inquiry_close-popup:hover {
    background-color: black;
@@ -437,4 +463,3 @@
 
    font-size: 20px;
 }
-

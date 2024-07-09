@@ -19,6 +19,7 @@
 	td:nth-child(1),
 	th:nth-child(1) {
 		width: 20%;
+		background-color: whitesmoke;
 	}
 
 	/* 2:3:2:3 비율로 설정 */
@@ -30,6 +31,8 @@
 	td:nth-child(3),
 	th:nth-child(3) {
 		width: 20%;
+		background-color: whitesmoke;
+
 	}
 
 	td:nth-child(4),
@@ -63,7 +66,7 @@
 		<form id="answerInquiryForm" th:action="@{/admin/answerInquiry}" method="post">
 			<div class="flex-container_column">
 				<article id="main">
-					<table border="1" style="width: 1000px;">
+					<table border="1" style="width: 1300px;">
 						<tr>
 							<td th:text="#{label.inquiry.reId}"></td>
 							<td colspan="3">
@@ -87,13 +90,14 @@
 							<td th:text="#{label.inquiry.reContent}"></td>
 							<td>
 								<input type="hidden" name="reContent" th:value="${inquiry.reContent}" />
-								<textarea th:text="${inquiry.reContent}" cols="30" rows="10"></textarea>
+								<textarea th:text="${inquiry.reContent}" cols="30" rows="10" style="resize: none;"></textarea>
 							</td>
 							<td th:text="#{label.inquiry.reContentRq}"></td>
 							<td>
 								<textarea name="reContentRq" id="reContentRq" cols="30" rows="10"
 									th:value="${inquiry.reContentRq}"
-									th:placeholder="${inquiry.reContentRq}"></textarea>
+									th:placeholder="${inquiry.reContentRq}"
+									style="resize: none;"></textarea>
 
 							</td>
 						</tr>
