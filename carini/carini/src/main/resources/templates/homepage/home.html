@@ -59,6 +59,7 @@
 										th:text="#{side.menu3}"></a></li>
 							</ul>
 						</li>
+						<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a style="font-weight: normal;" th:href="@{/admin/adminList}">ADMIN</a></li>
 						<li th:if="${session.user == null}"><a th:href="@{/member_login}">LOGIN</a></li>
 						<li th:if="${session.user != null}"><a th:href="@{/user_logout}">LOGOUT</a></li>
 					</ul>

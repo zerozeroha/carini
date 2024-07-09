@@ -111,8 +111,8 @@
 					<div style="width: 85%;"></div>
 
 					<div style="width: 15%">
-						<a th:href="@{/mypage/myboard/getMyboard/deleteBoard(boardId=${board.boardId})}" class="list">삭제</a>
-						<a th:text="#{board.update}" onclick="document.forms['boardForm'].submit();" class="list"></a>
+						<a th:href="@{/mypage/myboard/getMyboard/deleteBoard(boardId=${board.boardId})}" class="list">삭제하기</a>
+						<a onclick="document.forms['boardForm'].submit();" class="list">수정하기</a>
 						<a th:href="@{/mypage/myBoard}" class="list">목록</a>
 					</div>
 
