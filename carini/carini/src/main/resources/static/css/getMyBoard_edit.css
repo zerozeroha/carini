@@ -2096,6 +2096,7 @@ input, select {
       border-radius: 0.5em;
       border: solid 1px #E5E5E5;
       padding: 1em;
+      resize:none;
       -moz-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
       -webkit-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
       -ms-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
