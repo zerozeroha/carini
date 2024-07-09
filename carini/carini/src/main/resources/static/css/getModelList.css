@@ -1,9 +1,9 @@
 * {
-	margin: 0;
-	padding: 0;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	letter-spacing: 2px;
-	cursor: default;
+   margin: 0;
+   padding: 0;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   letter-spacing: 2px;
+   cursor: default;
 }
 
 
@@ -11,12 +11,12 @@
 /* body */
 
 body {
-	height: 100%;
-	width: 100%;
-	background: white;
-	color: #5b5b5b;
-	margin: 0;
-	padding: 0;
+   height: 100%;
+   width: 100%;
+   background: white;
+   color: #5b5b5b;
+   margin: 0;
+   padding: 0;
 }
 
 
@@ -28,13 +28,13 @@ body {
 /* 박스적용 css */
 
 .div {
-	width: 100%;
-	height: 5%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 1%;
+   width: 100%;
+   height: 5%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 1%;
 }
 
 
@@ -43,147 +43,145 @@ body {
 
 /* 소제목 영역 */
 section {
-	height: 50px;
-	width: 100%;
-	text-align: center;
-	align-items: center;
-	margin: 5% 16%;
+   height: 50px;
+   width: 100%;
+   text-align: center;
+   align-items: center;
+   margin: 5% 16%;
 }
 
 /* 소제목 : SELECT_MODEL */
 .SubTitle {
-	font-size: 70px;
-	font-weight: 1000;
-	color: black;
-	width: 70%;
-	height: 10%;
-	display: flex;
-	flex-direction: column;
+   font-size: 70px;
+   font-weight: 1000;
+   color: black;
+   width: 70%;
+   height: 10%;
+   display: flex;
+   flex-direction: column;
 }
 
 /* 소제목밑에글씨 */
 #SubTitle_text {
-	display: inline;
-	align-items: center;
-	justify-content: center;
-	font-weight: 900;
-	text-align: center;
-	font-size: 30px;
-	color: black;
+   display: inline;
+   align-items: center;
+   justify-content: center;
+   font-weight: 900;
+   text-align: center;
+   font-size: 30px;
+   color: black;
 }
 
 
 /* Main */
 
 main {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
-	/*background-color: blue;*/
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+   /*background-color: blue;*/
 }
 
 section {
-	width: 70%;
-	height: 100%;
+   width: 70%;
+   height: 100%;
 }
 
 
 /* Container */
 
 .container {
-	justify-content: center;
-	align-items: center;
-	width: 1200px;
+   justify-content: center;
+   align-items: center;
+   width: 1200px;
 }
 
 /* 세로박스 */
 .flex-container_column {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 1%;
-	width: 85%;
-	height: 90%;
-	/*background-color: red;*/
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 1%;
+   width: 85%;
+   height: 90%;
+   /*background-color: red;*/
 }
 
 /* 가로박스 */
 .flex-container_row {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 1%;
-	width: 85%;
-	height: 90%;
-	flex-wrap: wrap;
-	/*background-color: yellow;*/
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 1%;
+   width: 85%;
+   height: 90%;
+   flex-wrap: wrap;
+   /*background-color: yellow;*/
 }
 
 
 .flex-container>div {
-	background-color: white;
-	text-align: center;
+   background-color: white;
+   text-align: center;
 }
 
 
 
 ::placeholder {
-	opacity: 50%;
+   opacity: 50%;
 }
 
 
 /* 카드박스들 */
 
 .card {
-	display: flex;
-	flex-direction: row;
-	margin: 4px;
-	border: white !important;
-	cursor: pointer;
+   display: flex;
+   flex-direction: row;
+   border: white !important;
+   cursor: pointer;
 }
 
 .card:hover {
-	display: flex;
-	flex-direction: row;
-	margin: 4px;
-	border: whitesmoke !important;
-	cursor: pointer;
+   display: flex;
+   flex-direction: row;
+   border: whitesmoke !important;
+   cursor: pointer;
 }
 
 
 
 .card-img-top {
-	border: 0px;
-	cursor: pointer;
+   border: 0px;
+   cursor: pointer;
 
 }
 
 
 .card-title,
 .card-text {
-	color: black !important;
-	text-decoration: none !important;
-	padding: 2%;
-	text-align: center;
-	cursor: pointer;
+   color: black !important;
+   text-decoration: none !important;
+   padding: 2%;
+   text-align: center;
+   cursor: pointer;
 
 }
 
 .form-select {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 .form-select {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 
 card-title:hover {
-	background-color: white;
+   background-color: white;
 }
 
 .h1,
@@ -198,39 +196,39 @@ h3,
 h4,
 h5,
 h6 {
-	margin-top: 0;
-	margin-bottom: .5rem;
-	font-weight: 500;
-	line-height: 0px !important;
+   margin-top: 0;
+   margin-bottom: .5rem;
+   font-weight: 500;
+   line-height: 0px !important;
 }
 
 
 a {
-	text-decoration: none !important;
-	padding: 0%;
+   text-decoration: none !important;
+   padding: 0%;
 
 }
 
 
 ::after,
 ::before {
-	box-sizing: content-box !important;
+   box-sizing: content-box !important;
 }
 
 ::after,
 ::before {
-	box-sizing: none;
+   box-sizing: none;
 }
 
 .card-body:hover {
-	background-color: whitesmoke;
+   background-color: whitesmoke;
 }
 
 
 
 .card:hover {
-	padding: 0px !important;
-	margin: 0px !important;
+   padding: 0px !important;
+   margin: 0px !important;
 }
 
 
@@ -238,23 +236,23 @@ a {
 /*======= 페이지 번호 디자인 ========*/
 /* 번호 색상 검은색으로 변경 */
 .page-item a {
-	color: black !important;
-	border: 0px !important;
-	text-decoration: none !important;
-	width: 250px !important;
-	margin-right: 15px;
+   color: black !important;
+   border: 0px !important;
+   text-decoration: none !important;
+   width: 250px !important;
+   margin-right: 15px;
 }
 
 /* 페이지 번호 hover 색상 변경 */
 .page-item a:hover {
-	color: lightgray;
-	text-decoration: underline;
+   color: lightgray;
+   text-decoration: underline;
 }
 
 /* 현재 페이지 번호 색상 변경 */
 .page-item.active a {
-	color: black !important;
-	text-decoration: underline !important;
+   color: black !important;
+   text-decoration: underline !important;
 }
 
 
@@ -264,49 +262,51 @@ a {
 
 /* Table */
 table {
-	width: 60%;
-	font-size: 18px;
-	text-align: center;
-	border-collapse: collapse;
-	border-top: 5px solid white;
-	border-bottom: 5px solid white;
+   width: 60%;
+   font-size: 18px;
+   text-align: center;
+   border-collapse: collapse;
+   border-top: 5px solid white;
+   border-bottom: 5px solid white;
 }
 
 th,
 td {
-	padding: 2% 5%;
-	text-align: center;
+   padding: 2% 5%;
+   text-align: center;
 }
 
 th {
-	background-color: white;
-	color: black;
-	font-weight: bold;
-	font-weight: 900;
-	border-right: 3px solid white;
+   background-color: white;
+   color: black;
+   font-weight: bold;
+   font-weight: 900;
+   border-right: 3px solid white;
+   border-left: 3px solid white;
+
 
 }
 
 tr {
-	background-color: white;
+   background-color: white;
 }
 
 
 th:nth-child(1),
 td:nth-child(1) {
-	width: 25%;
+   width: 25%;
 }
 
 th:nth-child(2),
 td:nth-child(2) {
-	width: 70%;
+   width: 70%;
 }
 
 
 th,
 tr,
 td {
-	border: 5px solid white;
+   border: 5px solid white;
 }
 
 
@@ -314,127 +314,127 @@ td {
 
 
 #priceSlider {
-	/* 가격 */
-	height: 10px;
+   /* 가격 */
+   height: 10px;
 }
 
 #priceSlider .slider-container {
-	width: 300px;
-	position: relative;
-	text-align: center;
+   width: 300px;
+   position: relative;
+   text-align: center;
 }
 
 
 
 .price-display {
-	margin-top: 60px;
-	font-size: 1.2em;
+   margin-top: 60px;
+   font-size: 1.2em;
 }
 
 #priceSlider .noUi-connect {
-	background: rgb(204, 219, 232);
+   background: rgb(204, 219, 232);
 }
 
 #priceSlider .noUi-handle {
-	height: 18px;
-	width: 18px;
-	top: -5px;
-	right: -9px;
-	/* half the width */
-	border-radius: 9px;
+   height: 18px;
+   width: 18px;
+   top: -5px;
+   right: -9px;
+   /* half the width */
+   border-radius: 9px;
 }
 
 /* Table : bootstrap */
 #comparisonTable {
-	border-collapse: collapse;
-	table-layout: fixed;
-	margin: 0% 5%;
-	width: 90%;
+   border-collapse: collapse;
+   table-layout: fixed;
+   margin: 0% 5%;
+   width: 90%;
 }
 
 #comparisonTable th,
 #comparisonTable td {
-	text-align: center;
-	/* 중앙 정렬 */
+   text-align: center;
+   /* 중앙 정렬 */
 }
 
 #comparisonTable th:nth-child(1),
 #comparisonTable td:nth-child(1) {
-	width: 43%;
-	/* 첫 번째 열 너비 */
+   width: 43%;
+   /* 첫 번째 열 너비 */
 }
 
 #comparisonTable th:nth-child(2),
 #comparisonTable td:nth-child(2) {
-	width: 24%;
-	/* 두 번째 열 너비 */
+   width: 24%;
+   /* 두 번째 열 너비 */
 }
 
 #comparisonTable th:nth-child(3),
 #comparisonTable td:nth-child(3) {
-	width: 43%;
-	/* 세 번째 열 너비 */
+   width: 43%;
+   /* 세 번째 열 너비 */
 }
 
 /* 고정된 표의 행 높이 설정 */
 #comparisonTable tbody tr {
-	height: 50px;
-	/* 원하는 높이로 변경 */
+   height: 50px;
+   /* 원하는 높이로 변경 */
 }
 
 canvas[id^="car1Chart"],
 canvas[id^="car2Chart"] {
-	height: 30px;
+   height: 30px;
 }
 
 .Model {
-	display: flex;
-	flex-direction: column;
-	margin: 0;
-	padding: 10%;
-	width: 80%;
+   display: flex;
+   flex-direction: column;
+   margin: 0;
+   padding: 10%;
+   width: 80%;
 }
 
 #Model_Search {
-	display: flex;
-	flex-direction: row;
-	width: 80%;
-	height: 5%;
-	color: black;
-	font-size: 25px;
+   display: flex;
+   flex-direction: row;
+   width: 80%;
+   height: 5%;
+   color: black;
+   font-size: 25px;
 }
 
 
 
 input[type="range"] {
-	width: 100%;
-	position: absolute;
-	pointer-events: none;
-	-webkit-appearance: none;
-	appearance: none;
+   width: 100%;
+   position: absolute;
+   pointer-events: none;
+   -webkit-appearance: none;
+   appearance: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-	pointer-events: all;
-	position: relative;
-	z-index: 1;
-	-webkit-appearance: none;
-	appearance: none;
-	height: 20px;
-	width: 20px;
-	background: white;
-	border-radius: 50%;
-	cursor: pointer;
+   pointer-events: all;
+   position: relative;
+   z-index: 1;
+   -webkit-appearance: none;
+   appearance: none;
+   height: 20px;
+   width: 20px;
+   background: white;
+   border-radius: 50%;
+   cursor: pointer;
 }
 
 input[type="range"]:nth-of-type(2) {
-	z-index: 2;
+   z-index: 2;
 }
 
 form {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 
@@ -446,10 +446,10 @@ form {
 
 input,
 textarea {
-	font-size: 15pt;
-	line-height: 1.85em;
-	font-family: 'Source Sans Pro', sans-serif;
-	font-weight: 300;
+   font-size: 15pt;
+   line-height: 1.85em;
+   font-family: 'Source Sans Pro', sans-serif;
+   font-weight: 300;
 }
 
 form input[type="text"],
@@ -457,57 +457,57 @@ form input[type="email"],
 form input[type="password"],
 form select,
 form textarea {
-	background: white;
-	border-radius: 0.5rem;
-	/* 이거 왜 안 먹지 */
-	border: 2px solid black;
-	margin: 1px;
-	padding: 1px;
-	width: 50%;
-	height: 80%;
+   background: white;
+   border-radius: 0.5rem;
+   /* 이거 왜 안 먹지 */
+   border: 2px solid #BFBCBA;
+   margin: 1px;
+   padding: 1px;
+   width: 50%;
+   height: 80%;
 }
 
 
 
 
 form textarea {
-	min-height: 9em;
+   min-height: 9em;
 }
 
 #search {
-	height: 15px;
-	width: 30px;
+   height: 15px;
+   width: 30px;
 }
 
 
 
 .center {
-	text-align: center;
+   text-align: center;
 }
 
 #carCombineRadarChartTR {
-	display: none;
-	cursor: pointer;
+   display: none;
+   cursor: pointer;
 
 }
 
 
 #comparisonTable td {
-	text-align: center;
-	/* Center align text and elements inside td */
-	vertical-align: middle;
-	/* Vertically align elements to the middle */
+   text-align: center;
+   /* Center align text and elements inside td */
+   vertical-align: middle;
+   /* Vertically align elements to the middle */
 }
 
 #carRadarChart td canvas,
 #carCombineRadarChart {
-	display: block;
-	/* Ensure canvas is a block element */
-	margin-left: auto;
-	/* Center canvas horizontally */
-	margin-right: auto;
-	/* Center canvas horizontally */
-	cursor: pointer;
+   display: block;
+   /* Ensure canvas is a block element */
+   margin-left: auto;
+   /* Center canvas horizontally */
+   margin-right: auto;
+   /* Center canvas horizontally */
+   cursor: pointer;
 }
 
 /* 검색창 디자인 */
@@ -516,31 +516,31 @@ form textarea {
 #filterSize,
 #filterFuel,
 #carSort {
-	width: 400px;
-	cursor: pointer;
+   width: 400px;
+   cursor: pointer;
 
 }
 
 #filterSize:hover,
 f #filterFuel:hover,
 #carSort:hover {
-	width: 400px;
-	border: 1px solid gray;
-	cursor: pointer;
+   width: 400px;
+   border: 1px solid gray;
+   cursor: pointer;
 
 }
 
 .form-control {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 #priceDisplay,
 #priceSlider {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 option {
-	cursor: pointer;
+   cursor: pointer;
 }
 
 
@@ -551,32 +551,32 @@ input[type="button"],
 input[type="reset"],
 button,
 .button {
-	padding: 2px;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: #FFCC4C;
-	text-align: center;
-	border-radius: 0.5rem !important;
-	text-decoration: none;
-	padding: 0.65em 3em 0.65em 3em;
-	border: 2px solid #FFCC4C;
-	cursor: pointer;
-	outline: 0;
-	font-weight: 300;
+   padding: 2px;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: #222222;
+   text-align: center;
+   border-radius: 0.5rem !important;
+   text-decoration: none;
+   padding: 0.65em 3em 0.65em 3em;
+   border: 2px solid #BFBCBA;
+   cursor: pointer;
+   outline: 0;
+   font-weight: 300;
 }
 
 .cancel {
-	height: 20px;
-	width: 40px;
-	padding-left: 20px;
-	cursor: pointer;
-	opacity: 70%;
+   height: 20px;
+   width: 40px;
+   padding-left: 20px;
+   cursor: pointer;
+   opacity: 70%;
 }
 
 .cancel:hover {
-	padding-left: 20px;
-	cursor: pointer;
+   padding-left: 20px;
+   cursor: pointer;
 }
 
 
@@ -585,51 +585,51 @@ button,
 /* a */
 
 a {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+   color: black;
+   text-decoration: none;
+   cursor: pointer;
 }
 
 
 /* a.hover */
 
-a:hover {
-	color: #FFCC4C;
-
-}
+a:hover {}
 
 
 /* button.hover */
+
+input[type="button"] {
+   border: 2px solid #FFCC4C;
+}
 
 input[type="button"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-	background: #FFCC4C;
-	color: white;
+   border: 2px solid #FFCC4C;
+   opacity: 80%;
 }
 
 input[type="submit"] {
-	padding: 0% 1%;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: left;
-	text-decoration: none;
-	border-radius: 0.3rem;
-	background-color: #FFCC4C;
-	cursor: pointer;
-	border: 1px solid black;
-	outline: 0;
-	font-weight: 700;
+   padding: 0% 1%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   text-decoration: none;
+   border-radius: 0.3rem;
+   cursor: pointer;
+   border: 2px solid #BFBCBA;
+   outline: 0;
+   font-weight: 700;
 }
 
 input[type="submit"]:hover {
-	opacity: 70%;
-	background-color: #FFCC4C;
-	border: opx !important;
-	color: black;
+   opacity: 90%;
+   border: 2px solid #FFCC4C;
+   color: black;
+   opacity: 80%;
 }
 
 
@@ -638,63 +638,63 @@ input[type="submit"]:hover {
 /* combine 버튼 */
 
 #combine {
-	font-size: 20px;
-	text-align: center;
-	border-radius: 0.5rem;
-	font-weight: 100;
-	padding: 1% 5%;
+   font-size: 20px;
+   text-align: center;
+   border-radius: 0.5rem;
+   font-weight: 100;
+   padding: 1% 5%;
+   border: 2px solid #BFBCBA;
+
 }
 
 #combine:hover {
-	font-size: 20px;
-	text-align: center;
-	border-radius: 0.5rem;
-	font-weight: 100;
-	border: 1px solid #FFCC4C;
-	padding: 1% 5%;
-	opacity: 85%;
+   font-size: 20px;
+   text-align: center;
+   border-radius: 0.5rem;
+   font-weight: 100;
+   border: 2px solid #FFCC4C;
+   padding: 1% 5%;
+   opacity: 85%;
 }
 
 
 
 /* 자세히 보기 */
 .detail:hover {
-	color: black;
-	font-weight: bold;
+   color: #222222;
+   font-weight: bold;
 }
 
 
 /* 줄겨찾기 */
 .favorite {
-	cursor: pointer;
-	width: 16px;
-	height: 16px;
+   cursor: pointer;
+   width: 16px;
+   height: 16px;
 }
 
 .favorite:hover {
-	width: 18px;
-	height: 18px;
+   width: 18px;
+   height: 18px;
 }
 
 
 
 /* return 버튼 */
 .return {
-	font-size: 25px;
-	letter-spacing: 5px;
-	font-weight: 100;
-	border: 2px solid #FFCC4C;
-	color: #FFCC4C;
-	-webkit-text-stroke: 0.4px #FFCC4C;
-	padding: 1% 2%;
-	border-radius: 0.5rem;
+   font-size: 25px;
+   letter-spacing: 5px;
+   font-weight: 100;
+   border: 2px solid #BFBCBA;
+   color: #222222;
+   padding: 1% 2%;
+   border-radius: 0.5rem;
 }
 
 .return:hover {
-	background-color: #FFCC4C;
-	color: white;
-	font-weight: 500;
-	-webkit-text-stroke: 0.4px white;
+   font-weight: 500;
+   color: #222222;
+   border: 2px solid #FFCC4C;
 
 }
 
@@ -703,7 +703,7 @@ input[type="submit"]:hover {
 /* checkbox */
 
 .checkbox {
-	flex: 0 0 50px;
+   flex: 0 0 50px;
 }
 
 
@@ -712,10 +712,10 @@ input[type="submit"]:hover {
 
 /* bootstrap에 다듬는 css 추가 */
 #comparisonSection {
-	display: flex;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
+   display: flex;
+   text-align: center;
+   align-items: center;
+   justify-content: center;
 }
 
 
@@ -724,15 +724,15 @@ input[type="submit"]:hover {
 input,
 textarea,
 select {
-	font-size: 15pt;
-	line-height: 1.85em;
-	width: 90%;
-	height: 80%;
-	font-weight: 700;
-	background-color: white;
-	margin: 0%;
-	padding: 1%;
-	cursor: text;
+   font-size: 15pt;
+   line-height: 1.85em;
+   width: 90%;
+   height: 80%;
+   font-weight: 700;
+   background-color: white;
+   margin: 0%;
+   padding: 1%;
+   cursor: text;
 }
 
 
@@ -741,20 +741,20 @@ form input[type="password"],
 form input[type="text"],
 form select,
 form textarea {
-	padding: 2%;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: left;
-	text-decoration: none;
-	border: 1px solid lightgray;
-	border-radius: 0.3rem;
-	cursor: pointer;
-	outline: 0;
-	font-weight: 500;
-	cursor: text;
-	letter-spacing: 0px;
+   padding: 2%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   text-decoration: none;
+   border: 2px solid lightgray;
+   border-radius: 0.3rem;
+   cursor: pointer;
+   outline: 0;
+   font-weight: 500;
+   cursor: text;
+   letter-spacing: 0px;
 }
 
 form input[type="email"]:hover,
@@ -762,68 +762,51 @@ form input[type="password"]:hover,
 form input[type="text"]:hover,
 form select,
 form textarea:hover {
-	padding: 2%;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: left;
-	text-decoration: none;
-	border: 1px solid #FFCC4C;
-	border-radius: 0.3rem;
-	outline: 0;
-	font-weight: 500;
+   padding: 2%;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: left;
+   text-decoration: none;
+   border: 2px solid #FFCC4C;
+   border-radius: 0.3rem;
+   outline: 0;
+   font-weight: 500;
 }
 
 #exCar {
-	width: 5%;
-	cursor: pointer;
+   width: 5%;
+   cursor: pointer;
 }
 
 
 
 
 .form-select {
-	display: block;
-	width: 100%;
-	padding: .375rem 2.25rem .375rem .75rem;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
-	background-repeat: no-repeat;
-	background-position: right .75rem center;
-	background-size: 16px 12px;
-	border: 1px solid lightgray;
-	border-radius: .25rem;
-	-webkit-appearance: none !important;
-	-moz-appearance: none !important;
-	appearance: none !important;
-	transition: none !important;
+   display: block;
+   width: 100%;
+   padding: .375rem 2.25rem .375rem .75rem;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+   background-repeat: no-repeat;
+   background-position: right .75rem center;
+   background-size: 16px 12px;
+   border: 2px solid lightgray;
+   border-radius: .25rem;
+   -webkit-appearance: none !important;
+   -moz-appearance: none !important;
+   appearance: none !important;
+   transition: none !important;
 }
 
 .form-select:hover {
-	border: 1px solid #FFCC4C !important;	
+   border: 2px solid #FFCC4C !important;
 }
 
 
 #priceSlider .noUi-connect {
-    background: #FFCC4C;
-    opacity: 80%;
+   background: #FFCC4C;
+   opacity: 80%;
 }
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

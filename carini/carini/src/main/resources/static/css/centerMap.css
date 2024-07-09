@@ -1,52 +1,52 @@
 
 * {
-	height: 100%;
-	margin: 0;
-	padding: 0;
+   height: 100%;
+   margin: 0;
+   padding: 0;
 }
 
 /* body */
 
 body {
-	background: white;
-	color: #5b5b5b;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	letter-spacing: 2px;
-	margin: 0;
-	padding: 0;
+   background: white;
+   color: #5b5b5b;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   letter-spacing: 2px;
+   margin: 0;
+   padding: 0;
 }
 
 
 /* 우측 아이콘 */
 
 #float_icons {
-	position: absolute;
-	height: 50px;
-	width: 50px;
-	position: sticky;
-	/* 화면에서 고정 위치에 놓습니다 */
-	top: 40%;
-	/* 화면 높이의 50%에서 고정됩니다 */
-	right: 0px;
-	z-index: 300;
-	/* 다른 요소 위에 표시될 수 있도록 설정합니다 */
-	float: right;
-	margin: 15px;
+   position: absolute;
+   height: 50px;
+   width: 50px;
+   position: sticky;
+   /* 화면에서 고정 위치에 놓습니다 */
+   top: 40%;
+   /* 화면 높이의 50%에서 고정됩니다 */
+   right: 0px;
+   z-index: 300;
+   /* 다른 요소 위에 표시될 수 있도록 설정합니다 */
+   float: right;
+   margin: 15px;
 }
 
 
 #float_icons a {
-	margin-top: 18px;
-	/*아이콘 사이의 간격을 5px로 설정합니다 */
-	display: block;
-	margin-right: 15px;
+   margin-top: 18px;
+   /*아이콘 사이의 간격을 5px로 설정합니다 */
+   display: block;
+   margin-right: 15px;
 }
 
 #float_icons img {
-	width: 50px;
-	height: auto;
-	opacity: 85%;
-	background-color: white;
+   width: 50px;
+   height: auto;
+   opacity: 85%;
+   background-color: white;
 }
 
 /* 소제목 */
@@ -90,18 +90,18 @@ section {
 /* 지도 뒤에 글씨 */
 
 #Map_Text {
-	display: inline;
-	align-items: center;
-	justify-content: center;
-	font-weight: 900;
-	text-align: center;
-	font-size: 30px;
-	color: black;
+   display: inline;
+   align-items: center;
+   justify-content: center;
+   font-weight: 900;
+   text-align: center;
+   font-size: 30px;
+   color: black;
 }
 
 select {
-	height: 50px;
-	border: 1px solid white;
+   height: 50px;
+   border: 1px solid white;
 }
 
 
@@ -109,136 +109,136 @@ select {
 
 /* 지도 */
 #map {
-	width: 95%;
-	height: 80%;
-	border: 1px solid lightgray;
-	border-radius: 0.5rem;
-	margin: 2%;
+   width: 95%;
+   height: 80%;
+   border: 1px solid lightgray;
+   border-radius: 0.5rem;
+   margin: 2%;
 }
 
 .div_search {
-	width: 100%;
-	height: 5%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 1%;
+   width: 100%;
+   height: 5%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 1%;
 }
 
 /* Container */
 
 .container {
 
-	margin: auto;
-	justify-content: center;
-	align-items: center;
-	width: 1200px;
+   margin: auto;
+   justify-content: center;
+   align-items: center;
+   width: 1200px;
 }
 
 
 /* 세로박스 */
 .flex-container_column {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 85%;
-	height: 90%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 85%;
+   height: 90%;
 }
 
 /* 가로박스 */
 .flex-container_row {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 1%;
-	width: 85%;
-	height: 90%;
-	flex-wrap: wrap;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 1%;
+   width: 85%;
+   height: 90%;
+   flex-wrap: wrap;
 }
 
 
 /* 지도 */
 #map {
-	width: 100%;
-	height: 100%;
-	border: 1px solid lightgray;
-	border-radius: 0.5rem;
-	margin: 2%;
+   width: 100%;
+   height: 100%;
+   border: 1px solid lightgray;
+   border-radius: 0.5rem;
+   margin: 2%;
 }
 
 #map_box {
-	/* 지도 박스 */
+   /* 지도 박스 */
 
-	width: 100%;
-	height: 100%;
+   width: 100%;
+   height: 100%;
 }
 
 .div {
-	width: auto;
-	height: 5%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-top: 25px;
-	text-align: center;
+   width: auto;
+   height: 5%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin-top: 25px;
+   text-align: center;
 }
 
 /* 검색창 감싸는 박스 */
 .search {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 3%;
-	margin: 1%;
-	height: 80%;
-	width: 15%;
-	background-color: white;
-	border-radius: 0.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 3%;
+   margin: 1%;
+   height: 80%;
+   width: 15%;
+   background-color: white;
+   border-radius: 0.5rem;
 }
 
 /* 검색창 */
 .sub_search {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	background-color: white;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   background-color: white;
 
 }
 
 select {
-	height: 50px;
+   height: 50px;
 }
 
 
 /*Board*/
 
 .Board {
-	display: flex;
-	align-items: center;
+   display: flex;
+   align-items: center;
 }
 
 .Board select {
-	margin-right: 10px;
+   margin-right: 10px;
 }
 
 .Board input[type="text"] {
-	margin-right: 10px;
-	padding: 5px;
+   margin-right: 10px;
+   padding: 5px;
 }
 
 .Board input[type="button"] {
-	padding: 3.5px 5px;
-	cursor: pointer;
+   padding: 3.5px 5px;
+   cursor: pointer;
 }
 
 .Board_text {
-	font-size: 45px;
-	font-weight: 700;
-	color: black;
+   font-size: 45px;
+   font-weight: 700;
+   color: black;
 }
 
 
@@ -249,13 +249,13 @@ select {
 
 
 main {
-	width: 100%;
-	margin: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
-	/* background-color: blue; */
+   width: 100%;
+   margin: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+   /* background-color: blue; */
 }
 
 
@@ -263,8 +263,8 @@ main {
 /* Mypage.html에 쓰이는_My_information */
 
 section {
-	width: 70%;
-	height: 100%;
+   width: 70%;
+   height: 100%;
 }
 
 /*  
@@ -276,79 +276,79 @@ section {
  } */
 
 #info_box {
-	height: 80%;
-	width: 700px;
-	border-collapse: collapse;
-	background-color: whitesmoke;
-	box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
-	border-radius: 8px;
-	overflow: hidden;
-	align-items: center;
-	justify-content: center;
-	margin: 0 auto;
-	margin-top: 40px;
-	border-radius: 0.5rem;
+   height: 80%;
+   width: 700px;
+   border-collapse: collapse;
+   background-color: whitesmoke;
+   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.1);
+   border-radius: 8px;
+   overflow: hidden;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto;
+   margin-top: 40px;
+   border-radius: 0.5rem;
 }
 
 #info_box th,
 #info_box td {
-	padding: 15px;
-	text-align: center;
+   padding: 15px;
+   text-align: center;
 }
 
 #info_box th {
-	background-color: black;
-	border: 2px solid whitesmoke;
-	border-radius: 0.5rem;
-	color: white;
-	font-weight: normal;
-	width: 30%;
+   background-color: black;
+   border: 2px solid whitesmoke;
+   border-radius: 0.5rem;
+   color: white;
+   font-weight: normal;
+   width: 30%;
 }
 
 #info_box td {
-	background-color: whitesmoke;
-	border: 3px solid white;
+   background-color: whitesmoke;
+   border: 3px solid white;
 
 }
 
 .edit_info button {
-	background-color: #f2f2f2;
-	width: 20px;
-	height: 20px;
+   background-color: #f2f2f2;
+   width: 20px;
+   height: 20px;
 }
 
 #info_box tr:nth-child(even) button {
-	background-color: #e9e9e9;
-	width: 20px;
-	height: 20px;
+   background-color: #e9e9e9;
+   width: 20px;
+   height: 20px;
 }
 
 .edit_info {
-	background-color: rgb(186, 155, 186);
-	width: 180px;
-	height: 50px;
+   background-color: rgb(186, 155, 186);
+   width: 180px;
+   height: 50px;
 }
 
 
 
 .edit_info img {
-	width: 15px;
-	height: 15px;
+   width: 15px;
+   height: 15px;
 }
 
 
 
 
 #edit_nickname {
-	width: 20px;
-	max-width: 20px;
-	background-color: #f3f3f3;
-	top: 5px;
-	left: 28px;
+   width: 20px;
+   max-width: 20px;
+   background-color: #f3f3f3;
+   top: 5px;
+   left: 28px;
 }
 
 #edit_nickname img {
-	width: 20px;
+   width: 20px;
 }
 
 
@@ -360,10 +360,10 @@ section {
 input,
 textarea,
 select {
-	font-size: 15pt;
-	line-height: 1.85em;
-	font-family: 'Source Sans Pro', sans-serif;
-	font-weight: 300;
+   font-size: 15pt;
+   line-height: 1.85em;
+   font-family: 'Source Sans Pro', sans-serif;
+   font-weight: 300;
 }
 
 form input[type="text"],
@@ -372,21 +372,21 @@ form input[type="password"],
 form input[type="submit"],
 form select,
 form textarea {
-	background: white;
-	border-radius: 0.5em;
-	border: 2px solid black;
-	margin: 0.1px;
-	padding: 0.1px;
+   background: white;
+   border-radius: 0.5em;
+   border: 2px solid #BFBCBA;
+   margin: 0.1px;
+   padding: 0.1px;
 }
 
 form textarea {
-	min-height: 9em;
+   min-height: 9em;
 }
 
 
 #search {
-	height: 25px;
-	width: 30px;
+   height: 25px;
+   width: 30px;
 }
 
 
@@ -395,57 +395,57 @@ form textarea {
 
 
 table {
-	border-collapse: collapse;
-	border-top: 1px solid black;
-	/* 테이블 상단 테두리 */
-	border-bottom: 1px solid black;
-	/* 테이블 하단 테두리 */
-	/* overflow: scroll; */
-	padding: 1%;
-	font-size: 15px;
-	text-align: center;
-	table-layout: auto;
+   border-collapse: collapse;
+   border-top: 1px solid black;
+   /* 테이블 상단 테두리 */
+   border-bottom: 1px solid black;
+   /* 테이블 하단 테두리 */
+   /* overflow: scroll; */
+   padding: 1%;
+   font-size: 15px;
+   text-align: center;
+   table-layout: auto;
 }
 
 th,
 td {
-	height: 20px;
-	padding: 0% 1%;
-	margin: 0;
-	text-align: center;
-	border: none;
-	/* 안쪽 테두리 제거 */
-	border-bottom: 1px solid black;
+   height: 20px;
+   padding: 0% 1%;
+   margin: 0;
+   text-align: center;
+   border: none;
+   /* 안쪽 테두리 제거 */
+   border-bottom: 1px solid black;
 }
 
 th {
-	background-color: black;
-	color: white;
-	font-weight: lighter;
-	font-size: 20px;
-	border-right: 3px solid white;
-	height: 20px;
+   background-color: black;
+   color: white;
+   font-weight: lighter;
+   font-size: 20px;
+   border-right: 3px solid white;
+   height: 20px;
 }
 
 tr {
-	height: 20px;
-	background-color: white;
+   height: 20px;
+   background-color: white;
 }
 
 th:nth-child(1),
 td:nth-child(1) {
-	width: 30%;
+   width: 30%;
 }
 
 th:nth-child(2),
 td:nth-child(2) {
-	width: 70%;
+   width: 70%;
 }
 
 .ellipsis {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
 
 
@@ -459,33 +459,33 @@ td:nth-child(2) {
 
 /* 테이블 스타일 */
 table {
-	width: 100%;
-	border-collapse: collapse;
-	text-align: center;
-	table-layout: fixed;
-	/* 테이블 레이아웃을 고정으로 설정 */
+   width: 100%;
+   border-collapse: collapse;
+   text-align: center;
+   table-layout: fixed;
+   /* 테이블 레이아웃을 고정으로 설정 */
 
 }
 
 thead {
-	background-color: #f2f2f2;
+   background-color: #f2f2f2;
 }
 
 thead th {
-	padding: 12px;
-	border-bottom: 1px solid #ddd;
+   padding: 12px;
+   border-bottom: 1px solid #ddd;
 }
 
 tbody td {
-	padding: 10px;
-	border-bottom: 1px solid #ddd;
+   padding: 10px;
+   border-bottom: 1px solid #ddd;
 }
 
 
 
 tbody img {
-	max-width: 120px;
-	height: auto;
+   max-width: 120px;
+   height: auto;
 }
 
 
@@ -497,7 +497,7 @@ tbody img {
 
 
 .center {
-	text-align: center;
+   text-align: center;
 }
 
 
@@ -507,8 +507,8 @@ tbody img {
 /* checkbox */
 
 .checkbox {
-	flex: 0 0 50px;
-	/* 고정 크기 */
+   flex: 0 0 50px;
+   /* 고정 크기 */
 }
 
 
@@ -522,26 +522,20 @@ input[type="submit"],
 input[type="reset"],
 button,
 .button {
-	padding: 1px;
-	position: relative;
-	display: inline-block;
-	background-color: white;
-	color: black;
-	text-align: center;
-	border-radius: 0.5em;
-	text-decoration: none;
-	padding: 0.65em 0.5em 0.65em 0.5em;
-	border: 2px solid black;
-	cursor: pointer;
-	outline: 0;
-	margin: 5px;
-	font-weight: 300;
-	-webkit-text-stroke: 0.4px black;
-	/* 버튼 화면전환 효과 (0.35초씩 늦게 껐다가 켜짐) */
-	/* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
+   padding: 1px;
+   position: relative;
+   display: inline-block;
+   background-color: white;
+   color: black;
+   text-align: center;
+   border-radius: 0.5em;
+   text-decoration: none;
+   padding: 0.65em 0.5em 0.65em 0.5em;
+   border: 2px solid #BFBCBA;
+   cursor: pointer;
+   outline: 0;
+   margin: 5px;
+   font-weight: 500;
 }
 
 
@@ -549,65 +543,23 @@ button,
 /* a */
 
 a {
-	color: inherit;
-	text-decoration: none;
-	/* -moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    -ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
-    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out; */
+   color: inherit;
+   text-decoration: none;
 }
 
-
-
-/* hover */
 
 
 /* a.hover */
 
 a:hover {
-	/* background-color: black; */
-	color: white;
-	/* -webkit-text-stroke: 0.5px white; */
-	/* border-bottom-color: transparent; */
-	border-radius: 0.5rem;
-	background-color: none;
+   color: white;
+   background-color: none;
 }
 
-.float_hover:hover {
-	background-color: white;
-	height: 50px;
-	margin-top: 18px;
-	height: 50px;
-	width: 50px;
-	position: sticky;
-	/* 화면에서 고정 위치에 놓습니다 */
-	top: 40%;
-	/* 화면 높이의 50%에서 고정됩니다 */
-	right: 0px;
-	z-index: 300;
-	/* 다른 요소 위에 표시될 수 있도록 설정합니다 */
-	float: right;
-	margin: 15px;
-}
 
-.side-hover:hover {
-	color: white !important;
-	background-color: black !important;
-	border-radius: 0.5rem;
-	padding: 1.5%;
-}
-
-a.Board-hover {
-	text-decoration: none;
-	color: black;
-}
-
-a.Board-hover:hover {
-	text-decoration: underline;
-}
 
 select:hover {
-	border: 2px solid rgb(170, 170, 170);
+   border: 2px solid #FFCC4C;
 }
 
 /* button.hover */
@@ -617,48 +569,46 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-	position: relative;
-	display: inline-block;
-	background-color: black;
-	color: white;
-	text-align: center;
-	border-radius: 0.5em;
-	text-decoration: none;
-	border: 2px solid black;
-	cursor: pointer;
-	outline: 0;
-	font-weight: 300;
-	-webkit-text-stroke: 0.4px white;
+   position: relative;
+   display: inline-block;
+   color: #222222;
+   text-align: center;
+   border-radius: 0.5em;
+   text-decoration: none;
+   border: 2px solid #FFCC4C;
+   cursor: pointer;
+   outline: 0;
+   font-weight: 500;
 }
 
 input[type="text"]:hover {
-	border: 2px solid lightgray;
+   border: 2px solid #FFCC4C;
 }
 
 
 /* 탈퇴하기 button */
 
 .getout {
-	width: 3%;
-	height: 5%;
-	color: black;
-	background-color: white;
+   width: 3%;
+   height: 5%;
+   color: black;
+   background-color: white;
 }
 
 .getout_button,
 .getout .getout_button {
-	border: none;
-	color: black;
-	text-align: center;
-	font-size: 14px;
-	cursor: pointer;
-	border-radius: 16px;
-	text-decoration: none;
-	margin-top: 300px;
+   border: none;
+   color: black;
+   text-align: center;
+   font-size: 14px;
+   cursor: pointer;
+   border-radius: 16px;
+   text-decoration: none;
+   margin-top: 300px;
 }
 
 button.getout-hover:hover {
-	color: black !important;
+   color: black !important;
 }
 
 

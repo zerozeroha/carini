@@ -122,7 +122,7 @@
 					<legend>BRAND</legend>
 					<a th:href="@{${carBrand.carBrandURL}}" class="car_logo">
 						<img th:src="@{/img/carBrandLogo/{carBrandName}.png(carBrandName=${carBrand.carBrandName})}"
-							alt="자동차로고이미지" style="height: 200px; width: 200px; padding-left: 10%;">
+							alt="자동차로고이미지" id="logo">
 					</a>
 				</fieldset>
 
@@ -134,8 +134,7 @@
 				<fieldset style="width: 390px; height: 400px;">
 					<legend> AGENCY</legend>
 					<a th:href="@{/center/centerMap(carBrand=${carBrand.carBrandName})}" style="margin-right: 10%;">
-						<img th:src="@{/img/agency.png}" alt="대리점"
-							style="height:60%; width:70%; padding-left:10%;margin-left:45%;">
+						<img th:src="@{/img/agency.png}" alt="대리점" id="center">
 					</a>
 				</fieldset>
 
