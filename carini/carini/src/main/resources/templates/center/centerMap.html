@@ -23,150 +23,152 @@
 
 
 <body>
-   <!--Header-->
-   <header th:replace="~{base/base :: main_header}"></header>
-   <!--챗봇 아이콘-->
-   <div th:replace="~{base/base :: floaticon}"></div>
+	<!--Header-->
+	<header th:replace="~{base/base :: main_header}"></header>
+	<!--챗봇 아이콘-->
+	<div th:replace="~{base/base :: floaticon}"></div>
 
-   <section class="SubTitle">CENTER_MAP</section>
+	<section class="SubTitle">CENTER_MAP</section>
 
-   <div class="div">
-      <p id="SubTitle_text">가까운 곳에서 찾을 수 있는 오직 당신만의 대리점</p>
-   </div>
+	<div class="div">
+		<p id="SubTitle_text">가까운 곳에서 찾을 수 있는 오직 당신만의 대리점</p>
+	</div>
 
-   <div class="div">
-      <h3>with carini</h3>
-   </div>
+	<div class="div">
+		<h3>with carini</h3>
+	</div>
 
-   <div style="height: 100px;"></div><!--공간 박스-->   
-
-
-   <main>
-      <div class="flex-container_row">
-
-         <div class="flex-container_column"
-            style="width: 60%; height: 100%;  padding: 2% 1% ; border-radius: 0.5rem;">
-               
-            <!--지도영역-->
-            <div id="map_box" style="height: 1400px;"> <!--지도박스-->
-               <!-- 지도를 표시-->
-               <div id="map"></div>
-               <!--지도-->
-               <script src="/js/centerMap.js" th:inline="javascript"></script>
-            </div>
-
-         </div>
-         <div class="flex-container_column"
-            style="width: 35%; height: 100%; border: 2px solid #FFCC4C; padding: 1%; border-radius: 0.5rem;">
-            <!--검색창영역-->
-
-            <form th:action="@{/center/search_address}" method="Post" style="width: 100%; height: 10%; " >
-
-               <select name="city" id="city" style="margin: 10px; width: 40%; cursor: pointer; ">
-                  <option value="서울특별시">서울특별시</option>
-                  <option value="부산광역시">부산광역시</option>
-                  <option value="대구광역시">대구광역시</option>
-                  <option value="인천광역시">인천광역시</option>
-                  <option value="광주광역시">광주광역시</option>
-                  <option value="대전광역시">대전광역시</option>
-                  <option value="울산광역시">울산광역시</option>
-                  <option value="세종특별자치시">세종특별자치시</option>
-                  <option value="경기도">경기도</option>
-                  <option value="강원특별자치도">강원특별자치도</option>
-                  <option value="충청북도">충청북도</option>
-                  <option value="충청남도">충청남도</option>
-                  <option value="전북특별자치도">전북특별자치도</option>
-                  <option value="전라남도">전라남도</option>
-                  <option value="경상북도">경상북도</option>
-                  <option value="경상남도">경상남도</option>
-                  <option value="제주특별자치도">제주특별자치도</option>
-               </select>
-
-               <select name="gu" id="gu" style="width: 30%; cursor: pointer; ">
-                  <option value="강남구">강남구</option>
-                  <option value="강동구">강동구</option>
-                  <option value="강북구">강북구</option>
-                  <option value="강서구">강서구</option>
-                  <option value="관악구">관악구</option>
-                  <option value="광진구">광진구</option>
-                  <option value="구로구">구로구</option>
-                  <option value="금천구">금천구</option>
-                  <option value="노원구">노원구</option>
-                  <option value="도봉구">도봉구</option>
-                  <option value="동대문구">동대문구</option>
-                  <option value="동작구">동작구</option>
-                  <option value="마포구">마포구</option>
-                  <option value="서대문구">서대문구</option>
-                  <option value="서초구">서초구</option>
-                  <option value="성동구">성동구</option>
-                  <option value="성북구">성북구</option>
-                  <option value="송파구">송파구</option>
-                  <option value="양천구">양천구</option>
-                  <option value="영등포구">영등포구</option>
-                  <option value="용산구">용산구</option>
-                  <option value="은평구">은평구</option>
-                  <option value="종로구">종로구</option>
-                  <option value="중구">중구</option>
-                  <option value="중랑구">중랑구</option>
-               </select>
-
-               <input type="submit" name="검색창" id="search" style="width: 50px; height: 50px; margin-left: 10px;"
-                  value="검색">
-
-            </form>
-
-            <form th:action="@{/center/search_brand}" style="height: 10%; width: 90%; margin: 0%;" method="post">
-
-               <input type="text" name="search_brand" id="search"
-                  style="width: 250px; height: 50px; padding-left: 10px; margin: 10px;" placeholder="브랜드">
-               <input type="submit" name="검색창" id="search" style="width: 50px; height: 50px; margin-right: 20px;"
-                  value="검색">
-
-            </form>
+	<div style="height: 100px;"></div>
+	<!--공간 박스-->
 
 
-            <div style="height: 80%; width: 90%; overflow-y: auto; overflow-x: visible;">
-               <table style="width: 100%; height: 600px;">
-                  <thead>
-                     <th>BRAND</th>
-                     <th>AGENCY</th>
-                  </thead>
-                  <tbody>
-                     <tr th:each="agency : ${agency}">
-                        <td>
-                           <img th:src="@{/img/carBrandLogo/{carBrand}.png(carBrand=${agency.carBrand})}"
-                              style="width:30%;" th:alt="${agency.carBrand}" />
-                        </td>
-                        <td th:text="${agency.agencyName}"></td>
-                     </tr>
-                  </tbody>
+	<main>
+		<div class="flex-container_row">
 
-               </table>
-            </div>
+			<div class="flex-container_column"
+				style="width: 60%; height: 100%; padding: 2% 1%; border-radius: 0.5rem; margin: 2%;">
 
-         </div>
+				<!--지도영역-->
+				<div id="map_box" style="height: 1400px;">
+					<!--지도박스-->
+					<!-- 지도를 표시-->
+					<div id="map" style="width: 100%"></div>
+					<!--지도-->
+					<script src="/js/centerMap.js" th:inline="javascript"></script>
+				</div>
 
-      </div>
+			</div>
+			<div class="flex-container_column"
+				style="width: 35%; height: 100%; border: 2px solid #FFCC4C; padding: 1%; border-radius: 0.5rem;">
+				<!--검색창영역-->
+
+				<form th:action="@{/center/search_address}" method="Post"
+					style="width: 90%; height: 9%;">
+
+					<select name="city" id="city"
+						style="margin: 10px; width: 40%; cursor: pointer;">
+						<option value="서울특별시">서울특별시</option>
+						<option value="부산광역시">부산광역시</option>
+						<option value="대구광역시">대구광역시</option>
+						<option value="인천광역시">인천광역시</option>
+						<option value="광주광역시">광주광역시</option>
+						<option value="대전광역시">대전광역시</option>
+						<option value="울산광역시">울산광역시</option>
+						<option value="세종특별자치시">세종특별자치시</option>
+						<option value="경기도">경기도</option>
+						<option value="강원특별자치도">강원특별자치도</option>
+						<option value="충청북도">충청북도</option>
+						<option value="충청남도">충청남도</option>
+						<option value="전북특별자치도">전북특별자치도</option>
+						<option value="전라남도">전라남도</option>
+						<option value="경상북도">경상북도</option>
+						<option value="경상남도">경상남도</option>
+						<option value="제주특별자치도">제주특별자치도</option>
+					</select> <select name="gu" id="gu" style="width: 35%; cursor: pointer;">
+						<option value="강남구">강남구</option>
+						<option value="강동구">강동구</option>
+						<option value="강북구">강북구</option>
+						<option value="강서구">강서구</option>
+						<option value="관악구">관악구</option>
+						<option value="광진구">광진구</option>
+						<option value="구로구">구로구</option>
+						<option value="금천구">금천구</option>
+						<option value="노원구">노원구</option>
+						<option value="도봉구">도봉구</option>
+						<option value="동대문구">동대문구</option>
+						<option value="동작구">동작구</option>
+						<option value="마포구">마포구</option>
+						<option value="서대문구">서대문구</option>
+						<option value="서초구">서초구</option>
+						<option value="성동구">성동구</option>
+						<option value="성북구">성북구</option>
+						<option value="송파구">송파구</option>
+						<option value="양천구">양천구</option>
+						<option value="영등포구">영등포구</option>
+						<option value="용산구">용산구</option>
+						<option value="은평구">은평구</option>
+						<option value="종로구">종로구</option>
+						<option value="중구">중구</option>
+						<option value="중랑구">중랑구</option>
+					</select> <input type="submit" name="검색창" id="search"
+						style="width: 10%; height: 50px; margin-left: 10px; font-weight: bold;"
+						value="검색">
+
+				</form>
+
+				<form th:action="@{/center/search_brand}"
+					style="height: 10%; width: 90%; margin: 1%;" method="post">
+
+					<input type="text" name="search_brand" id="search"
+						style="width: 75%; height: 50px; padding-left: 10px; margin: 10px;"
+						placeholder="브랜드"> 
+					<input type="submit" name="검색창"
+						id="search"
+						style="width: 10%; height: 50px; margin-right: 20px; font-weight: bold;"
+						value="검색">
+
+				</form>
 
 
-   </main>
+				<div
+					style="height: 80%; width: 90%; overflow-y: auto; overflow-x: visible;">
+					<table style="width: 100%; height: 600px;">
+						<thead>
+							<th>BRAND</th>
+							<th>AGENCY</th>
+						</thead>
+						<tbody>
+							<tr th:each="agency : ${agency}">
+								<td><img
+									th:src="@{/img/carBrandLogo/{carBrand}.png(carBrand=${agency.carBrand})}"
+									style="width: 30%;" th:alt="${agency.carBrand}" /></td>
+								<td th:text="${agency.agencyName}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
-   <!-- Footer -->
-   <footer th:replace="~{base/base :: main_footer}"></footer>
-   <div id="kakao-talk-channel-chat-button" style="height: 48px; width: 66px; margin-right:38px; margin-bottom:11px;">
-   </div>
-   <script th:replace="~{base/base :: inquiry_script}"></script>
-   <!-- Inquiry -->
-   <div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
-   <div th:replace="~{base/base :: inquiry_Listhtml}"></div>
-   <div th:replace="~{base/base :: inquiry_writehtml}"></div>
-   <div th:replace="~{base/base :: inquiry_detailhtml}"></div>
-   <script src="/js/Inquiry/inquiry.js"></script>
+			</div>
+		</div>
+	</main>
 
-   <!-- Scripts -->
-   <script src="/js/jquery.dropotron.min.js"></script>
-   <script src="/js/breakpoints.min.js"></script>
-   <script src="/js/main.js"></script>
+	<!-- Footer -->
+	<footer th:replace="~{base/base :: main_footer}"></footer>
+	<div id="kakao-talk-channel-chat-button"
+		style="height: 48px; width: 66px; margin-right: 38px; margin-bottom: 11px;">
+	</div>
+	<script th:replace="~{base/base :: inquiry_script}"></script>
+	<!-- Inquiry -->
+	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
+	<div th:replace="~{base/base :: inquiry_writehtml}"></div>
+	<div th:replace="~{base/base :: inquiry_detailhtml}"></div>
+	<script src="/js/Inquiry/inquiry.js"></script>
+
+	<!-- Scripts -->
+	<script src="/js/jquery.dropotron.min.js"></script>
+	<script src="/js/breakpoints.min.js"></script>
+	<script src="/js/main.js"></script>
 </body>
 
 </html>
