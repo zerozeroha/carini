@@ -35,15 +35,14 @@ var temp = 0; // 세션에서 temp 값 가져오기
 							var qnaWrapper = $('<div>').attr('id', 'qna_wrapper');
 							var qnaContent = $('<div>').addClass('qna_content').append(
 								$('<div>').attr('id', 'click_qna').text(inquiry.reContent),
-								$('<span>').addClass('qna_result').text(inquiry.reCheckRq ? '답변 완료' : '답변 대기 중').css('color', inquiry.reCheckRq ? 'green' : 'red').css('border', inquiry.reCheckRq ? '3px solid green' : '3px solid red').css("width", "150px")
+								$('<span>').addClass('qna_result').text(inquiry.reCheckRq ? '답변 완료' : '답변 대기 중').css('color', inquiry.reCheckRq ? 'green' : 'red').css('border', inquiry.reCheckRq ? '2px solid green' : '2px solid red').css("width", "150px")
 							).css("display", "flex").css("justify-content", "space-between");
 
 
 							qnaWrapper.append(qnaContent);
 							qnaDiv.append(qnaHeader, qnaWrapper);
-							qnaDiv.css('height', '120px');
+							qnaDiv.css('height', '130px');
 							qnaUl.append(qnaDiv);
-							qnaDiv.css('border', '3px solid #000');
 						})(inquiry); // IIFE로 inquiry를 전달
 					}
 				}
@@ -68,8 +67,9 @@ var temp = 0; // 세션에서 temp 값 가져오기
 			url: "/inquiry/inquirydelete",
 			data: {reId: reId},
 			success: function (response) {
+				console.log("111111111111");
 				alert(response.message);
-				window.location.href = response.redirectUrl;
+				 window.location.reload();
 
 			}
 		});
@@ -152,11 +152,11 @@ var temp = 0; // 세션에서 temp 값 가져오기
 					$('#detailsreDate').text(new Date(inquiry.reDate).toLocaleDateString()); // 사용자 문의 날짜   
 					// 관리자 답변 정보 출력
 					$('#detailsreTitleRq').text(inquiry.reTitleRq) // 관리자 문의 제목
-					$('#a_content').text(inquiry.reContentRq).css('border', inquiry.reCheckRq ? '3px solid green' : '3px solid red');// 관리자 문의 내용
+					$('#a_content').text(inquiry.reContentRq).css('border', inquiry.reCheckRq ? '2px solid green' : '2px solid red');// 관리자 문의 내용
 
 					var reDateRqText = inquiry.reDateRq ? new Date(inquiry.reDateRq).toLocaleDateString() : '';
 					$('#detailsreDateRq').text(reDateRqText).css("height", "35px"); // 관리자 문의 날짜
-					$('.a_section').css('border', inquiry.reCheckRq ? '3px solid green' : '3px solid red');
+					$('.a_section').css('border', inquiry.reCheckRq ? '2px solid green' : '2px solid red');
 				}
 			},
 			error: function (xhr, status, error) {
@@ -184,7 +184,7 @@ var temp = 0; // 세션에서 temp 값 가져오기
 				$("#reContentError").text("");
 				if (response.success) {
 					alert(response.message);
-					window.location.href = response.redirectUrl;
+					 window.location.reload();
 				}
 			},
 			error: function (xhr, status, error) {

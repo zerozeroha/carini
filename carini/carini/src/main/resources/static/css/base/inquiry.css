@@ -1,420 +1,411 @@
 #float_icons {
-   position: fixed;
-   top: 84%;
-   right: 1.5%;
-   z-index: 3000;
-   float: right
+	position: fixed;
+	top: 84%;
+	right: 1.5%;
+	z-index: 3000;
+	float: right
 }
 
 #float_icons a {
-   margin-top: 18px;
-   display: block;
-   margin-right: 15px
+	margin-top: 18px;
+	display: block;
+	margin-right: 15px
 }
 
 #float_icons img {
-   width: 50px;
-   opacity: 85%
+	width: 50px;
+	opacity: 85%
 }
 
 #popup {
-   width: 300px;
-   height: 200px;
-   position: fixed;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   background-color: #fff;
-   box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-   z-index: 1000;
-   padding: 20px;
-   text-align: center
+	width: 300px;
+	height: 200px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+	z-index: 1000;
+	padding: 20px;
+	text-align: center
 }
 
 .popup_hidden {
-   display: none
+	display: none
 }
 
 .popup {
-   display: block
+	display: block
 }
 
 #qna_header {
-   font-size: 25px;
-   font-weight: bolder;
+	font-size: 25px;
+	font-weight: bolder;
 }
 
 .popup-overlay {
-   display: none;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, .5);
-   z-index: 999
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, .5);
+	z-index: 999
 }
 
 .popup-overlay.active {
-   display: block
+	display: block
 }
 
 
 #popup {
-   width: 500px;
-   max-width: 500px;
-   height: 600px;
-   font-weight: 700
+	width: 500px;
+	max-width: 500px;
+	height: 600px;
+	font-weight: 700
 }
 
 .qna_container {
-   background-color: #f8f8f8;
-   height: 80%;
-   margin: 20px 0 40px 0;
-   overflow-y: scroll;
+	height: 80%;
+	margin: 20px 0 40px 0;
+	overflow-y: scroll;
 }
 
 .qna_container::-webkit-scrollbar {
-   width: 12px;
-   /* 스크롤바의 너비 */
+	width: 12px;
+	/* 스크롤바의 너비 */
 }
 
 .qna_container::-webkit-scrollbar-track {
-   background: #f8f8f8;
-   /* 스크롤바 track의 배경색 */
-   border-radius: 10px;
-   /* track의 둥근 테두리 반지름 */
+	background: #f8f8f8;
+	/* 스크롤바 track의 배경색 */
+	border-radius: 10px;
+	/* track의 둥근 테두리 반지름 */
 }
 
 .qna_container::-webkit-scrollbar-thumb {
-   background-color: #666;
-   /* 스크롤바 thumb 색상 */
-   border-radius: 10px;
-   /* thumb의 둥근 테두리 반지름 */
+	background-color: #666;
+	/* 스크롤바 thumb 색상 */
+	border-radius: 10px;
+	/* thumb의 둥근 테두리 반지름 */
 }
 
 .qna_div {
-   border: 1px solid #000;
-   padding: 10px;
-   margin-bottom: 5px
+	border: 1px solid #000;
+	padding: 10px;
+	margin-bottom: 5px
 }
 
 .qna_header {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-bottom: 10px
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px
 }
 
 .qna_title {
-   white-space: nowrap;
-   max-width: 150px;
-   overflow: hidden;
-   text-overflow: ellipsis
+	white-space: nowrap;
+	max-width: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis
 }
 
 #q_date {
-   margin-left: 5px
+	margin-left: 5px
 }
 
 .qna_content {
-   flex-grow: 1;
-   white-space: nowrap;
-   padding: 0;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: flex;
-   align-items: center
+	flex-grow: 1;
+	white-space: nowrap;
+	padding: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: flex;
+	align-items: center
 }
 
 .qna_result {
-   width: 100px;
-   border: 3px solid red;
-   color: red;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-left: 18px
+	width: 100px;
+	border: 3px solid red;
+	color: red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 18px
 }
 
 .qna_content div {
-   max-width: 100%;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   list-style: none;
-   font-size: 18px
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	list-style: none;
+	font-size: 18px
 }
 
 .delete_qna {
-   border: 3px solid black;
-   background-color: #f7f7f7;
-   padding: 2% 2.5%;
-   text-align: center;
-   font-weight: 700;
-   font-size: 20px
+	padding: 2% 2.5%;
+	text-align: center;
+	font-weight: 700;
+	font-size: 20px;
+	border: none;
+	background-color: white;
 }
 
 .delete_qna:hover {
-   background-color: black;
-   border: 3px solid black;
-   padding: 2% 2.5%;
-   text-align: center;
-   font-weight: 700;
-   font-size: 20px;
+	color: #FFCC4C;
+	cursor: pointer;
 }
 
 .qna_wrapper {
-   display: flex;
-   text-overflow: ellipsis
+	display: flex;
+	text-overflow: ellipsis
 }
 
 .qna_button {
-
-   position: absolute;
-   white-space: nowrap;
-   padding: 0;
-   width: 100px;
-   bottom: 20px;
-   left: 40%;
-   font-weight: bolder;
-   cursor: pointer;
-   color: black;
-   border: 3px solid black;
+	position: absolute;
+	white-space: nowrap;
+	padding: 0;
+	width: 100px;
+	bottom: 20px;
+	left: 40%;
+	font-weight: bolder;
+	cursor: pointer;
+	color: black;
+	background-color: white;
 
 }
 
 .qna_button:hover {
-   color: white;
-   position: absolute;
-   white-space: nowrap;
-   padding: 0;
-   width: 100px;
-   bottom: 20px;
-   left: 40%;
-   font-weight: bolder;
-   border: 3px solid black;
-
+	color: #FFCC4C;
+	cursor: pointer;
 }
 
 #button_list {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   text-align: center
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	text-align: center
 }
 
 #list_button {
-   position: static;
-   margin: 15px;
-   margin: 0 auto
+	position: static;
+	margin: 15px;
+	margin: 0 auto
 }
 
 #insertpopup {
-   position: fixed;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   width: 500px;
-   height: 600px;
-   background-color: #fff;
-   box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-   z-index: 1000;
-   padding: 20px;
-   text-align: center
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	height: 600px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+	z-index: 1000;
+	padding: 20px;
+	text-align: center
 }
 
 #edit_qna,
 #write_qna {
-   width: 100%;
-   height: 75%;
-   padding: 10px;
-   border: 3px solid #000;
-   font-size: 20px;
-   font-weight: bolder;
+	width: 100%;
+	height: 75%;
+	padding: 10px;
+	border: 3px solid #000;
+	font-size: 20px;
+	font-weight: bolder;
 }
 
 #write_qna_title {
-   margin-top: 20px;
-   width: 100%;
-   border-radius: 10px;
-   height: 50px;
-   padding: 10px;
+	margin-top: 20px;
+	width: 100%;
+	border-radius: 10px;
+	height: 50px;
+	padding: 10px;
+	border: 3px solid #000;
+	font-size: 20px;
+	font-weight: bolder;
 }
 
-#write_qna,
-#write_qna_title {
-   border: 3px solid #000;
-   font-size: 20px;
-   font-weight: bolder;
+#write_qna {
+	border: 3px solid #000;
+	font-size: 20px;
+	font-weight: bolder;
 }
 
 #getpopup {
-   position: fixed;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   width: 500px;
-   height: 600px;
-   background-color: #fff;
-   box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-   z-index: 1000;
-   padding: 20px;
-   text-align: center
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	height: 600px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+	z-index: 1000;
+	padding: 20px;
+	text-align: center
 }
 
 #editpopup,
 #getpopup,
 #insertpopup,
 #popup {
-   border-radius: 10px
+	border-radius: 10px
 }
 
 .popup_hidden {
-   display: none;
-   position: fixed;
-   left: 50%;
-   top: 10%;
-   transform: translate(-50%, -50%);
-   width: 300px;
-   height: 200px;
-   background-color: white;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-   z-index: 1000;
-   padding: 20px;
-   text-align: center;
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 10%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 200px;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	padding: 20px;
+	text-align: center;
 }
 
 .popup {
-   display: block;
+	display: block;
 }
 
 .popup-overlay {
-   display: none;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.5);
-   z-index: 999;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
 }
 
 .popup-overlay.active {
-   display: block;
+	display: block;
 }
 
 .popup_hidden {
-   display: none;
-   position: fixed;
-   left: 50%;
-   top: 10%;
-   transform: translate(-50%, -50%);
-   width: 300px;
-   height: 200px;
-   background-color: white;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-   z-index: 1000;
-   padding: 20px;
-   text-align: center;
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 10%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 200px;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	padding: 20px;
+	text-align: center;
 }
 
 .popup {
-   display: block;
+	display: block;
 }
 
 .popup-overlay {
-   display: none;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.5);
-   z-index: 999;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
 }
 
 .popup-overlay.active {
-   display: block;
+	display: block;
 }
 
 
 #inquiry_close-popup {
-   position: absolute;
-   top: 10px;
-   right: 10px;
-   font-size: 20px;
-   cursor: pointer;
-   width: 5px;
-   height: 5px;
-   padding: 1% 5% 5% 3.5%;
-   border: 3px solid black;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	width: 5px;
+	height: 5px;
+	padding: 1% 5% 5% 3.5%;
+	background-color: white;
+	border: none;
 }
 #inquiry_close-popup:hover {
-   background-color: black;
+	opacity: 1;
+	color: #FFCC4C;
+	cursor: pointer;
 }
 
 .close_x {
-   position: absolute;
-   top: 0px;
-   left: 0px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 
 
 .q_section {
-   display: flex;
-   border: 3px solid black;
-   border-radius: 10px;
+	display: flex;
+	border: 3px solid black;
+	border-radius: 10px;
 }
 
 #detailsreDate {
-   width: 30%;
-   font-weight: bolder;
+	width: 30%;
+	font-weight: bolder;
 }
 
 #detailsreTitle {
-   width: 70%;
-   font-weight: bolder;
+	width: 70%;
+	font-weight: bolder;
 }
 
 #q_content {
-   margin-top: 10px;
-   width: 100%;
-   height: 150px;
-   padding: 10px;
-   font-size: 25px;
-   border: 3px solid black;
-   border-radius: 10px;
-   font-weight: bolder;
+	margin-top: 10px;
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 25px;
+	border: 3px solid black;
+	border-radius: 10px;
+	font-weight: bolder;
 }
 
 .a_section {
-   margin-top: 5px;
-   display: flex;
-   border-radius: 10px;
+	margin-top: 5px;
+	display: flex;
+	border-radius: 10px;
 }
 
 #detailsreDateRq {
-   width: 30%;
-   font-weight: bolder;
+	width: 30%;
+	font-weight: bolder;
 }
 
 #detailsreTitleRq {
-   width: 70%;
-   font-weight: bolder;
+	width: 70%;
+	font-weight: bolder;
 }
 
 #a_content {
-   margin-top: 10px;
-   width: 100%;
-   height: 150px;
-   padding: 10px;
-   font-size: 25px;
-   border-radius: 10px;
-   font-weight: bolder;
+	margin-top: 10px;
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 25px;
+	border-radius: 10px;
+	font-weight: bolder;
 }
 
 #button_list {
-   margin-top: 30px
+	margin-top: 30px
 }

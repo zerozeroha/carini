@@ -21,6 +21,39 @@
 		integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
 		crossorigin="anonymous"></script>
 
+	<style>
+		.qna_button:hover {
+			position: absolute;
+			white-space: nowrap;
+			padding: 0;
+			width: 100px;
+			bottom: 20px;
+			left: 40%;
+			font-weight: bolder;
+			cursor: pointer;
+		}
+
+		.delete_qna:hover {
+			cursor: pointer;
+			border: none;
+			width: inherit;
+		}
+
+		.qna_button {
+			border: none;
+			text-align: center;
+		}
+
+		.qna_button:hover {
+			border: none;
+			text-align: center;
+		}
+
+		#form_edit {
+			display: block;
+		}
+	</style>
+
 <body>
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
@@ -67,8 +100,8 @@
 					</tr>
 					<tr>
 						<td colspan="1" th:text="#{ board.write.uploadfile }"></td>
-						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile" style="cursor: pointer;"
-								aria-label="Upload"></td>
+						<td colspan="3"><input type="file" name="uploadFile" aria-describedby="uploadFile"
+								style="cursor: pointer;" aria-label="Upload"></td>
 					</tr>
 
 					<tr>
@@ -88,8 +121,8 @@
 					<div style="width: 90%;"></div><!--간격박스-->
 
 					<div style="width: 10%;">
-						<a  onclick="document.forms['boardForm'].submit();" class="list"
-							style="padding-right: 2%;">글 작성 </a>
+						<a onclick="document.forms['boardForm'].submit();" class="list" style="padding-right: 2%;">글 작성
+						</a>
 						<a th:text="#{board.list}" th:href="@{/board/getBoardList}" class="list"></a>
 					</div>
 
@@ -107,7 +140,7 @@
 	<footer th:replace="~{base/base :: main_footer}"></footer>
 	<div id="kakao-talk-channel-chat-button"></div>
 	<script th:replace="~{base/base :: inquiry_script}"></script>
-	
+
 	<!-- Inquiry -->
 	<div th:replace="~{base/base :: inquiry_overlayhtml}"></div>
 	<div th:replace="~{base/base :: inquiry_Listhtml}"></div>
