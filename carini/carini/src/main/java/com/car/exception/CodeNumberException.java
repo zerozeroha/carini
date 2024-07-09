@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper=false)
 public class CodeNumberException extends RuntimeException{
 	
 	private ErrorCode errorCode; 

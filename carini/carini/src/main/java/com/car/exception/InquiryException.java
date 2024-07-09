@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper=false)
 public class InquiryException extends RuntimeException{
 
 	private ErrorCode errorCode;
