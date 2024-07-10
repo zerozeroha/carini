@@ -17,37 +17,6 @@
 	integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
 	crossorigin="anonymous"></script>
 	<style>
-		.qna_button:hover {
-			position: absolute;
-			white-space: nowrap;
-			padding: 0;
-			bottom: 20px;
-			left: 40%;
-			font-weight: bolder;
-			cursor: pointer;
-		}
-
-		.delete_qna:hover {
-			cursor: pointer;
-			border: none;
-			width: inherit;
-		background-color: white;
-		}
-
-		.qna_button {
-			border: none;
-			left:30%;
-		}
-
-		.qna_button:hover {
-			border: none;
-			left:30%;
-			text-align: center;
-			color:none;
-			color:#FFCC4C;
-			background-color: white;
-		}
-
 		#form_edit {
 			display: block;
 		}
@@ -126,7 +95,7 @@
 						</a>
 						<a id="edit_save_td" th:unless="${session.user.memberSocial == 'user'}"
 							th:href="@{/mypage/myinfo_social_edit}">
-							<button type="button" th:text="#{info.btn.edit}"></button>
+							<button class="list" type="button" th:text="#{info.btn.edit}"></button>
 						</a>
 
 					</div>

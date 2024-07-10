@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer{
 					"/css/**", "/*.ico", "/error","/js/**","/img/**","/model/getModelList","/model/getModel","/script/**","/update_pw",
 					"/center/centerMap","/board/getBoardList","/api/naver/oauth","/oauth/kakao","/center/search_brand","/center/search_address", 
 					"/admin/**","/logout2","/homepage/first_home","/api/naver/callback","/api/kakao/callback","/login","/oauth/google","/api/google/callback",
-					"/model/getCompareModel", "/model/compare","/inquiry/inquiryList"
+					"/model/getCompareModel", "/model/compare","/inquiry/inquiryList","s3/download/*"
 			);
 		registry.addInterceptor(new AdminCheckInterceptor())
 		.order(2)

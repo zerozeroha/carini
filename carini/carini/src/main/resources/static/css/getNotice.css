@@ -190,6 +190,8 @@ th, td {
     padding: 1%;
     text-align: center;
     border: 3px solid white;
+    border-bottom: 1px solid #BFBCBA;
+    font-weight: normal;
 }
 
 th {
@@ -250,9 +252,32 @@ a {
 /* a.hover */
 
  a:hover {
-
+	cursor: pointer;
 
 }
+
+.list {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #BFBCBA;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	color: #333;
+}
+
+
+
+
+.list:hover {
+	text-decoration: none;
+	padding: 5px 10px;
+	text-align: center;
+	border: 2px solid #FFCC4C;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
 
 
 /* 각 종 hover들 */

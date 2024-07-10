@@ -73,19 +73,34 @@
 			$reel = $t.children('.reel'),
 			$items = $reel.children('article');
 
-		var pos = 0,
-			reelWidth,
-			itemWidth,
-			timerId;
+		// 캐로셀 무한루프
+		$(document).ready(function() {
+			var $carousel = $('.carousel');
+			var $reel = $carousel.find('.reel');
+			var $items = $reel.children('article');
 
-		// Duplicate items for seamless looping
-		$reel.find('.duplicate').html($reel.html());
+			// 아이템을 복제하여 무한 루프 효과 만들기
+			var $clone = $reel.clone(); // 클론 생성
+			$reel.parent().append($clone); // 클론을 원본 뒤에 추가
 
-		// Function to update positions
-		function updatePos() {
-			$reel.css('transform', 'translate(' + pos + 'px, 0)');
-		}
+			var pos = 0;
+			var reelWidth = $reel[0].scrollWidth; // 전체 너비 계산
+			var itemWidth = $items.outerWidth(true); // 항목 너비 계산
 
+			// 위치 업데이트 함수
+			function updatePos() {
+				pos -= 1; // 스크롤 속도 조정
+				if (pos <= -reelWidth) { // 끝에 도달하면 위치 재설정
+					pos = 0;
+				}
+				$reel.css('transform', 'translateX(' + pos + 'px)');
+				$clone.css('transform', 'translateX(' + (pos + reelWidth) + 'px)');
+				requestAnimationFrame(updatePos); // 애니메이션 프레임 요청
+			}
+
+			// 초기 위치 업데이트 호출
+			updatePos();
+		});
 
 		// Items.
 		if (settings.carousels.fadeIn) {
@@ -137,7 +152,7 @@
 			timerId = setInterval(function() {
 				pos -= settings.carousels.speed;
 				if (pos <= -reelWidth) {
-					pos = $window.width();
+					pos = 0; // 무한 스크롤 효과를 위해 위치 재설정
 				}
 				$t._updatePos();
 			}, settings.carousels.autoScrollInterval);
@@ -156,6 +171,7 @@
 	});
 
 })(jQuery);
+
 
 // 배너 페이드인 / 페이드아웃
 $(document).ready(function() {
@@ -179,10 +195,10 @@ $(document).ready(function() {
 // arrow기능
 document.getElementById('arrow_png').addEventListener('click', function() {
 
-	window.scrollTo({
-		top: 2200,
-		behavior: 'smooth'
-	});
+   window.scrollTo({
+      top: 820,
+      behavior: 'smooth'
+   });
 });
 
 // QR버튼 삭제 기능
