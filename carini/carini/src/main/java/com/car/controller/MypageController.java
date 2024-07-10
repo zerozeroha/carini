@@ -167,7 +167,7 @@ public class MypageController {
 	@GetMapping("/password")
 	public String password(@ModelAttribute("member") Member members, Model model) {
 
-		return "/password.html";
+		return "password";
 	}
 
 	@GetMapping("/myinfo_edit")
