@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.car.dto.Inquiry;
 import com.car.dto.Member;
 import com.car.dto.Notice;
 import com.car.dto.PagingInfo;
 import com.car.service.BookMarkService;
 import com.car.service.MemberService;
 import com.car.service.NoticeService;
+import com.car.validation.InquiryWriteValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -63,7 +65,7 @@ public class NoticeController {
 	       @RequestParam(name = "curPage", defaultValue = "0") int curPage,
 	       @RequestParam(name = "rowSizePerPage", defaultValue = "10") int rowSizePerPage,
 	       @RequestParam(name = "searchType", defaultValue = "noticeTitle") String searchType,
-	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord) {
+	       @RequestParam(name = "searchWord", defaultValue = "") String searchWord,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		
 		curPage = Math.max(curPage, 0);  // Ensure curPage is not negative
 	    Pageable pageable = PageRequest.of(curPage, rowSizePerPage, Sort.by("noticeId").descending());
@@ -98,7 +100,8 @@ public class NoticeController {
 		model.addAttribute("st", searchType);
 		model.addAttribute("sw", searchWord);
 	    model.addAttribute("noticeList", pagedResult.getContent()); // Add this line
-
+	    model.addAttribute("inquiry", new Inquiry());
+	    
 	    return "notice/getNoticeList";
 	}
 	
@@ -106,10 +109,11 @@ public class NoticeController {
      * 공지사항 상세보기
      * */
 	@GetMapping("/notice/getNotice")
-	public String getNotice(Notice notice, Model model) {
+	public String getNotice(Notice notice, Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 
 		model.addAttribute("notice", noticeService.getNoticebyId(notice.getNoticeId())); // 여기서 조회수 증가
-		System.out.println(model.getAttribute("notice").toString());
+		model.addAttribute("inquiry", new Inquiry());
+
 		return "notice/getNotice";
 	}
 	
