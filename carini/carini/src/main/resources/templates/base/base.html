@@ -78,19 +78,20 @@
 		<button onclick="to_insert_popup()" class="qna_button" >문의하기</button>
 	</div>
 </div>
+
 <!-- 문의 글 작성하기 -->
 <div id="insertpopup" class="popup_hidden" th:object="${InquiryWriteValidation}" th:fragment="inquiry_writehtml">
 	<button id="inquiry_close-popup" class="inquiry_close-popup" onclick="closePopup()">X</button>
 	<div id="qna_header">문의하기</div>
 	<form id="form_edit" onsubmit="verifyPassword(event)" th:object="${InquiryWriteValidation}">
 		<input type="text" th:field="*{reTitle}" id="write_qna_title" placeholder="제목을 입력하세요">
-		<div class="field-error" id="reTitleError" style="font-size: 15px; color: red;">
+		<div class="field-error" id="reTitleError" style="font-size: 15px; color: red; text-align: left;">
 			<!-- 제목 오류 메시지 표시 영역 -->
 		</div>
 
 		<textarea class="qna_container" th:field="*{reContent}" id="write_qna" placeholder="문의사항을 작성해주세요"
-			style="width:100%;height: 280px; resize: none;border-radius: 10px"></textarea>
-		<div class="field-error" id="reContentError" style="font-size: 15px; color: red;">
+			style="width:100%;height: 280px; resize: none;border-radius:0.2rem; font-size: 15px;font-weight: normal;"></textarea>
+		<div class="field-error" id="reContentError" style="font-size: 15px; text-align: left; color: red; margin-top:-40px;">
 			<!-- 내용 오류 메시지 표시 영역 -->
 		</div>
 		<button type="submit" class="qna_button">제출하기</button>
@@ -106,12 +107,12 @@
 	<!-- 여기부터 문의 글 영역 -->
 	<div id="qna_section" style="margin-top: 10px;">
 		<span class="q_section">
+			<span id="detailsreTitle" style="text-align: start; padding: 0% 1%; font-weight: bold;">문의합니다</span>
 			<span id="detailsreDate" class="title-date"></span>
-			<span id="detailsreTitle">문의합니다</span>
 		</span>
 		<p id="q_content" class="q_section"></p>
 
-		<h3 style="text-align: left;margin-top:15px;font-size: 20px;">관리자</h3>
+		<h3 style="text-align:center; margin-top:15px;font-size:18px; font-weight: bold;">관리자 답변</h3>
 		<span class="a_section">
 			<span class="title-date" id="detailsreDateRq"></span>
 			<span id="detailsreTitleRq"></span>
@@ -121,7 +122,7 @@
 
 	<!-- 문의 글 영역 여기까지 -->
 	<div id="button_list">
-		<button onclick="to_popup()" class="qna_button" id="list_button">목록</button>
+		<button onclick="to_popup()" class="qna_button" id="list_button" style="margin-top: 18px;">목록</button>
 	</div>
 </div>
 

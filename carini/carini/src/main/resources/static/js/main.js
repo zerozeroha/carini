@@ -87,6 +87,38 @@
 		}
 
 
+
+		// 캐로셀 무한루프
+		$(document).ready(function() {
+			var $carousel = $('.carousel');
+			var $reel = $carousel.find('.reel');
+			var $items = $reel.children('article');
+
+			// 아이템을 복제하여 무한 루프 효과 만들기
+			var $clone = $reel.clone();
+			$reel.parent().append($clone);
+
+			var pos = 0;
+			var reelWidth = $reel.width();
+			var itemWidth = $items.outerWidth(true);
+
+			function updatePos() {
+				pos -= 1; // 스크롤 속도 조정
+				if (pos <= -reelWidth) {
+					pos = 0;
+				}
+				$reel.css('transform', 'translateX(' + pos + 'px)');
+				$clone.css('transform', 'translateX(' + (pos + reelWidth) + 'px)');
+				requestAnimationFrame(updatePos);
+			}
+
+			// 초기 위치 업데이트 호출
+			updatePos();
+		});
+
+
+
+
 		// Items.
 		if (settings.carousels.fadeIn) {
 
@@ -179,10 +211,10 @@ $(document).ready(function() {
 // arrow기능
 document.getElementById('arrow_png').addEventListener('click', function() {
 
-	window.scrollTo({
-		top: 2200,
-		behavior: 'smooth'
-	});
+   window.scrollTo({
+      top: 820,
+      behavior: 'smooth'
+   });
 });
 
 // QR버튼 삭제 기능

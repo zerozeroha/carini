@@ -333,11 +333,11 @@ a:hover {
 
 /* 각 종 hover들 */
 a.icon-hover:hover {
-   background-color: white;
+   background-color: none;
 }
 
 .float_hover:hover {
-   background-color: whitesmoke !important;
+   background-color: none;
 }
 
 
