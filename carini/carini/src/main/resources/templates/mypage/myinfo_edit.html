@@ -58,6 +58,7 @@
                               </button>
                            </div>
                         </td>
+
                         <td th:unless="${session.user.memberSocial == 'user'}">
                            <div class="flex-container_row" style="height: 30%;">
                               <input type="text" name="memberSocialNickname"
@@ -78,6 +79,7 @@
                         <th th:text="#{info.id}"></th>
 
                         <input type="hidden" name="memberId" th:value="${session.user.memberId}" />
+
                         <td th:if="${session.showuser.memberSocial == 'user'}">
                            <span th:text="${session.showuser.memberId}"></span>
                         </td>

@@ -22,6 +22,5 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf.disable());
         return http.build();
     }
-
 	
 }
