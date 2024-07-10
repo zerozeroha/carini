@@ -86,6 +86,8 @@ public class MypageController {
 	private final MessageSource messageSource;
 
 	private final LocaleResolver localeResolver;
+	
+	private final PasswordEncoder passwordEncoder;
 
 
 	
@@ -170,15 +172,16 @@ public class MypageController {
 
 	@GetMapping("/myinfo_edit")
 	public String myinfo_edit(HttpSession session,
-			@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members, Model model,@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
+			@ModelAttribute("Update_InfoFormValidation") Update_InfoFormValidation members, Model model,
+			@ModelAttribute("InquiryWriteValidation") InquiryWriteValidation InquiryValidation) {
 		Member user = (Member) session.getAttribute("user");
 		Member finduser = memberService.findByMemberId(user.getMemberId());
 		members.setMemberEmail(finduser.getMemberEmail());
 		members.setMemberName(finduser.getMemberName());
 		members.setMemberPhoneNum(finduser.getMemberPhoneNum());
-		members.setMemberPw(finduser.getMemberPw());
-		model.addAttribute("Update_InfoFormValidation", finduser);
+		model.addAttribute("Update_InfoFormValidation", members);
 		session.setAttribute("showuser", finduser);
+		
 		model.addAttribute("inquiry", new Inquiry());
 		return "mypage/myinfo_edit.html";
 	}
@@ -309,7 +312,10 @@ public class MypageController {
 					return "alert";
 				}
 			}
-			member.setMemberPw(members.getMemberPw());
+			if(!members.getMemberPw().isEmpty()) {
+				String EncoderPw = passwordEncoder.encode(members.getMemberPw());
+				member.setMemberPw(EncoderPw);
+			}
 			member.setMemberName(members.getMemberName());
 
 			member.setMemberEmail(members.getMemberEmail());

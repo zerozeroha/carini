@@ -115,12 +115,12 @@
 							th:text="${notice.noticeFilename}"></a>
 
 					</div>
-					<div style="width: 95%;"></div>
-					<div style="width: 5%;">
+					<div style="width: 80%;"></div>
+					<div style="width: 20%;">
 						<a th:if="${session.user.memberRole == 'ROLE_ADMIN'}"
 							th:href="@{/admin/updateNotice(noticeId=${notice.noticeId})}"
 							th:text="#{notice.update}"></a>
-						<a th:href="@{/notice/getNoticeList}" class="list">목록</a>
+						<a th:href="@{/notice/getNoticeList}" style="padding:1% 2%; cursor: pointer;">목록</a>
 					</div>
 
 				</div>
