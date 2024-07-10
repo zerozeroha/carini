@@ -207,28 +207,7 @@ td {
 }
 
 
-button {
-   background-color: white;
-   color: black;
-   font-size: 20px;
-   padding: 5% 10%;
-   border: 1px solid black;
-   font-weight: bolder;
-   border-radius: 0.5rem;
-   cursor: pointer;
-}
 
-button:hover {
-   background-color: black;
-   color: white;
-   font-weight: 800;
-   font-size: 20px;
-   padding: 5% 10%;
-   border: 1px solid black;
-   font-weight: bolder;
-   border-radius: 0.5rem;
-   cursor: pointer;
-}
 
 /* input요소 : table에 td자리 */
 
@@ -273,7 +252,6 @@ input[type="email"] {
 /* a */
 
 a {
-   color: inherit;
    text-decoration: none;
    cursor: pointer;
 
@@ -290,11 +268,11 @@ a:hover {
 
 /* 각 종 hover들 */
 a.icon-hover:hover {
-   background-color: white;
+   background-color: none;
 }
 
 .float_hover:hover {
-   background-color: whitesmoke !important;
+   background-color: none;
 }
 
 
@@ -404,6 +382,7 @@ select:hover {
    justify-content: center;
    margin-left: 12px;
    padding: 0%;
+   cursor: pointer;
 }
 
 #member_quit {
@@ -428,6 +407,7 @@ select:hover {
 /* 닉네임 옆에 연필모양 버튼 */
 .pencil-button {
    padding: 0% !important;
+   background-color: white;
    margin: 0%;
    border: 0px;
    cursor: pointer;
