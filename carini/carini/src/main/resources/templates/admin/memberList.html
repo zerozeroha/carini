@@ -26,6 +26,7 @@
         width: 100%;
         border-collapse: collapse;
         font-size: 0.8em; 
+		margin:0%;
     }
 
     th{
@@ -41,7 +42,7 @@
         border-bottom: 1px solid #ddd;
     }
 </style>
-<body>
+<body >
 	<!--Header-->
 	<header th:replace="~{base/base :: main_header}"></header>
 
@@ -61,10 +62,10 @@
 	<div style="height: 50px;"></div><!--공간 띄우기 위한 박스-->
 
 	<!--Main-->
-	<main>
-		<div class="flex-container_column">
-			<form th:action="@{/admin/memberList}" method="get">
-				<div class="flex-container_row">
+	<main style="margin:0%; padding: 0%;">
+		<div class="flex-container_column" id="zero">
+			<form th:action="@{/admin/memberList}" method="get" id="zero">
+				<div class="flex-container_row" id="zero">
 					<input type="hidden" id="curPage" name="curPage" th:value="0">
 					<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
 					<span style="width: 30%;">
@@ -73,7 +74,7 @@
 						<span th:text="#{member.total}"></span>
 					</span>
 
-					<span class="container";>
+					<span class="container">
 						<div class="flex-container_row" style="width: 100%;">
 							<select class="form-select" id="searchType" name="searchType" style="width: 20%;">
 								<option class="select_options" value="memberNickname"
@@ -87,18 +88,15 @@
 								<input name="searchWord" type="text" style="width: 100%">
 							</div>
 							<div style="width: 10%;">
-								<input type="submit" name="검색" class="gradient" value="Search" style="width: 100%;">
+								<input type="submit" name="검색" class="gradient" value="SEARCH" style="width: 100%; margin-left:10%;">
 							</div>
 						</div>
 					</span>
 				</div>
 			</form>
-			<div class="flex-container_row">
-				<div class="table-container">
-					<table border="1">
+					<table border="1" style="font-size: 14PX; width: 1800PX;">
 						<tr>
 							<th th:text="#{member.memberId}"></th>
-							<th th:text="#{member.memberPw}"></th>
 							<th th:text="#{member.memberName}"></th>
 							<th th:text="#{member.memberNickname}"></th>
 							<th th:text="#{member.memberEmail}"></th>
@@ -114,7 +112,6 @@
 						<tr th:each="member : ${memberList}">
 							<td><a th:href="@{/admin/updateMember(memberId=${member.memberId})}"
 									th:text="${member.memberId}"></a></td>
-							<td th:text="${member.memberPw}"></td>
 							<td th:text="${member.memberName}"></td>
 							<td th:text="${member.memberNickname}"></td>
 							<td th:text="${member.memberEmail}"></td>
@@ -135,8 +132,6 @@
 							</td>
 						</tr>
 					</table>
-				</div>
-			</div>
 
 			<!--pagination-->
 			<div class="flex-container_row" style="margin-left: -2%; border-top: 1px solid lightgray;">

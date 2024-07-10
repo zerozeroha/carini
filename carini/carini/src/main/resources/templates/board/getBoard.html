@@ -42,8 +42,31 @@
 		cursor: not-allowed;
 		/* 마우스 커서를 기본 설정에서 변경하여 비활성화된 상태임을 알립니다 (선택사항) */
 	}
+	.qna_button:hover {
+		position: absolute;
+		white-space: nowrap;
+		padding: 0;
+		width: 100px;
+		bottom: 20px;
+		left: 40%;
+		font-weight: bolder;
+		cursor: pointer;
+	}
 
-	
+	.delete_qna:hover {
+		cursor: pointer;
+		border: none;
+		width: inherit;
+	}
+	.qna_button{
+		text-align: center;
+	}
+	.qna_button:hover{
+		text-align: center;
+	}
+	#form_edit {
+		display: block;
+	}
 </style>
 
 <body>
@@ -163,10 +186,11 @@
 			</div>
 			<input type="hidden" id="hidden_boardId" th:value="${board.boardId}">
 			<input type="hidden" id="hidden_userId" th:value="${session.user.memberId}">
-		    <div class="flex-container_row" style="justify-content: start;">🚕USER : <input type="text" id="hidden_userNickname" th:value="${session.user.memberNickname}"></div>
+			<div class="flex-container_row" style="justify-content: start;">🚕USER : <input type="text"
+					id="hidden_userNickname" th:value="${session.user.memberNickname}"></div>
 			<textarea id="commentContent" placeholder="여러분들의 다양한 의견을 댓글로 적어주세요!"></textarea>
 			<button onclick="addComment()" id="comment_btn">댓글달기</button>
-		
+
 		</div>
 	</div>
 

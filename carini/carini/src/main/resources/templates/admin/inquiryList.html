@@ -32,7 +32,7 @@
 	
 	<!--Main-->
 	<main>
-		<div id="flex-container_column">
+		<div id="flex-container_column" style="width: 90%;">
 			<form th:action="@{/admin/inquiryList}" method="get" style="width: 100%;">
 				<input type="hidden" id="curPage" name="curPage" th:value="0">
 				<input type="hidden" id="rowSizePerPage" name="rowSizePerPage" th:value="${rp}">
@@ -55,11 +55,11 @@
 						<option class="select_options" value="reContentRq" th:selected="${st =='reContentRq'}"
 							th:text="#{inquiry.search.reContentRq}"></option>
 					</select>
-					<div style="width: 65%;">
+					<div style="width: 60%;">
 						<input name="searchWord" type="text" style="width: 100%;">
 					</div>
-					<div style="width: 15%;">
-						<input type="submit" name="검색" class="gradient" value="Search" style="width: 100%;">
+					<div style="width: 10%; margin-left:10px;">
+						<input type="submit" name="검색" class="gradient" value="SEARCH" style="width: 100%;font-weight: bold;">
 					</div>
 				</div>
 			</form>
