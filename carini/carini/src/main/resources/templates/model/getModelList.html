@@ -79,7 +79,7 @@
 
    <!-- Main -->
    <main>
-      <form
+      <form id="modelList"
          th:action="@{/model/getModelList(curPage=${ep}, rowSizePerPage=${rp}, searchType=${st}, searchWord=${sw},filterMinPrice=${fpr},filterMaxPrice=${fph},filterSize=${fs},filterFuel=${ff},carSort=${cs})}"
          method="get" class="flex">
          <div class="flex-container_column">
