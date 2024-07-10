@@ -8,9 +8,11 @@
 			<ul style="border: none;">
 				<li><a th:href="@{/board/getBoardList}" style="font-weight: bold;">BOARD</a>
 					<ul style="border: none;">
-						<li><a th:href="@{/board/getBoardList}" style="text-align: center; font-weight: bold;" class="side-hver">커뮤니티</a>
+						<li><a th:href="@{/board/getBoardList}" style="text-align: center; font-weight: bold;" 
+							class="side-hver" th:text="#{side.board}"></a>
 						</li>
-						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center; font-weight: bold;" class="side-hver">공지사항</a>
+						<li><a th:href="@{/notice/getNoticeList}" style="text-align: center; font-weight: bold;" 
+							class="side-hver" th:text="#{side.notice}"></a>
 						</li>
 					</ul>
 				</li>
@@ -27,9 +29,9 @@
 								th:text="#{side.menu3}"></a></li>
 					</ul>
 				</li>
-				<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a style="font-weight: normal;" th:href="@{/admin/adminList}">ADMIN</a></li>
-				<li th:if="${session.user == null}"><a style="font-weight: normal;" th:href="@{/member_login}">LOGIN</a></li>
-				<li th:if="${session.user != null}"><a style="font-weight: normal;" th:href="@{/user_logout}">LOGOUT</a></li>
+				<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a style="font-weight: bold;" th:href="@{/admin/adminList}">ADMIN</a></li>
+				<li th:if="${session.user == null}"><a style="font-weight: bold;" th:href="@{/member_login}">LOGIN</a></li>
+				<li th:if="${session.user != null}"><a style="font-weight: bold;" th:href="@{/user_logout}">LOGOUT</a></li>
 			</ul>
 		</nav>
 		<div style="height: 50px; width: 100%; font-size: 20px; margin-left:65%;

@@ -75,7 +75,10 @@ public class LoginController {
 	public String first_home() {
 		return "redirect:/home";
 	}
-
+	@RequestMapping("/test")
+	public String first_hometest() {
+		return "/test.html";
+	}
 	/* 세션 초기화 */
 	@RequestMapping("/user_logout")
 	public String backhome(HttpServletRequest request, HttpServletResponse response) {
@@ -103,9 +106,8 @@ public class LoginController {
 		// 즐겨찾기 Top10 캐로셀
 		List<Car> top10Cars = bookmarkService.getBookmarkTop10Cars();
 		model.addAttribute("top10Cars", top10Cars);
-		System.out.println(top10Cars);
 		model.addAttribute("inquiry", new Inquiry());
-		return "homepage/home";
+				return "homepage/home";
 	}
 	
 	/*

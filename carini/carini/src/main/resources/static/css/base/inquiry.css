@@ -362,6 +362,7 @@
 	display: block;
 }
 
+
 #inquiry_close-popup {
 	position: absolute;
 	right: 10px;
@@ -372,7 +373,6 @@
 	background-color: white;
 	border: none;
 }
-
 #inquiry_close-popup:hover {
 	opacity: 1;
 	color: #222222;
@@ -441,7 +441,6 @@
 	font-size: 15px;
 	border-radius: 0.2rem;
 }
-
 .delete_qna {
 	padding: 2%;
 	text-align: center;
