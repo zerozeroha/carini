@@ -429,7 +429,7 @@ input[type="range"]:nth-of-type(2) {
    z-index: 2;
 }
 
-form {
+form#modelList {
    display: flex;
    align-items: center;
    justify-content: center;

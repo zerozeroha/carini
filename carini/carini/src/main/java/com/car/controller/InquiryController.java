@@ -119,7 +119,6 @@ public class InquiryController {
 		inquiryService.inquiryWrite(inquiry);
 		
 		System.out.println(session.getAttribute("originalUrl"));
-		response.put("redirectUrl", session.getAttribute("originalUrl"));
 		response.put("message", "정상적으로 작성되었습니다");
 		response.put("success", true);
 		return ResponseEntity.ok(response); 
@@ -134,7 +133,6 @@ public class InquiryController {
 		Map<String, Object> response = new HashMap<>();
 		inquiryService.inquirydelte(inquiry);
 		response.put("message","성공적으로 삭제 되었습니다." );
-		response.put("redirectUrl", session.getAttribute("originalUrl"));
 		
 		return ResponseEntity.ok(response);
 	}

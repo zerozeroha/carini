@@ -26,6 +26,37 @@
 			border-color: #dc3545;
 			color: #dc3545;
 		}
+
+		.qna_button:hover {
+			position: absolute;
+			white-space: nowrap;
+			padding: 0;
+			width: 100px;
+			bottom: 20px;
+			left: 40%;
+			font-weight: bolder;
+			cursor: pointer;
+		}
+
+		.delete_qna:hover {
+			cursor: pointer;
+			border: none;
+			width: inherit;
+		}
+
+		.qna_button {
+			border: none;
+			text-align: center;
+		}
+
+		.qna_button:hover {
+			border: none;
+			text-align: center;
+		}
+
+		#form_edit {
+			display: block;
+		}
 	</style>
 </head>
 
@@ -41,7 +72,7 @@
 
 	<div style="height: 20px;"></div><!--공간 띄우기 위한 박스-->
 
-	
+
 	<!-- Main -->
 	<main>
 
@@ -61,10 +92,12 @@
 				<table>
 					<tr>
 						<td style="width: 15%;" th:text="#{board.write.writer}"></td>
-						<td style="width: 35%;"><input type="text" name="boardWriter" style="cursor:default; border: 1px solid white;"
+						<td style="width: 35%;"><input type="text" name="boardWriter"
+								style="cursor:default; border: 1px solid white;"
 								th:value="${ session.user.memberNickname }" disabled></td>
 						<td style="width: 15%;" th:text="#{board.write.date}"></td>
-						<td style="width: 35%;"><input type="text" name="boardDate" style="cursor:default; border: 1px solid white;"
+						<td style="width: 35%;"><input type="text" name="boardDate"
+								style="cursor:default; border: 1px solid white;"
 								th:value="${#dates.format(board.boardDate, 'yyyy-MM-dd hh:mm')}" disabled></td>
 					</tr>
 
@@ -111,7 +144,8 @@
 					<div style="width: 85%;"></div>
 
 					<div style="width: 15%">
-						<a th:href="@{/mypage/myboard/getMyboard/deleteBoard(boardId=${board.boardId})}" class="list">삭제하기</a>
+						<a th:href="@{/mypage/myboard/getMyboard/deleteBoard(boardId=${board.boardId})}"
+							class="list">삭제하기</a>
 						<a onclick="document.forms['boardForm'].submit();" class="list">수정하기</a>
 						<a th:href="@{/mypage/myBoard}" class="list">목록</a>
 					</div>

@@ -24,6 +24,24 @@
 		min-width: 100%;
 		box-sizing: border-box;
 	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin-top: 5%;
+		width: 100%;
+		height: 84%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		font-size: 3em;
+		font-weight: bold;
+		text-align: center;
+		background-color: rgba(0, 0, 0, 0.3);	
+	}
+
 </style>
 
 <body class="homepage is-preload">
@@ -36,7 +54,7 @@
 			</div>
 			<div class="alertBox" id="fixed-bar">
 				<nav id="nav">
-					<a th:href="@{/home}"  class="carini">CARINI</a>
+					<a th:href="@{/home}" class="carini">CARINI</a>
 					<ul style="border: none;">
 						<li><a th:href="@{/board/getBoardList}">BOARD</a>
 							<ul style="border: none;">
@@ -59,7 +77,8 @@
 										th:text="#{side.menu3}"></a></li>
 							</ul>
 						</li>
-						<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a style="font-weight: normal;" th:href="@{/admin/adminList}">ADMIN</a></li>
+						<li th:if="${session.user != null && session.user.memberRole == 'ROLE_ADMIN'}"><a
+								style="font-weight: bold;" th:href="@{/admin/adminList}">ADMIN</a></li>
 						<li th:if="${session.user == null}"><a th:href="@{/member_login}">LOGIN</a></li>
 						<li th:if="${session.user != null}"><a th:href="@{/user_logout}">LOGOUT</a></li>
 					</ul>
@@ -77,8 +96,9 @@
 		<div th:replace="~{base/base :: floaticon}"></div>
 
 		<div><img src="/img/arrow.png" alt="화살" id="arrow_png"></div>
-
-
+		<div class="overlay">
+			<P>CARINI </P><p style="color: #FFCC4C;">&nbsp;[ 카린이 ]</p>
+		</div>
 
 
 		<!-- Banner -->
@@ -87,10 +107,10 @@
 				<img src="/img/main1.png" alt="챗봇이미지1">
 			</div>
 			<header class="main1_header">
-				<h2>자동차 고르기 어려우셨죠?</h2>
+				<h2>당신의 자동차 선택</h2>
 				<p class="banner_p">
-					<span class="emphasis">CARINI 챗봇</span>과 함께
-					쉽고 빠르게<BR> 자동차를 골라보세요!
+					<span class="emphasis">이제는 CARINI 챗봇</span>과 함께
+					쉽고 빠르게<BR> 항상 곁에 있겠습니다.
 				</p>
 			</header>
 
@@ -132,11 +152,12 @@
 		</section>
 
 		<!-- Carousel -->
-		<section class="carousel" style="padding-top: 100px;">
+		<section class="carousel" style="background-color: #F2F2F2;">
+			<div class="SubTitle">WHAT IS CARINI USER'S PICK ? </div>
 			<div class="reel" id="carouselReel" style="width: 100%;">
 				<!--자동차LIST-->
 				<article class="cardBox" th:each="car, state : ${top10Cars}">
-					<h4 th:text="|Top${state.count}|"></h4>
+					<h4 th:text="|TOP ${state.count}|"></h4>
 					<a th:href="@{/model/getModel(carId=${car.carId})}" class="image featured"> <img
 							th:src="@{${car.carImg}}" alt="이미지">
 					</a>
@@ -151,8 +172,9 @@
 			</div>
 			<div class="duplicate" style="width: 0;"></div>
 		</section>
+
 	</div>
-	
+
 	<section id="qr_section">
 		<a
 			href="https://accounts.kakao.com/login/?continue=https%3A%2F%2Fpf.kakao.com%2F_YGxcxcG%2Fchat%3Fapi_ver%3D1.1%26kakao_agent%3Dsdk%252F2.7.2%2520os%252Fjavascript%2520sdk_type%252Fjavascript%2520lang%252Fko-KR%2520device%252FWin32%2520origin%252Fhttp%25253A%25252F%25252Flocalhost%25253A8080%26app_key%3Df03e1323f64fa7f0d248d6b64a8bcd1b%26referer%3Dhttp%253A%252F%252Flocalhost%253A8080%252Fboard%252FgetBoardList#login">
